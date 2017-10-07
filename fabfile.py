@@ -12,8 +12,9 @@ env.deploy_path = 'output'
 DEPLOY_PATH = env.deploy_path
 
 # Remote server configuration
-production = 'charles@charlesfleche.net:22'
-dest_path = '/var/www/cblog'
+production = 'pi@charlesfleche.net:22'
+dest_path = '/srv/www/blog'
+nginx_site_path = '/etc/nginx/sites-available/blog'
 
 # Rackspace Cloud Files configuration settings
 env.cloudfiles_username = 'my_rackspace_username'
@@ -85,6 +86,10 @@ def publish():
         delete=True,
         extra_opts='-c',
     )
+
+@hosts(production)
+def publish_nginx():
+    put('nginx.site', nginx_site_path, use_sudo=True)
 
 def gh_pages():
     """Publish to GitHub Pages"""
