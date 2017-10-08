@@ -1,4 +1,4 @@
-Title: Patch Resolume pour In Mortem
+Title: Composition Resolume pour In Mortem
 Slug: in-mortem-resolume
 Date: 2017-10-08 09:00
 Category: Mapping
