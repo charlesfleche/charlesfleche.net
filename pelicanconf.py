@@ -24,8 +24,9 @@ LINKS = (('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://ca
          ('My current project: Previz', 'https://previz.co'))
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/'),
+          ('Twitter', 'https://twitter.com/charlesfleche'),
+          ('GitHub', 'https://github.com/charlesfleche'),)
 
 DEFAULT_PAGINATION = False
 
