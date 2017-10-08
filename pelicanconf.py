@@ -6,6 +6,8 @@ AUTHOR = 'Charles Flèche'
 SITENAME = 'Charles Flèche'
 SITEURL = ''
 
+TWITTER_USERNAME = 'charlesfleche'
+
 PATH = 'content'
 
 TIMEZONE = 'Europe/Paris'
