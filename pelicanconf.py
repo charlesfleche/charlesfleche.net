@@ -32,5 +32,9 @@ SOCIAL = (('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/'),
 
 DEFAULT_PAGINATION = False
 
+DEFAULT_METADATA = {
+    'status': 'draft',
+}
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
