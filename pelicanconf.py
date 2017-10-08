@@ -20,10 +20,8 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net'),
+         ('My current project: Previz', 'https://previz.co'))
 
 # Social widget
 SOCIAL = (('You can add links in your config file', '#'),
