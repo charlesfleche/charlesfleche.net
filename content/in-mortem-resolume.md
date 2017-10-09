@@ -1,7 +1,7 @@
 Title: Composition Resolume pour In Mortem
 Slug: in-mortem-resolume
 Date: 2017-10-08 09:00
-Category: Mapping
+Category: Live shows
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: fr
 
