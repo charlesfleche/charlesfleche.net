@@ -21,6 +21,8 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+STATIC_PATHS = ['.']
+
 # Blogroll
 LINKS = (('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net'),
          ('My current project: Previz', 'https://previz.co'))
