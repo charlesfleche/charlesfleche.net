@@ -7,6 +7,8 @@ Lang: fr
 
 Multi-projection, vidéo live et interfaces de contrôle scène et régie pour le spectacle In Mortem d'[Ardestop](https://www.facebook.com/ardestop/).
 
+![alt text]({attach}in-mortem-live.jpg "Photo du comédien scanné")
+
 # In Mortem
 
 Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/), *In Mortem*, aborde le thème du transhumanisme sous la forme d'une conférence futuriste entre un immortel et une intelligence artificielle. Lors du spectacle, plusieurs scènes requièrent la diffusion de contenus de différentes natures:
@@ -16,7 +18,7 @@ Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/), *In Morte
 - **Scanner** un média simulant le passage du conférencier dans un scanner médical est parfois projeté sur le comédien depuis un second projecteur en bord de scène
 - **Sons** les comédiens doivent synchroniser leur jeu sur des sons de durées différentes (effets sonores type coup de feu court, interventions pré-enregistrées de l'IA de quelques secondes, orchestrations de plusieurs minutes sur lesquelles les comédiens chantent)
 
-**NEED ILLUSTRATION STAGE**
+![alt text]({attach}in-mortem-stage.jpg "Schéma de la scène")
 
 Si le déclenchement des médias se fait en majorité depuis la régie, deux contraintes sont néanmoins à satisfaire:
 
@@ -27,31 +29,33 @@ La mise en œuvre technique du project est réalisée autour d'une composition [
 
 # La composition Resolume Avenue
 
-**NEED ILLUSTRATION PATCH**
-
 La composition est organisée de la sorte:
 
 1. la première colonne définie les deux sources indépendantes, pilotables depuis la scène (layer *Feed* pour le retour vidéo et le layer *Scanner*)
 2. les autres colonnes sont des assemblages de sources à destination du cyclo
-3. le layer *Cyclo* permet de séparer les layers à envoyer sur les projecteurs en assignant sur chacune de ses colonnes un clip *Layer Router* dont le paramètre *Input* est réglé sur *Layers Below*. Le layer *Cyclo* a son opacité vidéo réglée au maximum afin d'occulter complètement les layers qui le compose afin d'éviter des doubles affichages. **NEED ILLUSTRATION**
-4. Le layer *SFX* est réservé aux sources audio. Il est exclu du déclenchement par colonnes. Les sons ne devant être joués qu'une fois et immédiatement à chaque déclenchement, ils sont configurés de la sorte: **NEED ILLUSTRATION**
+3. le layer *Cyclo* permet de séparer les layers à envoyer sur les projecteurs en assignant sur chacune de ses colonnes un clip *Layer Router* dont le paramètre *Input* est réglé sur *Layers Below*. Le layer *Cyclo* a son opacité vidéo réglée au maximum afin d'occulter complètement les layers qui le compose afin d'éviter des doubles affichages.
+4. Le layer *SFX* est réservé aux sources audio. Il est exclu du déclenchement par colonnes. Les sons ne devant être joués qu'une fois et immédiatement à chaque déclenchement, ils sont configurés de la sorte:
 
     - *Transport: Timeline* pour un déclenchement immédiat
     - *Play Once* pour ne les jouer qu'une fois à chaque déclenchement
     - *Restart* pour jouer chaque son depuis le début à chaque déclenchement
 
-Le routage des médias vers l'un des projecteurs se fait en assignant deux écrans dont le paramètre *Device* est assigné à un projecteur, chacun contenant une unique slice dont l'entrée est assignée à un layer (layer *Cyclo* ou layer *Scanner*). **NEED ILLUSTRATION**
+![alt text]({attach}in-mortem-resolume.png "Composition Resolume")
+
+Le routage des médias vers l'un des projecteurs se fait en assignant deux écrans dont le paramètre *Device* est assigné à un projecteur, chacun contenant une unique slice dont l'entrée est assignée à un layer (layer *Cyclo* ou layer *Scanner*).
+
+![alt text]({attach}in-mortem-outputs.png "Sorties Resolume")
 
 
 # Contrôles depuis la régie
-
-**NEED ILLUSTRATION**
 
 Contrôler directement Resolume Avenue lors des représentations peut engendrer des erreurs de manipulation de par la relative complexité de son interface d'une part, et par la possibilité de dérégler certains paramètres d'autre part. Pour faciliter la tâche des techniciens en régie, Resolume Avenue est piloté par une interface réalisé avec [OSCWidgets](https://github.com/ETCLabs/OSCWidgets) *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control).
 
 L'interface est une grille de boutons. Chaque pression sur un des boutons envoie un message OSC à une instance de Resolume Avenue.
 
-- les assemblages pour le cyclo et les logos (les colonnes de la composition Resolume Avenue) sont lancés en connectant des `tracks`, par exemple `/track4/connect 1` **NEED ILLUSTRATION OSCWIDGETS CONFIG WINDOW**
+![alt text]({attach}in-mortem-osc-foh.png "Interface de contrôle régie")
+
+- les assemblages pour le cyclo et les logos (les colonnes de la composition Resolume Avenue) sont lancés en connectant des `tracks`, par exemple `/track4/connect 1`
 - les sons sont lancés en connectant des clips du layer *SFX*, par exemple `/layer6/clip1/connect 1`
 - les sources indépendantes *Scanner* et *Feed* ont deux boutons: l'un pour afficher la source, l'autre pour l'éteindre. Dans le premier cas (affichage), le clip est connecté (`/layer6/clip1/connect 1` pour lancer le scanner par exemple). Dans le second cas (extinction), le layer est réinitialisé (`/layer5/clear 1`).
 
@@ -59,9 +63,10 @@ Pendant les répétitions ou pour s'adapter au jeu des comédiens sur scène, de
 - `/composition/disconnectall 1` permet de couper toutes les sources audio et vidéo
 - `/layer6/clear 1`, en réinitialisant le layer *SFX*, coupe les sons
 
-# Contrôles depuis la scène
+![alt text]({attach}in-mortem-resolume-osc.png "Mapping OSC de la composition Resolume")
+![alt text]({attach}in-mortem-oscwidgets.png "Configuration d'OSCWidgets")
 
-**NEED ILLUSTRATION**
+# Contrôles depuis la scène
 
 Pour permettre une meilleure interaction, les comédiens sur scène peuvent piloter le scanner et le retour vidéo depuis leur smartphone Android. L'interface est plus simple que pour la régie et se concentre uniquement sur les fonctions nécessaires sur scène afin d'éviter toute confusion de la part des comédiens:
 
@@ -69,5 +74,7 @@ Pour permettre une meilleure interaction, les comédiens sur scène peuvent pilo
 - Scanner OFF
 - Feed ON
 - Feed OFF
+
+![alt text]({attach}in-mortem-osc-stage.jpg "Interface de contrôle depuis la scène")
 
 L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en téléchargeant un [.apk externe](#). **NEED LINK**
