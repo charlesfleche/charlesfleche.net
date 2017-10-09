@@ -18,7 +18,7 @@ Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/), *In Morte
 
 **NEED ILLUSTRATION STAGE**
 
-Si le déclenchement des médias se fait en majorité depuis la régie, deux contraintes sont à satisfaire:
+Si le déclenchement des médias se fait en majorité depuis la régie, deux contraintes sont néanmoins à satisfaire:
 
 1. la technicienne son étant assignée au lancement des medias, cette tâche doit être facilitée au maximum pour lui permettre de garder sa concentration sur sa fonction principale
 2. certains effets (comme le scanner) doivent pouvoir être pilotés depuis les comédiens sur scène
