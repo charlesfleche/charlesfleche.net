@@ -77,4 +77,4 @@ Pour permettre une meilleure interaction, les comédiens sur scène peuvent pilo
 
 ![alt text]({attach}in-mortem-osc-stage.jpg "Interface de contrôle depuis la scène")
 
-L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en téléchargeant un [.apk externe](#). **NEED LINK**
+L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en téléchargeant un [.apk externe](https://github.com/charlesfleche/AndrOSC/releases/tag/v0.9.2-inmortem).
