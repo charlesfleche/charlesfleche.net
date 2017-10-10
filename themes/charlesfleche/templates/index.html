@@ -18,7 +18,11 @@
                     {% include 'article_infos.html' %}
                 </header>
 
+                {% if article.abstract %}
+                <p>{{ article.abstract }}</p>
+                {% else %}
                 {{ article.summary }}
+                {% endif%}
 
                 <footer>
                     <a href="{{ SITEURL }}/{{ article.url }}">More</a>

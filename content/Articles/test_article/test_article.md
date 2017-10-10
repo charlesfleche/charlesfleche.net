@@ -5,7 +5,7 @@ Category: CatTest
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: en
 Status: published
-Abstract: "This is my abstract."
+Abstract: This is my abstract for the test article
 
 Lorem markdownum ad fera. Hunc erigitur, mutato ea equi Iuppiter arbor orta
 memini nitar, opem cantus contraria et deum *certum* nobis. Colus labores,
