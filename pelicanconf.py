@@ -25,6 +25,11 @@ AUTHOR_FEED_RSS = None
 
 STATIC_PATHS = ['.']
 
+DIRECT_TEMPLATES = ['index']
+AUTHOR_SAVE_AS = ''
+CATEGORY_SAVE_AS = ''
+TAG_SAVE_AS = ''
+
 # Blogroll
 LINKS = (('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net'),
          ('My current project: Previz', 'https://previz.co'))
