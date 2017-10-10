@@ -50,22 +50,16 @@
                 {% for name, link in SOCIAL %}
                 <li><a href="{{ link }}">{{ name }}</a></li>
                 {% endfor %}
+
+                {% for name, link in LINKS %}
+                <li><a href="{{ link }}">{{ name }}</a></li>
+                {% endfor %}
             </ul>
         </nav>
 
         {% block content %}
         {% endblock %}
         <section>
-        {% if LINKS %}
-                <div>
-                        <h2>{{ LINKS_WIDGET_NAME | default('links') }}</h2>
-                        <ul>
-                        {% for name, link in LINKS %}
-                            <li><a href="{{ link }}">{{ name }}</a></li>
-                        {% endfor %}
-                        </ul>
-                </div>
-        {% endif %}
         {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
                 <div>
                         <h2>{{ SOCIAL_WIDGET_NAME | default('social') }}</h2>
