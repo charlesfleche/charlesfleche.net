@@ -34,7 +34,7 @@
                 {% endfor %}
                 {% endif %}
                 </ul></nav>
-        </header><!-- /#banner -->
+        </header>
         {% block content %}
         {% endblock %}
         <section>
@@ -46,7 +46,7 @@
                             <li><a href="{{ link }}">{{ name }}</a></li>
                         {% endfor %}
                         </ul>
-                </div><!-- /.blogroll -->
+                </div>
         {% endif %}
         {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
                 <div>
@@ -63,17 +63,17 @@
                             <li><a href="{{ link }}">{{ name }}</a></li>
                         {% endfor %}
                         </ul>
-                </div><!-- /.social -->
+                </div>
         {% endif %}
-        </section><!-- /#extras -->
+        </section>
 
         <footer>
                 <address>
                 Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
+                </address>
 
                 <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+        </footer>
 
 {% include 'analytics.html' %}
 {% include 'disqus_script.html' %}
