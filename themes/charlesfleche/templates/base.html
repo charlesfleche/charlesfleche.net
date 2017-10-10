@@ -15,9 +15,9 @@
         <![endif]-->
 </head>
 
-<body id="index" class="home">
+<body>
 {% include 'github.html' %}
-        <header id="banner" class="body">
+        <header>
                 <h1><a href="{{ SITEURL }}/">{{ SITENAME }} {% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
                 <nav><ul>
                 {% for title, link in MENUITEMS %}
@@ -37,9 +37,9 @@
         </header><!-- /#banner -->
         {% block content %}
         {% endblock %}
-        <section id="extras" class="body">
+        <section>
         {% if LINKS %}
-                <div class="blogroll">
+                <div>
                         <h2>{{ LINKS_WIDGET_NAME | default('links') }}</h2>
                         <ul>
                         {% for name, link in LINKS %}
@@ -49,7 +49,7 @@
                 </div><!-- /.blogroll -->
         {% endif %}
         {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
-                <div class="social">
+                <div>
                         <h2>{{ SOCIAL_WIDGET_NAME | default('social') }}</h2>
                         <ul>
                             {% if FEED_ALL_ATOM %}
@@ -67,8 +67,8 @@
         {% endif %}
         </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
+        <footer>
+                <address>
                 Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
 
