@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content_title %}{% endblock %}
 {% block content %}
-{% if articles %}
     {% for article in articles_page.object_list %}
 
         {# First item #}
@@ -48,5 +47,4 @@
             {% endif %}
         {% endif %}
     {% endfor %}
-{% endif %}
 {% endblock content %}
