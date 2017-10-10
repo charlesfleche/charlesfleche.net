@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+PLUGIN_PATHS = ['../pelican-plugins']
+PLUGINS = ['assets']
+
 AUTHOR = 'Charles Flèche'
 SITENAME = 'Charles Flèche'
 SITEURL = ''
 
 THEME = 'charlesfleche'
+THEME_STATIC_DIR = '.'
 
 TWITTER_USERNAME = 'charlesfleche'
 
