@@ -1,4 +1,11 @@
+@import 'palette';
+
 $font-stack: sans-serif;
+
+html {
+    background-color: $background-color;
+    color: $primary-color-text;
+}
 
 body {
   font-family: $font-stack;
