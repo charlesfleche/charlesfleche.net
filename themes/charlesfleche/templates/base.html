@@ -48,11 +48,11 @@
                 {% endif %}
 
                 {% for name, link in SOCIAL %}
-                <li><a href="{{ link }}">{{ name }}</a></li>
+                <li><a href="{{ link }}" rel="external">{{ name }}</a></li>
                 {% endfor %}
 
                 {% for name, link in LINKS %}
-                <li><a href="{{ link }}">{{ name }}</a></li>
+                <li><a href="{{ link }}" rel="external">{{ name }}</a></li>
                 {% endfor %}
 
                 {% if FEED_ALL_ATOM %}
