@@ -19,22 +19,28 @@
 {% include 'github.html' %}
         <header>
                 <h1><a href="{{ SITEURL }}/">{{ SITENAME }} {% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
-                <nav><ul>
+        </header>
+
+        <nav>
+            <ul>
                 {% for title, link in MENUITEMS %}
-                    <li><a href="{{ link }}">{{ title }}</a></li>
+                <li><a href="{{ link }}">{{ title }}</a></li>
                 {% endfor %}
+
                 {% if DISPLAY_PAGES_ON_MENU -%}
                 {% for pg in pages %}
-                    <li{% if pg == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
+                <li{% if pg == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
                 {% endfor %}
                 {% endif %}
+
                 {% if DISPLAY_CATEGORIES_ON_MENU -%}
                 {% for cat, null in categories %}
-                    <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
                 {% endfor %}
                 {% endif %}
-                </ul></nav>
-        </header>
+            </ul>
+        </nav>
+
         {% block content %}
         {% endblock %}
         <section>
