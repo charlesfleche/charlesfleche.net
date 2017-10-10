@@ -1,9 +1,10 @@
 Title: Composition Resolume pour In Mortem
 Slug: in-mortem-resolume
 Date: 2017-10-08 09:00
-Category: Live shows
+Category: Articles
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: fr
+Status: published
 
 Multi-projection, vidéo live et interfaces de contrôle scène et régie pour le spectacle In Mortem d'[Ardestop](https://www.facebook.com/ardestop/).
 
