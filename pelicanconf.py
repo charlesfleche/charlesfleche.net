@@ -6,6 +6,8 @@ AUTHOR = 'Charles Flèche'
 SITENAME = 'Charles Flèche'
 SITEURL = ''
 
+THEME = 'charlesfleche'
+
 TWITTER_USERNAME = 'charlesfleche'
 
 PATH = 'content'
