@@ -59,11 +59,11 @@ L'interface est une grille de boutons. Chaque pression sur un des boutons envoie
 - les sons sont lancés en connectant des clips du layer *SFX*, par exemple `/layer6/clip1/connect 1`
 - les sources indépendantes *Scanner* et *Feed* ont deux boutons: l'un pour afficher la source, l'autre pour l'éteindre. Dans le premier cas (affichage), le clip est connecté (`/layer6/clip1/connect 1` pour lancer le scanner par exemple). Dans le second cas (extinction), le layer est réinitialisé (`/layer5/clear 1`).
 
+![alt text]({attach}in-mortem-resolume-osc.png "Mapping OSC de la composition Resolume")
+
 Pendant les répétitions ou pour s'adapter au jeu des comédiens sur scène, deux boutons permettent de fondre au noir toutes les sources vidéos et de couper les sons.
 - `/composition/disconnectall 1` permet de couper toutes les sources audio et vidéo
 - `/layer6/clear 1`, en réinitialisant le layer *SFX*, coupe les sons
-
-![alt text]({attach}in-mortem-resolume-osc.png "Mapping OSC de la composition Resolume")
 
 ![alt text]({attach}in-mortem-oscwidgets.png "Configuration d'OSCWidgets")
 
