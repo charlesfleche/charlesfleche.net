@@ -2,7 +2,7 @@
 
 $font-stack: sans-serif;
 $nav-icon-size: 1.5rem;
-$gutter-size: 2.5%;
+$gutter-size: 2.5vw;
 
 @mixin maxwidth() {
     max-width: 50rem;
@@ -11,6 +11,11 @@ $gutter-size: 2.5%;
 @mixin gutter() {
     padding-left: $gutter-size;
     padding-right: $gutter-size;
+}
+
+@mixin hgutter() {
+    padding-top: $gutter-size;
+    padding-bottom: $gutter-size;
 }
 
 html {
@@ -23,11 +28,23 @@ img {
     width: 100%;
 }
 
+i {
+    color: $primary-color;
+}
+
+article {
+    h1, h2, h3, h4, h5, h6 {
+        color: $secondary-text-color;
+    }
+}
+
 body {
     >header {
         @include gutter();
 
+        height: 2rem;
         display: flex;
+        background-color: $secondary-text-color;
 
         h1 {
             flex: 1;
@@ -35,10 +52,9 @@ body {
             overflow: hidden;
             white-space: nowrap;
             font-size: 1rem;
-            text-transform: uppercase;
 
             >a {
-                color: $primary-color-text;
+                color: $primary-color;
                 text-decoration: none;
                 margin: 0px;
             }
@@ -52,16 +68,14 @@ body {
         li {
             display: inline-block;
         }
-
-        i {
-            color: $primary-color;
-        }
     }
     nav {
         min-size: auto;
         font-size: $nav-icon-size;
+        height: $nav-icon-size;
 
         ul {
+            margin: 0;
             padding: 0;
         }
 
@@ -84,9 +98,26 @@ body {
         >article {
             header {
                 @include gutter();
+                @include hgutter();
                 @include maxwidth();
+
+                h1 {
+                    margin: 0;
+                    font-size: 7vh;
+                    color: $primary-color-text;
+                }
+
+                p {
+                    margin: 0;
+                }
             }
             section {
+                /* The first image */
+                >:first-child {
+                    margin-top: 0;
+                }
+
+                /* Not the first image */
                 >:not(:first-child) {
                     @include gutter();
                     @include maxwidth();
