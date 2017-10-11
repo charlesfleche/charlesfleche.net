@@ -80,7 +80,7 @@ body {
                 @include gutter();
             }
             section {
-                :not(:first-child) {
+                >:not(:first-child) {
                     @include gutter();
                 }
             }
