@@ -4,9 +4,19 @@ $font-stack: sans-serif;
 
 html {
     background-color: $background-color;
+    font-family: $font-stack;
     color: $primary-color-text;
 }
 
 body {
-  font-family: $font-stack;
+    header {
+        img {
+            height: 100%;
+            width: auto;
+        }
+    }
+}
+
+img {
+    width: 100%;
 }
