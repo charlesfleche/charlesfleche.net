@@ -4,13 +4,7 @@
 <main>
     <article>
         <header>
-            <h1>
-                <a href="{{ SITEURL }}/{{ article.url }}"
-                   rel="bookmark"
-                   title="Permalink to {{ article.title|striptags }}">
-                   {{ article.title }}
-                </a>
-            </h1>
+            <h1>{{ article.title }}</h1>
             {% include 'article_infos.html' %}
         </header>
 
