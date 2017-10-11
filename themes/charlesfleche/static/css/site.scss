@@ -56,7 +56,6 @@ html {
     background-color: $background-color;
     font-family: $font-stack;
     color: $primary-color-text;
-    line-height: 1.5rem;
 }
 
 img {
@@ -120,12 +119,14 @@ body {
         >article {
             header {
                 @include gutter();
-                @include hgutter();
                 @include maxwidth();
 
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+
                 h1 {
-                    margin: 0;
-                    margin-bottom: 2rem;
+                    margin-top: 0;
+                    margin-bottom: 1rem;
                     font-size: 7vh;
                     color: $primary-color-text;
                 }
@@ -146,9 +147,15 @@ body {
                     @include maxwidth();
                 }
 
-                h1, h2, h3, h4, h5, h6, p, ul {
+                >h1, >h2, >h3, >h4, >h5, >h6, >p, >ul {
                     margin-top: 0;
                     margin-bottom: 2rem;
+                }
+
+                line-height: 1.5rem;
+
+                ol, ul {
+                    padding-left: 2rem;
                 }
 
                 li {
