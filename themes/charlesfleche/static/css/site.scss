@@ -60,15 +60,15 @@ body {
             overflow: hidden;
             white-space: nowrap;
             font-size: 1rem;
+        }
 
-            >a {
-                color: $primary-color;
-                text-decoration: none;
-                margin: 0px;
-            }
-            >a:visited {
-                color: $primary-color;
-            }
+        a {
+            color: $primary-color;
+            text-decoration: none;
+            margin: 0px;
+        }
+        a:visited {
+            color: $primary-color;
         }
 
         img {
