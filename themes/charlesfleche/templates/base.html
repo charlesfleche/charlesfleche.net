@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="{{ SITEURL }}/css/normalize.css">
         <link rel="stylesheet" href="{{ SITEURL }}/css/main.css">
 
+        <link rel="stylesheet" href="https://use.fontawesome.com/62133c7add.css">
+
         {% assets filters="scss", output="css/site.css", "css/site.scss" %}
         <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
         {% endassets %}
@@ -31,13 +33,9 @@
 {% include 'github.html' %}
         <header>
                 <h1>
-                    <img src="{{ SITEURL }}/img/logo.svg"></img>
                     <a href="{{ SITEURL }}/">
-                    {{ SITENAME }}
-
-                    {% if SITESUBTITLE %}
-                    <strong>{{ SITESUBTITLE }}</strong>
-                    {% endif %}
+                        <img src="{{ SITEURL }}/img/logo.svg"></img>
+                        {{ SITENAME }}
                     </a>
                 </h1>
 
@@ -54,18 +52,26 @@
                         {% endfor %}
                         {% endif %}
 
-                        {% if DISPLAY_CATEGORIES_ON_MENU -%}
+                        <!-- {% if DISPLAY_CATEGORIES_ON_MENU -%}
                         {% for cat, null in categories %}
                         <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
                         {% endfor %}
-                        {% endif %}
+                        {% endif %} -->
 
                         {% for name, link in SOCIAL %}
-                        <li><a href="{{ link }}" rel="external">{{ name }}</a></li>
+                        <li>
+                            <a href="{{ link }}" rel="external">
+                                <i class="fa fa-{{ name | lower }}"></i>
+                            </a>
+                        </li>
                         {% endfor %}
 
-                        {% for name, link in LINKS %}
-                        <li><a href="{{ link }}" rel="external">{{ name }}</a></li>
+                        {% for name, link, fa in LINKS %}
+                        <li>
+                            <a href="{{ link }}" rel="external">
+                                <i class="fa fa-{{ fa }}"></i>
+                            </a>
+                        </li>
                         {% endfor %}
 
                         {% if FEED_ALL_ATOM %}
