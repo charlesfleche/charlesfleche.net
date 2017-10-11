@@ -2,6 +2,12 @@
 
 $font-stack: sans-serif;
 $nav-icon-size: 1.5rem;
+$gutter-size: 2.5%;
+
+@mixin gutter() {
+    padding-left: $gutter-size;
+    padding-right: $gutter-size;
+}
 
 html {
     background-color: $background-color;
@@ -11,6 +17,8 @@ html {
 
 body {
     >header {
+        @include gutter();
+
         display: flex;
 
         h1 {
