@@ -5,7 +5,7 @@ $nav-icon-size: 1.5rem;
 $gutter-size: 2.5vw;
 
 @mixin maxwidth() {
-    max-width: 50rem;
+    max-width: 40rem;
 }
 
 @mixin gutter() {
@@ -56,6 +56,7 @@ html {
     background-color: $background-color;
     font-family: $font-stack;
     color: $primary-color-text;
+    line-height: 1.5rem;
 }
 
 img {
@@ -83,6 +84,12 @@ article {
 body {
     >header {
         @include band();
+    }
+    >footer {
+        @include band();
+        a {
+            margin: auto;
+        }
     }
     nav {
         min-size: auto;
@@ -118,6 +125,7 @@ body {
 
                 h1 {
                     margin: 0;
+                    margin-bottom: 2rem;
                     font-size: 7vh;
                     color: $primary-color-text;
                 }
@@ -136,6 +144,15 @@ body {
                 >:not(:first-child) {
                     @include gutter();
                     @include maxwidth();
+                }
+
+                h1, h2, h3, h4, h5, h6, p, ul {
+                    margin-top: 0;
+                    margin-bottom: 2rem;
+                }
+
+                li {
+                    margin-bottom: 1rem;
                 }
             }
         }
