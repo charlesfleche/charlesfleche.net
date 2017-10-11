@@ -11,7 +11,7 @@ Abstract: Multi-projection, vidéo live et interfaces de contrôle scène et ré
 
 # In Mortem
 
-Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/), *In Mortem*, aborde le thème du transhumanisme sous la forme d'une conférence futuriste entre un immortel et une intelligence artificielle. Lors du spectacle, plusieurs scènes requièrent la diffusion de contenus de différentes natures:
+Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/) *In Mortem* aborde le thème du transhumanisme sous la forme d'une conférence futuriste entre un immortel et une intelligence artificielle. Lors du spectacle, plusieurs scènes requièrent la diffusion de contenus de différentes natures:
 
 - **Cyclo** les propos du conférencier sont illustrés par des projections de vidéos sur un cyclo en fond de scène. Sur cet écran sont également projetés des logos avant et après le spectacle.
 - **Captation** un flux vidéo provenant d'une petite caméra type GoPro sur scène est parfois mélangé avec les médias d'illustration de conférence et projeté sur le cyclo
@@ -78,4 +78,4 @@ Pour permettre une meilleure interaction, les comédiens sur scène peuvent pilo
 
 ![alt text]({attach}in-mortem-osc-stage.jpg "Interface de contrôle depuis la scène")
 
-L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en téléchargeant un [.apk externe](https://github.com/charlesfleche/AndrOSC/releases/tag/v0.9.2-inmortem).
+L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en [téléchargeant](https://github.com/charlesfleche/AndrOSC/releases/tag/v0.9.2-inmortem) un .apk externe.
