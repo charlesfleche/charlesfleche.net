@@ -18,6 +18,40 @@ $gutter-size: 2.5vw;
     padding-bottom: $gutter-size;
 }
 
+@mixin band() {
+    @include gutter();
+
+    height: 2rem;
+    display: flex;
+    background-color: $secondary-text-color;
+
+    h1 {
+        flex: 1;
+        margin: auto;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 1rem;
+    }
+
+    a {
+        color: $primary-color;
+        text-decoration: none;
+        margin: 0px;
+    }
+    a:visited {
+        color: $primary-color;
+    }
+
+    img {
+        height: $nav-icon-size;
+        width: auto;
+    }
+
+    li {
+        display: inline-block;
+    }
+}
+
 html {
     background-color: $background-color;
     font-family: $font-stack;
@@ -48,37 +82,7 @@ article {
 
 body {
     >header {
-        @include gutter();
-
-        height: 2rem;
-        display: flex;
-        background-color: $secondary-text-color;
-
-        h1 {
-            flex: 1;
-            margin: auto;
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 1rem;
-        }
-
-        a {
-            color: $primary-color;
-            text-decoration: none;
-            margin: 0px;
-        }
-        a:visited {
-            color: $primary-color;
-        }
-
-        img {
-            height: $nav-icon-size;
-            width: auto;
-        }
-
-        li {
-            display: inline-block;
-        }
+        @include band();
     }
     nav {
         min-size: auto;
