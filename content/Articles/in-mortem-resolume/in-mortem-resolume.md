@@ -64,6 +64,7 @@ Pendant les répétitions ou pour s'adapter au jeu des comédiens sur scène, de
 - `/layer6/clear 1`, en réinitialisant le layer *SFX*, coupe les sons
 
 ![alt text]({attach}in-mortem-resolume-osc.png "Mapping OSC de la composition Resolume")
+
 ![alt text]({attach}in-mortem-oscwidgets.png "Configuration d'OSCWidgets")
 
 # Contrôles depuis la scène

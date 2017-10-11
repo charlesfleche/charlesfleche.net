@@ -7,6 +7,8 @@ $gutter-size: 2.5%;
 @mixin gutter() {
     padding-left: $gutter-size;
     padding-right: $gutter-size;
+    max-width: 50rem;
+    margin: auto;
 }
 
 html {
@@ -62,12 +64,24 @@ body {
         }
     }
     main {
-        li {
-            article {
-                section {
-                    h1 {
-                        display: none;
+        >ol {
+            li {
+                article {
+                    section {
+                        h1 {
+                            display: none;
+                        }
                     }
+                }
+            }
+        }
+        >article {
+            header {
+                @include gutter();
+            }
+            section {
+                :not(:first-child) {
+                    @include gutter();
                 }
             }
         }
