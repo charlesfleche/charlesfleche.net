@@ -15,6 +15,22 @@ body {
             width: auto;
         }
     }
+    nav {
+        h1 {
+            display: none;
+        }
+    }
+    main {
+        li {
+            article {
+                section {
+                    h1 {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
 }
 
 img {
