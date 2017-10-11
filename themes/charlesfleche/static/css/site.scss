@@ -4,17 +4,23 @@ $font-stack: sans-serif;
 $nav-icon-size: 1.5rem;
 $gutter-size: 2.5%;
 
+@mixin maxwidth() {
+    max-width: 50rem;
+}
+
 @mixin gutter() {
     padding-left: $gutter-size;
     padding-right: $gutter-size;
-    max-width: 50rem;
-    margin: auto;
 }
 
 html {
     background-color: $background-color;
     font-family: $font-stack;
     color: $primary-color-text;
+}
+
+img {
+    width: 100%;
 }
 
 body {
@@ -78,16 +84,14 @@ body {
         >article {
             header {
                 @include gutter();
+                @include maxwidth();
             }
             section {
                 >:not(:first-child) {
                     @include gutter();
+                    @include maxwidth();
                 }
             }
         }
     }
-}
-
-img {
-    width: 100%;
 }
