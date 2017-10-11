@@ -1,6 +1,7 @@
 @import 'palette';
 
 $font-stack: sans-serif;
+$nav-icon-size: 1.5rem;
 
 html {
     background-color: $background-color;
@@ -9,13 +10,45 @@ html {
 }
 
 body {
-    header {
+    >header {
+        display: flex;
+
+        h1 {
+            flex: 1;
+            margin: auto;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 1rem;
+            text-transform: uppercase;
+
+            >a {
+                color: $primary-color-text;
+                text-decoration: none;
+                margin: 0px;
+            }
+        }
+
         img {
-            height: 100%;
+            height: $nav-icon-size;
             width: auto;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        i {
+            color: $primary-color;
         }
     }
     nav {
+        min-size: auto;
+        font-size: $nav-icon-size;
+
+        ul {
+            padding: 0;
+        }
+
         h1 {
             display: none;
         }
