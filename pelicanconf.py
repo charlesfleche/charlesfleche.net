@@ -35,13 +35,17 @@ CATEGORY_SAVE_AS = ''
 TAG_SAVE_AS = ''
 
 # Blogroll
-LINKS = (('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net'),
-         ('My current project: Previz', 'https://previz.co'))
+# HACK Add extra FontAwesome
+LINKS = (
+    ('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net', 'bicycle'),
+)
 
 # Social widget
-SOCIAL = (('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/'),
-          ('Twitter', 'https://twitter.com/charlesfleche'),
-          ('GitHub', 'https://github.com/charlesfleche'),)
+SOCIAL = (
+    ('Twitter', 'https://twitter.com/charlesfleche'),
+    ('GitHub', 'https://github.com/charlesfleche'),
+    ('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/'),
+)
 
 DEFAULT_PAGINATION = False
 
