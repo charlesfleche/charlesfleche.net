@@ -118,13 +118,12 @@ body {
         }
         >article {
             header {
-                @include gutter();
-                @include maxwidth();
-
                 margin-top: 2rem;
                 margin-bottom: 2rem;
 
                 h1 {
+                    @include gutter();
+
                     margin-top: 0;
                     margin-bottom: 1rem;
                     font-size: 7vh;
@@ -132,20 +131,15 @@ body {
                 }
 
                 p {
+                    @include gutter();
+
                     margin: 0;
+                    margin-bottom: 2rem;
                 }
             }
             section {
-                /* The first image */
-                >:first-child {
-                    margin-top: 0;
-                }
-
-                /* Not the first image */
-                >:not(:first-child) {
-                    @include gutter();
-                    @include maxwidth();
-                }
+                @include gutter();
+                @include maxwidth();
 
                 >h1, >h2, >h3, >h4, >h5, >h6, >p, >ul {
                     margin-top: 0;
