@@ -5,10 +5,49 @@
     <article>
         <header>
             <h1>{{ article.title }}</h1>
+            <section>
             {% include 'article_infos.html' %}
 
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/intent/tweet/?{% if article.tweet %}text={{ article.tweet | urlencode }}&{% endif %}url={{ SITEURL }}/{{ article.url | urlencode }}&via={{ TWITTER_USERNAME }}">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-reddit"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-hacker-news"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-envelope-o"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </li>
+            </ul>
+        </section>
             {% if article.headerimage %}
-            <img src="{{ SITEURL }}/{{ article.headerimage }}"</img>
+            <img src="{{ SITEURL }}{{ article.headerimage }}"</img>
             {% endif %}
         </header>
 
