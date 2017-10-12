@@ -7,7 +7,7 @@ PLUGINS = ['assets']
 
 AUTHOR = 'Charles Flèche'
 SITENAME = 'Charles Flèche'
-SITEURL = ''
+SITEURL = 'http://localhost:8000'
 
 THEME = 'charlesfleche'
 THEME_STATIC_DIR = '.'
