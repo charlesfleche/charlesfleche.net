@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+import os
 
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = ['assets']
@@ -14,6 +15,9 @@ THEME_STATIC_DIR = '.'
 
 LINKEDIN_USERNAME = 'charlesfleche'
 TWITTER_USERNAME = 'charlesfleche'
+
+FACEBOOK_USERNAME = 'charlesfleche'
+FACEBOOK_APPID = os.environ.get('FACEBOOK_APPID', '')
 
 PATH = 'content'
 
