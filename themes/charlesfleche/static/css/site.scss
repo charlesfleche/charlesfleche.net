@@ -46,10 +46,6 @@ $gutter-size: 2.5vw;
         height: $nav-icon-size;
         width: auto;
     }
-
-    li {
-        display: inline-block;
-    }
 }
 
 html {
@@ -77,6 +73,12 @@ a:visited {
 article {
     h1, h2, h3, h4, h5, h6 {
         color: $secondary-text-color;
+    }
+}
+
+header {
+    li {
+        display: inline-block;
     }
 }
 
@@ -117,7 +119,7 @@ body {
             }
         }
         >article {
-            header {
+            >header {
                 margin-top: 2rem;
                 margin-bottom: 2rem;
 
@@ -126,18 +128,27 @@ body {
 
                     margin-top: 0;
                     margin-bottom: 1rem;
-                    font-size: 7vh;
+                    font-size: 3rem;
                     color: $primary-color-text;
                 }
 
                 p {
-                    @include gutter();
-
+                    display: inline-block;
                     margin: 0;
                     margin-bottom: 2rem;
                 }
+
+                ul {
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                section {
+                    @include gutter();
+                }
             }
-            section {
+            >section {
                 @include gutter();
                 @include maxwidth();
 
