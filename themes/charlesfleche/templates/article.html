@@ -6,6 +6,10 @@
         <header>
             <h1>{{ article.title }}</h1>
             {% include 'article_infos.html' %}
+
+            {% if article.headerimage %}
+            <img src="{{ SITEURL }}/{{ article.headerimage }}"</img>
+            {% endif %}
         </header>
 
         <section>

@@ -6,8 +6,7 @@ Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: fr
 Status: published
 Abstract: Multi-projection, vidéo live et interfaces de contrôle scène et régie pour le spectacle In Mortem d'Ardestop.
-
-![alt text]({attach}in-mortem-live.jpg "Photo du comédien scanné")
+HeaderImage: in-mortem-live.jpg
 
 # In Mortem
 
