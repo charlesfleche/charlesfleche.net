@@ -12,6 +12,7 @@ SITEURL = ''
 THEME = 'charlesfleche'
 THEME_STATIC_DIR = '.'
 
+LINKEDIN_USERNAME = 'charlesfleche'
 TWITTER_USERNAME = 'charlesfleche'
 
 PATH = 'content'
