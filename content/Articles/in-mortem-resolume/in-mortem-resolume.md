@@ -1,4 +1,4 @@
-Title: Composition Resolume pour In Mortem
+Title: In Mortem Resolume
 Slug: in-mortem-resolume
 Date: 2017-10-08 09:00
 Category: Articles
