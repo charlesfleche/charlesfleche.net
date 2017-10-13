@@ -1,4 +1,5 @@
 fabric3
 markdown
 pelican
+typogrify
 webassets
