@@ -3,6 +3,8 @@
 from __future__ import unicode_literals
 import os
 
+LOAD_CONTENT_CACHE = False
+
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = ['assets']
 
@@ -54,9 +56,18 @@ SOCIAL = (
 
 DEFAULT_PAGINATION = False
 
-DEFAULT_METADATA = {
-    'status': 'draft',
-}
+ARTICLE_URL = '{lang}/{slug}'
+ARTICLE_SAVE_AS = ARTICLE_URL + '/index.html'
+ARTICLE_LANG_URL = ARTICLE_URL
+ARTICLE_LANG_SAVE_AS = ARTICLE_SAVE_AS
+DRAFT_URL = 'drafts/' + ARTICLE_URL
+DRAFT_SAVE_AS = DRAFT_URL + '/index.html'
+DRAFT_LANG_URL = DRAFT_URL
+DRAFT_LANG_SAVE_AS = DRAFT_SAVE_AS
+PAGE_URL = ARTICLE_URL
+PAGE_SAVE_AS = ARTICLE_SAVE_AS
+PAGE_LANG_URL = ARTICLE_LANG_URL
+PAGE_LANG_SAVE_AS = ARTICLE_LANG_SAVE_AS
 
 TYPOGRIFY = True
 

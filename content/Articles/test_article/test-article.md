@@ -1,12 +1,11 @@
 Title: Test article
 Slug: test-article
 Date: 2017-10-01 09:00
-Modified: 2017-10-02 09:00
 Category: Articles
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: en
-Status: published
 Abstract: This is my abstract for the test article
+Status: draft
 
 Lorem markdownum ad fera. Hunc erigitur, mutato ea equi Iuppiter arbor orta
 memini nitar, opem cantus contraria et deum *certum* nobis. Colus labores,
