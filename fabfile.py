@@ -91,6 +91,10 @@ def publish():
 def publish_nginx():
     put('nginx.site', nginx_site_path, use_sudo=True)
 
+@hosts(production)
+def reload_nginx():
+    sudo('sudo systemctl reload nginx')
+
 def gh_pages():
     """Publish to GitHub Pages"""
     rebuild()
