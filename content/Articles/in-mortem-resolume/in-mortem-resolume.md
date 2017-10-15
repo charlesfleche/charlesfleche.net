@@ -1,12 +1,12 @@
 Title: In Mortem Resolume
 Slug: in-mortem-resolume
 Date: 2017-10-08 09:00
-Category: Articles
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: fr
 Abstract: Resolume, multi-projection, vidéo live et contrôle sur scène pour In Mortem
 HeaderImage: ![]({attach}in-mortem-live.jpg)
 Tweet: #Resolume, multi-projection, vidéo #live et interfaces #OSC pour @4rd3stop
+Status: draft
 
 # In Mortem
 

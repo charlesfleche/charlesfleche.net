@@ -1,7 +1,6 @@
 Title: Test article
 Slug: test-article
 Date: 2017-10-01 09:00
-Category: Articles
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: en
 Abstract: This is my abstract for the test article

@@ -90,7 +90,7 @@ def publish():
     local('pelican -s publishconf.py')
     project.rsync_project(
         remote_dir=dest_path,
-        exclude=".DS_Store",
+        exclude=['.DS_Store', 'Articles', '.webassets-cache'],
         local_dir=DEPLOY_PATH.rstrip('/') + '/',
         delete=True,
         extra_opts='-c',
