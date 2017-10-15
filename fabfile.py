@@ -15,6 +15,7 @@ DEPLOY_PATH = env.deploy_path
 production = 'pi@charlesfleche.net:22'
 dest_path = '/srv/www/blog'
 nginx_site_path = '/etc/nginx/sites-available/blog'
+icons_root = 'themes/charlesfleche/static'
 
 # Rackspace Cloud Files configuration settings
 env.cloudfiles_username = 'my_rackspace_username'
@@ -36,6 +37,14 @@ def clean():
 def build():
     """Build local version of site"""
     local('pelican -s pelicanconf.py')
+
+def build_icons():
+    """Build icons"""
+    local('inkscape -z -e /tmp/favicon.png -w 64 -h 64 logo.svg')
+    local('convert /tmp/favicon.png {}/favicon.ico'.format(icons_root))
+    local('inkscape -z -e {}/icon.png -w 192 -h 192 logo.svg'.format(icons_root))
+    local('inkscape -z -e {}/tile.png -w 558 -h 558 logo.svg'.format(icons_root))
+    local('inkscape -z -e {}/tile-wide.png -w 558 -h 270 --export-area=-5:0:15:10 logo.svg'.format(icons_root))
 
 def rebuild():
     """`build` with the delete switch"""
