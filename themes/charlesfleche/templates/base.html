@@ -51,12 +51,6 @@
                         {% endfor %}
                         {% endif %}
 
-                        <!-- {% if DISPLAY_CATEGORIES_ON_MENU -%}
-                        {% for cat, null in categories %}
-                        <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                        {% endfor %}
-                        {% endif %} -->
-
                         {% for name, link in SOCIAL %}
                         <li>
                             <a href="{{ link }}" rel="external">
