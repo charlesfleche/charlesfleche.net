@@ -2,7 +2,38 @@
 {% block lang %}
 <html lang="{{ article.lang }}">
 {% endblock %}
-{% block title %}{{ article.title|striptags }} - {{ SITENAME }}{% endblock %}
+
+{% block canonical %}
+<link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">
+{% endblock %}
+
+{% block title %}
+{{ article.title|striptags }} - {{ SITENAME }}
+{% endblock %}
+
+{% block opengraph %}
+<meta property="og:title" content="{{ article.title }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
+{% if article.headerimage %}
+<meta property="og:image" content="{{ article.headerimage | extract_url }}" />
+{% endif %}
+{% if article.abstract %}
+<meta property="og:description" content="{{ article.abstract }}" />
+{% endif %}
+<meta property="og:locale" content="{{ article.lang | locale }}" />
+{% for translation in article.translations %}
+<meta property="og:locale:alternate" content="{{ translation.lang | locale }}" />
+{% endfor %}
+<meta property="og:article:published_time" content="{{ article.date.isoformat() }}" />
+{% if article.modified %}
+<meta property="og:article:modified_time" content="{{ article.modified.isoformat() }}" />
+{% endif %}
+{% for tag in article.tags %}
+<meta property="og:article:tag" content="{{ tag.name }}" />
+{% endfor %}
+{% endblock %}
+
 {% block content %}
 <main>
     <article>

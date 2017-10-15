@@ -7,21 +7,38 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
 
+        {% block canonical %}{% endblock %}
+
+        <meta property="og:site_name" content="{{ SITENAME }}" />
+        <meta property="og:profile" content="https://twitter.com/{{ TWITTER_USERNAME }}" />
+        <meta property="og:first_name" content="{{ FIRST_NAME }}" />
+        <meta property="og:last_name" content="{{ LAST_NAME }}" />
+        <meta property="og:username" content="{{ TWITTER_USERNAME }}" />
+        <meta property="og:gender" content="{{ GENDER }}" />
+
+        <meta property="fb:app_id" content="{{ FACEBOOK_APPID }}" />
+        <meta property="fb:profile_id" content="{{ FACEBOOK_PROFILEID }}" />
+
+        {% block opengraph %}{% endblock %}
+        {% block twittercard %}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@{{ TWITTER_USERNAME }}" />
+        <meta name="twitter:creator" content="@{{ TWITTER_USERNAME }}" />
+        {% endblock %}
+
         <meta name="author" content="{{ AUTHOR }}">
         <meta name="description" content="{{ DESCRIPTION }}">
         <meta name="keywords" content="{{ KEYWORDS }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="manifest" href="site.webmanifest">
-        <link rel="icon" type="image/png" href="{{ SITEURL }}/{{ FAVICON_PNG }}" />
+        <link rel="icon" type="image/png" href="{{ SITEURL }}/{{ FAVICON_PNG }}">
         <link rel="apple-touch-icon" href="/icon.png">
 
-        <link type="text/plain" rel="author" href="{{ SITEURL }}/humans.txt" />
-
+        <link type="text/plain" rel="author" href="{{ SITEURL }}/humans.txt">
         {% if FEED_ALL_ATOM %}
-        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed">
         {% endif %}
-
         <link rel="stylesheet" href="{{ SITEURL }}/css/normalize.css">
         <link rel="stylesheet" href="{{ SITEURL }}/css/main.css">
 

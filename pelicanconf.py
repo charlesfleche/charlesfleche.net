@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+import re
 import os
 
 LOAD_CONTENT_CACHE = False
@@ -9,6 +10,9 @@ PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = ['assets']
 
 AUTHOR = 'Charles Flèche'
+FIRST_NAME = 'Charles'
+LAST_NAME = 'Flèche'
+GENDER = 'male'
 SITENAME = 'Charles Flèche'
 DESCRIPTION = 'The personnal blog of Charles Flèche'
 KEYWORDS = 'software development, blog, live shows'
@@ -26,13 +30,16 @@ LINKEDIN_USERNAME = 'charlesfleche'
 TWITTER_USERNAME = 'charlesfleche'
 
 FACEBOOK_USERNAME = 'charlesfleche'
-FACEBOOK_APPID = os.environ.get('FACEBOOK_APPID', '')
+FACEBOOK_PROFILEID = '502532492'
+FACEBOOK_APPID = '1856160524412833'
 
 PATH = 'content'
 
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = 'en'
+
+STATIC_EXCLUDE_SOURCES = True
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -43,7 +50,9 @@ AUTHOR_FEED_RSS = None
 
 FAVICON_PNG = 'icon.png'
 
-STATIC_PATHS = ['.']
+# STATIC_PATHS = ['.']
+
+THEME_STATIC_DIR = '.'
 
 DIRECT_TEMPLATES = ['index']
 AUTHOR_SAVE_AS = ''
@@ -84,3 +93,17 @@ TYPOGRIFY = True
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+def extract_url(string):
+    m = re.search(r'src="(.*)"', string)
+    if m is not None:
+        return m .groups()[0]
+    return s
+
+def locale(lang):
+    return DATE_FORMATS.get(lang, DATE_FORMATS['en'])[0]
+
+JINJA_FILTERS = {
+    'extract_url': extract_url,
+    'locale': locale
+}
