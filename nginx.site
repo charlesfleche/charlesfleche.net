@@ -48,18 +48,18 @@ server {
 	server_name charlesfleche.net www.charlesfleche.net blog.charlesfleche.net;
 
 	location / {
-        auth_basic "Restricted Content";
-        auth_basic_user_file /srv/blog.htpasswd;
+        # auth_basic "Restricted Content";
+        # auth_basic_user_file /srv/blog.htpasswd;
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
 
-    # location /drafts/ {
-        # auth_basic "Restricted Content";
-        # auth_basic_user_file /srv/blog.htpasswd;
-        # try_files $uri $uri/ =404;
-    # }
+    location /drafts/ {
+        auth_basic "Restricted Content";
+        auth_basic_user_file /srv/blog.htpasswd;
+        try_files $uri $uri/ =404;
+    }
 
 	# pass PHP scripts to FastCGI server
 	#
