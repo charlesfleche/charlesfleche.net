@@ -9,8 +9,10 @@
                 {% include 'article_infos.html' %}
                 {% include 'article_socialbar.html' %}
             </section>
+
             {% if article.headerimage %}
-            <img src="{{ SITEURL }}{{ article.headerimage }}"</img>
+            {# Markdown surround the img with p markups #}
+            {{ article.headerimage | replace('<p>', '') | replace('</p>', '') }}
             {% endif %}
         </header>
 
