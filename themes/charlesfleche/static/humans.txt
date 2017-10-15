@@ -3,13 +3,12 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
+    Author: Charles Flèche
+    Twitter: @charlesfleche
 
 # TECHNOLOGY COLOPHON
 
     CSS3, HTML5
-    Apache Server Configs, jQuery, Modernizr, Normalize.css
+    Nginx
+    Modernizr, Normalize.css
+    Pelican Static Blog Generator

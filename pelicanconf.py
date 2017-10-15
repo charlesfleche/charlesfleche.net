@@ -10,6 +10,8 @@ PLUGINS = ['assets']
 
 AUTHOR = 'Charles Flèche'
 SITENAME = 'Charles Flèche'
+DESCRIPTION = 'The personnal blog of Charles Flèche'
+KEYWORDS = 'software development, blog, live shows'
 SITEURL = ''
 
 THEME = 'charlesfleche'
