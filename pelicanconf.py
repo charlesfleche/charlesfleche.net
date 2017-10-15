@@ -50,9 +50,10 @@ AUTHOR_FEED_RSS = None
 
 FAVICON_PNG = 'icon.png'
 
-# STATIC_PATHS = ['.']
+STATIC_PATHS = ['.']
 
-THEME_STATIC_DIR = '.'
+THEME_STATIC_DIR = 'theme'
+THEME_STATIC_PATHS = ['static']
 
 DIRECT_TEMPLATES = ['index']
 AUTHOR_SAVE_AS = ''
