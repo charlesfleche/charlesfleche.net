@@ -32,6 +32,11 @@
 {% for tag in article.tags %}
 <meta property="og:article:tag" content="{{ tag.name }}" />
 {% endfor %}
+<meta property="og:profile" content="https://twitter.com/{{ TWITTER_USERNAME }}" />
+<meta property="og:first_name" content="{{ FIRST_NAME }}" />
+<meta property="og:last_name" content="{{ LAST_NAME }}" />
+<meta property="og:username" content="{{ TWITTER_USERNAME }}" />
+<meta property="og:gender" content="{{ GENDER }}" />
 {% endblock %}
 
 {% block content %}
