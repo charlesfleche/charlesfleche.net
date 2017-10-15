@@ -13,6 +13,7 @@ from pelicanconf import *
 SITEURL = 'https://charlesfleche.net'
 RELATIVE_URLS = False
 
+FEED_DOMAIN = SITEURL
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 
 DELETE_OUTPUT_DIRECTORY = True
