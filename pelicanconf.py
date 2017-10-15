@@ -69,6 +69,8 @@ PAGE_SAVE_AS = ARTICLE_SAVE_AS
 PAGE_LANG_URL = ARTICLE_LANG_URL
 PAGE_LANG_SAVE_AS = ARTICLE_LANG_SAVE_AS
 
+FORMATTED_FIELDS = ['summary', 'headerimage']
+
 TYPOGRIFY = True
 
 # Uncomment following line if you want document-relative URLs when developing
