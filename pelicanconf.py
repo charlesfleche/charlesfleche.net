@@ -15,6 +15,11 @@ SITEURL = ''
 THEME = 'charlesfleche'
 THEME_STATIC_DIR = '.'
 
+DATE_FORMATS = {
+    'en': ('en_US','%d %B %Y'),
+    'fr': ('fr_FR','%d %B %Y'),
+}
+
 LINKEDIN_USERNAME = 'charlesfleche'
 TWITTER_USERNAME = 'charlesfleche'
 
