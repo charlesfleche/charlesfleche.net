@@ -107,20 +107,7 @@ body {
         }
     }
     main {
-        >ol {
-            list-style: none;
-
-            li {
-                article {
-                    section {
-                        h1 {
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
-        >article {
+        >article, >section {
             >header {
                 margin-top: 2rem;
                 margin-bottom: 2rem;
@@ -179,6 +166,20 @@ body {
                     font-size: 3rem;
                 }
                 text-align: center;
+            }
+        }
+        section>section>ol {
+            list-style: none;
+            padding: 0;
+
+            li {
+                article {
+                    section {
+                        h1 {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
     }
