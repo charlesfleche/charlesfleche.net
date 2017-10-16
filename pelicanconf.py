@@ -52,7 +52,7 @@ FAVICON_PNG = 'icon.png'
 
 STATIC_PATHS = ['.']
 
-DIRECT_TEMPLATES = ['index']
+DIRECT_TEMPLATES = []
 AUTHOR_SAVE_AS = ''
 CATEGORY_SAVE_AS = ''
 TAG_SAVE_AS = ''
