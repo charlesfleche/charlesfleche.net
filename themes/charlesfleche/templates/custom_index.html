@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block lang %}
+<html lang="{{ page.lang }}">
+{% endblock %}
+
+{% block canonical %}
+{# HACK page.Save_as #}
+<link rel="canonical" href="{{ SITEURL }}/{{ page.save_as }}">
+{% endblock %}
+
+{% block title %}
+{{ page.title|striptags }} - {{ SITENAME }}
+{% endblock %}
+
+{% block content %}
+<main>
+    <section>
+        <header>
+            <h1>{{ page.title }}</h1>
+
+            {% if page.headerimage %}
+            {# Markdown surround the img with p markups #}
+            {{ article.headerimage | replace('<p>', '') | replace('</p>', '') }}
+            {% endif %}
+        </header>
+
+        <section>
+            {{ page.content }}
+        </section>
+
+        {% if articles %}
+        <section>
+            <ol>
+                {% for article in articles %}
+                <li>
+                    <article>
+                        <header>
+                            <h1>
+                                <a href="{{ SITEURL }}/{{ article.url }}"
+                                   rel="bookmark"
+                                   title="Permalink to {{ article.title|striptags }}">
+                                   {{ article.title }}
+                                </a>
+                            </h1>
+                            {% include 'article_infos.html' %}
+                        </header>
+
+                        <section>
+                            <h1>Summary</h1>
+                            {% if article.abstract %}
+                            <p>{{ article.abstract }}</p>
+                            {% else %}
+                            {{ article.summary }}
+                            {% endif%}
+                        </section>
+                    </article>
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
