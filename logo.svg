@@ -29,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="32"
-     inkscape:cx="4.0881884"
-     inkscape:cy="4.0840104"
+     inkscape:cx="7.4631884"
+     inkscape:cy="4.1152604"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="text1153"
      showgrid="true"
      inkscape:window-width="1080"
      inkscape:window-height="675"
@@ -60,7 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -70,7 +70,7 @@
      id="layer1"
      transform="translate(-96.572914,-132.95834)">
     <circle
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#f57c00;stroke-width:0.13229167;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ff9800;stroke-width:0.13229167;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path817"
        cx="97.895836"
        cy="134.28125"
@@ -86,16 +86,15 @@
          x="97.895836"
          y="143.93675"
          style="stroke-width:0.26458332" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.46944451px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#f57c00;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="96.731049"
-       y="135.13193"
-       id="text1153"><tspan
-         sodipodi:role="line"
-         id="tspan1151"
-         x="96.731049"
-         y="135.13193"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.46944451px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#f57c00;fill-opacity:1;stroke-width:0.26458332">➸</tspan></text>
+    <g
+       aria-label="➸"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.46944451px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff9800;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       id="text1153">
+      <path
+         d="m 98.919546,134.24568 v 0.0591 q -0.182074,0.0965 -0.312298,0.18931 -0.130225,0.0916 -0.236334,0.22789 h -0.01688 q -0.0084,-0.0398 -0.0084,-0.094 0,-0.16037 0.06994,-0.27854 h -0.772907 q -0.135048,0.0784 -0.25442,0.28336 h -0.516076 q 0.06752,-0.22307 0.204983,-0.35329 -0.138665,-0.13023 -0.204983,-0.34968 h 0.516076 q 0.115755,0.19896 0.25442,0.28336 h 0.772907 q -0.06994,-0.11937 -0.06994,-0.28095 0,-0.0543 0.0084,-0.0916 h 0.01688 q 0.09284,0.11938 0.253215,0.23875 0.161575,0.11937 0.295417,0.1664 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.46944451px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ff9800;fill-opacity:1;stroke-width:0.26458332"
+         id="path818"
+         inkscape:connector-curvature="0" />
+    </g>
   </g>
 </svg>

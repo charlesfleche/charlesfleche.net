@@ -41,6 +41,7 @@ def build():
 def build_icons():
     """Build icons"""
     local('inkscape -z -e /tmp/favicon.png -w 64 -h 64 logo.svg')
+    local('cp logo.svg {}'.format(icons_root))
     local('convert /tmp/favicon.png {}/favicon.ico'.format(icons_root))
     local('inkscape -z -e {}/icon.png -w 192 -h 192 logo.svg'.format(icons_root))
     local('inkscape -z -e {}/tile.png -w 558 -h 558 logo.svg'.format(icons_root))
