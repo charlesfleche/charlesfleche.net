@@ -87,7 +87,7 @@ PAGE_LANG_SAVE_AS = ARTICLE_LANG_SAVE_AS
 
 FORMATTED_FIELDS = ['summary', 'headerimage']
 
-TYPOGRIFY = True
+TYPOGRIFY = False
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
