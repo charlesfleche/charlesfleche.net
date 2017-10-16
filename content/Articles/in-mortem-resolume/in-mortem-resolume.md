@@ -13,7 +13,7 @@ Status: draft
 Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/) *In Mortem* aborde le thème du transhumanisme sous la forme d'une conférence futuriste entre un immortel et une intelligence artificielle. Lors du spectacle, plusieurs scènes requièrent la diffusion de contenus de différentes natures:
 
 - **Cyclo** les propos du conférencier sont illustrés par des projections de vidéos sur un cyclo en fond de scène. Sur cet écran sont également projetés des logos avant et après le spectacle.
-- **Captation** un flux vidéo provenant d'une petite caméra type GoPro sur scène est parfois mélangé avec les médias d'illustration de conférence et projeté sur le cyclo
+- **Feed** un flux vidéo provenant d'une petite caméra type GoPro sur scène est parfois mélangé avec les médias d'illustration de conférence et projeté sur le cyclo
 - **Scanner** un média simulant le passage du conférencier dans un scanner médical est parfois projeté sur le comédien depuis un second projecteur en bord de scène
 - **Sons** les comédiens doivent synchroniser leur jeu sur des sons de durées différentes (effets sonores type coup de feu court, interventions pré-enregistrées de l'IA de quelques secondes, orchestrations de plusieurs minutes sur lesquelles les comédiens chantent)
 
