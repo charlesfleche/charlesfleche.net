@@ -85,6 +85,18 @@ header, footer {
 body {
     >header {
         @include band();
+
+        h1 {
+            a {
+                display: flex;
+
+                p {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    margin-left: .1rem;
+                }
+            }
+        }
     }
     >footer {
         @include band();
