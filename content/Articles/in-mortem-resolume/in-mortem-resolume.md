@@ -4,7 +4,7 @@ Date: 2017-10-08 09:00
 Tags: live show, mapping, resolume, osc, control, audio, video
 Lang: fr
 Abstract: Resolume, multi-projection, vidéo live et contrôle sur scène pour In Mortem
-HeaderImage: ![]({attach}in-mortem-live.jpg)
+HeaderImage: ![]({attach}banner.jpg)
 Tweet: #Resolume, multi-projection, vidéo #live et interfaces #OSC pour @4rd3stop
 Status: draft
 
@@ -17,7 +17,7 @@ Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/) *In Mortem
 - **Scanner** un média simulant le passage du conférencier dans un scanner médical est parfois projeté sur le comédien depuis un second projecteur en bord de scène
 - **Sons** les comédiens doivent synchroniser leur jeu sur des sons de durées différentes (effets sonores type coup de feu court, interventions pré-enregistrées de l'IA de quelques secondes, orchestrations de plusieurs minutes sur lesquelles les comédiens chantent)
 
-![alt text]({attach}in-mortem-stage.jpg "Schéma de la scène")
+![alt text]({attach}stage.jpg "Schéma de la scène")
 
 Si le déclenchement des médias se fait en majorité depuis la régie, deux contraintes sont néanmoins à satisfaire:
 
@@ -39,11 +39,11 @@ La composition est organisée de la sorte:
     - *Play Once* pour ne les jouer qu'une fois à chaque déclenchement
     - *Restart* pour jouer chaque son depuis le début à chaque déclenchement
 
-![alt text]({attach}in-mortem-resolume.png "Composition Resolume")
+![alt text]({attach}resolume.jpg "Composition Resolume")
 
 Le routage des médias vers l'un des projecteurs se fait en assignant deux écrans dont le paramètre *Device* est assigné à un projecteur, chacun contenant une unique slice dont l'entrée est assignée à un layer (layer *Cyclo* ou layer *Scanner*).
 
-![alt text]({attach}in-mortem-outputs.png "Sorties Resolume")
+![alt text]({attach}outputs.jpg "Sorties Resolume")
 
 
 # Contrôles depuis la régie
@@ -52,19 +52,19 @@ Contrôler directement Resolume Avenue lors des représentations peut engendrer 
 
 L'interface est une grille de boutons. Chaque pression sur un des boutons envoie un message OSC à une instance de Resolume Avenue.
 
-![alt text]({attach}in-mortem-osc-foh.png "Interface de contrôle régie")
+![alt text]({attach}osc-foh.jpg "Interface de contrôle régie")
 
 - les assemblages pour le cyclo et les logos (les colonnes de la composition Resolume Avenue) sont lancés en connectant des `tracks`, par exemple `/track4/connect 1`
 - les sons sont lancés en connectant des clips du layer *SFX*, par exemple `/layer6/clip1/connect 1`
 - les sources indépendantes *Scanner* et *Feed* ont deux boutons: l'un pour afficher la source, l'autre pour l'éteindre. Dans le premier cas (affichage), le clip est connecté (`/layer6/clip1/connect 1` pour lancer le scanner par exemple). Dans le second cas (extinction), le layer est réinitialisé (`/layer5/clear 1`).
 
-![alt text]({attach}in-mortem-resolume-osc.png "Mapping OSC de la composition Resolume")
+![alt text]({attach}resolume-osc.jpg "Mapping OSC de la composition Resolume")
 
 Pendant les répétitions ou pour s'adapter au jeu des comédiens sur scène, deux boutons permettent de fondre au noir toutes les sources vidéos et de couper les sons.
 - `/composition/disconnectall 1` permet de couper toutes les sources audio et vidéo
 - `/layer6/clear 1`, en réinitialisant le layer *SFX*, coupe les sons
 
-![alt text]({attach}in-mortem-oscwidgets.png "Configuration d'OSCWidgets")
+![alt text]({attach}oscwidgets.jpg "Configuration d'OSCWidgets")
 
 # Contrôles depuis la scène
 
@@ -75,6 +75,6 @@ Pour permettre une meilleure interaction, les comédiens sur scène peuvent pilo
 - Feed ON
 - Feed OFF
 
-![alt text]({attach}in-mortem-osc-stage.jpg "Interface de contrôle depuis la scène")
+![alt text]({attach}osc-stage.jpg "Interface de contrôle depuis la scène")
 
 L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en [téléchargeant](https://github.com/charlesfleche/AndrOSC/releases/tag/v0.9.2-inmortem) un .apk externe.
