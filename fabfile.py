@@ -16,6 +16,7 @@ production = 'pi@charlesfleche.net:22'
 dest_path = '/srv/www/blog'
 nginx_site_path = '/etc/nginx/sites-available/blog'
 icons_root = 'themes/charlesfleche/static'
+css_root = 'themes/charlesfleche/static/css'
 
 # Rackspace Cloud Files configuration settings
 env.cloudfiles_username = 'my_rackspace_username'
@@ -46,6 +47,11 @@ def build_icons():
     local('inkscape -z -e {}/icon.png -w 192 -h 192 logo.svg'.format(icons_root))
     local('inkscape -z -e {}/tile.png -w 558 -h 558 logo.svg'.format(icons_root))
     local('inkscape -z -e {}/tile-wide.png -w 558 -h 270 --export-area=-5:0:15:10 logo.svg'.format(icons_root))
+
+def copy_fonts():
+    '''Copy icomoon fonts to theme folder'''
+    local('cp icomoon/style.css {}/fonts.css'.format(css_root))
+    local('cp -r icomoon/fonts {}'.format(css_root))
 
 def rebuild():
     """`build` with the delete switch"""
