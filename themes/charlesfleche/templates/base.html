@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="{{ SITEURL }}/css/normalize.css">
         <link rel="stylesheet" href="{{ SITEURL }}/css/main.css">
 
-        <link rel="stylesheet" href="https://use.fontawesome.com/62133c7add.css">
+        <link rel="stylesheet" href="{{ SITEURL }}/css/fonts.css">
 
         {% assets filters="scss", output="css/site.css", "css/site.scss" %}
         <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
@@ -69,18 +69,18 @@
                         {% endfor %}
                         {% endif %}
 
-                        {% for name, link in SOCIAL %}
+                        {% for name, link, icon in SOCIAL %}
                         <li>
                             <a href="{{ link }}" rel="external">
-                                <i class="fa fa-{{ name | lower }}"></i>
+                                <i class="{{ icon }}"></i>
                             </a>
                         </li>
                         {% endfor %}
 
-                        {% for name, link, fa in LINKS %}
+                        {% for name, link, icon in LINKS %}
                         <li>
                             <a href="{{ link }}" rel="external">
-                                <i class="fa fa-{{ fa }}"></i>
+                                <i class="{{ icon }}"></i>
                             </a>
                         </li>
                         {% endfor %}
@@ -89,7 +89,7 @@
                             <a href="{% if FEED_ALL_ATOM %}{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}{% else %}#{% endif %}"
                                type="application/atom+xml"
                                rel="alternate">
-                                <i class="fa fa-rss"></i>
+                                <i class="icon-rss"></i>
                             </a>
                         </li>
                     </ul>

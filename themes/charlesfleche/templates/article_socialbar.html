@@ -1,32 +1,32 @@
 <ul>
     <li>
         <a href="https://www.facebook.com/dialog/share?app_id={{ FACEBOOK_APPID }}&display=popup&href={{ SITEURL }}/{{ article.url | urlencode }}">
-            <i class="fa fa-facebook"></i>
+            <i class="icon-facebook"></i>
         </a>
     </li>
     <li>
         <a href="https://twitter.com/intent/tweet/?{% if article.tweet %}text={{ article.tweet | urlencode }}&{% endif %}url={{ SITEURL }}/{{ article.url | urlencode }}&via={{ TWITTER_USERNAME }}">
-            <i class="fa fa-twitter"></i>
+            <i class="icon-twitter"></i>
         </a>
     </li>
     <li>
         <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ SITEURL }}/{{ article.url | urlencode }}&title={{ article.title | urlencode }}&summary={{ article.abstract | urlencode }}&source={{ LINKEDIN_USERNAME }}">
-            <i class="fa fa-linkedin"></i>
+            <i class="icon-linkedin"></i>
         </a>
     </li>
     <li>
         <a href="http://www.reddit.com/submit?url={{ SITEURL }}/{{ article.url | urlencode }}&title={{ article.abstract | urlencode }}">
-            <i class="fa fa-reddit"></i>
+            <i class="icon-reddit-alien"></i>
         </a>
     </li>
     <li>
         <a href="http://news.ycombinator.com/submitlink?u={{ SITEURL }}/{{ article.url | urlencode }}&t={{ article.abstract | urlencode }}">
-            <i class="fa fa-hacker-news"></i>
+            <i class="icon-hacker-news"></i>
         </a>
     </li>
     <li>
         <a href="mailto:?subject={{ article.title }}&body={{ article.abstract }}: {{ SITEURL }}/{{ article.url }}">
-            <i class="fa fa-envelope-o"></i>
+            <i class="icon-envelope-o"></i>
         </a>
     </li>
 </ul>

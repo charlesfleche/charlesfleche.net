@@ -60,14 +60,14 @@ TAG_SAVE_AS = ''
 # Blogroll
 # HACK Add extra FontAwesome
 LINKS = (
-    ('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net', 'bicycle'),
+    ('From Cambrai, France to Cambrai, Australia. On bicycles.', 'http://cambrai-cambrai.net', 'icon-bicycle'),
 )
 
 # Social widget
 SOCIAL = (
-    ('Twitter', 'https://twitter.com/charlesfleche'),
-    ('GitHub', 'https://github.com/charlesfleche'),
-    ('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/'),
+    ('Twitter', 'https://twitter.com/charlesfleche', 'icon-twitter'),
+    ('GitHub', 'https://github.com/charlesfleche', 'icon-github'),
+    ('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/', 'icon-linkedin'),
 )
 
 DEFAULT_PAGINATION = False
