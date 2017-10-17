@@ -27,6 +27,9 @@ server {
     ssl_certificate /etc/letsencrypt/live/charlesfleche.net/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/charlesfleche.net/privkey.pem;
 
+    access_log /var/log/nginx/blog.access.log;
+    error_log /var/log/nginx/blog.error.log warn;
+
 	#
 	# Note: You should disable gzip for SSL traffic.
 	# See: https://bugs.debian.org/773332

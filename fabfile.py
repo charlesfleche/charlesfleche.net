@@ -29,6 +29,10 @@ env.github_pages_branch = "gh-pages"
 # Port for `serve`
 PORT = 8000
 
+def goaccess():
+    """Create goaccess realtime web report"""
+    local('''ssh pi@charlesfleche.net 'tail -n +1 -f /var/log/nginx/blog.access.log' | goaccess -o /tmp/report.html --log-format=COMBINED --real-time-html --geoip-database GeoLite2-Country.mmdb -a -'''.format(production))
+
 def clean():
     """Remove generated files"""
     if os.path.isdir(DEPLOY_PATH):
