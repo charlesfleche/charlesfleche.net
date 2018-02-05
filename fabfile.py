@@ -12,7 +12,7 @@ env.deploy_path = 'output'
 DEPLOY_PATH = env.deploy_path
 
 # Remote server configuration
-production = 'pi@charlesfleche.net:22'
+production = 'root@charlesfleche.net:22'
 dest_path = '/srv/www/blog'
 nginx_site_path = '/etc/nginx/sites-available/blog'
 icons_root = 'themes/charlesfleche/static'
