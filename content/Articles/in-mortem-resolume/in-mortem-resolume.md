@@ -6,7 +6,6 @@ Lang: fr
 Abstract: Resolume, multi-projection, vidéo live et contrôle sur scène pour In Mortem
 HeaderImage: ![]({attach}banner.jpg)
 Tweet: #Resolume, multi-projection, vidéo #live et interfaces #OSC pour @4rd3stop
-Status: draft
 
 # In Mortem
 
@@ -75,6 +74,6 @@ Pour permettre une meilleure interaction, les comédiens sur scène peuvent pilo
 - Feed ON
 - Feed OFF
 
-![alt text]({attach}osc-stage.jpg "Interface de contrôle depuis la scène")
+<!-- ![alt text]({attach}osc-stage.jpg "Interface de contrôle depuis la scène") -->
 
 L'application utilisée est une version modifiée d'[AndrOSC](https://github.com/charlesfleche/AndrOSC), la version officielle disponible sur le store Google étant déficiente et non-maintenue. L'installation se fait donc manuellement en [téléchargeant](https://github.com/charlesfleche/AndrOSC/releases/tag/v0.9.2-inmortem) un .apk externe.
