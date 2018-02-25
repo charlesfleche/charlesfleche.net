@@ -3,7 +3,7 @@ Status: hidden
 Save_as: index.html
 Template: custom_index
 
-Hey, I'm Charles, a [freelance software developer](https://linkedin.com/in/charlesfleche) from France. I'm making tools for Visual Effects artists, heading the tech side of NGO initiatives and coding for Live Entertainment and Projection Mapping. My current main project for [dandelion+burdock](https://dandelion-burdock.com) is [Previz](https://previz.co), a real-time 3D content planning and previsualization environment for live entertainment, installations and architectural projects.
+Hey, I'm Charles, a [freelance software developer](https://linkedin.com/in/charlesfleche) from France. I'm making tools for Visual Effects artists, building custom rechnologies to NGO and coding for Live Entertainment and Projection Mapping. My current main project for [dandelion+burdock](https://dandelion-burdock.com) is [Previz](https://previz.co), a real-time 3D content planning and previsualization environment for live entertainment, installations and architectural projects.
 
 Please be in touch on [Twitter](https://twitter.com/charlesfleche), [Facebook](https://www.facebook.com/charlesfleche), [Mastodon](https://mamot.fr/@charlesfleche) or [LinkedIn](https://linkedin.com/in/charlesfleche).
 
