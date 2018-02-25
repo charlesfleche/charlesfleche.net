@@ -87,6 +87,10 @@ header, footer {
     }
 }
 
+footer > div {
+  margin: auto;
+}
+
 body {
     >header {
         @include band();

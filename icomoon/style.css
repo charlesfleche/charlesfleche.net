@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?a7tfxn');
-  src:  url('fonts/icomoon.eot?a7tfxn#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?a7tfxn') format('truetype'),
-    url('fonts/icomoon.woff?a7tfxn') format('woff'),
-    url('fonts/icomoon.svg?a7tfxn#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ghx4qp');
+  src:  url('fonts/icomoon.eot?ghx4qp#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ghx4qp') format('truetype'),
+    url('fonts/icomoon.woff?ghx4qp') format('woff'),
+    url('fonts/icomoon.svg?ghx4qp#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-instagram:before {
+  content: "\e900";
+}
 .icon-envelope-o:before {
   content: "\f003";
 }

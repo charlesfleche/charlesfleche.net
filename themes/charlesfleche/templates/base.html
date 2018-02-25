@@ -86,11 +86,6 @@
                         {% endfor %}
 
                         <li>
-                            <a href="{% if FEED_ALL_ATOM %}{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}{% else %}#{% endif %}"
-                               type="application/atom+xml"
-                               rel="alternate">
-                                <i class="icon-rss"></i>
-                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -99,10 +94,17 @@
         {% block content %}{% endblock %}
 
         <footer>
-                <a rel="license"
-                   href="http://creativecommons.org/licenses/by/4.0/">
-                    CC-BY 4.0
-                </a>
+          <div>
+            <a rel="license"
+               href="http://creativecommons.org/licenses/by/4.0/">
+                CC-BY 4.0
+            </a>
+            <a href="{% if FEED_ALL_ATOM %}{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}{% else %}#{% endif %}"
+               type="application/atom+xml"
+               rel="alternate">
+                <i class="icon-rss"></i>
+            </a>
+          </div>
         </footer>
 
 {% include 'analytics.html' %}
