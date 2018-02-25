@@ -29,18 +29,19 @@
 
         {% if articles %}
         <section>
+            <h1>Articles</h1>
             <ol>
                 {% for article in articles %}
                 <li>
                     <article>
                         <header>
-                            <h1>
+                            <h2>
                                 <a href="{{ SITEURL }}/{{ article.url }}"
                                    rel="bookmark"
                                    title="Permalink to {{ article.title|striptags }}">
                                    {{ article.title }}
                                 </a>
-                            </h1>
+                            </h2>
                             {% include 'article_infos.html' %}
                         </header>
 
