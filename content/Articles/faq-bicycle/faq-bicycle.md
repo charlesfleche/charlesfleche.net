@@ -10,7 +10,7 @@ In early 2010's [Siugi](http://www.siugi.com) and me cycled from [Cambrai, Franc
 
 > Was your trip route planned in details from the very beginning ?
 
-We new the countries we would go through, but not the exact routes. That was done on a day to day basis, to give us some flexibility. But roughly we knew when we would enter a country and when we would leave it.
+We knew the countries we would go through, but not the exact routes. That was done on a day to day basis, to give us some flexibility. But roughly we knew when we would enter a country and when we would leave it.
 
 > Did you have knee trouble when cycling?
 
