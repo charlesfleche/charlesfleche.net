@@ -6,3 +6,4 @@ output
 *~
 *.blend?
 /*.mmdb
+*.pyc
