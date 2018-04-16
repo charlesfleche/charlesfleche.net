@@ -46,7 +46,7 @@ server {
 	# Add index.php to the list if you are using PHP
 	index index.html;
 
-	server_name charlesfleche.net;
+	server_name charlesfleche.net blog.charlesfleche.net www.charlesfleche.net;
 
 	location / {
         # auth_basic "Restricted Content";
@@ -79,12 +79,14 @@ server {
 	#location ~ /\.ht {
 	#	deny all;
 	#}
+    ssl_certificate /etc/letsencrypt/live/charlesfleche.net-0004/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/charlesfleche.net-0004/privkey.pem; # managed by Certbot
 
 
 
 
-ssl_certificate /etc/letsencrypt/live/charlesfleche.net-0004/fullchain.pem; # managed by Certbot
-ssl_certificate_key /etc/letsencrypt/live/charlesfleche.net-0004/privkey.pem; # managed by Certbot
+
+
 }
 
 
