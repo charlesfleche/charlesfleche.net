@@ -20,6 +20,9 @@
 #
 server {
 
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
     access_log /var/log/nginx/blog.access.log;
     error_log /var/log/nginx/blog.error.log warn;
 
