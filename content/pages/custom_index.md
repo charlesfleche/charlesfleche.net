@@ -3,7 +3,7 @@ Status: hidden
 Save_as: index.html
 Template: custom_index
 
-# Hey, I'm Charles
+# Hey, I'm Charles,
 
 a [freelance software developer](https://linkedin.com/in/charlesfleche) from France. I'm making tools for Visual Effects artists, building custom technologies for NGO and coding for Live Entertainment and Projection Mapping.
 
