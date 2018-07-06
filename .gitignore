@@ -7,3 +7,5 @@ output
 *.blend?
 /*.mmdb
 *.pyc
+.vagrant
+.pytest_cache
