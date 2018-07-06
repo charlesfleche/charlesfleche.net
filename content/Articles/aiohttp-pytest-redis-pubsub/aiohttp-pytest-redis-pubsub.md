@@ -5,7 +5,6 @@ Tags: python, redis, aiohttp, pytest
 Lang: en
 Abstract: Send a callback as a fixture and be done with it
 Tweet: Testing #Redis PUB/SUB in #Python / #aiohttp with #pytest
-Status: draft
 
 Recently I had to write [Python](https://python.org) unit tests for the [Redis PUB/SUB mechanism](https://redis.io/topics/pubsub). Backend code is written around the [async](https://docs.python.org/3/library/asyncio.html) web framework [aiohttp](https://aiohttp.readthedocs.io/en/stable/index.html) and tests are ran with [pytest](https://docs.pytest.org/en/latest/). I was looking for a way to keep test code as compact as possible to make it easy to read while hiding the piping (database connection, async loop manipulation, etc). I also wanted to be able to send a command to Redis and read a resulting message from a PUB topic.
 
