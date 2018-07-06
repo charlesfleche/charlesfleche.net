@@ -1,4 +1,5 @@
 @import 'palette';
+@import 'pygments';
 
 $font-stack: sans-serif;
 $nav-icon-size: 1.5rem;
@@ -152,7 +153,6 @@ body {
 
                     margin-top: 0;
                     margin-bottom: 1rem;
-                    font-size: 3rem;
                     color: $primary-color-text;
                 }
 
@@ -185,8 +185,6 @@ body {
                 >h1, >h2, >h3, >h4, >h5, >h6 {
                   color: $secondary-text-color;
                 }
-
-                line-height: 1.5rem;
 
                 ol, ul {
                     padding-left: 2rem;
