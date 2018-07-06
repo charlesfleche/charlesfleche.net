@@ -34,6 +34,7 @@ FACEBOOK_PROFILEID = '502532492'
 FACEBOOK_APPID = '1856160524412833'
 
 PATH = 'content'
+IGNORE_FILES = ['*.scss', 'code']
 
 TIMEZONE = 'Europe/Paris'
 
