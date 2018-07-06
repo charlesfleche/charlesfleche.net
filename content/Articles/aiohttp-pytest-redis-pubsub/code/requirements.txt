@@ -1,0 +1,4 @@
+aiohttp
+aioredis
+pytest-aiohttp
+pytest
