@@ -11,7 +11,7 @@ OrigUrl: https://linuxfr.org/users/rewind/journaux/le-libre-interesse-un-studio-
 
 Pour un studio d'animation ou d'effets spéciaux le coût des licences est un véritable problème qui amène à choisir du libre, mais il y a d'excellentes raisons pour choisir du propriétaire acheté ou développé en interne.
 
-Tous les gros studios ([ILM](https://www.ilm.com/)], [MPC](https://moving-picture.com/), [Mikros](http://www.mikrosimage.com/) je crois, [The Mill](http://www.themill.com/) où j'ai bossé, [BUF](https://buf.com/)) tournent sous Linux, stations de travail et fermes de rendu, pour au moins trois raisons:
+Tous les gros studios ([ILM](https://www.ilm.com/), [MPC](https://moving-picture.com/), [Mikros](http://www.mikrosimage.com/) je crois, [The Mill](http://www.themill.com/) où j'ai bossé, [BUF](https://buf.com/)) tournent sous Linux, stations de travail et fermes de rendu, pour au moins trois raisons:
 - pas de licence à payer pour les OS (et il y a facilement des centaines de racks sur les renderfarms)
 - la pile réseau a toujours bien marché pour cet usage, pourquoi changer ?
 - l'héritage et les habitudes des stations Unix / Irix des pionniers des années 90
