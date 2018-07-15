@@ -66,7 +66,6 @@ LINKS = (
 
 # Social widget
 SOCIAL = (
-    ('Instagram', 'https://www.instagram.com/charlesfleche', 'icon-instagram'),
     ('Twitter', 'https://twitter.com/charlesfleche', 'icon-twitter'),
     ('GitHub', 'https://github.com/charlesfleche', 'icon-github'),
     ('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/', 'icon-linkedin'),
