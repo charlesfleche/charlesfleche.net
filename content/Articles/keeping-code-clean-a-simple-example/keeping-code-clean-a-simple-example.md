@@ -5,6 +5,7 @@ Tags: refactoring, js, vue
 Lang: en
 Abstract: A baby-step by baby-step example on how to keep code clean
 Tweet: Keeping #code clean: a simple example
+Status: draft
 
 # Readable code…
 
