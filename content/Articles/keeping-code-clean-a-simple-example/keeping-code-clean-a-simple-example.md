@@ -8,7 +8,7 @@ Tweet: Keeping #code clean: a simple example
 
 # Readable code…
 
-During a code review a member of team presented a piece of code that presented a good opportunity to showcase how simple code cleaning technique would improve the code quality from *working* to *maintainable*. First, here is the code **after** cleaning:
+During a code review a member of team presented a piece of code that presented a good opportunity to showcase how simple code cleaning techniques would improve the code quality from **working** to **maintainable**. First, here is the code **after** cleaning:
 
 ``` js
 export default {
@@ -79,10 +79,10 @@ export default {
 It starts the same way, but quickly the code raises a few questions:
 
 1. `emitChange` receives an event. By its name `emit*`, it is supposed that it eventually emits a message
-2. `this.isHoliday` is called. By its name `is*`, it is supposed to be a predicate (in a few words, a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) is function that takes one and several values and returns a boolean). But `emitChange` does not return anything and more importantly does not call `this.$emit` at all. Something is weird here: we have to dig into the called functions code to understand what it going on here.
+2. `this.isHoliday` is called. By its name `is*`, it is supposed to be a predicate (in a few words, a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) is a function that takes one and several values and returns a boolean). But `emitChange` does not return anything and more importantly does not call `this.$emit` at all. Something is weird here: we have to dig into the called functions code to understand what it going on here.
 3. looking at `isHoliday`, we see that the action (`alert` or `$emit`) are actually called here within switch cases: `isHoliday` was not a predicate after all.
-4. `preventHolidaySelect` looks like an action: the verb `prevent` let the reader thinks that this function may have a side effect. However, why would an action be used as a switch condition in this context ? Again, something is off weird, and we need to read `preventHolidaySelect` to understand what it does.
-5. Turns out `preventHolidaySelect` is query function that returns the day of the week index (1 is Monday, 2 is Tuesday, etc) from a timestamp. It it not an action and has no side effects.
+4. `preventHolidaySelect` looks like an action: the verb `prevent` let the reader thinks that this function may have a side effect. However, why would an action be used as a switch condition in this context ? Again, something is weird and we need to read `preventHolidaySelect` to understand what it does.
+5. Turns out `preventHolidaySelect` is a query function that returns the day of the week index (1 is Monday, 2 is Tuesday, etc) from a timestamp. It it not an action and has no side effects.
 
 This code suffers from several defects, but the most important is that function names are confusing: a predicate is not predicate, an action is actually a query, an `emit*` does not emit anything.
 
@@ -117,7 +117,7 @@ This conveys the real purpose of the function: converting a `timestamp` `To` a `
 
 ## Extract `timestampToDayOfWeek` to its own function
 
-The method `timestampToDayOfWeek` is a member of an object: it is called from `this`, and inside the function body `this` points to the object owning the function. However it not necessary as `timestampToDayOfWeek` only operates on its argument. As such it should not belong to the object and needs to be extracted to its own function. This will make it reusable in other parts of the code and more easily testable.
+The method `timestampToDayOfWeek` is a member of an object: it is called from `this`, and inside the function body `this` points to the object owning the function. However it is not necessary as `timestampToDayOfWeek` only operates on its argument. As such it should not belong to the object and needs to be extracted to its own function. This will make it reusable in other parts of the code and more easily testable.
 
 ``` diff
 @@ -38,16 +38,12 @@ export default {
@@ -154,7 +154,7 @@ The function `isHoliday` has two intents:
 1. it implements the predicate logic that checks if a day is an holiday
 2. it acts upon the result of the predicate by calling either `$emit` or `alert`
 
-Two intents in a function makes it harder to test. It is also confusing to the reader: by its name starting with `is*`, `isHoliday` is supposed to be a predicate that just returns a boolean. However it has side-effect: `$emit` or `alert` can change the state of the system.
+Two intents in a function makes it harder to test. It is also confusing to the reader: by its name starting with `is*`, `isHoliday` is supposed to be a predicate that just returns a boolean. However it has side-effects: `$emit` or `alert` can change the state of the system.
 
 The next change actually makes `isHoliday` a predicate and move the resulting actions `$emit` or `alert` in the calling code `emitChange`.
 
@@ -277,6 +277,6 @@ return date.getDay()
 
 # Conclusion
 
-Let's take another look at the code before and after refactoring. In term logic, both versions are absolutely equivalent. But cleaning up brought up **explicit code** that **does not hide its intent** and is **easily testable**. All those changes may seem pedantic, but at the scale of a large application they really make a difference in maintainability.
+Let's take another look at the code before and after refactoring. In terms of logic, both versions are absolutely equivalent. But cleaning up brought up **explicit code** that **does not hide its intent** and is **easily testable**. All those changes may seem pedantic, but at the scale of a large application they really make a difference in maintainability.
 
-Those examples have been extracted from a project where automated testing could be improved by an order of magnitude. But the first step to **testing** is to **write testable code**: that starts with clean code.
+Those examples have been extracted from a project where automated testing could be improved by an order of magnitude. But the first step to **testing** is to **write testable code**: that starts with **clean code**.
