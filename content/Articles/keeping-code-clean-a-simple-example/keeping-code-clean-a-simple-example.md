@@ -5,11 +5,12 @@ Tags: refactoring, js, vue
 Lang: en
 Abstract: A baby-step by baby-step example on how to keep code clean
 Tweet: Keeping #code clean: a simple example
-Status: draft
 
 # Readable code…
 
-During a code review a member of team presented a piece of code that presented a good opportunity to showcase how simple code cleaning techniques would improve the code quality from **working** to **maintainable**. First, here is the code **after** cleaning:
+As software developers we spend most of our day reading code. Ours, others, it doesn't matter: we read much more than we write. This code conveys intents, expressing abstractions. Any non-trivial software is composed of many abstractions at widly different levels, from overall system architecture to bit manipulation. It becomes impossible for the human brain to handle all details at once. Care must be taken to write code in a way that makes it easy for developers to understand it, by clearly expressing its intents and minimize surprises (also known as *unexpected side effets*).
+
+ During a code review a member of the team presented a piece of code that presented a good opportunity to showcase how simple code cleaning techniques would improve the code quality from **working** to **maintainable**. First, here is the code **after** cleaning:
 
 ``` js
 export default {
@@ -278,6 +279,6 @@ return date.getDay()
 
 # Conclusion
 
-Let's take another look at the code before and after refactoring. In terms of logic, both versions are absolutely equivalent. But cleaning up brought up **explicit code** that **does not hide its intent** and is **easily testable**. All those changes may seem pedantic, but at the scale of a large application they really make a difference in maintainability.
+Let's take another look at the code before and after refactoring. In terms of logic, both versions are absolutely equivalent. But cleaning up brought up **explicit code** that **does not hide its intents** and is **easily testable**. All those changes may seem pedantic, but at the scale of a large application they really make a difference in maintainability.
 
 Those examples have been extracted from a project where automated testing could be improved by an order of magnitude. But the first step to **testing** is to **write testable code**: that starts with **clean code**.
