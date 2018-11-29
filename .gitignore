@@ -9,3 +9,5 @@ output
 *.pyc
 .vagrant
 .pytest_cache
+srv.pid
+pelican.pid
