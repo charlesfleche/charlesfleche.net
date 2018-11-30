@@ -13,4 +13,4 @@ A few years ago I cycled from [France to Australia](http://cambrai-cambrai.net) 
 
 I'm currently back to Cambrai in the North of France where I'm spending the end of the year with my family and work on a web doc with my good artist friends [Ardestop](https://www.facebook.com/ardestop/) and [Damien Nagy](https://www.damiennagy.com/).
 
-Let's be in touch on [Twitter](https://twitter.com/charlesfleche), [Mastodon](https://mamot.fr/@charlesfleche) or [LinkedIn](https://linkedin.com/in/charlesfleche).
+Let's be in touch by [Email](mailto:charles.fleche@free.fr), [Mastodon](https://mamot.fr/@charlesfleche), [Twitter](https://twitter.com/charlesfleche), [Facebook](https://www.facebook.com/charlesfleche) or [LinkedIn](https://linkedin.com/in/charlesfleche).

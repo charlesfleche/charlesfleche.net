@@ -66,9 +66,11 @@ LINKS = (
 
 # Social widget
 SOCIAL = (
-    ('Twitter', 'https://twitter.com/charlesfleche', 'icon-twitter'),
-    ('GitHub', 'https://github.com/charlesfleche', 'icon-github'),
+    ('Email', 'mailto:charles.fleche@free.fr', 'icon-envelope-o'),
     ('LinkedIn', 'https://www.linkedin.com/in/charlesfleche/', 'icon-linkedin'),
+    ('GitHub', 'https://github.com/charlesfleche', 'icon-github'),
+    ('Twitter', 'https://twitter.com/charlesfleche', 'icon-twitter'),
+    ('Facebook', 'https://www.facebook.com/charlesfleche', 'icon-facebook')
 )
 
 DEFAULT_PAGINATION = False
