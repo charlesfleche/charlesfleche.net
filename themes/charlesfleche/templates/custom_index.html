@@ -15,7 +15,26 @@
 
 {% block content %}
 <main>
-    <section>
+        <div class="icon-links">
+          {% for title, link in MENUITEMS %}
+          <a href="{{ link }}">{{ title }}</a>
+          {% endfor %}
+
+          {% if DISPLAY_PAGES_ON_MENU -%}
+          {% for pg in pages %}
+          <a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a>
+          {% endfor %}
+          {% endif %}
+
+          {% for name, link, icon in SOCIAL %}
+          <a href="{{ link }}" rel="external"><i class="{{ icon }}"></i></a>
+          {% endfor %}
+
+          {% for name, link, icon in LINKS %}
+          <a href="{{ link }}" rel="external"><i class="{{ icon }}"></i></a>
+          {% endfor %}
+        </div>
+
         <header>
             {% if page.headerimage %}
             {# Markdown surround the img with p markups #}
@@ -23,46 +42,27 @@
             {% endif %}
         </header>
 
-        <section>
-            {{ page.content }}
-        </section>
+        {{ page.content }}
 
         {% if articles %}
-        <section>
-            <h1>Articles</h1>
-            <ol>
                 {% for article in articles %}
-                <li>
                     <article>
-                        <header>
-                            <h2>
-                                {% if article.origurl %}
-                                <a href="{{ article.origurl }}"
-                                {% else %}
-                                <a href="{{ SITEURL }}/{{ article.url }}"
-                                {% endif %}
-                                   rel="bookmark"
-                                   title="Permalink to {{ article.title|striptags }}">
-                                   {{ article.title }}
-                                </a>
-                            </h2>
-                            {% include 'article_infos.html' %}
-                        </header>
+                        {% include 'article_date.html' %}
+                        <h2>
+                            <a href="{{ SITEURL }}/{{ article.url }}"
+                               rel="bookmark"
+                               title="Permalink to {{ article.title|striptags }}">
+                               {{ article.title }}
+                            </a>
+                        </h2>
 
-                        <section>
-                            <h1>Summary</h1>
-                            {% if article.abstract %}
-                            <p>{{ article.abstract }}</p>
-                            {% else %}
-                            {{ article.summary }}
-                            {% endif%}
-                        </section>
+                        {% if article.abstract %}
+                        <p>{{ article.abstract }}</p>
+                        {% else %}
+                        {{ article.summary }}
+                        {% endif %}
                     </article>
-                </li>
                 {% endfor %}
-            </ol>
-        </section>
         {% endif %}
-    </section>
 </main>
 {% endblock %}

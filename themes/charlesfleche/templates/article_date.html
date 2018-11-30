@@ -1,0 +1,5 @@
+{% if article.modified %}
+<date datetime="{{ article.modified.isoformat() }}">{{ article.locale_modified }}</date>
+{% else %}
+<date datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</date>
+{% endif %}

@@ -1,8 +1,2 @@
-<p>
-    <i class="icon-calendar-o" aria-hidden="true"></i>
-    {% if article.modified %}
-    <date datetime="{{ article.modified.isoformat() }}">{{ article.locale_modified }}</date>
-    {% else %}
-    <date datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</date>
-    {% endif %}
-</p>
+<a href="{{ SITEURL }}/" rel="author">{{ AUTHOR }}</a>,
+{% include 'article_date.html' %}

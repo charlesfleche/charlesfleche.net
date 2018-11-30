@@ -7,7 +7,7 @@ Abstract: Resolume, multi-projection, vidéo live et contrôle sur scène pour I
 HeaderImage: ![]({attach}banner.jpg)
 Tweet: #Resolume, multi-projection, vidéo #live et interfaces #OSC pour @4rd3stop
 
-# In Mortem
+## In Mortem
 
 Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/) *In Mortem* aborde le thème du transhumanisme sous la forme d'une conférence futuriste entre un immortel et une intelligence artificielle. Lors du spectacle, plusieurs scènes requièrent la diffusion de contenus de différentes natures:
 
@@ -25,7 +25,7 @@ Si le déclenchement des médias se fait en majorité depuis la régie, deux con
 
 La mise en œuvre technique du project est réalisée autour d'une composition [Resolume Avenue](Resolume Avenue) (serveur de média) pilotée *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control) par des inferfaces simplifiées sur smartphones et laptops.
 
-# La composition Resolume Avenue
+## La composition Resolume Avenue
 
 La composition est organisée de la sorte:
 
@@ -45,7 +45,7 @@ Le routage des médias vers l'un des projecteurs se fait en assignant deux écra
 ![alt text]({attach}outputs.jpg "Sorties Resolume")
 
 
-# Contrôles depuis la régie
+## Contrôles depuis la régie
 
 Contrôler directement Resolume Avenue lors des représentations peut engendrer des erreurs de manipulation de par la relative complexité de son interface d'une part, et par la possibilité de dérégler certains paramètres d'autre part. Pour faciliter la tâche des techniciens en régie, Resolume Avenue est piloté par une interface réalisé avec [OSCWidgets](https://github.com/ETCLabs/OSCWidgets) *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control).
 
@@ -65,7 +65,7 @@ Pendant les répétitions ou pour s'adapter au jeu des comédiens sur scène, de
 
 ![alt text]({attach}oscwidgets.jpg "Configuration d'OSCWidgets")
 
-# Contrôles depuis la scène
+## Contrôles depuis la scène
 
 Pour permettre une meilleure interaction, les comédiens sur scène peuvent piloter le scanner et le retour vidéo depuis leur smartphone Android. L'interface est plus simple que pour la régie et se concentre uniquement sur les fonctions nécessaires sur scène afin d'éviter toute confusion de la part des comédiens:
 

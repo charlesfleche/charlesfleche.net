@@ -1,89 +1,96 @@
 @import 'palette';
 @import 'pygments';
 
-$font-stack: sans-serif;
 $nav-icon-size: 1.5rem;
 $gutter-size: 2.5vw;
 
-@mixin maxwidth() {
-    max-width: 40rem;
+html {
+  background-color: $background-color;
+  font-family: serif;
+  color: $primary-color-text;
 }
 
-@mixin gutter() {
-    padding-left: $gutter-size;
-    padding-right: $gutter-size;
-}
-
-@mixin hgutter() {
-    padding-top: $gutter-size;
-    padding-bottom: $gutter-size;
-}
-
-@mixin band() {
-    @include gutter();
-
-    height: 2rem;
-    display: flex;
-    background-color: $secondary-text-color;
-
-    h1 {
-        flex: 1;
-        margin: auto;
-        overflow: hidden;
-        white-space: nowrap;
-        font-size: 1rem;
-    }
-
-    a {
-        color: $primary-color;
-        text-decoration: none;
-        margin: 0px;
-    }
-    a:visited {
-        color: $primary-color;
-    }
-
-    img {
-        height: $nav-icon-size;
-        width: auto;
-    }
+body {
+  padding-left: .5rem;
+  padding-right: .5rem;
+  max-width: 50rem;
+  margin: auto;
 }
 
 blockquote {
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  margin-left: 0;
+  margin-right: 0;
 
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   background: $primary-color-light;
-  color: $secondary-text-color;
+  color: $secondary-color-text;
 }
 
-html {
-    background-color: $background-color;
-    font-family: $font-stack;
-    color: $primary-color-text;
+header, h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 1.875rem;
+  letter-spacing: -1px;
+}
+
+header, footer {
+  font-size: 1.125rem;
+  text-align: center;
+  color: $secondary-color-text;
+
+  h1 {
+    color: initial;
+  }
+}
+
+article {
+  margin-top: 2rem;
+  padding-top: 2rem;
+
+  border-top-width: thin;
+  border-top-style: solid;
+  border-top-color: rgba($secondary-color-text, .5);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: .25rem;
+  }
+  date {
+    color: $secondary-color-text;
+  }
+}
+
+a[rel=license], article a {
+  text-decoration-line: none;
+}
+
+footer {
+  margin-bottom: 0.67em;
+  font-size: .8rem;
 }
 
 img {
     width: 100%;
 }
 
-i {
-    color: $primary-color;
-}
-
 a {
-    color: $primary-color-dark;
+  color: unset;
 }
 
 a:visited {
-    color: $primary-color;
+  color: unset;
+}
+
+pre {
+  overflow: auto;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -91,136 +98,12 @@ a:visited {
     text-decoration: none;
 }
 
-article {
-    h1, h2, h3, h4, h5, h6 {
-        color: $secondary-text-color;
-    }
+.icon-links {
+  font-size: 2rem;
 }
 
-header, footer {
-    li {
-        display: inline-block;
-    }
-}
-
-footer > div {
-  margin: auto;
-}
-
-body {
-    >header {
-        @include band();
-
-        h1 {
-            a {
-                display: flex;
-
-                p {
-                    margin-top: auto;
-                    margin-bottom: auto;
-                }
-            }
-        }
-    }
-    >footer {
-        @include band();
-        a {
-            margin: auto;
-        }
-    }
-    nav {
-        min-size: auto;
-        font-size: $nav-icon-size;
-        height: $nav-icon-size;
-
-        ul {
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            display: none;
-        }
-    }
-    main {
-        >article, >section {
-            >header {
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-
-                h1 {
-                    @include gutter();
-
-                    margin-top: 0;
-                    margin-bottom: 1rem;
-                    color: $primary-color-text;
-                }
-
-                p {
-                    display: inline-block;
-                    margin: 0;
-                    margin-bottom: 2rem;
-                }
-
-                ul {
-                    display: inline-block;
-                    padding: 0;
-                    margin: 0;
-                    margin-left: 1rem;
-                }
-
-                section {
-                    @include gutter();
-                }
-            }
-            >section {
-                @include gutter();
-                @include maxwidth();
-
-                >h1, >h2, >h3, >h4, >h5, >h6, >p, >ul {
-                    margin-top: 0;
-                    margin-bottom: 2rem;
-                }
-
-                >h1, >h2, >h3, >h4, >h5, >h6 {
-                  color: $secondary-text-color;
-                }
-
-                ol, ul {
-                    padding-left: 2rem;
-                }
-
-                li {
-                    margin-bottom: 1rem;
-                }
-            }
-            >footer {
-                @include gutter();
-                @include maxwidth();
-
-                ul {
-                    padding: 0;
-                    font-size: 3rem;
-                }
-                text-align: center;
-            }
-        }
-        section>section>ol {
-            list-style: none;
-            padding: 0;
-
-            li {
-                article {
-                    header > h2 > a {
-                      text-decoration: none
-                    }
-                    section {
-                        h1 {
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
-    }
+main > .icon-links {
+  display: block;
+  text-align: right;
+  margin-top: 0.67em;
 }

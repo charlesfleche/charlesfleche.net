@@ -8,7 +8,7 @@ Tweet: La place des #LogicielsLibres dans les studios d'effets spéciaux #LinuxF
 
 *Cet article a d'abord été publié sur LinuxFR.org en commentaire au journal [Le libre intéresse un studio d'animation français](https://linuxfr.org/users/rewind/journaux/le-libre-interesse-un-studio-d-animation-francais#comment-1744075).*
 
-# Du libre pour le système…
+## Du libre pour le système…
 
 Pour un studio d'animation ou d'effets spéciaux le coût des licences est un véritable problème qui amène à choisir du libre, mais il y a d'excellentes raisons pour choisir du propriétaire acheté ou développé en interne.
 
@@ -20,7 +20,7 @@ Tous les gros studios ([ILM](https://www.ilm.com/), [MPC](https://moving-picture
 
 Seule exception: les artistes pour les textures ont souvent un Mac avec Photoshop pas loin et les quelques monteurs aussi.
 
-# …et beaucoup d'applications propriétaires
+## …et beaucoup d'applications propriétaires
 
 En revanche les applications sont presque exclusivement propriétaires. Et d'ailleurs, ce n'est pas 3 ou 4 softs comme dit l'un des commentaires, mais une myriade d'outils qui sont utilisés pour des raisons différentes. Pour une production un peu complexe, il y aura facilement:
 
@@ -39,13 +39,13 @@ En revanche les applications sont presque exclusivement propriétaires. Et d'ail
 - des logiciels pour le Motion Capture
 - d'autres dont je n'ai même pas idée parce qu'ils internes à des studios
 
-# Pipeline et artistes
+## Pipeline et artistes
 
 La multitude de logiciels utilisés force les studios à avoir des équipes entières pour automatiser le flux de production au maximum: c'est le fameux "pipeline", aux contours aussi obscurs que le nom est générique. Ce pipeline est composé de plein de bouts de code plus ou moins liés aux logiciels: ça va du script pour forcer des conventions de nommage de fichiers (rigolez pas, quand il y a 1000 artistes dans des studios autour du monde, c'est un problème crucial) à des formats de données très spécifiques pour pouvoir réutiliser le résultat d'un logiciel dans un autre (et qui donc force à développer des plugins pour chaque hôte ciblée) à des logiciels entiers parce qu'on ne les trouve pas le commerce.
 
 Du coup quand on remplace un soft par un autre, ce n'est pas juste un exécutable différent à lancer en début de journée: il faut prendre en compte toute son intégration dans une chaine de production, avec tout ce que ça implique pour le pipeline d'une part, mais aussi pour trouver des artistes qui puissent l'utiliser d'autre part. Si c'est déjà compliqué de trouver de bons utilisateurs de Maya avec de l'expérience qui ne pensent plus à leur outil mais au boulot à faire, alors trouver un équivalent pour Blender c'est presque mission impossible. Et pourtant Blender a bien plus d'utilisateurs que Maya: Maya a cependant énormément plus d'utilisateurs professionnels que l'on peut embaucher sur portfolio et réputation. Je le regrette, mais c'est un fait qui compte beaucoup dans l'inertie à évoluer sur d'autres logiciels, sans même avoir commencé à parler de la qualité des alternatives.
 
-# Déléguer la maintenance des applications aux éditeurs
+## Déléguer la maintenance des applications aux éditeurs
 
 C'est d'ailleurs ces deux facteurs (pipelines et disponibilité des artistes) qui a poussé deux points importants de l'industrie: l'abandon et la revente progressifs des logiciels internes et l'ouverture des sources de plein de briques de base.
 
@@ -53,10 +53,10 @@ Des logiciels comme Nuke, Arnold ou Massive (ou… Blender, mais l'ouverture s'e
 
 En somme, un artiste formé à l'outil est un artiste plus facile à intégrer dans le "pipeline humain": c'est toujours plus marrant de discuter des effets à produire plutôt que des boutons à cliquer.
 
-# Passer ses technos en libre pour faciliter l'intégration
+## Passer ses technos en libre pour faciliter l'intégration
 
 Les départements R&D ouvrent de plus en plus des bibliothèques de code ou contribuent à des projets libres pour suivre la même logique d'intégration dans le pipeline. Par exemple le format d'image OpenEXR était utilisé en interne chez Industrial Light & Magic avant d'être libéré sous BSD-3. L'intérêt était moins de recevoir des patches que de laisser aux éditeurs la tâche d'intégrer EXR à leurs softs. Ça a été un succès, et c'est loin d'être le seul: les technos libérées par [Mikros](http://opensource.mikrosimage.eu/), [Disney](https://disney.github.io/), [ILM](https://www.ilm.com/hatsrabbits/materialx-released/) ou [Pixar](http://graphics.pixar.com/) valent le coup d'oeil. Il y a un blog qui parle de l'open source (c'est très clairement la philosophie Open Source plutôt que Free Software qui domine cette industrie), mais il ne semble plus très actif: [http://opensourcevfx.org/](http://opensourcevfx.org/).
 
-# Du libre partout ?
+## Du libre partout ?
 
 À titre personnel je rêve de voir les studios tourner le dos aux grands éditeurs de logiciels et de dépenser les montagnes de fric de leurs budgets licences pour mutualiser leurs efforts dans Blender, Gimp, Krita, Cycle, DjvView et les autres. Mais on y viendra. La gronde contre les éditeurs monopolistiques monte et les alternatives sont de plus en plus abouties: Eevee, le nouveau moteur temps réel de Blender commence à faire saliver pas mal de monde et ouvre de belles portes.

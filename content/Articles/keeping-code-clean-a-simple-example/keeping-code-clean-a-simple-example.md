@@ -6,7 +6,7 @@ Lang: en
 Abstract: A baby-step by baby-step example on how to keep code clean
 Tweet: Keeping #code clean: a simple example
 
-# Readable code…
+## Readable code…
 
 As software developers we spend most of our day reading code. Ours, others, it doesn't matter: we read much more than we write. This code conveys intents, expressing abstractions. Any non-trivial software is composed of many abstractions at widly different levels, from overall system architecture to bit manipulation. It becomes impossible for the human brain to handle all details at once. Care must be taken to write code in a way that makes it easy for developers to understand it, by clearly expressing its intents and minimize surprises (also known as *unexpected side effets*).
 
@@ -46,7 +46,7 @@ The intent here is pretty clear:
 
 All functions called by `emitChange` are all at the same level of abstraction: extract / query / action are directly called, but the implementation details lay in each function body, not in `emitChange` itself. A reader does not have to dig deeper into the called functions to understand what `emitChange` does.
 
-# …has to start somewhere
+## …has to start somewhere
 
 Now let's take a look at the original code **before** cleaning:
 
@@ -88,11 +88,11 @@ It starts the same way, but quickly the code raises a few questions:
 
 This code suffers from several defects, but the most important is that function names are confusing: a predicate is not predicate, an action is actually a query, an `emit*` does not emit anything.
 
-# Cleaning code, little by little
+## Cleaning code, little by little
 
 Let's see how a few baby-steps can help the code to better convey its intent, making it more maintainable.
 
-## Rename `preventHolidaySelect` to `timestampToDayOfWeek`
+### Rename `preventHolidaySelect` to `timestampToDayOfWeek`
 
 This conveys the real purpose of the function: converting a `timestamp` `To` a `DayOfWeek`.
 
@@ -117,7 +117,7 @@ This conveys the real purpose of the function: converting a `timestamp` `To` a `
            alert('Can not select a day off')
 ```
 
-## Extract `timestampToDayOfWeek` to its own function
+### Extract `timestampToDayOfWeek` to its own function
 
 The method `timestampToDayOfWeek` is a member of an object: it is called from `this`, and inside the function body `this` points to the object owning the function. However it is not necessary as `timestampToDayOfWeek` only operates on its argument. As such it should not belong to the object and needs to be extracted to its own function. This will make it reusable in other parts of the code and more easily testable.
 
@@ -149,7 +149,7 @@ The method `timestampToDayOfWeek` is a member of an object: it is called from `t
 +}
 ```
 
-## Extract `isHoliday` to its own predicate
+### Extract `isHoliday` to its own predicate
 
 The function `isHoliday` has two intents:
 
@@ -188,7 +188,7 @@ The next change actually makes `isHoliday` a predicate and move the resulting ac
      },
 ```
 
-## Clarify the expected type of the `isHoliday` argument
+### Clarify the expected type of the `isHoliday` argument
 
 Javascript being a [dynamically typed language](https://stackoverflow.com/questions/1517582/what-is-the-difference-between-statically-typed-and-dynamically-typed-languages), function arguments can be of any types. Naming is crucial. Here `isHoliday` expects a timestamp. However its argument is named `date`, which could very be a [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance. Renaming the argument clarifies the expected type.
 
@@ -206,7 +206,7 @@ Javascript being a [dynamically typed language](https://stackoverflow.com/questi
            return true
 ```
 
-## Directly returns the predicate computation
+### Directly returns the predicate computation
 
 Functions that compute a boolean as an `if` condition just to return it in the `then` and `else` block are easy wins when cleaning code. Compare `indirectPredicate` and `directPredicate`.
 
@@ -243,7 +243,7 @@ Both functions are equivalent, but in my opinion `directPredicate` is much easie
      },
 ```
 
-## Extract `timestampToDayOfWeek` to its own function
+### Extract `timestampToDayOfWeek` to its own function
 
 The same way `timestampToDayOfWeek` has been moved outside of the object, now that `isHoliday` does not call `this.$emit` anymore, it can be extracted to its own function for better reusability and testability.
 
@@ -277,7 +277,7 @@ return date.getDay()
 +}
 ```
 
-# Conclusion
+## Conclusion
 
 Let's take another look at the code before and after refactoring. In terms of logic, both versions are absolutely equivalent. But cleaning up brought up **explicit code** that **does not hide its intents** and is **easily testable**. All those changes may seem pedantic, but at the scale of a large application they really make a difference in maintainability.
 

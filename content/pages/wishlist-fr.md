@@ -5,8 +5,6 @@ Lang: fr
 
 Pour Noël et anniversaires. Merci beaucoup !
 
-![Merci !](https://thumbs.dreamstime.com/b/hand-heart-form-love-blue-sky-background-42393797.jpg)
-
 1. Un [Opinel Inox N°8](https://www.opinel.com/tradition/inox/n8-inox) ~10EUR
 1. Un [étui pour passeport](https://www.amazon.fr/gp/product/B01N3CR6QW/ref=ox_sc_act_title_3?smid=A19OB497BDWP85&psc=1) ~13EUR
 1. Une [boite de 100 lames de rasoir](https://www.amazon.fr/Astra-Lames-rasoir-double-platine/dp/B001QY8QXM/ref=sr_1_4?s=hpc&ie=UTF8&qid=1543513937&sr=1-4&keywords=lames+rasoir) ~10EUR
@@ -19,3 +17,5 @@ Pour Noël et anniversaires. Merci beaucoup !
 1. Un [abonnement annuel à Spotify](https://www.spotify.com) ~120EUR
 1. Un [préampli guitare Palmer Pocket Amp MK2](https://www.thomann.de/fr/palmer_pocket_amp_mk2_guitar_preamp.htm?ref=search_prv_3), ~85EUR
 1. Une [fiche mini-XLR](https://www.thomann.de/fr/thomann_sk039_female_mini_xlr_3p.htm) ~5EUR
+
+![Merci !](https://thumbs.dreamstime.com/b/hand-heart-form-love-blue-sky-background-42393797.jpg)
