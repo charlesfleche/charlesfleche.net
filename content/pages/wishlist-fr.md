@@ -8,7 +8,6 @@ Pour Noël et anniversaires, par ordre de préférence. Merci beaucoup !
 1. Une [boite de 100 lames de rasoir](https://www.amazon.fr/Astra-Lames-rasoir-double-platine/dp/B001QY8QXM/ref=sr_1_4?s=hpc&ie=UTF8&qid=1543513937&sr=1-4&keywords=lames+rasoir) ~10EUR
 1. Une [fiche mini-XLR](https://www.thomann.de/fr/thomann_sk039_female_mini_xlr_3p.htm) ~5EUR
 1. Un [étui pour passeport](https://www.amazon.fr/gp/product/B01N3CR6QW/ref=ox_sc_act_title_3?smid=A19OB497BDWP85&psc=1) ~13EUR
-1. Un [Opinel Inox N°8](https://www.opinel.com/tradition/inox/n8-inox) ~10EUR
 1. Un [T-shirt marinière](https://www.ugholin.fr/832-thickbox_default/t-shirt-mariniere-homme-blanc-bleu-manches-longues.jpg) taille S noir et blanc pour faire très français à l'étranger
 1. Une [chemise col mao](https://duckduckgo.com/?q=chemise+col+mao&t=canonical&atb=v135-6&iax=images&ia=images) de bonne qualité, taille S
 1. Une [Chromecast](https://store.google.com/product/chromecast) ~40EUR
