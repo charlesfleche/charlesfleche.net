@@ -61,9 +61,11 @@ server {
         auth_basic_user_file /srv/www/blog.htpasswd;
         try_files $uri $uri/ =404;
     }
-
     ssl_certificate /etc/letsencrypt/live/charlesfleche.net/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/charlesfleche.net/privkey.pem; # managed by Certbot
+
+
+
 
 
 }
