@@ -1,11 +1,10 @@
 from fabric.api import *
 import fabric.contrib.project as project
+import http.server
 import os
 import shutil
 import sys
 import socketserver
-
-from pelican.server import ComplexHTTPRequestHandler
 
 # Local path configuration (can be absolute or relative to fabfile)
 env.deploy_path = 'output'
@@ -69,13 +68,9 @@ def serve():
     """Serve site at http://localhost:8000/"""
     os.chdir(env.deploy_path)
 
-    class AddressReuseTCPServer(socketserver.TCPServer):
-        allow_reuse_address = True
-
-    server = AddressReuseTCPServer(('', PORT), ComplexHTTPRequestHandler)
-
-    sys.stderr.write('Serving on port {0} ...\n'.format(PORT))
-    server.serve_forever()
+    with http.server.HTTPServer(("", PORT), http.server.SimpleHTTPRequestHandler) as httpd:
+        print("Serving at port", PORT)
+        httpd.serve_forever()
 
 def reserve():
     """`build`, then `serve`"""
