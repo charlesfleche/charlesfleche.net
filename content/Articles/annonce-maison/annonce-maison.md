@@ -76,29 +76,43 @@ Voisins calmes et sympathiques.
 
 # Photos
 
-## Chambres
+## Façade
 
-![alt text]({attach}chambres_1.jpeg "Chambre")
-![alt text]({attach}chambres_2.jpeg "Chambre")
-![alt text]({attach}chambres_3.jpeg "Chambre")
-![alt text]({attach}chambres_4.jpeg "Chambre")
+![alt text]({attach}facade.jpeg "Façade")
 
-## Cuisine
-
-![alt text]({attach}cuisine.jpeg "Cuisine")
-
-## Entrée
+## Entrée avec dressing et toilette
 
 ![alt text]({attach}entree_1.jpeg "Entrée")
 ![alt text]({attach}entree_2.jpeg "Entrée")
+
+## Cuisine ouverte sur séjour
+
+![alt text]({attach}cuisine.jpeg "Cuisine")
+
+## Séjour
+
+![alt text]({attach}sejour_1.jpeg "Séjour")
+![alt text]({attach}sejour_2.jpeg "Séjour")
 
 ## Escalier
 
 ![alt text]({attach}escalier.jpeg "Escalier")
 
-## Façade
+## Palier
 
-![alt text]({attach}facade.jpeg "Façade")
+![alt text]({attach}premier_hall.jpeg "Hall")
+
+## Salle de bain
+
+![alt text]({attach}sdb_2.jpeg "Salle de bain")
+![alt text]({attach}sdb_1.jpeg "Salle de bain")
+
+## 3 chambres
+
+![alt text]({attach}chambres_1.jpeg "Chambre")
+![alt text]({attach}chambres_2.jpeg "Chambre")
+![alt text]({attach}chambres_3.jpeg "Chambre")
+![alt text]({attach}chambres_4.jpeg "Chambre")
 
 ## Grenier
 
@@ -110,12 +124,3 @@ Voisins calmes et sympathiques.
 
 ![alt text]({attach}jardin_1.jpeg "Jardin")
 ![alt text]({attach}jardin_2.jpeg "Jardin")
-
-## Hall
-
-![alt text]({attach}premier_hall.jpeg "Hall")
-
-## Salle de bain
-
-![alt text]({attach}sdb_1.jpeg "Salle de bain")
-![alt text]({attach}sdb_2.jpeg "Salle de bain")
