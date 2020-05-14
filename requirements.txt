@@ -3,3 +3,4 @@ markdown
 pelican
 typogrify
 webassets
+pyscss
