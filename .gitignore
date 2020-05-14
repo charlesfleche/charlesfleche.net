@@ -2,6 +2,7 @@
 .sass-cache/
 __pycache__/
 env
+venv
 output
 *~
 *.blend?
