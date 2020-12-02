@@ -11,9 +11,9 @@ env.deploy_path = 'output'
 DEPLOY_PATH = env.deploy_path
 
 # Remote server configuration
-production = 'root@charlesfleche.net:22'
-dest_path = '/srv/www/blog'
-nginx_site_path = '/etc/nginx/sites-available/blog'
+production = 'root@charlesfleche.net'
+dest_path = '/var/www/charlesfleche.net'
+nginx_site_path = '/etc/nginx/sites-available/charlesfleche.net'
 icons_root = 'themes/charlesfleche/static'
 css_root = 'themes/charlesfleche/static/css'
 
