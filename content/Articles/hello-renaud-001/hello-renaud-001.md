@@ -1,0 +1,19 @@
+Title: Hello Renaud #001
+Slug: hello-renaud-001
+Date: 2021-03-14 09:00
+Tags: software development, c++, windows
+Lang: en
+Abstract: What did I learn recently ? Issue #001
+Tweet: What I learned recently: windows linking, github tricks and C++ testing #HelloRenaud001
+
+*At [RodeoFX](https://www.rodeofx.com/) my friend [Renaud](https://github.com/renaudll) and me informally discussed our findings, tips, tricks and sometimes frustration. As we are currently no longer working together anymore, this serie of articles aim to keep sharing what I recently learned, with no specific order or priorities.*
+
+- [GitHub](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners) and [GitLab](https://docs.gitlab.com/ee/user/project/code_owners.html) both support a `CODEOWNERS` file that indicates who in repos in responsible of maintaining some code. This is useful for automation, for example to add reviewers to a pull request: less platform configuration, more in-repo semantics.
+- [Everything](https://www.voidtools.com/support/everything/) is a really fast search tool for Windows with valuable features: speed indeed, but also an handy CLI and HTTP API and comprehensive configuration options.
+- [Catch2](https://github.com/catchorg/Catch2/blob/devel/docs/why-catch.md) is single header C++ test framework, making it really fast to setup. I'm just starting to discover it and already like its simplicity very much.
+- I forgot about this one, but [USD](https://graphics.pixar.com/usd/docs/index.html) has a nifty API for [debugging logs](https://graphics.pixar.com/usd/docs/api/group__group__tf___debugging_output.html): `TF_DEBUG=PLUG_*` can be set in the environment variables to output logs specific for plugins.
+- The Windows SDK defines `min` and `max` as macros, clashing with the ones with the [C++ STL](https://www.cplusplus.com/reference/algorithm/min/). However if `NOMINMAX` is defined before including [`Window.h`](https://en.wikipedia.org/wiki/Windows.h) those macros won't be present, fixing the collision.
+- Visual Studio needs to be told what kind a library needs to be linked at runtime. Coding for USD, for example, requires to link with the [`Multi-Threaded Debug DLL`](https://docs.microsoft.com/en-us/cpp/build/reference/md-mt-ld-use-run-time-library?view=msvc-160) or the app will crash at startup.
+- Windows as [much different rules](https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order) to find runtime libraries that would be expected on Unices. Practically, the equivalent of [`LD_LIBRARY_PATH`](https://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html) is `PATH`, which also holds the executables search paths list.
+- In Windows (or for what I understand, for code compiled with Visual Studio), a binary can link against static `.LIB` or shared `.DLL`. However, applications needs to explicitely open the .dll. To ease the process a bit a .lib can only contain what is needed to find and link a .dll at runtime. Practically that means that when linking against a .lib it is not immediately sure if it contains static code or pointing against a .dll, in which case it is called an [import library](https://docs.microsoft.com/en-us/cpp/build/reference/using-an-import-library-and-export-file?view=msvc-160). This can be however be found by [querying the linker](https://stackoverflow.com/questions/6402586/know-if-lib-is-static-or-import).
+- [bqt](https://github.com/techartorg/bqt) allows to run [Qt](https://www.qt.io) code in [Blender](https://www.blender.org). The project is still in early stages and there seem to be some issues (two UI libraries competing for the same events: expect clashes), but still, it's a start: I've been able to open a Qt dialog then run some blender code.
