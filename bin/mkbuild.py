@@ -7,12 +7,12 @@ _BIN_DIR = _REPO_DIR / "bin"
 _BUILD_DIR = _REPO_DIR / "build"
 _DIST_DIR = _BUILD_DIR / "dist"
 _CONTENT_DIR = _REPO_DIR / "content/dev"
-_TEMPLATES_DIR = _REPO_DIR / "templates/build"
+_NINJA_TEMPLATES_DIR = _REPO_DIR / "templates/ninja"
 _STATIC_DIR = _REPO_DIR / "templates/theme/static"
 _THEME_TEMPLATES_DIR = _REPO_DIR / "templates/theme/templates"
 
 _ENV = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(_TEMPLATES_DIR),
+    loader=jinja2.FileSystemLoader(_NINJA_TEMPLATES_DIR),
     autoescape=jinja2.select_autoescape(),
 )
 

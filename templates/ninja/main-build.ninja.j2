@@ -1,0 +1,14 @@
+bin_path = {{ bin_path }}
+
+rule md2meta
+    command = python $bin_path/md2meta.py $in > $out
+
+rule ln
+    command = mkdir -p `dirname $out` && ln $in $out
+
+rule jinja
+    command = mkdir -p `dirname $out` && jinja2 $template $in > $out
+
+{% for path in subninja_paths %}subninja {{ path }}
+{% endfor %}
+

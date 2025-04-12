@@ -1,0 +1,4 @@
+build {{ data_path }}: md2meta {{ md_path }}
+build {{ html_path }}: jinja {{ data_path }}
+    template = {{ template_path }}
+
