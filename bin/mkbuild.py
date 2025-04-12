@@ -6,7 +6,7 @@ _REPO_DIR = pathlib.Path(__file__).parent.parent.absolute()
 _BIN_DIR = _REPO_DIR / "bin"
 _BUILD_DIR = _REPO_DIR / "build"
 _DIST_DIR = _BUILD_DIR / "dist"
-_CONTENT_DIR = _REPO_DIR / "content/dev"
+_CONTENT_DIR = _REPO_DIR / "content/content"
 _NINJA_TEMPLATES_DIR = _REPO_DIR / "templates/ninja"
 _STATIC_DIR = _REPO_DIR / "templates/theme/static"
 _THEME_TEMPLATES_DIR = _REPO_DIR / "templates/theme/templates"
@@ -39,8 +39,8 @@ _SUBNINJA_PATHS.append(static_build_path)
 
 # Make articles build.ninja
 
-for md_path in _CONTENT_DIR.glob("**/*.md"):
-    rel_dst_dir = md_path.parent.relative_to(_REPO_DIR)
+for md_path in _CONTENT_DIR.glob("*/**/*.md"):
+    rel_dst_dir = md_path.parent.relative_to(_CONTENT_DIR)
     abs_dst_dir = _BUILD_DIR / rel_dst_dir
 
     abs_dst_dir.mkdir(exist_ok=True, parents=True)
