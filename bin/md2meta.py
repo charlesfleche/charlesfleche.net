@@ -2,31 +2,40 @@ import argparse
 import copy
 import json
 import pathlib
-import re
-import sys
 
 import markdown
+import yaml
 
 parser = argparse.ArgumentParser()
-parser.add_argument("input", type=pathlib.Path)
-parser.add_argument(
-    "output", nargs="?", type=argparse.FileType("w"), default=sys.stdout
-)
+parser.add_argument("global_data", type=argparse.FileType("r"))
+parser.add_argument("local_data", type=argparse.FileType("r"))
+parser.add_argument("md", type=pathlib.Path)
+parser.add_argument("data", type=argparse.FileType("w"))
 
 args = parser.parse_args()
 
-meta = {}
+data = yaml.safe_load(args.global_data)
+data.update(json.load(args.local_data))
 
 md = markdown.Markdown(extensions=["meta"])
-meta["html"] = md.convert(args.input.read_text())
+data["content"] = md.convert(args.md.read_text())
 
-meta.update(copy.deepcopy(md.Meta))
-meta["title"] = meta["title"][0]
+data.update(copy.deepcopy(md.Meta))
+data["title"] = data["title"][0]
+data["description"] = data["description"][0]
+data["url"] = f"{data['netloc']}/{data['slug']}"
+data["path"] = f"/{data['slug']}"
 
-m = re.match(
-    r".*?/(?P<group>\w+)/(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
-    str(args.input),
+data["meta"].extend(
+    (
+        ("description", data.get("description")),
+        ("og:title", data["title"]),
+        ("og:description", data.get("description")),
+        ("og:type", "article"),
+        ("og:url", data["url"]),
+        ("og:image", ""),
+        ("og:image:alt", ""),
+    )
 )
-meta.update(m.groupdict())
 
-json.dump(meta, args.output, indent=2, sort_keys=True)
+json.dump(data, args.data, indent=2, sort_keys=True)

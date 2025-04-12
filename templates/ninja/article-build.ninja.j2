@@ -1,4 +1,4 @@
-build {{ data_path }}: md2meta {{ md_path }}
+build {{ data_path }}: md2meta {{ global_data_path }} {{ local_data_path }} {{ md_path }}
 build {{ html_path }}: jinja {{ data_path }}
     template = {{ template_path }}
 
