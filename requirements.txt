@@ -1,6 +1,5 @@
-fabric3
+jinja2
+jinja2-cli
 markdown
-pelican
+ninja
 typogrify
-webassets
-pyscss
