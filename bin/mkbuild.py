@@ -41,23 +41,41 @@ _SUBNINJA_PATHS.append(static_build_path)
 
 # Make articles build.ninja
 
-for md_path in _CONTENT_DIR.glob("*/**/*.md"):
-    m = re.match(
+for md_path in _CONTENT_DIR.glob("**/*.md"):
+    # Extracting article local data from path
+
+    local_data = {}
+    local_data_path = None
+    html_path = (_DIST_DIR / md_path.stem).with_suffix(".html")
+    if m := re.match(
         r".*?/(?P<group>\w+)/(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
         str(md_path),
-    )
-    local_data = m.groupdict()
+    ):
+        local_data = m.groupdict()
+        html_path = _DIST_DIR / local_data["slug"] / "index.html"
+    else:
+        local_data["slug"] = md_path.with_suffix(".html").name
 
-    rel_dst_dir = md_path.parent.relative_to(_CONTENT_DIR)
+    # Paths
+
+    if md_path.parent == _CONTENT_DIR:
+        rel_dst_dir = md_path.stem
+    else:
+        rel_dst_dir = md_path.parent.relative_to(_CONTENT_DIR)
     abs_dst_dir = _BUILD_DIR / rel_dst_dir
+    local_data_path = abs_dst_dir / "local.json"
+    subninja_path = abs_dst_dir / "build.ninja"
+
+    # Ensure the build folder is ready
+
+    print(f"Generating: {md_path} -> {abs_dst_dir}")
 
     abs_dst_dir.mkdir(exist_ok=True, parents=True)
 
-    local_data_path = abs_dst_dir / "local.json"
     with local_data_path.open("w") as fp:
         json.dump(local_data, fp)
 
-    subninja_path = abs_dst_dir / "build.ninja"
+    # Writing article build.ninja
 
     with subninja_path.open("w") as fp:
         _ENV.get_template("article-build.ninja.j2").stream(
@@ -65,7 +83,7 @@ for md_path in _CONTENT_DIR.glob("*/**/*.md"):
             local_data_path=local_data_path,
             data_path=abs_dst_dir / f"{md_path.stem}.json",
             md_path=md_path,
-            html_path=_DIST_DIR / local_data["slug"] / "index.html",
+            html_path=html_path,
             template_path=_THEME_TEMPLATES_DIR / "article.html.j2",
         ).dump(fp)
 
@@ -73,7 +91,10 @@ for md_path in _CONTENT_DIR.glob("*/**/*.md"):
 
 # Main build.ninja
 
-with (_BUILD_DIR / "build.ninja").open("w") as fp:
+main_build_ninja = _BUILD_DIR / "build.ninja"
+print(f"Generating {main_build_ninja}")
+
+with main_build_ninja.open("w") as fp:
     _ENV.get_template("main-build.ninja.j2").stream(
         bin_path=_BIN_DIR,
         subninja_paths=_SUBNINJA_PATHS,
