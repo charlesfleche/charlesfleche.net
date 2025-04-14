@@ -1,8 +1,10 @@
 import json
 import pathlib
 import re
+from contextlib import contextmanager
 
 import jinja2
+import yaml
 
 _REPO_DIR = pathlib.Path(__file__).parent.parent.absolute()
 _BIN_DIR = _REPO_DIR / "bin"
@@ -10,8 +12,12 @@ _BUILD_DIR = _REPO_DIR / "build"
 _DIST_DIR = _BUILD_DIR / "dist"
 _CONTENT_DIR = _REPO_DIR / "content/content"
 _NINJA_TEMPLATES_DIR = _REPO_DIR / "templates/ninja"
-_STATIC_DIR = _REPO_DIR / "templates/theme/static"
+_THEME_STATIC_DIR = _REPO_DIR / "templates/theme/static"
 _THEME_TEMPLATES_DIR = _REPO_DIR / "templates/theme/templates"
+_GLOBAL_DATA_PATH = _REPO_DIR / "global.yml"
+
+with _GLOBAL_DATA_PATH.open("r") as fp:
+    _GLOBAL_DATA = yaml.safe_load(fp)
 
 _ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(_NINJA_TEMPLATES_DIR),
@@ -20,74 +26,89 @@ _ENV = jinja2.Environment(
 
 _SUBNINJA_PATHS = []
 
-_BUILD_DIR.mkdir(exist_ok=True, parents=True)
+
+@contextmanager
+def _mkdir_open(path, *args, **kwargs):
+    path.parent.mkdir(exist_ok=True, parents=True)
+    with path.open(*args, **kwargs) as fp:
+        yield fp
+
+
+def _render(fp, template_name, *args, **kwargs):
+    _ENV.get_template(template_name).stream(*args, **kwargs).dump(fp)
+
+
+def _add_subninja(path):
+    _SUBNINJA_PATHS.append(path.relative_to(_BUILD_DIR))
+
+
+# _BUILD_DIR.mkdir(exist_ok=True, parents=True)
 
 # Copy static theme
 
 static_paths = [
     (
         src,
-        _DIST_DIR / src.relative_to(_STATIC_DIR),
+        _DIST_DIR / src.relative_to(_THEME_STATIC_DIR),
     )
-    for src in _STATIC_DIR.glob("**/*")
+    for src in _THEME_STATIC_DIR.glob("**/*")
     if src.is_file()
 ]
 static_build_path = _BUILD_DIR / "static.ninja"
-with static_build_path.open("w") as fp:
-    _ENV.get_template("static-build.ninja.j2").stream(
-        static_paths=static_paths,
-    ).dump(fp)
-_SUBNINJA_PATHS.append(static_build_path)
+with _mkdir_open(static_build_path, "w") as fp:
+    _render(fp, "static-build.ninja.j2", static_paths=static_paths)
+_add_subninja(static_build_path)
 
 # Make articles build.ninja
 
 for md_path in _CONTENT_DIR.glob("**/*.md"):
-    # Extracting article local data from path
+    # Extracting article data from path
 
-    local_data = {}
-    local_data_path = None
-    html_path = (_DIST_DIR / md_path.stem).with_suffix(".html")
+    data_from_path = {}
     if m := re.match(
-        r".*?/(?P<group>\w+)/(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
+        r".*?/(?P<category>\w+)/(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
         str(md_path),
     ):
-        local_data = m.groupdict()
-        html_path = _DIST_DIR / local_data["slug"] / "index.html"
+        data_from_path.update(m.groupdict())
+        data_from_path["path"] = f"/{data_from_path['slug']}/index.html"
     else:
-        local_data["slug"] = md_path.with_suffix(".html").name
+        data_from_path["slug"] = md_path.stem
+        data_from_path["path"] = f"/{data_from_path['slug']}.html"
 
-    # Paths
+    build_dir = _BUILD_DIR / data_from_path["slug"]
 
-    if md_path.parent == _CONTENT_DIR:
-        rel_dst_dir = md_path.stem
-    else:
-        rel_dst_dir = md_path.parent.relative_to(_CONTENT_DIR)
-    abs_dst_dir = _BUILD_DIR / rel_dst_dir
-    local_data_path = abs_dst_dir / "local.json"
-    subninja_path = abs_dst_dir / "build.ninja"
+    print(f"Generating: {md_path} -> {build_dir}")
 
-    # Ensure the build folder is ready
+    data_from_path_path = build_dir / "data_from_path.json"
 
-    print(f"Generating: {md_path} -> {abs_dst_dir}")
-
-    abs_dst_dir.mkdir(exist_ok=True, parents=True)
-
-    with local_data_path.open("w") as fp:
-        json.dump(local_data, fp)
+    with _mkdir_open(data_from_path_path, "w") as fp:
+        json.dump(data_from_path, fp, indent=2, sort_keys=True)
 
     # Writing article build.ninja
 
-    with subninja_path.open("w") as fp:
-        _ENV.get_template("article-build.ninja.j2").stream(
-            global_data_path=_REPO_DIR / "global.yml",
-            local_data_path=local_data_path,
-            data_path=abs_dst_dir / f"{md_path.stem}.json",
-            md_path=md_path,
-            html_path=html_path,
-            template_path=_THEME_TEMPLATES_DIR / "article.html.j2",
-        ).dump(fp)
+    subninja_path = build_dir / "build.ninja"
 
-    _SUBNINJA_PATHS.append(subninja_path)
+    step2_subninja_path = build_dir / "step2.ninja"
+    step2_subninja_path.parent.mkdir(parents=True, exist_ok=True)
+    step2_subninja_path.touch()
+
+    dist_path = _DIST_DIR / pathlib.Path(data_from_path["path"]).relative_to("/")
+
+    with _mkdir_open(subninja_path, "w") as fp:
+        _render(
+            fp,
+            "article-build.ninja.j2",
+            build_dir=subninja_path.parent,
+            step2_subninja_path=step2_subninja_path,
+            global_data_path=_GLOBAL_DATA_PATH,
+            data_from_path=data_from_path_path,
+            article_data_path=subninja_path.parent / "data.json",
+            md_path=md_path,
+            dist_path=dist_path,
+            dist_dir=dist_path.parent,
+        )
+
+    _add_subninja(subninja_path)
 
 # Main build.ninja
 
@@ -97,5 +118,7 @@ print(f"Generating {main_build_ninja}")
 with main_build_ninja.open("w") as fp:
     _ENV.get_template("main-build.ninja.j2").stream(
         bin_path=_BIN_DIR,
+        theme_templates_dir=_THEME_TEMPLATES_DIR,
+        default_template=_GLOBAL_DATA["default_template"],
         subninja_paths=_SUBNINJA_PATHS,
     ).dump(fp)

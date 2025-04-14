@@ -1,0 +1,4 @@
+build $article_data_path: combine_data $global_data_path $data_from_path $data_from_md
+build $dist_path: jinja $article_data_path
+    template = {% if template %}{{ template }}{% else %}$default_template{% endif %}
+

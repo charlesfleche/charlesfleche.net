@@ -1,4 +1,5 @@
 netloc: https://charlesfleche.net
+default_template: article.html.j2
 meta:
   -
     - author

@@ -1,13 +1,18 @@
 bin_path = {{ bin_path }}
 
+default_template = {{ default_template }}
+
 rule md2meta
     command = python $bin_path/md2meta.py $in $out
 
 rule ln
     command = mkdir -p `dirname $out` && ln $in $out
 
+rule combine_data
+    command = python $bin_path/combine_data.py $in > $out
+
 rule jinja
-    command = mkdir -p `dirname $out` && jinja2 $template $in > $out
+    command = mkdir -p `dirname $out` && jinja2 {{ theme_templates_dir }}/$template $in > $out
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}

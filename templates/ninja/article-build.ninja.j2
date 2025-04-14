@@ -1,4 +1,15 @@
-build {{ data_path }}: md2meta {{ global_data_path }} {{ local_data_path }} {{ md_path }}
-build {{ html_path }}: jinja {{ data_path }}
-    template = {{ template_path }}
+build_dir = {{ build_dir }}
+dist_dir = {{ dist_dir }}
+dist_path = {{ dist_path }}
+
+article_data_path = {{ article_data_path }}
+global_data_path = {{ global_data_path }}
+data_from_path = {{ data_from_path }}
+data_from_md = {{ build_dir }}/data_from_md.json
+content = {{ build_dir }}/content.html
+
+include {{ step2_subninja_path }}
+
+build $content $data_from_md {{ step2_subninja_path }}: md2meta {{ md_path }}
+
 
