@@ -12,7 +12,7 @@ rule combine_data
     command = python $bin_path/combine_data.py $in > $out
 
 rule jinja
-    command = mkdir -p `dirname $out` && jinja2 {{ theme_templates_dir }}/$template $in > $out
+    command = mkdir -p `dirname $out` && jinjanate --filters {{ theme_dir }}/python/filters.py {{ theme_dir }}/templates/$template $in > $out
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}

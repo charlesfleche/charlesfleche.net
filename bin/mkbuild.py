@@ -12,8 +12,8 @@ _BUILD_DIR = _REPO_DIR / "build"
 _DIST_DIR = _BUILD_DIR / "dist"
 _CONTENT_DIR = _REPO_DIR / "content/content"
 _NINJA_TEMPLATES_DIR = _REPO_DIR / "templates/ninja"
-_THEME_STATIC_DIR = _REPO_DIR / "templates/theme/static"
-_THEME_TEMPLATES_DIR = _REPO_DIR / "templates/theme/templates"
+_THEME_DIR = _REPO_DIR / "templates/theme"
+_THEME_STATIC_DIR = _THEME_DIR / "static"
 _GLOBAL_DATA_PATH = _REPO_DIR / "global.yml"
 
 with _GLOBAL_DATA_PATH.open("r") as fp:
@@ -118,7 +118,7 @@ print(f"Generating {main_build_ninja}")
 with main_build_ninja.open("w") as fp:
     _ENV.get_template("main-build.ninja.j2").stream(
         bin_path=_BIN_DIR,
-        theme_templates_dir=_THEME_TEMPLATES_DIR,
+        theme_dir=_THEME_DIR,
         default_template=_GLOBAL_DATA["default_template"],
         subninja_paths=_SUBNINJA_PATHS,
     ).dump(fp)

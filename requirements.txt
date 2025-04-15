@@ -1,5 +1,5 @@
 jinja2
-jinja2-cli
+jinjanator
 markdown
 ninja
 pyyaml
