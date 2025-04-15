@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{ lang }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+
+  {% for (property, content) in meta %}<meta property="{{ property }}" content="{{ content }}">
+  {% endfor %}
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <header>
+    <h1>{{ title }}</h1>
+    <time datetime="{{ date }}">{{ date }}</time>
+  </header>
+  
+  {{ content_path | read_text }}
+
+</body>
+
+</html>

@@ -1,5 +1,4 @@
 jinja2
-jinjanator
 markdown
 ninja
 pyyaml

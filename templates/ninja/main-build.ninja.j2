@@ -11,8 +11,8 @@ rule ln
 rule combine_data
     command = python $bin_path/combine_data.py $in > $out
 
-rule jinja
-    command = mkdir -p `dirname $out` && jinjanate --filters {{ theme_dir }}/python/filters.py {{ theme_dir }}/templates/$template $in > $out
+rule render_html
+    command = mkdir -p `dirname $out` && python $bin_path/render_html.py $template $in $out
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}
