@@ -27,21 +27,3 @@ args = parser.parse_args()
 
 data = json.load(args.data)
 _ENV.get_template(args.template).stream(**data).dump(args.output)
-
-# data.update(copy.deepcopy(md.Meta))
-# data["title"] = data["title"][0]
-# data["description"] = data["description"][0]
-# data["url"] = f"{data['netloc']}/{data['slug']}"
-# data["path"] = f"/{data['slug']}"
-
-# data["meta"].extend(
-#     (
-#         ("description", data.get("description")),
-#         ("og:title", data["title"]),
-#         ("og:description", data.get("description")),
-#         ("og:type", "article"),
-#         ("og:url", data["url"]),
-#         ("og:image", ""),
-#         ("og:image:alt", ""),
-#     )
-# )

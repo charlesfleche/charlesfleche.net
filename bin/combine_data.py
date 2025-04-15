@@ -12,4 +12,18 @@ data = {}
 for fp in args.paths:
     data.update(yaml.safe_load(fp))
 
+
+data["url"] = f"{data['netloc']}{data['path']}"
+data["meta"].extend(
+    (
+        ("description", data["description"]),
+        ("og:title", data["title"]),
+        ("og:description", data["description"]),
+        ("og:type", "article"),
+        ("og:url", data["url"]),
+        ("og:image", ""),
+        ("og:image:alt", ""),
+    )
+)
+
 json.dump(data, sys.stdout, indent=2, sort_keys=True)
