@@ -1,0 +1,7 @@
+# TODO
+
+## TIL
+
+* bpy.expose_bundled_modules() https://developer.blender.org/docs/release_notes/4.4/python_api/#blender-as-a-python-module
+* apache superset https://superset.apache.org/
+* tox setenv = {[testenv]setenv}
