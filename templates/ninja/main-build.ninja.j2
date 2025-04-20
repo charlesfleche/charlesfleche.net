@@ -8,11 +8,16 @@ rule md2meta
 rule ln
     command = mkdir -p `dirname $out` && ln $in $out
 
-rule combine_data
-    command = python $bin_path/combine_data.py $in > $out
+rule combine_article_data
+    command = python $bin_path/combine_article_data.py $in > $out
+
+rule combine_all_articles_data
+    command = python $bin_path/combine_all_articles_data.py $in > $out
 
 rule render_html
     command = mkdir -p `dirname $out` && python $bin_path/render_html.py $template $in $out
+
+{# build {{ all_articles_data_path }}: combine_all_articles_data {{ article_data_paths | join(" ") }} #}
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}

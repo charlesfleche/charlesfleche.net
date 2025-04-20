@@ -25,6 +25,7 @@ _ENV = jinja2.Environment(
 )
 
 _SUBNINJA_PATHS = []
+_ARTICLES_DATA_PATHS = []
 
 
 @contextmanager
@@ -40,6 +41,10 @@ def _render(fp, template_name, *args, **kwargs):
 
 def _add_subninja(path):
     _SUBNINJA_PATHS.append(path.relative_to(_BUILD_DIR))
+
+
+def _add_article_data_path(path):
+    _ARTICLES_DATA_PATHS.append(path)
 
 
 # _BUILD_DIR.mkdir(exist_ok=True, parents=True)
@@ -93,6 +98,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     step2_subninja_path.touch()
 
     dist_path = _DIST_DIR / pathlib.Path(data_from_path["path"]).relative_to("/")
+    article_data_path = subninja_path.parent / "data.json"
 
     with _mkdir_open(subninja_path, "w") as fp:
         _render(
@@ -102,12 +108,13 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
             step2_subninja_path=step2_subninja_path,
             global_data_path=_GLOBAL_DATA_PATH,
             data_from_path=data_from_path_path,
-            article_data_path=subninja_path.parent / "data.json",
+            article_data_path=article_data_path,
             md_path=md_path,
             dist_path=dist_path,
             dist_dir=dist_path.parent,
         )
 
+    _add_article_data_path(article_data_path)
     _add_subninja(subninja_path)
 
 # Main build.ninja
@@ -121,4 +128,6 @@ with main_build_ninja.open("w") as fp:
         theme_dir=_THEME_DIR,
         default_template=_GLOBAL_DATA["default_template"],
         subninja_paths=_SUBNINJA_PATHS,
+        article_data_paths=_ARTICLES_DATA_PATHS,
+        all_articles_data_path=_BUILD_DIR / "all_articles_data.json",
     ).dump(fp)
