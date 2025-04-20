@@ -33,7 +33,7 @@ for key, value in data.items():
 data["content_path"] = str(args.content)
 json.dump(data, args.data, indent=2, sort_keys=True)
 
-_ENV.get_template("step2.ninja.j2").stream(
+_ENV.get_template("article-step2.ninja.j2").stream(
     template=data.get("template"),
 ).dump(args.ninja)
 
