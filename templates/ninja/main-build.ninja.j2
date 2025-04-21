@@ -2,6 +2,9 @@ bin_path = {{ bin_path }}
 
 default_template = {{ default_template }}
 
+article_data_paths = {{ article_data_paths | join(" ") }}
+all_articles_data_path = {{ all_articles_data_path }}
+
 rule md2meta
     command = python $bin_path/md2meta.py $in $out
 
@@ -19,7 +22,7 @@ rule render_html
 
 include {{ main_step2_subninja_path }}
 
-{# build {{ all_articles_data_path }}: combine_all_articles_data {{ article_data_paths | join(" ") }} #}
+build {{ all_articles_data_path }}: combine_all_articles_data {{ article_data_paths | join(" ") }}
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}

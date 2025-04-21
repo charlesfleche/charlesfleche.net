@@ -99,6 +99,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 
     dist_path = _DIST_DIR / pathlib.Path(data_from_path["path"]).relative_to("/")
     article_data_path = subninja_path.parent / "data.json"
+    article_data_path.touch()
 
     with _mkdir_open(subninja_path, "w") as fp:
         _render(
@@ -122,6 +123,9 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 main_build_ninja = _BUILD_DIR / "build.ninja"
 print(f"Generating {main_build_ninja}")
 
+main_step2_subninja_path = _BUILD_DIR / "step2.ninja"
+main_step2_subninja_path.touch()
+
 with main_build_ninja.open("w") as fp:
     _ENV.get_template("main-build.ninja.j2").stream(
         bin_path=_BIN_DIR,
@@ -130,4 +134,5 @@ with main_build_ninja.open("w") as fp:
         subninja_paths=_SUBNINJA_PATHS,
         article_data_paths=_ARTICLES_DATA_PATHS,
         all_articles_data_path=_BUILD_DIR / "all_articles_data.json",
+        main_step2_subninja_path=main_step2_subninja_path,
     ).dump(fp)
