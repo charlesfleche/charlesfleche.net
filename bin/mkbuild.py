@@ -70,15 +70,20 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     # Extracting article data from path
 
     data_from_path = {}
-    if m := re.match(
-        r".*?/(?P<category>\w+)/(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
+    m = re.match(
+        r".*?/(?P<category>\w+)/((?P<date>\d{4}-\d{2}-\d{2})-)?(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
         str(md_path),
-    ):
-        data_from_path.update(m.groupdict())
-        data_from_path["path"] = f"/{data_from_path['slug']}/index.html"
-    else:
-        data_from_path["slug"] = md_path.stem
+    )
+    if m is None:
+        print(f"Failed to parse {md_path}")
+    data_from_path.update(m.groupdict())
+    if data_from_path["date"] is None:
+        data_from_path["date"] = ""
+
+    if data_from_path["category"] == "page":
         data_from_path["path"] = f"/{data_from_path['slug']}.html"
+    else:
+        data_from_path["path"] = f"/{data_from_path['slug']}/index.html"
 
     build_dir = _BUILD_DIR / data_from_path["slug"]
 

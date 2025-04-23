@@ -3,6 +3,8 @@ Description: Charles Flèche blog index page
 Lang: en
 Template: index.html.j2
 
+This is the index page
+
 # This is title 1
 
 ## This is title 1.1
