@@ -1,5 +1,12 @@
 # TODO
 
+## Site
+
+- parse md as part of mkbuild
+- all assembly, including per article global, in combine_all_articles_data
+  - .by_slug, .by_date
+- `render_article --data data.json article-slug > dst.html
+
 ## TIL
 
 * bpy.expose_bundled_modules() https://developer.blender.org/docs/release_notes/4.4/python_api/#blender-as-a-python-module
