@@ -74,7 +74,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     data_from_path = {}
     m = re.match(
         r".*?/(?P<category>\w+)/((?P<date>\d{4}-\d{2}-\d{2})-)?(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
-        str(md_path),
+        str(pathlib.PurePosixPath(md_path)),
     )
     if m is None:
         raise RuntimeError(f"Failed to parse {md_path}")
@@ -106,7 +106,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 
     # data_from_path_path = build_dir / "data_from_path.json"
 
-    with article_content_path.write("w") as fp:
+    with article_content_path.open("w") as fp:
         json.dump(data, fp, indent=2, sort_keys=True)
 
     # Writing article build.ninja
