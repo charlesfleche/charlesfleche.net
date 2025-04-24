@@ -1,9 +1,11 @@
+import copy
 import json
 import pathlib
 import re
 from contextlib import contextmanager
 
 import jinja2
+import markdown
 import yaml
 
 _REPO_DIR = pathlib.Path(__file__).parent.parent.absolute()
@@ -75,7 +77,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
         str(md_path),
     )
     if m is None:
-        print(f"Failed to parse {md_path}")
+        raise RuntimeError(f"Failed to parse {md_path}")
     data_from_path.update(m.groupdict())
     if data_from_path["date"] is None:
         data_from_path["date"] = ""
@@ -86,34 +88,47 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
         data_from_path["path"] = f"/{data_from_path['slug']}/index.html"
 
     build_dir = _BUILD_DIR / data_from_path["slug"]
+    build_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Generating: {md_path} -> {build_dir}")
 
-    data_from_path_path = build_dir / "data_from_path.json"
+    article_content_path = build_dir / f"{md_path.stem}.html"
+    article_data_path = build_dir / f"{md_path.stem}.json"
 
-    with _mkdir_open(data_from_path_path, "w") as fp:
-        json.dump(data_from_path, fp, indent=2, sort_keys=True)
+    md = markdown.Markdown(extensions=["meta"])
+    article_content_path.write_text(md.convert(md_path.read_text()))
+
+    data = copy.deepcopy(md.Meta)
+    for key, value in data.items():
+        if len(value) == 1:
+            data[key] = value[0]
+    data["content_path"] = str(article_content_path)
+
+    # data_from_path_path = build_dir / "data_from_path.json"
+
+    with article_content_path.write("w") as fp:
+        json.dump(data, fp, indent=2, sort_keys=True)
 
     # Writing article build.ninja
 
     subninja_path = build_dir / "build.ninja"
 
-    step2_subninja_path = build_dir / "step2.ninja"
-    step2_subninja_path.parent.mkdir(parents=True, exist_ok=True)
-    step2_subninja_path.touch()
+    # step2_subninja_path = build_dir / "step2.ninja"
+    # step2_subninja_path.parent.mkdir(parents=True, exist_ok=True)
+    # step2_subninja_path.touch()
 
     dist_path = _DIST_DIR / pathlib.Path(data_from_path["path"]).relative_to("/")
-    article_data_path = subninja_path.parent / "data.json"
-    article_data_path.touch()
+    # article_data_path = subninja_path.parent / "data.json"
+    # article_data_path.touch()
 
     with _mkdir_open(subninja_path, "w") as fp:
         _render(
             fp,
             "article-build.ninja.j2",
             build_dir=subninja_path.parent,
-            step2_subninja_path=step2_subninja_path,
+            # step2_subninja_path=step2_subninja_path,
             global_data_path=_GLOBAL_DATA_PATH,
-            data_from_path=data_from_path_path,
+            # data_from_path=data_from_path_path,
             article_data_path=article_data_path,
             md_path=md_path,
             dist_path=dist_path,

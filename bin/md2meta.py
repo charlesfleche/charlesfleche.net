@@ -36,21 +36,3 @@ json.dump(data, args.data, indent=2, sort_keys=True)
 _ENV.get_template("article-step2.ninja.j2").stream(
     template=data.get("template"),
 ).dump(args.ninja)
-
-# data.update(copy.deepcopy(md.Meta))
-# data["title"] = data["title"][0]
-# data["description"] = data["description"][0]
-# data["url"] = f"{data['netloc']}/{data['slug']}"
-# data["path"] = f"/{data['slug']}"
-
-# data["meta"].extend(
-#     (
-#         ("description", data.get("description")),
-#         ("og:title", data["title"]),
-#         ("og:description", data.get("description")),
-#         ("og:type", "article"),
-#         ("og:url", data["url"]),
-#         ("og:image", ""),
-#         ("og:image:alt", ""),
-#     )
-# )

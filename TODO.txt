@@ -6,6 +6,7 @@
 - all assembly, including per article global, in combine_all_articles_data
   - .by_slug, .by_date
 - `render_article --data data.json article-slug > dst.html
+- JSON-LD https://json-ld.org , example https://code.mendhak.com/gpl-v2-address-letter/
 
 ## TIL
 
