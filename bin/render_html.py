@@ -18,12 +18,18 @@ _ENV = jinja2.Environment(
 )
 _ENV.filters["read_text"] = read_text
 
-
 parser = argparse.ArgumentParser()
-parser.add_argument("template")
+parser.add_argument("slug")
 parser.add_argument("data", type=argparse.FileType("r"), default=sys.stdin)
-parser.add_argument("output", type=argparse.FileType("w"), default=sys.stdout)
+parser.add_argument("html", type=argparse.FileType("w"), default=sys.stdout)
 args = parser.parse_args()
 
-data = json.load(args.data)
-_ENV.get_template(args.template).stream(**data).dump(args.output)
+all_articles_data = json.load(args.data)
+
+article_data = all_articles_data["by_slug"][args.slug]
+_ENV.get_template(
+    article_data["template"]
+).stream(
+    article=article_data,
+    all_articles=all_articles_data
+).dump(args.html)
