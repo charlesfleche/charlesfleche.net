@@ -1,1 +1,12 @@
-Yo!
+{% extends "base.html.j2" %}
+
+{% block content %}
+{{ super() }}
+
+{% for article in articles.by_date %}
+<article>
+  <header><h1><time datetime="{{ article.date }}">{{ article.date }}</time> {{ article.title }}</h1></header>
+  <p>{{ article.description }}</p>
+</article>
+{% endfor %}
+{% endblock content %}

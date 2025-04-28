@@ -30,6 +30,6 @@ article_data = all_articles_data["by_slug"][args.slug]
 _ENV.get_template(
     article_data["template"]
 ).stream(
-    all_articles=all_articles_data,
+    articles=all_articles_data,
     **article_data,
 ).dump(args.html)

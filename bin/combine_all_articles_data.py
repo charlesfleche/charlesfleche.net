@@ -35,4 +35,9 @@ for fp in args.paths:
 
     all_articles_data["by_slug"][article_data["slug"]] = article_data
 
+all_articles_data["by_date"] = list(reversed(sorted(
+    [article for article in all_articles_data["by_slug"].values() if article["category"] != "page"],
+    key=lambda article: article.get("date")
+)))
+
 json.dump(all_articles_data, args.out, indent=2, sort_keys=True)
