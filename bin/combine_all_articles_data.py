@@ -19,6 +19,20 @@ all_articles_data = {
 for fp in args.paths:
     article_data = copy.deepcopy(global_data)
     article_data.update(json.load(fp))
+
+    article_data["url"] = f"{article_data['netloc']}{article_data['path']}"
+    article_data["meta"].extend(
+        (
+            ("description", article_data["description"]),
+            ("og:title", article_data["title"]),
+            ("og:description", article_data["description"]),
+            ("og:type", "article"),
+            ("og:url", article_data["url"]),
+            ("og:image", ""),
+            ("og:image:alt", ""),
+        )
+    )
+
     all_articles_data["by_slug"][article_data["slug"]] = article_data
 
 json.dump(all_articles_data, args.out, indent=2, sort_keys=True)
