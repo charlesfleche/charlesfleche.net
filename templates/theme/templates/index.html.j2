@@ -5,7 +5,13 @@
 
 {% for article in articles.by_date %}
 <article>
-  <header><h1><time datetime="{{ article.date }}">{{ article.date }}</time> {{ article.title }}</h1></header>
+  <a href={{ article.path }}>
+    <header>
+        <h1>
+            <time datetime="{{ article.date }}">{{ article.date }}</time> {{ article.title }}
+        </h1>
+    </header>
+  </a>
   <p>{{ article.description }}</p>
 </article>
 {% endfor %}
