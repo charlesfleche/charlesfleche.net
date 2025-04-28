@@ -1,4 +1,3 @@
-import copy
 import json
 import pathlib
 import re
@@ -21,6 +20,15 @@ _ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(_NINJA_TEMPLATES_DIR),
     autoescape=jinja2.select_autoescape(),
 )
+
+
+def safe_ninja(path):
+    path = pathlib.PurePosixPath(path)
+    return re.sub(r"[:$]", r"$\g<0>", str(path))
+
+
+_ENV.filters["safe_ninja"] = safe_ninja
+
 
 _SUBNINJA_PATHS = []
 _ARTICLES_DATA_PATHS = []
@@ -51,8 +59,8 @@ def _add_article_data_path(path):
 
 static_paths = [
     (
-        src,
-        _DIST_DIR / src.relative_to(_THEME_STATIC_DIR),
+        safe_ninja(src),
+        safe_ninja(_DIST_DIR / src.relative_to(_THEME_STATIC_DIR)),
     )
     for src in _THEME_STATIC_DIR.glob("**/*")
     if src.is_file()
@@ -78,7 +86,11 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     if data["date"] is None:
         data["date"] = ""
 
-    data["path"] = f"/{data['slug']}.html" if data["category"] == "page" else f"/{data['slug']}/index.html"
+    data["path"] = (
+        f"/{data['slug']}.html"
+        if data["category"] == "page"
+        else f"/{data['slug']}/index.html"
+    )
 
     # Paths
 
@@ -114,7 +126,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
             fp,
             "article-build.ninja.j2",
             slug=data["slug"],
-            dist_path=dist_path,
+            dist_path=safe_ninja(dist_path),
         )
 
     _add_article_data_path(article_data_path)
@@ -125,16 +137,12 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 main_build_ninja = _BUILD_DIR / "build.ninja"
 print(f"Generating {main_build_ninja}")
 
-main_step2_subninja_path = _BUILD_DIR / "step2.ninja"
-main_step2_subninja_path.touch()
-
 with main_build_ninja.open("w") as fp:
     _ENV.get_template("main-build.ninja.j2").stream(
         bin_path=_BIN_DIR,
         theme_dir=_THEME_DIR,
-        global_data_path=_GLOBAL_DATA_PATH,
-        subninja_paths=_SUBNINJA_PATHS,
-        article_data_paths=_ARTICLES_DATA_PATHS,
-        all_articles_data_path=_BUILD_DIR / "all_articles_data.json",
-        main_step2_subninja_path=main_step2_subninja_path,
+        global_data_path=safe_ninja(_GLOBAL_DATA_PATH),
+        subninja_paths=[safe_ninja(path) for path in _SUBNINJA_PATHS],
+        article_data_paths=[safe_ninja(path) for path in _ARTICLES_DATA_PATHS],
+        all_articles_data_path=safe_ninja(_BUILD_DIR / "all_articles_data.json"),
     ).dump(fp)

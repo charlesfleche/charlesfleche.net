@@ -3,15 +3,13 @@ bin_path = {{ bin_path }}
 all_articles_data_path = {{ all_articles_data_path }}
 
 rule ln
-    command = mkdir -p `dirname $out` && ln $in $out
+    command = python $bin_path/ln_or_cp.py $in $out
 
 rule combine_all_articles_data
-    command = python $bin_path/combine_all_articles_data.py {{ global_data_path }} $out $in 
+    command = python $bin_path/combine_all_articles_data.py {{ global_data_path }} $out $in
 
 rule render_html
     command = python $bin_path/render_html.py $slug $in $out
-
-include {{ main_step2_subninja_path }}
 
 build $all_articles_data_path: combine_all_articles_data {{ article_data_paths | join(" ") }}
 
