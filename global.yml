@@ -1,5 +1,13 @@
 netloc: https://charlesfleche.net
+rss_path: /feed.atom
 template: article.html.j2
+nav:
+    - name: Mastodon
+      href: https://mamot.fr/@charlesfleche
+    - name: Cycle RTW
+      href: https://cambraicambrai.wordpress.com
+    - name: Email
+      href: mailto:charles.fleche@free.fr
 meta:
   -
     - author
