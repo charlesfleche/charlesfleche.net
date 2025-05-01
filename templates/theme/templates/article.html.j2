@@ -1,1 +1,16 @@
 {% extends "base.html.j2" %}
+
+{% block main %}
+
+<article>
+
+  <header>
+    <h1>{{ title }}</h1>
+    <time datetime="{{ date }}">{{ date }}</time>
+  </header>
+
+  {{ content_path | read_text }}
+
+</article>
+
+{% endblock main %}

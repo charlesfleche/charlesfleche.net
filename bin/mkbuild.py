@@ -86,11 +86,12 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     if data["date"] is None:
         data["date"] = ""
 
-    data["path"] = (
-        f"/{data['slug']}.html"
-        if data["category"] == "page"
-        else f"/{data['slug']}/index.html"
-    )
+    if data["category"] == "page":
+        data["path"] = f"/{data['slug']}.html"
+        data["fs_path"] = data["path"]
+    else:
+        data["path"] = f"/{data['slug']}"
+        data["fs_path"] = f"{data['path']}/index.html"
 
     # Paths
 
@@ -102,7 +103,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 
     subninja_path = build_dir / "build.ninja"
 
-    dist_path = _DIST_DIR / pathlib.Path(data["path"]).relative_to("/")
+    dist_path = _DIST_DIR / pathlib.Path(data["fs_path"]).relative_to("/")
 
     # Writing data json
 

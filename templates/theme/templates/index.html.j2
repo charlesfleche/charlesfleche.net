@@ -1,7 +1,9 @@
 {% extends "base.html.j2" %}
 
-{% block content %}
-{{ super() }}
+{% block main %}
+<article>
+  {{ content_path | read_text }}
+</article>
 
 {% for article in articles.by_date %}
 <article>
@@ -15,4 +17,4 @@
   <p>{{ article.description }}</p>
 </article>
 {% endfor %}
-{% endblock content %}
+{% endblock main %}
