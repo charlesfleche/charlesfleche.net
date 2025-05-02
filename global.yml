@@ -3,11 +3,15 @@ rss_path: /feed.atom
 template: article.html.j2
 nav:
     - name: Mastodon
-      href: https://mamot.fr/@charlesfleche
+      attrs:
+        href: https://mamot.fr/@charlesfleche
+        rel: me
     - name: Cycle RTW
-      href: https://cambraicambrai.wordpress.com
+      attrs:
+        href: https://cambraicambrai.wordpress.com
     - name: Email
-      href: mailto:charles.fleche@free.fr
+      attrs:
+        href: mailto:charles.fleche@free.fr
 meta:
   -
     - author

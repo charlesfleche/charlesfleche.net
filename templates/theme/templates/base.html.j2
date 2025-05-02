@@ -23,7 +23,7 @@
   <nav>
     <ul>
       {% for n in nav %}
-      <li><a href="{{ n.href }}">{{ n.name }}</a></li>
+      <li><a{% for key, value in n.attrs.items() %} {{ key }}="{{ value }}"{% endfor %}>{{ n.name }}</a></li>
       {% endfor %}
     </ul>
   </nav>
