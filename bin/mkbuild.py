@@ -5,6 +5,8 @@ from contextlib import contextmanager
 
 import jinja2
 import markdown
+from markdown.extensions import Extension
+from markdown.treeprocessors import Treeprocessor
 
 _REPO_DIR = pathlib.Path(__file__).parent.parent.absolute()
 _BIN_DIR = _REPO_DIR / "bin"
@@ -51,6 +53,25 @@ def _add_subninja(path):
 
 def _add_article_data_path(path):
     _ARTICLES_DATA_PATHS.append(path)
+
+
+class MediaTreeProcessor(Treeprocessor):
+    def run(self, root):
+        def _walk(node, i=0):
+            print(i * "\t", node, node.iter())
+            for child in node:
+                _walk(child, i + 1)
+
+        _walk(root)
+
+
+class MdExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(
+            MediaTreeProcessor(md),
+            "mediaprocessor",
+            14,  # <= 14 to run after pymarkdown-video
+        )
 
 
 # _BUILD_DIR.mkdir(exist_ok=True, parents=True)
@@ -109,7 +130,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 
     print(f"Generating: {md_path} -> {build_dir}")
 
-    md = markdown.Markdown(extensions=["meta"])
+    md = markdown.Markdown(extensions=["meta", "pymarkdown-video", MdExtension()])
     article_content_path.write_text(md.convert(md_path.read_text()))
 
     for key, value in md.Meta.items():
