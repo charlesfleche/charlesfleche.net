@@ -1,3 +1,5 @@
 build {{ dist_path }}: render_html $all_articles_data_path
     slug = {{ slug }}
 
+{%for src, dst in media_paths %}build {{ dst }}: ln {{ src }}
+{% endfor %}

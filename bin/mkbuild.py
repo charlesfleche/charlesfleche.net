@@ -1,7 +1,10 @@
+import itertools
 import json
+import mimetypes
 import pathlib
 import re
 from contextlib import contextmanager
+from xml.etree import ElementTree as ET
 
 import jinja2
 import markdown
@@ -55,26 +58,75 @@ def _add_article_data_path(path):
     _ARTICLES_DATA_PATHS.append(path)
 
 
-class MediaTreeProcessor(Treeprocessor):
-    def run(self, root):
-        def _walk(node, i=0):
-            print(i * "\t", node, node.iter())
-            for child in node:
-                _walk(child, i + 1)
+class MediaProcessor(Treeprocessor):
+    _TAGS = {
+        "image": "picture",
+    }
+    _ATTRS = {
+        "video": [
+            ("controls", "controls"),
+        ]
+    }
+    _SRC_ATTRS = {
+        "picture": {"src": "srcset"},
+    }
 
-        _walk(root)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.srcs = []
+
+    def run(self, root):
+        for element in root.iter("img"):
+            attrib = element.attrib
+
+            if data := self._src(attrib.get("src", "")):
+                tag, attrs, src_attrs = data
+                tail = element.tail
+                element.clear()
+                element.tag = tag
+                element.tail = tail
+
+                del attrib["src"]
+
+                for src_attrs in src_attrs:
+                    source = ET.SubElement(element, "source")
+                    for k, v in src_attrs.items():
+                        source.set(k, v)
+
+                print(element, attrs)
+                for k, v in itertools.chain(attrs, attrib.items()):
+                    element.set(k, v)
+
+    def _src(self, src):
+        typ, _ = mimetypes.guess_file_type(src)
+        if m := re.match(r"^(image|video)/.*$", typ):
+            tag = m.groups()[0]
+            tag = self._TAGS.get(tag, tag)
+
+            attrs = self._ATTRS.get(tag, [])
+
+            srcs_attrs = [
+                {
+                    self._SRC_ATTRS.get(tag, {}).get("src", "src"): src,
+                    self._SRC_ATTRS.get(tag, {}).get("type", "type"): typ,
+                }
+            ]
+
+            self.srcs.append(pathlib.Path(src))
+
+            return tag, attrs, srcs_attrs
 
 
 class MdExtension(Extension):
     def extendMarkdown(self, md):
+        md.MediaProcessor = MediaProcessor(md)
         md.treeprocessors.register(
-            MediaTreeProcessor(md),
+            md.MediaProcessor,
             "mediaprocessor",
-            14,  # <= 14 to run after pymarkdown-video
+            20,  # <= 20 to run after img processor
         )
 
-
-# _BUILD_DIR.mkdir(exist_ok=True, parents=True)
 
 # Copy static theme
 
@@ -125,12 +177,13 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     subninja_path = build_dir / "build.ninja"
 
     dist_path = _DIST_DIR / pathlib.Path(data["fs_path"]).relative_to("/")
+    distdir_path = dist_path.parent
 
     # Writing data json
 
     print(f"Generating: {md_path} -> {build_dir}")
 
-    md = markdown.Markdown(extensions=["meta", "pymarkdown-video", MdExtension()])
+    md = markdown.Markdown(extensions=["meta", MdExtension()])
     article_content_path.write_text(md.convert(md_path.read_text()))
 
     for key, value in md.Meta.items():
@@ -141,7 +194,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     with article_data_path.open("w") as fp:
         json.dump(data, fp, indent=2, sort_keys=True)
 
-    # Writing article html
+    # Writing article build ninja
 
     with _mkdir_open(subninja_path, "w") as fp:
         _render(
@@ -149,6 +202,13 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
             "article-build.ninja.j2",
             slug=data["slug"],
             dist_path=safe_ninja(dist_path),
+            media_paths=[
+                (
+                    safe_ninja(md_path.parent / path.name),
+                    safe_ninja(distdir_path / path.name),
+                )
+                for path in md.MediaProcessor.srcs
+            ],
         )
 
     _add_article_data_path(article_data_path)
