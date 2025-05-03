@@ -94,12 +94,11 @@ class MediaProcessor(Treeprocessor):
                     for k, v in src_attrs.items():
                         source.set(k, v)
 
-                print(element, attrs)
                 for k, v in itertools.chain(attrs, attrib.items()):
                     element.set(k, v)
 
     def _src(self, src):
-        typ, _ = mimetypes.guess_file_type(src)
+        typ, _ = mimetypes.guess_type(src)
         if m := re.match(r"^(image|video)/.*$", typ):
             tag = m.groups()[0]
             tag = self._TAGS.get(tag, tag)
