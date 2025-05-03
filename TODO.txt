@@ -2,6 +2,7 @@
 
 ## Site
 
+- rss
 - css
 - JSON-LD https://json-ld.org , example https://code.mendhak.com/gpl-v2-address-letter/
 
