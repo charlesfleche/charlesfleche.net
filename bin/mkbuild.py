@@ -182,7 +182,14 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
 
     print(f"Generating: {md_path} -> {build_dir}")
 
-    md = markdown.Markdown(extensions=["meta", MdExtension()])
+    md = markdown.Markdown(
+        extensions=[
+            "codehilite",
+            "meta",
+            "fenced_code",
+            MdExtension(),
+        ]
+    )
     article_content_path.write_text(md.convert(md_path.read_text()))
 
     for key, value in md.Meta.items():

@@ -4,6 +4,8 @@ import sys
 
 import yaml
 
+raise RuntimeError("Not used")
+
 parser = argparse.ArgumentParser()
 parser.add_argument("paths", nargs="+", type=argparse.FileType("r"))
 args = parser.parse_args()

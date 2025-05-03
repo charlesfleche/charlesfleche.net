@@ -7,7 +7,7 @@
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/css/style.css">
 
-  {% for (property, content) in meta %}<meta property="{{ property }}" content="{{ content }}">
+  {% for item in head %}<{{ item.tag }}{% for key, value in item.attrs.items() %} {{ key }}="{{ value }}"{% endfor %}>
   {% endfor %}
 
   <link rel="icon" href="/favicon.ico" sizes="any">

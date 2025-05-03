@@ -18,16 +18,58 @@ for fp in args.paths:
     article_data.update(json.load(fp))
 
     article_data["url"] = f"{article_data['netloc']}{article_data['path']}"
-    article_data["meta"].extend(
-        (
-            ("description", article_data["description"]),
-            ("og:title", article_data["title"]),
-            ("og:description", article_data["description"]),
-            ("og:type", "article"),
-            ("og:url", article_data["url"]),
-            ("og:image", ""),
-            ("og:image:alt", ""),
-        )
+    article_data["head"].extend(
+        [
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "description",
+                    "content": article_data["description"],
+                },
+            },
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "og:title",
+                    "content": article_data["title"],
+                },
+            },
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "og:description",
+                    "content": article_data["description"],
+                },
+            },
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "og:type",
+                    "content": "article",
+                },
+            },
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "og:url",
+                    "content": article_data["url"],
+                },
+            },
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "og:image",
+                    "content": "",
+                },
+            },
+            {
+                "tag": "meta",
+                "attrs": {
+                    "property": "og:image:alt",
+                    "content": "",
+                },
+            },
+        ]
     )
 
     article_data["rss"] = f"{article_data['netloc']}{article_data['rss_path']}"

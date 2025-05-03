@@ -12,7 +12,18 @@ nav:
     - name: Email
       attrs:
         href: mailto:charles.fleche@free.fr
-meta:
-  -
-    - author
-    - Charles Flèche
+head:
+  - tag: meta
+    attrs:
+      property: author
+      content: Charles Flèche
+
+  # TODO: ideally css links should be computed from the static theme paths 
+  - tag: link
+    attrs:
+      rel: stylesheet
+      href: /css/style.css
+  - tag: link
+    attrs:
+      rel: stylesheet
+      href: /css/pygments.css
