@@ -145,9 +145,26 @@ _add_subninja(static_build_path)
 # Make articles build.ninja
 
 for md_path in _CONTENT_DIR.glob("**/*.md"):
-    # Extracting article data from path
+    # Parsing article's markdown
+
+    md = markdown.Markdown(
+        extensions=[
+            "codehilite",
+            "meta",
+            "fenced_code",
+            MdExtension(),
+        ]
+    )
+
+    article_content = md.convert(md_path.read_text())
 
     data = {}
+    for key, value in md.Meta.items():
+        if len(value) == 1:
+            data[key] = value[0]
+
+    # Extracting article data from path
+
     m = re.match(
         r".*?/(?P<category>\w+)/((?P<date>\d{4}-\d{2}-\d{2})-)?(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
         str(pathlib.PurePosixPath(md_path)),
@@ -155,14 +172,15 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     if m is None:
         raise RuntimeError(f"Failed to parse {md_path}")
     data.update(m.groupdict())
+
     if data["date"] is None:
         data["date"] = ""
 
     if data["category"] == "page":
-        data["path"] = f"/{data['slug']}.html"
+        data["path"] = data.get("path", f"/{data['slug']}.html")
         data["fs_path"] = data["path"]
     else:
-        data["path"] = f"/{data['slug']}"
+        data["path"] = data.get("path", f"/{data['slug']}")
         data["fs_path"] = f"{data['path']}/index.html"
 
     # Paths
@@ -178,24 +196,13 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     dist_path = _DIST_DIR / pathlib.Path(data["fs_path"]).relative_to("/")
     distdir_path = dist_path.parent
 
-    # Writing data json
+    article_content_path.write_text(article_content)
+
+    data["content_path"] = str(article_content_path)
+
+    # Write article data json
 
     print(f"Generating: {md_path} -> {build_dir}")
-
-    md = markdown.Markdown(
-        extensions=[
-            "codehilite",
-            "meta",
-            "fenced_code",
-            MdExtension(),
-        ]
-    )
-    article_content_path.write_text(md.convert(md_path.read_text()))
-
-    for key, value in md.Meta.items():
-        if len(value) == 1:
-            data[key] = value[0]
-    data["content_path"] = str(article_content_path)
 
     with article_data_path.open("w") as fp:
         json.dump(data, fp, indent=2, sort_keys=True)

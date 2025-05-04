@@ -1,6 +1,5 @@
 Title: This is the main page
 Description: Charles Flèche blog index page
-Lang: en
 Template: index.html.j2
 
 This is the index page
