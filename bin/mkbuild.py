@@ -174,7 +174,7 @@ for md_path in _CONTENT_DIR.glob("**/*.md"):
     data.update(m.groupdict())
 
     if data["date"] is None:
-        data["date"] = ""
+        data["date"] = "2009-10-14"
 
     if data["category"] == "page":
         data["path"] = data.get("path", f"/{data['slug']}.html")

@@ -1,3 +1,5 @@
+title: Charles Flèche's blog
+description: Articles, photos, notes and links from Charles Flèche
 netloc: https://charlesfleche.net
 template: article.html.j2
 nav:

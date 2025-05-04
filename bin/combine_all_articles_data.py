@@ -1,6 +1,8 @@
 import argparse
 import copy
 import json
+from datetime import datetime
+from urllib.parse import urlparse
 
 import yaml
 
@@ -17,7 +19,19 @@ for fp in args.paths:
     article_data = copy.deepcopy(global_data)
     article_data.update(json.load(fp))
 
+    # URL and ID
+
     article_data["url"] = f"{article_data['netloc']}{article_data['path']}"
+
+    date = datetime.fromisoformat(article_data["date"])
+    url = urlparse(article_data["url"])
+
+    article_data["id"] = (
+        f"tag:{url.netloc},{date.strftime('%Y-%m-%d')}:{article_data['path']}"
+    )
+
+    # Head
+
     article_data["head"].extend(
         [
             {
@@ -88,6 +102,14 @@ for article_data in all_articles_data["by_slug"].values():
             "attrs": {"href": all_articles_data["by_slug"]["feed"]["path"]},
         }
     )
+
+# Set feed date to latest article
+
+latest_article = max(
+    all_articles_data["by_slug"].values(),
+    key=lambda d: d.get("date", "0"),
+)
+all_articles_data["by_slug"]["feed"]["date"] = latest_article.get("date")
 
 all_articles_data["by_date"] = list(
     reversed(

@@ -1,5 +1,3 @@
-Title: This is the main page
-Description: Charles Flèche blog index page
 Template: index.html.j2
 
 This is the index page
