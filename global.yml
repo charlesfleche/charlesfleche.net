@@ -1,5 +1,4 @@
 netloc: https://charlesfleche.net
-rss_path: /feed.atom
 template: article.html.j2
 nav:
     - name: Mastodon

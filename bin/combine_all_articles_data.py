@@ -72,14 +72,22 @@ for fp in args.paths:
         ]
     )
 
-    article_data["rss"] = f"{article_data['netloc']}{article_data['rss_path']}"
-
-    article_data["nav"].insert(
-        0, {"name": "Home", "attrs": {"href": article_data["netloc"]}}
-    )
-    article_data["nav"].append({"name": "Rss", "attrs": {"href": article_data["rss"]}})
-
     all_articles_data["by_slug"][article_data["slug"]] = article_data
+
+for article_data in all_articles_data["by_slug"].values():
+    article_data["nav"].insert(
+        0,
+        {
+            "name": "Home",
+            "attrs": {"href": "/"},
+        },
+    )
+    article_data["nav"].append(
+        {
+            "name": "Rss",
+            "attrs": {"href": all_articles_data["by_slug"]["feed"]["path"]},
+        }
+    )
 
 all_articles_data["by_date"] = list(
     reversed(
