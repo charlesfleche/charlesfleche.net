@@ -21,12 +21,14 @@ for fp in args.paths:
 
     # URL and ID
 
+    article_data["site_url"] = f"{article_data['netloc']}/"
+
     article_data["url"] = f"{article_data['netloc']}{article_data['path']}"
 
     date = datetime.fromisoformat(article_data["date"])
     url = urlparse(article_data["url"])
 
-    article_data["id"] = (
+    article_data["article_id"] = (
         f"tag:{url.netloc},{date.strftime('%Y-%m-%d')}:{article_data['path']}"
     )
 
@@ -86,6 +88,12 @@ for fp in args.paths:
         ]
     )
 
+    # Dates
+
+    article_data["datetime"] = (
+        datetime.fromisoformat(article_data["date"]).isoformat() + "Z"
+    )
+
     all_articles_data["by_slug"][article_data["slug"]] = article_data
 
 for article_data in all_articles_data["by_slug"].values():
@@ -100,6 +108,17 @@ for article_data in all_articles_data["by_slug"].values():
         {
             "name": "Rss",
             "attrs": {"href": all_articles_data["by_slug"]["feed"]["path"]},
+        }
+    )
+    article_data["head"].append(
+        {
+            "tag": "link",
+            "attrs": {
+                "href": all_articles_data["by_slug"]["feed"]["path"],
+                "type": all_articles_data["by_slug"]["feed"]["type"],
+                "rel": "alternate",
+                "title": all_articles_data["by_slug"]["feed"]["title"],
+            },
         }
     )
 

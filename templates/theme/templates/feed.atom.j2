@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ title }}</title>
-  <subtile>{{ description }}</subtile>
+  <subtitle>{{ description }}</subtitle>
   <link href="{{ url }}" rel="self" />
-  <link href="{{ netloc }}" />
-  <updated>{{ date }}</updated>
-
+  <link href="{{ site_url }}" />
+  <id>{{ site_url }}</id>
+  <updated>{{ datetime }}</updated>
+  <author>
+    <name>{{ author }}</name>
+    <email>{{ email }}</email>
+    <uri>{{ netloc }}</uri>
+  </author>
+  {% for article in articles.by_date %}
+  <entry>
+    <title>{{ article.title }}</title>
+    <link href="{{ article.url }}" />
+		<link href="{{ article.url }}" rel="alternate" type="text/html" />
+    <id>{{ article.article_id }}</id>
+    <published>{{ article.datetime }}</published>
+		<updated>{{ article.datetime }}</updated>
+    <summary>{{ article.description }}</summary>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        {{ article.content_path | read_text }}
+      </div>
+    </content>
+    <author>
+			<name>{{ article.author }}</name>
+			<email>{{ article.email }}</email>
+      <uri>{{ article.netloc }}</uri>
+		</author>
+  </entry>
+  {% endfor %}
 </feed>

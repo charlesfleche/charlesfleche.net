@@ -1,5 +1,7 @@
 title: Charles Flèche's blog
 description: Articles, photos, notes and links from Charles Flèche
+author: Charles Flèche
+email: charles.fleche@free.fr
 netloc: https://charlesfleche.net
 template: article.html.j2
 nav:
