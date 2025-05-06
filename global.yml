@@ -30,3 +30,7 @@ head:
     attrs:
       rel: stylesheet
       href: /css/pygments.css
+  - tag: link
+    attrs:
+      rel: stylesheet
+      href: /css/main.css
