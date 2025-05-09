@@ -144,7 +144,7 @@ _add_subninja(static_build_path)
 
 # Make articles build.ninja
 
-for md_path in _CONTENT_DIR.glob("**/*.md"):
+for md_path in _CONTENT_DIR.glob("*/*/*.md"):
     # Parsing article's markdown
 
     md = markdown.Markdown(
