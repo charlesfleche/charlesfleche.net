@@ -47,14 +47,14 @@ for fp in args.paths:
                 "tag": "meta",
                 "attrs": {
                     "property": "og:title",
-                    "content": article_data["title"],
+                    "content": article_data.get("title", ""),
                 },
             },
             {
                 "tag": "meta",
                 "attrs": {
                     "property": "og:description",
-                    "content": article_data["description"],
+                    "content": article_data.get("description", ""),
                 },
             },
             {

@@ -1,4 +1,5 @@
-title: Charles Flèche's blog
+site_title: Charles Flèche's blog
+title: Default article title
 description: Articles, photos, notes and links from Charles Flèche
 author: Charles Flèche
 email: charles.fleche@free.fr
@@ -21,7 +22,7 @@ head:
       property: author
       content: Charles Flèche
 
-  # TODO: ideally css links should be computed from the static theme paths 
+  # TODO: ideally css links should be computed from the static theme paths
   - tag: link
     attrs:
       rel: stylesheet
