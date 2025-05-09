@@ -1,10 +1,6 @@
 Title: Hello Renaud #001
-Slug: hello-renaud-001
-Date: 2021-03-14 09:00
 Tags: software development, c++, windows
-Lang: en
-Abstract: What I learned recently: windows linking, github tricks and C++ testing
-Tweet: What I learned recently: windows linking, github tricks and C++ testing #HelloRenaud001
+Description: What I learned recently: windows linking, github tricks and C++ testing
 
 *At [RodeoFX](https://www.rodeofx.com/) my friend [Renaud](https://github.com/renaudll) and me informally discussed our findings, tips, tricks and sometimes frustration. As we are currently no longer working together anymore, this serie of articles aim to keep sharing what I recently learned, with no specific order or priorities.*
 
