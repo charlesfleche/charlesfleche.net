@@ -1,13 +1,10 @@
 Title: In Mortem Resolume
-Slug: in-mortem-resolume
-Date: 2017-10-08 09:00
 Tags: live show, mapping, resolume, osc, control, audio, video
-Lang: fr
-Abstract: Resolume, multi-projection, vidéo live et contrôle sur scène pour In Mortem
-HeaderImage: ![]({attach}banner.jpg)
-Tweet: #Resolume, multi-projection, vidéo #live et interfaces #OSC pour @4rd3stop
+Description: Resolume, multi-projection, vidéo live et contrôle sur scène pour In Mortem
 
-## In Mortem
+![](src/banner.jpg)
+
+# In Mortem
 
 Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/) *In Mortem* aborde le thème du transhumanisme sous la forme d'une conférence futuriste entre un immortel et une intelligence artificielle. Lors du spectacle, plusieurs scènes requièrent la diffusion de contenus de différentes natures:
 
@@ -16,7 +13,7 @@ Le nouveau spectacle d'[Ardestop](https://www.facebook.com/ardestop/) *In Mortem
 - **Scanner** un média simulant le passage du conférencier dans un scanner médical est parfois projeté sur le comédien depuis un second projecteur en bord de scène
 - **Sons** les comédiens doivent synchroniser leur jeu sur des sons de durées différentes (effets sonores type coup de feu court, interventions pré-enregistrées de l'IA de quelques secondes, orchestrations de plusieurs minutes sur lesquelles les comédiens chantent)
 
-![alt text]({attach}stage.jpg "Schéma de la scène")
+<!-- ![alt text]({attach}stage.jpg "Schéma de la scène") -->
 
 Si le déclenchement des médias se fait en majorité depuis la régie, deux contraintes sont néanmoins à satisfaire:
 
@@ -25,7 +22,7 @@ Si le déclenchement des médias se fait en majorité depuis la régie, deux con
 
 La mise en œuvre technique du project est réalisée autour d'une composition [Resolume Avenue](Resolume Avenue) (serveur de média) pilotée *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control) par des inferfaces simplifiées sur smartphones et laptops.
 
-## La composition Resolume Avenue
+# La composition Resolume Avenue
 
 La composition est organisée de la sorte:
 
@@ -38,34 +35,34 @@ La composition est organisée de la sorte:
     - *Play Once* pour ne les jouer qu'une fois à chaque déclenchement
     - *Restart* pour jouer chaque son depuis le début à chaque déclenchement
 
-![alt text]({attach}resolume.jpg "Composition Resolume")
+<!-- ![alt text]({attach}resolume.jpg "Composition Resolume") -->
 
 Le routage des médias vers l'un des projecteurs se fait en assignant deux écrans dont le paramètre *Device* est assigné à un projecteur, chacun contenant une unique slice dont l'entrée est assignée à un layer (layer *Cyclo* ou layer *Scanner*).
 
-![alt text]({attach}outputs.jpg "Sorties Resolume")
+<!-- ![alt text]({attach}outputs.jpg "Sorties Resolume") -->
 
 
-## Contrôles depuis la régie
+# Contrôles depuis la régie
 
 Contrôler directement Resolume Avenue lors des représentations peut engendrer des erreurs de manipulation de par la relative complexité de son interface d'une part, et par la possibilité de dérégler certains paramètres d'autre part. Pour faciliter la tâche des techniciens en régie, Resolume Avenue est piloté par une interface réalisé avec [OSCWidgets](https://github.com/ETCLabs/OSCWidgets) *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control).
 
 L'interface est une grille de boutons. Chaque pression sur un des boutons envoie un message OSC à une instance de Resolume Avenue.
 
-![alt text]({attach}osc-foh.jpg "Interface de contrôle régie")
+<!-- ![alt text]({attach}osc-foh.jpg "Interface de contrôle régie") -->
 
 - les assemblages pour le cyclo et les logos (les colonnes de la composition Resolume Avenue) sont lancés en connectant des `tracks`, par exemple `/track4/connect 1`
 - les sons sont lancés en connectant des clips du layer *SFX*, par exemple `/layer6/clip1/connect 1`
 - les sources indépendantes *Scanner* et *Feed* ont deux boutons: l'un pour afficher la source, l'autre pour l'éteindre. Dans le premier cas (affichage), le clip est connecté (`/layer6/clip1/connect 1` pour lancer le scanner par exemple). Dans le second cas (extinction), le layer est réinitialisé (`/layer5/clear 1`).
 
-![alt text]({attach}resolume-osc.jpg "Mapping OSC de la composition Resolume")
+<!-- ![alt text]({attach}resolume-osc.jpg "Mapping OSC de la composition Resolume") -->
 
 Pendant les répétitions ou pour s'adapter au jeu des comédiens sur scène, deux boutons permettent de fondre au noir toutes les sources vidéos et de couper les sons.
 - `/composition/disconnectall 1` permet de couper toutes les sources audio et vidéo
 - `/layer6/clear 1`, en réinitialisant le layer *SFX*, coupe les sons
 
-![alt text]({attach}oscwidgets.jpg "Configuration d'OSCWidgets")
+<!-- ![alt text]({attach}oscwidgets.jpg "Configuration d'OSCWidgets") -->
 
-## Contrôles depuis la scène
+# Contrôles depuis la scène
 
 Pour permettre une meilleure interaction, les comédiens sur scène peuvent piloter le scanner et le retour vidéo depuis leur smartphone Android. L'interface est plus simple que pour la régie et se concentre uniquement sur les fonctions nécessaires sur scène afin d'éviter toute confusion de la part des comédiens:
 
