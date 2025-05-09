@@ -94,6 +94,11 @@ for fp in args.paths:
         datetime.fromisoformat(article_data["date"]).isoformat() + "Z"
     )
 
+    # Draft
+
+    if article_data["category"] == "draft":
+        article_data["title"] = f"DRAFT: {article_data['title']}"
+
     all_articles_data["by_slug"][article_data["slug"]] = article_data
 
 for article_data in all_articles_data["by_slug"].values():
@@ -136,7 +141,7 @@ all_articles_data["by_date"] = list(
             [
                 article
                 for article in all_articles_data["by_slug"].values()
-                if article["category"] != "page"
+                if article["category"] not in ("draft", "page")
             ],
             key=lambda article: article.get("date"),
         )

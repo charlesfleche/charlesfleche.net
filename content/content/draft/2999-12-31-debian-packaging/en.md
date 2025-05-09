@@ -1,3 +1,6 @@
+Title: Debian packaging
+Description: Debian packaging
+
 * https://wiki.debian.org/Python/GitPackaging
 ** Git branches
 *** debian/master pristine-tar upstream
