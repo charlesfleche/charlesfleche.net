@@ -13,6 +13,8 @@
   --pink: #FF79C6;
 
   --accent: var(--orange);
+
+  --gap: 1rem;
 }
 
 html {
@@ -21,14 +23,52 @@ html {
   font-family: monospace;
 }
 
-nav a {
+body {
+  margin: auto;
+  padding: var(--gap);
+  max-width: 48rem;
+}
+
+body header h1 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+nav {
+  padding-bottom: 1rem;
+}
+
+a {
   color: var(--accent);
 }
 
-header h1 {
+nav ul {
+  margin-top: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap);
+}
+
+nav ul li {
+  list-style-type: none;
+}
+
+article header h1 {
   color: var(--accent);
 }
 
 header time {
+  color: var(--comment);
+}
+
+footer {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: var(--gap);
+}
+
+footer a {
   color: var(--comment);
 }

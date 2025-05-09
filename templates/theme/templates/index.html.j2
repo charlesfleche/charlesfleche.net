@@ -7,13 +7,10 @@
 
 {% for article in articles.by_date %}
 <article>
-  <a href={{ article.path }}>
-    <header>
-        <h1>
-            <time datetime="{{ article.date }}">{{ article.date }}</time> {{ article.title }}
-        </h1>
-    </header>
-  </a>
+  <header>
+    <h1><a href={{ article.path }}>{{ article.title }}</a></h1>
+    <time datetime="{{ article.date }}">{{ article.date }}</time>
+  </header>
   <p>{{ article.description }}</p>
 </article>
 {% endfor %}
