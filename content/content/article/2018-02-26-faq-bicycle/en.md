@@ -1,10 +1,6 @@
 Title: FAQ cycling around the world
-Slug: faq-bicycle
-Date: 2018-02-26 09:00
 Tags: faq, bicycle, travel
-Lang: en
-Abstract: FAQ about a round-the-world bicycle trip
-Tweet: #FAQ long distance bicycle travelling
+Description: FAQ about a round-the-world bicycle trip
 
 In early 2010's [Siugi](http://www.siugi.com) and me cycled from [Cambrai, France to Cambrai, Australia](http://cambrai-cambrai.net). Our good friend [Akmaral](https://www.instagram.com/cycling.nomad.kz) is now going to embark soon in an epic journey of her own. She asked us a few questions. Here are my answers.
 

@@ -76,5 +76,17 @@ footer a {
 
 pre {
   padding: var(--gap);
+}
+
+pre, blockquote {
   background-color: var(--selection);
+}
+
+blockquote {
+  margin: 0px;
+}
+
+blockquote p {
+  margin: 0px;
+  padding: var(--gap);
 }
