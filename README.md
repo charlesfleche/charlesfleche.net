@@ -1,5 +1,5 @@
 # My blog
 
-```python
+```sh
 python bin/mkbuild.py
 ```
