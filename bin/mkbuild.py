@@ -58,6 +58,37 @@ def _add_article_data_path(path):
     _ARTICLES_DATA_PATHS.append(path)
 
 
+def _picture_srcs_generator(src):
+    for suffix in [".avif", ".webp", ".jpeg"]:
+        src = pathlib.Path(src)
+        dst = src.with_suffix(suffix)
+        yield (
+            "convert_img",
+            src,
+            dst,
+            "source",
+            {"srcset": str(dst), "type": mimetypes.guess_type(str(dst))[0]},
+        )
+    yield (
+        "convert_img",
+        src,
+        dst,
+        "img",
+        {"src": str(dst), "type": mimetypes.guess_type(str(dst))[0]},
+    )
+
+
+def _video_srcs_generator(src):
+    src = pathlib.Path(src)
+    yield (
+        "ln",
+        src,
+        src,
+        "source",
+        {"src": str(src), "type": mimetypes.guess_type(str(src))[0]},
+    )
+
+
 class MediaProcessor(Treeprocessor):
     _TAGS = {
         "image": "picture",
@@ -70,6 +101,10 @@ class MediaProcessor(Treeprocessor):
     _SRC_ATTRS = {
         "picture": {"src": "srcset"},
     }
+    _SRC_GENERATOR = {
+        "picture": _picture_srcs_generator,
+        "video": _video_srcs_generator,
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -81,7 +116,7 @@ class MediaProcessor(Treeprocessor):
             attrib = element.attrib
 
             if data := self._src(attrib.get("src", "")):
-                tag, attrs, src_attrs = data
+                tag, attrs, src_tag, src_attrs = data
                 tail = element.tail
                 element.clear()
                 element.tag = tag
@@ -90,7 +125,7 @@ class MediaProcessor(Treeprocessor):
                 del attrib["src"]
 
                 for src_attrs in src_attrs:
-                    source = ET.SubElement(element, "source")
+                    source = ET.SubElement(element, src_tag)
                     for k, v in src_attrs.items():
                         source.set(k, v)
 
@@ -105,14 +140,11 @@ class MediaProcessor(Treeprocessor):
 
             attrs = self._ATTRS.get(tag, [])
 
-            srcs_attrs = [
-                {
-                    self._SRC_ATTRS.get(tag, {}).get("src", "src"): src,
-                    self._SRC_ATTRS.get(tag, {}).get("type", "type"): typ,
-                }
-            ]
+            srcs_attrs = []
+            for rule, src, dst, src_attrs in self._SRC_GENERATOR[tag](src):
+                srcs_attrs.append(src_attrs)
 
-            self.srcs.append(("ln", pathlib.Path(src), pathlib.Path(src)))
+                self.srcs.append([rule, src, dst])
 
             return tag, attrs, srcs_attrs
 
@@ -195,6 +227,7 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
 
     dist_path = _DIST_DIR / pathlib.Path(data["fs_path"]).relative_to("/")
     distdir_path = dist_path.parent
+    distdir_path.mkdir(parents=True, exist_ok=True)
 
     article_content_path.write_text(article_content)
 

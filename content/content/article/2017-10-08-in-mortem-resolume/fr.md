@@ -2,7 +2,7 @@ Title: In Mortem Resolume
 Tags: live show, mapping, resolume, osc, control, audio, video
 Description: Resolume, multi-projection, vidéo live et contrôle sur scène pour In Mortem
 
-![](src/banner.jpg)
+<!-- ![](src/banner.jpg) -->
 
 # In Mortem
 
