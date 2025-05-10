@@ -112,7 +112,7 @@ class MediaProcessor(Treeprocessor):
                 }
             ]
 
-            self.srcs.append(pathlib.Path(src))
+            self.srcs.append(("ln", pathlib.Path(src), pathlib.Path(src)))
 
             return tag, attrs, srcs_attrs
 
@@ -217,10 +217,11 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
             dist_path=safe_ninja(dist_path),
             media_paths=[
                 (
-                    safe_ninja(md_path.parent / path.name),
-                    safe_ninja(distdir_path / path.name),
+                    media_command,
+                    safe_ninja(md_path.parent / media_src.name),
+                    safe_ninja(distdir_path / media_dst.name),
                 )
-                for path in md.MediaProcessor.srcs
+                for media_command, media_src, media_dst in md.MediaProcessor.srcs
             ],
         )
 
