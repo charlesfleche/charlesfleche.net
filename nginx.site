@@ -50,6 +50,10 @@ server {
 		try_files $uri $uri/ =404;
 	}
 
+    location = /feeds/all.atom.xml {
+        return 301 /feed.atom;
+    }
+
     location /drafts/ {
         auth_basic "Restricted Content";
         auth_basic_user_file /srv/www/blog.htpasswd;
@@ -63,9 +67,4 @@ server {
     }
     ssl_certificate /etc/letsencrypt/live/charlesfleche.net/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/charlesfleche.net/privkey.pem; # managed by Certbot
-
-
-
-
-
 }
