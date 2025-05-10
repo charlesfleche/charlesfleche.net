@@ -80,7 +80,7 @@ class MediaProcessor(Treeprocessor):
         del el.attrib["src"]
 
         for suffix in [".avif", ".webp", ".jpeg"]:
-            dst = src.with_suffix(suffix)
+            dst = pathlib.Path(src.with_suffix(suffix).name)
 
             source = ET.SubElement(el, "source")
             source.set("srcset", str(dst))
@@ -214,8 +214,8 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
             media_paths=[
                 (
                     media_command,
-                    safe_ninja(md_path.parent / media_src.name),
-                    safe_ninja(distdir_path / media_dst.name),
+                    safe_ninja(md_path.parent / media_src),
+                    safe_ninja(distdir_path / media_dst),
                 )
                 for media_command, media_src, media_dst in md.MediaProcessor.srcs
             ],
