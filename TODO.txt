@@ -11,6 +11,10 @@
 - https://0ut3r.space
 - https://mademistakes.com
 
+## Conferences
+
+- The AI stuff in MTL
+
 ## TIL
 
 * bpy.expose_bundled_modules() https://developer.blender.org/docs/release_notes/4.4/python_api/#blender-as-a-python-module
