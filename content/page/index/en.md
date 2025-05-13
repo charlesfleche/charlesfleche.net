@@ -1,6 +1,5 @@
+Title: Hi there, I'm Charles,
 Template: index.html.j2
-
-# Hi there, I'm Charles,
 
 a [software developer](https://linkedin.com/in/charlesfleche) from France. I'm making tools for Visual Effects and Video Games artists, building custom technologies for NGO and coding for Live Entertainment and Projection Mapping.
 
@@ -12,4 +11,4 @@ A few years ago I cycled from [France to Australia](http://cambrai-cambrai.net) 
 
 In early 2019 I joined the R&D team of the visual effects studio [Rodeo FX](https://www.rodeofx.com) in Montréal, Canada to write [Python](https://python.org) and [C++](https://en.wikipedia.org/wiki/C%2B%2B) pipeline code with [USD](https://graphics.pixar.com/usd/docs/index.html) and [Qt](https://www.qt.io/) for their artists. I'm now discovering the video games world at [Ubisoft](https://montreal.ubisoft.com).
 
-Let's be in touch by [Email](mailto:charles.fleche@free.fr), [Mastodon](https://mamot.fr/@charlesfleche), [Twitter](https://twitter.com/charlesfleche), [Facebook](https://www.facebook.com/charlesfleche) or [LinkedIn](https://linkedin.com/in/charlesfleche).
+Let's be in touch by [Email](mailto:charles.fleche@free.fr) or [Mastodon](https://mamot.fr/@charlesfleche).

@@ -15,6 +15,8 @@
   --accent: var(--orange);
 
   --gap: 1rem;
+  --double-gap: 2rem;
+  --half-gap: .5rem;
 }
 
 html {
@@ -30,9 +32,25 @@ body {
   max-width: 48rem;
 }
 
-body header h1 {
+body > header > h1 {
   margin-bottom: 0px;
   margin-top: 0px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+main > article header h1
+{
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 2rem;
+}
+
+article h1, h2, h3, h4
+{
+  color: var(--accent);
+  margin-top: var(--double-gap);
+  margin-bottom: var(--gap);
 }
 
 nav {
@@ -55,11 +73,11 @@ nav ul li {
   list-style-type: none;
 }
 
-article header h1 {
+/* article header h1 {
   color: var(--accent);
-}
+} */
 
-header time {
+time {
   color: var(--comment);
 }
 
