@@ -1,3 +1,3 @@
 Template: feed.atom.j2
-Path: /feed.atom
+Path: /feeds/all.atom.xml
 Type: application/atom+xml
