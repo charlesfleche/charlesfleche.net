@@ -1,0 +1,14 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Author: Charles Flèche
+    Masotodon: https://mamot.fr/@charlesfleche
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Nginx
+    HTML5 Boilerplate template
+    Custom static blog code https://github.com/charlesfleche/charlesfleche.net
