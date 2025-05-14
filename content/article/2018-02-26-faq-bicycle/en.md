@@ -72,7 +72,7 @@ We used very simple bikes: no sophisticated mountain bikes, no fancy racers, jus
 
 Our bikes were very simple: no advanced fork, no complicated breaking system, no unusually sized wheels. We could easily find spare parts anywhere in the world.
 
-We bought two [Surly Long Haul Trucker](https://surlybikes.com/bikes/long_haul_trucker). They were readily available in London, that's one of the reason we went for those, but I'm sure other brands sell good bikes as well.
+We bought two [Surly](https://surlybikes.com) Long Haul Trucker. They were readily available in London, that's one of the reason we went for those, but I'm sure other brands sell good bikes as well.
 
 One of the good thing about the Surly is that they are made of steel and the baggage racks too: in case they break, we could have wielded them back to order pretty much everywhere in the world. If they were aluminium (as most bikes are), it would have been much more complicated.
 
