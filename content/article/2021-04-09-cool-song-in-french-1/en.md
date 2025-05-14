@@ -15,7 +15,7 @@ In March 2021 I started volunteering as a French tutor for [La Maison de l'amiti
 - Amadou & Mariam: [Mali](#mali)
 - Delgrès: [Caribbeans](#caribbeans)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kWR0kRWxgPw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kWR0kRWxgPw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 Richard Desjardins is a legend of Québec folk music. This song is about a guy who's playing music to the girl he loves in her courtyard, very much like Romeo would have done to Juliet.
 
@@ -94,7 +94,7 @@ Quand j'aime une fois,
 J'aime pour toujours.
 ```
 
-<iframe id="new-brunswick" width="560" height="315" src="https://www.youtube.com/embed/tccPG-2tm0c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="new-brunswick" width="560" height="315" src="https://www.youtube.com/embed/tccPG-2tm0c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 Lisa LeBlanc is a young follk / rock singer from New Brunswick. In this songs she complains about her life who recently became very dull, as nothing is happening anymore.
 
@@ -133,7 +133,7 @@ J'suis rendue plate à mourir, j'feel mon cerveau ramollir
 J'suis rendue plate à mourir, j'feel mon cerveau ramollir
 ```
 
-<iframe id="louisiana" width="560" height="315" src="https://www.youtube.com/embed/XCWIXIEizKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="louisiana" width="560" height="315" src="https://www.youtube.com/embed/XCWIXIEizKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 In Louisiana there is still a community of French speaking Americans, the Acadiens. Zachary Richard is without any doubt the most famous of them. In this song he says that working is too difficult, stealing is bad, so he lives on love and hopes to live long !
 
@@ -162,7 +162,7 @@ Chaque jour que moi j'vis, on m'demande de quoi j'vis,
 J'dis que j'vis sur l'amour, et j'espère de viv' vieux!
 ```
 
-<iframe id="belgium" width="560" height="315" src="https://www.youtube.com/embed/rYdk70VSfv8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="belgium" width="560" height="315" src="https://www.youtube.com/embed/rYdk70VSfv8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 For European native French speakers, as the capital of Belgium Brussels is the little sister of Paris and is often considered funnier and more relaxed. In this song Dick Annegarn tells Brussels that he will leave Paris soon as this city tired him, in his mind and his body and will be back in Belgium.
 
@@ -209,7 +209,7 @@ Bientôt je prends la dérive
 Paris je te laisse mon lit
 ```
 
-<iframe id="north" width="560" height="315" src="https://www.youtube.com/embed/UB-qVqgSioo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="north" width="560" height="315" src="https://www.youtube.com/embed/UB-qVqgSioo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture"></iframe>
 
 M.A.P. comes from my native region, the North of France. "Lillo" is local way to call the inhabitants of Lille. In this song they list everything that is wrong in the city, from the notoriously bad weather to the corrupt politicians and the rampant poverty, but eventually tell their love of Lille. Don't trust the words in the lyrics: they are sang with a somewhat strong Northern accent and the text is written that way: many words below are not typically French.
 
@@ -310,7 +310,7 @@ et alors et alors et alors
 un vrai, un vrai de vrai de chnord
 ```
 
-<iframe id="paris" width="560" height="315" src="https://www.youtube.com/embed/plLgDMslgwo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="paris" width="560" height="315" src="https://www.youtube.com/embed/plLgDMslgwo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 Java is a "rap-musette": a comical blend of very modern rap and the traditionnal French music style played with accordion, "le musette". The bad comes from Paris and in this song they play with of the clichés of the typical Parisian: a moody lovable who speaks in slang with a strong accent.
 
@@ -406,7 +406,7 @@ J'me Marre (J'me Marre)
 Mourir pour des idées, oui mais de mort lente... Point barre
 ```
 
-<iframe id="occitania" width="560" height="315" src="https://www.youtube.com/embed/jtssC13qIsM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="occitania" width="560" height="315" src="https://www.youtube.com/embed/jtssC13qIsM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 Francis Cabrel is one of most popular French musician and has been since the late 70's: virtually everyone in French speaking countries know a few of his songs. He's from the South West of France, close to the Pyrenees and Spain. Cabrel notorioulsy speaks and sing with a the very strong accent of the region.
 
@@ -480,7 +480,7 @@ Venga, venga a bailar...
 Y mataremos otros
 ```
 
-<iframe id="marseille" width="560" height="315" src="https://www.youtube.com/embed/SUYiugTpu8g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="marseille" width="560" height="315" src="https://www.youtube.com/embed/SUYiugTpu8g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 Massilia Sound System is reggae band from Marseille (previously known as Massilia), one of the major port of the Mediterranean. Their accent is very typical of the region and his often cited as a "singing accent".
 
@@ -580,7 +580,7 @@ Le stupide ment, pas de traitement,
 Le médical ment, y a pas de calmant.
 ```
 
-<iframe id="mali" width="560" height="315" src="https://www.youtube.com/embed/gnvJEhRNkSw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="mali" width="560" height="315" src="https://www.youtube.com/embed/gnvJEhRNkSw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 Amadou and Mariam are a couple coming from Mali, one the French speaking countries of Africa. They met in the 70's in a institute for yound blind people in Bamako, started they musical carreer in the 80's to finally reaching stardom in the late 90's with a string of successes in France, starting with the love song "Je pense à toi": "I'm thinking about you".
 
@@ -618,7 +618,7 @@ Je pense à toi, mon amour, ma bien aimée
 Ne m'abandonnes pas, mon amour, ma chérie
 ```
 
-<iframe id="caribbeans" width="560" height="315" src="https://www.youtube.com/embed/I-6RPhurZIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="caribbeans" width="560" height="315" src="https://www.youtube.com/embed/I-6RPhurZIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
 In the French islands of the Caribbean, a group of languages that blends French and local languages is spoken: le créole. If the sound of the word may sometime feel familiar, the grammar and the way words are written can be quite different. In this song, "ja tan pou nou respecté nou" sounds like "J'attends pour nous respecter nous", which, I think, means something like "What do we wait for for self-respect ?". But don't take my word for it, that's really a guess... What is sure is that the band, Delgrès, totally rock: they are a blues band, with very modern tones and sound, and almost exclusively sing in créole.
 
