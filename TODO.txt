@@ -2,6 +2,9 @@
 
 ## Site
 
+- TIL page
+    - Individual TIL in RSS
+    - Aggregation page of all TIL
 - JSON-LD https://json-ld.org , example https://code.mendhak.com/gpl-v2-address-letter/
 
 ## Articles
