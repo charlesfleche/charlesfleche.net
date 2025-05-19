@@ -106,6 +106,13 @@ for article_data in all_articles_data["by_slug"].values():
     article_data["nav"].insert(
         0,
         {
+            "name": "#TIL",
+            "attrs": {"href": all_articles_data["by_slug"]["til"]["path"]},
+        },
+    )
+    article_data["nav"].insert(
+        0,
+        {
             "name": "Home",
             "attrs": {"href": "/"},
         },
