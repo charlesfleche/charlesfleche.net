@@ -1,0 +1,24 @@
+{% extends "base.html.j2" %}
+
+{% block main %}
+<article>
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+
+    {{ content_path | read_text }}
+
+    {% for article in articles.by_category.til %}
+    <article id="{{ article.slug }}">
+        <header>
+            <h1><a href="{{ path }}#{{ article.slug }}">{{ article.title }}</a></h1>
+            <time datetime="{{ article.date }}">{{ article.date }}</time>
+        </header>
+
+        {{ article.content_path | read_text }}
+    </article>
+    {% endfor %}
+</article>
+
+
+{% endblock main %}

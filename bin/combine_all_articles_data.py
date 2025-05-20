@@ -1,6 +1,7 @@
 import argparse
 import copy
 import json
+from collections import defaultdict
 from datetime import datetime
 from urllib.parse import urlparse
 
@@ -105,6 +106,13 @@ for article_data in all_articles_data["by_slug"].values():
     article_data["nav"].insert(
         0,
         {
+            "name": "#TIL",
+            "attrs": {"href": all_articles_data["by_slug"]["til"]["path"]},
+        },
+    )
+    article_data["nav"].insert(
+        0,
+        {
             "name": "Home",
             "attrs": {"href": "/"},
         },
@@ -135,17 +143,24 @@ latest_article = max(
 )
 all_articles_data["by_slug"]["feed"]["date"] = latest_article.get("date")
 
-all_articles_data["by_date"] = list(
-    reversed(
-        sorted(
-            [
-                article
-                for article in all_articles_data["by_slug"].values()
-                if article["category"] not in ("draft", "page")
-            ],
-            key=lambda article: article.get("date"),
-        )
+by_date = []
+all_articles_data["by_date"] = by_date
+
+by_category = defaultdict(list)
+all_articles_data["by_category"] = by_category
+
+for article_data in reversed(
+    sorted(
+        all_articles_data["by_slug"].values(),
+        key=lambda article: article.get("date"),
     )
-)
+):
+    category = article_data["category"]
+
+    by_category[category].append(article_data)
+
+    if category not in ("draft", "page"):
+        by_date.append(article_data)
+
 
 json.dump(all_articles_data, args.out, indent=2, sort_keys=True)

@@ -79,12 +79,18 @@ class MediaProcessor(Treeprocessor):
         src = pathlib.Path(el.attrib.get("src"))
         del el.attrib["src"]
 
-        for suffix in [".avif", ".webp", ".jpeg"]:
+        # Hardcoding mimetype rather than calling mimetypes.guess_type
+        # some older versions of guess_type do not recognize webp
+        for suffix, mimetype in [
+            (".avif", "image/avif"),
+            (".webp", "image/webp"),
+            (".jpeg", "image/jpeg"),
+        ]:
             dst = pathlib.Path(src.with_suffix(suffix).name)
 
             source = ET.SubElement(el, "source")
             source.set("srcset", str(dst))
-            source.set("type", mimetypes.guess_type(str(dst))[0])
+            source.set("type", mimetype)
 
             self.srcs.append(["convert_img", src, dst])
 
