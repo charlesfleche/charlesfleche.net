@@ -8,13 +8,15 @@
 
   {{ content_path | read_text }}
 
-  <h1>Articles</h1>
+  {% for cat_key, cat_name in [("article", "Articles"), ("til", "#TIL")] %}
+  <h1>{{ cat_name }}</h1>
 
-  {% for article in articles.by_category.article %}
+  {% for article in articles.by_category[cat_key] %}
   <p>
     <time datetime="{{ article.date }}">{{ article.date }}</time>
     <a href={{ article.path }}>{{ article.title }}</a><br />{{ article.description }}
   </p>
+  {% endfor %}
   {% endfor %}
 </article>
 
