@@ -3,8 +3,7 @@
 ## Site
 
 - TIL page
-    - Individual TIL in RSS
-    - Aggregation page of all TIL
+    - anchor link to aggregated TIL page
 - JSON-LD https://json-ld.org , example https://code.mendhak.com/gpl-v2-address-letter/
 
 ## Articles
@@ -22,10 +21,8 @@
 
 ## TIL
 
-* OpenDCC
+* Blender getting vertex colors for material
 * bpy.expose_bundled_modules() https://developer.blender.org/docs/release_notes/4.4/python_api/#blender-as-a-python-module
-* apache superset https://superset.apache.org/
 * tox setenv = {[testenv]setenv}
-* FBX ufbx https://github.com/ufbx/ufbx
 * Slow connection to cf on IPv6
     * https://askubuntu.com/questions/344863/ssh-new-connection-begins-to-hang-not-reject-or-terminate-after-a-day-or-so-on
