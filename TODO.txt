@@ -11,6 +11,7 @@
 ## Articles
 
 - Gandi LiveDNS
+- Contributing to Blender
 
 ## Inspi
 
