@@ -116,3 +116,13 @@ img, video {
   margin-right: auto;
   max-width: 100%;
 }
+
+.gallery {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: var(--half-gap);
+}
+
+.gallery img, video {
+  margin: 0px;
+}

@@ -2,6 +2,10 @@
 
 ## Site
 
+- images
+  - thumb 960px
+  - thumb 320px
+  - link to original
 - TIL page
     - anchor link to aggregated TIL page
 - Mnémographe gallery
