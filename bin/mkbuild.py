@@ -37,6 +37,8 @@ _ENV.filters["safe_ninja"] = safe_ninja
 _SUBNINJA_PATHS = []
 _ARTICLES_DATA_PATHS = []
 
+_CONVERT_GEOMETRY = {"default": "960x", "gallery": "320x"}
+
 
 @contextmanager
 def _mkdir_open(path, *args, **kwargs):
@@ -77,6 +79,7 @@ class MediaProcessor(Treeprocessor):
             ul.tag = "section"
             ul.attrib["class"] = "gallery"
             for img in img_els:
+                img.attrib["__purpose"] = "gallery"
                 ul.append(img)
 
     def _imgs_to_media(self, root):
@@ -90,10 +93,16 @@ class MediaProcessor(Treeprocessor):
                 self._GENERATOR_BY_MEDIA_TYPE[typ](self, element)
 
     def _to_picture(self, el):
+        print(el, el.attrib)
         el.tag = "picture"
 
         src = pathlib.Path(el.attrib.get("src"))
         del el.attrib["src"]
+
+        geometry = _CONVERT_GEOMETRY[el.attrib.pop("__purpose", "default")]
+        args = {
+            "geometry": geometry,
+        }
 
         # Hardcoding mimetype rather than calling mimetypes.guess_type
         # some older versions of guess_type do not recognize webp
@@ -102,15 +111,13 @@ class MediaProcessor(Treeprocessor):
             (".webp", "image/webp"),
             (".jpeg", "image/jpeg"),
         ]:
-            dst = pathlib.Path(src.with_suffix(suffix).name)
+            dst = pathlib.Path(src.with_suffix(f".{geometry}{suffix}").name)
 
             source = ET.SubElement(el, "source")
             source.set("srcset", str(dst))
             source.set("type", mimetype)
 
-            self.srcs.append(
-                ["convert_img", safe_ninja(src), safe_ninja(dst), {"geometry": "960x"}]
-            )
+            self.srcs.append(["convert_img", safe_ninja(src), safe_ninja(dst), args])
 
         source = ET.SubElement(el, "img")
         source.set("src", str(dst))
