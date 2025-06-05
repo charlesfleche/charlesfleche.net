@@ -1,5 +1,6 @@
 Title: Mnémographe
 Description: Mnémographe description
+Path: /mnemographe/index.html
 
 - ![alt text](IMG_20220101_121853952_HDR-01_edited.jpeg)
 - ![alt text](IMG_20220102_194801077_HDR_edited.jpeg)

@@ -6,6 +6,7 @@ email: charles.fleche@free.fr
 netloc: https://charlesfleche.net
 template: article.html.j2
 nav:
+    
     - name: Mastodon
       attrs:
         href: https://mamot.fr/@charlesfleche

@@ -3,6 +3,7 @@ import copy
 import json
 from collections import defaultdict
 from datetime import datetime
+from pathlib import Path
 from urllib.parse import urlparse
 
 import yaml
@@ -107,7 +108,20 @@ for article_data in all_articles_data["by_slug"].values():
         0,
         {
             "name": "#TIL",
-            "attrs": {"href": all_articles_data["by_slug"]["til"]["path"]},
+            "attrs": {
+                "href": str(Path(all_articles_data["by_slug"]["til"]["path"]).parent)
+            },
+        },
+    )
+    article_data["nav"].insert(
+        0,
+        {
+            "name": "Mnémographe",
+            "attrs": {
+                "href": str(
+                    Path(all_articles_data["by_slug"]["mnemographe"]["path"]).parent
+                )
+            },
         },
     )
     article_data["nav"].insert(

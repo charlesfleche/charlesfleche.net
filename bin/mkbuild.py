@@ -126,6 +126,7 @@ class MediaProcessor(Treeprocessor):
         source = ET.SubElement(picture, "img")
         source.set("src", str(dst))
         source.set("type", mimetypes.guess_type(str(dst))[0])
+        source.set("loading", "lazy")
 
     def _to_video(self, el):
         el.tag = "video"
