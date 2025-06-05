@@ -93,17 +93,21 @@ class MediaProcessor(Treeprocessor):
                 self._GENERATOR_BY_MEDIA_TYPE[typ](self, element)
 
     def _to_picture(self, el):
-        print(el, el.attrib)
-        el.tag = "picture"
+        el.tag = "a"
 
         src = pathlib.Path(el.attrib.get("src"))
         del el.attrib["src"]
+
+        el.attrib["href"] = str(src)
+
+        self.srcs.append(["ln", safe_ninja(src), safe_ninja(src), {}])
 
         geometry = _CONVERT_GEOMETRY[el.attrib.pop("__purpose", "default")]
         args = {
             "geometry": geometry,
         }
 
+        picture = ET.SubElement(el, "picture")
         # Hardcoding mimetype rather than calling mimetypes.guess_type
         # some older versions of guess_type do not recognize webp
         for suffix, mimetype in [
@@ -113,13 +117,13 @@ class MediaProcessor(Treeprocessor):
         ]:
             dst = pathlib.Path(src.with_suffix(f".{geometry}{suffix}").name)
 
-            source = ET.SubElement(el, "source")
+            source = ET.SubElement(picture, "source")
             source.set("srcset", str(dst))
             source.set("type", mimetype)
 
             self.srcs.append(["convert_img", safe_ninja(src), safe_ninja(dst), args])
 
-        source = ET.SubElement(el, "img")
+        source = ET.SubElement(picture, "img")
         source.set("src", str(dst))
         source.set("type", mimetypes.guess_type(str(dst))[0])
 
