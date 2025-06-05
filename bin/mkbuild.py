@@ -108,7 +108,9 @@ class MediaProcessor(Treeprocessor):
             source.set("srcset", str(dst))
             source.set("type", mimetype)
 
-            self.srcs.append(["convert_img", safe_ninja(src), safe_ninja(dst)])
+            self.srcs.append(
+                ["convert_img", safe_ninja(src), safe_ninja(dst), {"geometry": "960x"}]
+            )
 
         source = ET.SubElement(el, "img")
         source.set("src", str(dst))
@@ -126,7 +128,7 @@ class MediaProcessor(Treeprocessor):
         source.set("src", str(src))
         source.set("type", mimetypes.guess_type(str(src))[0])
 
-        self.srcs.append(["ln", safe_ninja(src), safe_ninja(src)])
+        self.srcs.append(["ln", safe_ninja(src), safe_ninja(src), {}])
 
     _GENERATOR_BY_MEDIA_TYPE = {
         "image": _to_picture,
@@ -238,8 +240,9 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
                     media_command,
                     safe_ninja(md_path.parent / media_src),
                     safe_ninja(distdir_path / media_dst),
+                    vars,
                 )
-                for media_command, media_src, media_dst in md.MediaProcessor.srcs
+                for media_command, media_src, media_dst, vars in md.MediaProcessor.srcs
             ],
         )
 

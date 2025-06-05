@@ -1,5 +1,6 @@
 build {{ dist_path }}: render_html $all_articles_data_path
     slug = {{ slug }}
 
-{%for command, src, dst in media_paths %}build {{ dst }}: {{ command }} {{ src }}
+{% for command, src, dst, vars in media_paths %}build {{ dst }}: {{ command }} {{ src }}
+{% for key, value in vars.items() %}    {{ key }} = {{ value }}{% endfor %}
 {% endfor %}
