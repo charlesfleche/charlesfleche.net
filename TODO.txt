@@ -22,6 +22,8 @@
 
 ## TIL
 
+* Versors https://en.wikipedia.org/wiki/Versor / carved quaternion https://en.wikipedia.org/wiki/History_of_quaternions
+* Compensation matrix proof
 * Blender getting vertex colors for material
 * bpy.expose_bundled_modules() https://developer.blender.org/docs/release_notes/4.4/python_api/#blender-as-a-python-module
 * tox setenv = {[testenv]setenv}
