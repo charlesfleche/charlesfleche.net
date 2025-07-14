@@ -22,6 +22,7 @@
 
 ## TIL
 
+* TIL systemd.mount path-tp-mountpoint.mount
 * Versors https://en.wikipedia.org/wiki/Versor / carved quaternion https://en.wikipedia.org/wiki/History_of_quaternions
 * Compensation matrix proof
 * xdg-mime default for nnn and swayimg
