@@ -1,0 +1,50 @@
+Title: Smoothie recipe method
+Tags: smoothie, recipes
+
+- Base
+  - dairy milk
+  - coconut milk
+  - coconut water
+  - almond milk
+  - soy milk
+  - watermelon
+- Protein
+  - tofu
+  - greek yogurt
+  - nut butter
+  - protein powder
+  - black beans
+  - chickpeas
+  - edamane
+  - kidney beans
+  - lentils
+  - navy beans
+- Fat
+  - avocado
+  - chia seeds
+  - flaxseed
+  - coconut oil
+  - cream cheese
+  - crackers
+- Complex carbohydrates
+  - oats
+  - quinoa
+  - banana
+  - strawberries
+  - blueberries
+  - dates
+  - carrots
+- Leafy greens
+  - Spinach
+  - Kale
+  - Romaine lettuce
+- Fiber
+  - flaxseed
+  - psyllium husk powder
+- En plus
+  - Sirop érable
+  - Gingembre
+  - Jus de lime
+  - Menthe
+  - Spiruline
+

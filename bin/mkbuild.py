@@ -135,6 +135,7 @@ class MediaProcessor(Treeprocessor):
         del el.attrib["src"]
 
         el.set("controls", "")
+        el.set("preload", "metadata")
 
         source = ET.SubElement(el, "source")
         source.set("src", str(src))
