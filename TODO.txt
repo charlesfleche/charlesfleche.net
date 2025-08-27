@@ -22,6 +22,7 @@
 
 ## TIL
 
+* Gooch shading, from looking at MaterialX nodes in USDShadeRegistry
 * jhead to rename jpeg by their EXIF https://unix.stackexchange.com/questions/6998/how-can-i-rename-photos-given-the-exif-data
 * TIL systemd.mount path-tp-mountpoint.mount
 * Versors https://en.wikipedia.org/wiki/Versor / carved quaternion https://en.wikipedia.org/wiki/History_of_quaternions
