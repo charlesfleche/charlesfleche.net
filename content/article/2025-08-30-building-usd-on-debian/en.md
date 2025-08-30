@@ -1,11 +1,11 @@
-Title: Building OpenUSD on debian
-Description: A step-by-step how-to guide to build USD on debian
+Title: Building OpenUSD on Debian
+Description: A step-by-step how-to guide to build USD on Debian
 
 ![usdview on debian displaying ALab](usdview-debian-alab.png)
 
 [OpenUSD](https://openusd.org) is [officially tested](https://github.com/PixarAnimationStudios/OpenUSD/blob/release/VERSIONS.md) on [AlmaLinux](https://almalinux.org), with non-system dependencies [built from a custom script](https://github.com/PixarAnimationStudios/OpenUSD/blob/release/build_scripts/build_usd.py). This makes it non-trivial for [Debian](https://debian.org) users to build and run USD against system packages.
 
-This guide summarizes a way of building [OpenUSD v25.08](https://github.com/PixarAnimationStudios/OpenUSD/tree/v25.08) on [Debian 13 trixie](https://www.debian.org/releases/trixie/). We'll build the USD C++ libraries, Python modules, [tools](https://openusd.org/release/toolset.html)(including [usdview](https://openusd.org/release/toolset.html#usdview)) and code [examples](https://github.com/PixarAnimationStudios/OpenUSD/tree/dev/extras/usd/examples) (including the [OBJ file format plugin](https://github.com/PixarAnimationStudios/OpenUSD/tree/dev/extras/usd/examples/usdObj)). Tests and documentation won't be built. Some USD dependencies are not packaged for debian as [PTex](https://ptex.us/), [MaterialX](https://materialx.org) or [Alembic](https://www.alembic.io). As such, the matching USD plugins will be left out for now.
+This guide summarizes a way of building [OpenUSD v25.08](https://github.com/PixarAnimationStudios/OpenUSD/tree/v25.08) on [Debian 13 trixie](https://www.debian.org/releases/trixie/). We'll build the USD C++ libraries, Python modules, [tools](https://openusd.org/release/toolset.html)(including [usdview](https://openusd.org/release/toolset.html#usdview)) and code [examples](https://github.com/PixarAnimationStudios/OpenUSD/tree/dev/extras/usd/examples) (including the [OBJ file format plugin](https://github.com/PixarAnimationStudios/OpenUSD/tree/dev/extras/usd/examples/usdObj)). Tests and documentation won't be built. Some USD dependencies are not packaged for Debian as [PTex](https://ptex.us/), [MaterialX](https://materialx.org) or [Alembic](https://www.alembic.io). As such, the matching USD plugins will be left out for now.
 
 Our final USD build will include:
 
@@ -30,7 +30,7 @@ The final file layout will look like:
 
 # Who is this guide intended for ?
 
-This guide is written to be read and understood by someone who knows basic linux concepts and tools (debian package management, the root user, command line tools) and C++ software building terms like "building", "compiler" or "dependencies".
+This guide is written to be read and understood by someone who knows basic linux concepts and tools (Debian package management, the root user, command line tools) and C++ software building terms like "building", "compiler" or "dependencies".
 
 Think: "a smart high school student".
 
