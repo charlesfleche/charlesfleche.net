@@ -22,6 +22,7 @@
 
 ## TIL
 
+* bsdtar --strip-components=1 -xvf /home/charles/Downloads/alab-techvars.v2.2.0.zip
 * Gooch shading, from looking at MaterialX nodes in USDShadeRegistry
 * jhead to rename jpeg by their EXIF https://unix.stackexchange.com/questions/6998/how-can-i-rename-photos-given-the-exif-data
 * TIL systemd.mount path-tp-mountpoint.mount
