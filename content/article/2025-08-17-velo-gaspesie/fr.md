@@ -1,7 +1,23 @@
 Title: Pointe de la Gaspésie à vélo
 Description: Une dizaine de jours à vélo autour de la pointe de la Gaspésie
 
-# 20250802
+Cet article est encore WIP : je le publie afin de pouvoir montrer notre sélection de photos à nos amis, mais il manque encore des textes.
+
+En août 2025 nous avons pédalé en [Gaspésie](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie), péninsule de l'est du Québec. Ce voyage d'une dizaine de jours depuis [Saint-Anne-des-Monts](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie) à travers le Parc National de la Gaspésie vers New Richmond et Percé s'est achevé à Rivière-au-Renard où nous avons pris le bus pour retourner à Saint-Anne. Cinq cents kilomètres d'océan à notre droite, de soleil au dessus, de côtes raides, d'eau beaucoup trop froide pour un français et bien trop attirante pour ne pas s'y plonger pour une québecoise et parfois d'ours sur la route ont fait [ressurgir des sensations et souvenirs pour l'un](https://cambraicambrai.wordpress.com/) et découvrir une nouvelle façon de voyager pour l'autre.
+
+Et on a vu un ours.
+
+# Samedi 2: Québec / Bic
+
+Camping du Parc Nation du Bic
+
+- Vu Diane et enfants le matin
+- Mangé chez Saint Pierre
+- Marché le long du rivage au Bic
+- Ciel rose couchant / demi-lune devant l'église
+- "peut-être" entendu un phoque
+- vu grand héron
+- écouté: Animals (Pink Floyd)
 
 - ![alt text](20250802153021.jpg)
 - ![alt text](20250802180748.jpg)
@@ -17,7 +33,22 @@ TODO
 - ![alt text](20250802183021.jpg)
 - ![alt text](20250802194143.jpg)
 
-# 20250803 
+# Dimanche 3: Bic / Parc de la Gaspésie
+
+🚲 40 km
+Camping de la rivière
+
+- déjeuner Rimouski Chez Oeufs
+- beaucoup de jeux de mots Chez Oeufs
+- préparation sur le parking du point info Saint-Anne
+- Courses au Métro
+- Trois côtes à vélo jusqu'au Parc de la Gaspésie
+- petite pluie fine
+- quiproquo glace à l'accueil du parc
+- trois cyclistes qui partent traverser la Gaspésie vers l'est sur des chemins de gravier
+- coin entre deux court d'eau
+
+- écouté: The Blueprint (Jay-Z)
 
 ![alt text](20250814021239.mp4)
 
@@ -40,7 +71,12 @@ TODO
 - ![alt text](20250803195916.jpg)
 - ![alt text](20250803163134.jpg)
 
-# 20250804 
+# Lundi 4: Parc de la Gaspésie 
+
+- sieste 3 heures
+- chihuahua Brutus
+
+- écouté: Best Of (Joy Division)
 
 ![alt text](20250814021117.mp4)
 
@@ -63,7 +99,18 @@ TODO
 - ![alt text](20250804103457.jpg)
 - ![alt text](20250804182539.jpg)
 
-# 20250805 
+# Mardi 5: Parc de la Gaspésie / New Richmond
+
+🚲 110 km
+Camping de la Pointe Taylor
+
+- ours qui traverse la route
+- halte / panneaux solaires
+- gros rapace sur les berges de la rivière
+- fin interminable avec une longue séries de montées pour arriver au camping
+- insolation charles
+
+- plus rien écouté le soir à partir de ce soir là, trop fatigué
 
 - ![alt text](20250805091023.jpg)
 - ![alt text](20250805095507.jpg)
@@ -81,7 +128,20 @@ TODO
 - ![alt text](20250814021106.mp4)
 
 
-# 20250806 
+# Mercredi 6: New Richmond / Port-Daniel
+
+🚲 85 km
+Motel de l'Anse
+
+- batteur Vince Lemyre
+- feux d'artifices
+- départ compliqué, hypoglycémie, déhydratation
+- bande de retraités au camping
+- beaucoup de Gatorade
+- vent dans le dos
+- compliqué de trouver le Motel de l'Anse
+- travaux: obligés de se faire une dernière montée, pas réussi à négocier
+- belle plage calme / baignade (à côté d'un des plus gros pollueurs atmosphérique du Québec)
 
 ![alt text](20250814020921.mp4)
 
@@ -93,7 +153,17 @@ TODO
 
 ![alt text](20250806132536.jpg)
 
-# 20250807 
+# Jeudi 7: Port-Daniel / Ory
+
+65 km
+Chez Morgane (BeWelcome)
+
+- Morgane au 2ème rang
+- Poules / coq
+- Petit potager
+- Chasse infructeuse aux bleuets
+- Cantine cachée sur les quais
+- Arrêt sur la plage du Cap-d'Éspoir
 
 ![alt text](20250814020739.mp4)
 
@@ -123,7 +193,18 @@ TODO
 ![alt text](20250813143159.mp4)
 
 
-# 20250808 
+# Vendredi 8: Percé
+
+Chez Morgane (BeWelcome)
+
+- rencontré [Boris Thebia, le photo journaliste](https://www.borisruth.com)
+- photographe de Guyane à vélo
+- Flo croisière rocher percé / fou de bassan
+- moi soigne mes yeux
+- compresses oeil
+- levé au chant du coq
+- contact de gaspé est une amie de Morgane
+- phoque / requin blancs
 
 - ![alt text](20250808084907.jpg)
 - ![alt text](20250808085419.jpg)
@@ -148,7 +229,20 @@ TODO
 - ![alt text](20250813141704.mp4)
 
 
-# 20250809 
+# Samedi 9: Ory / Gaspé
+
+80 km
+Camping Fort Ramsay
+
+- oh les pains
+- réveil coq
+- magnifique auberge Camp de Base
+- famille de péruviens à la cantine au camping à midi
+- traverse pont / voie ferrée
+- baignade à -1000 degrés pour Flo
+- belle piste cyclable jusque Gaspé
+- fatigue, manque d'eau, manque hygiène, trop loin pour notre contact: arrêt dans les maisons des moustiques du camping de Fort Ramsay
+- revu Boris qui prenait un lift
 
 ![alt text](20250813140944.mp4)
 
@@ -174,7 +268,10 @@ TODO
 
 - ![alt text](20250809120159.jpg)
 
-# 20250810 
+# Dimanche 10: Gaspé / Forillon
+
+50 km
+Camping Cap aux Rosiers
 
 - ![alt text](20250810131010.jpg)
 - ![alt text](20250810143045.jpg)
