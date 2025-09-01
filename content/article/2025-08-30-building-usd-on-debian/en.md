@@ -27,13 +27,6 @@ The final file layout will look like:
 - `~/tmp/OpenUSD` for the source code
 - `~/tmp/build-OpenUSD` for the temporary build files
 
-
-# Who is this guide intended for ?
-
-This guide is written to be read and understood by someone who knows basic linux concepts and tools (Debian package management, the root user, command line tools) and C++ software building terms like "building", "compiler" or "dependencies".
-
-Think: "a smart high school student".
-
 Is something not explained well enough ? Is there an ambiguity somewhere ? Am I grammatically challenged in English ? Please [drop me a message](mailto:charles.fleche@free.fr) or even better, submit a [pull request](https://github.com/charlesfleche/charlesfleche.net/edit/master/content/article/2025-08-30-building-usd-on-debian/en.md). 
 
 
