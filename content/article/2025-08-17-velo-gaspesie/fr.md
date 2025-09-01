@@ -273,6 +273,17 @@ TODO
 50 km
 Camping Cap aux Rosiers
 
+- Pas Cap bon ami, "vous n'êtes pas arrivés" de la dame de Parc Canada
+- camping près de la plage, vagues depuis la tente
+- phoques qui sortent la tête de l'eau
+- excellente et inattendue pizza ce midi
+- eau de l'Atlantique froide et salée
+- ho les pains
+- logues montées dans Forillon
+- déjection d'ours sur le bord de la route
+- containers anti ours pour mettre les sacs
+- sacs très lourds
+
 - ![alt text](20250810131010.jpg)
 - ![alt text](20250810143045.jpg)
 - ![alt text](20250810143128.jpg)
@@ -284,7 +295,19 @@ TODO
 
 - ![alt text](20250810180526.jpg)
 
-# 20250811 
+# Lundi 11: Forillon / Anse à Valleau
+
+17 km
+Chez Monia à Anse à Valleau
+
+- arrêt à l'Anse-au-Griffon
+- Marcel / Monia
+- soirée collègues Monia
+- recroiser Monia à Montréal
+- forêt enchantée
+- montée en solo, mais de très bonne humeur
+- donné de l'eau par une petite dame dans une montée, avait envie de parler, je connaissais ça vie entière après une phrase de 10min
+- Marcel / melon d'eau
 
 ![alt text](20250813140255.mp4)
 
@@ -312,7 +335,28 @@ TODO
 - ![alt text](20250811090852.jpg)
 - ![alt text](20250811203227.jpg)
 
-# 20250812 
+# Mardi 12: Anse à Valleau / Québec
+
+Chez la mère de Florence
+
+- Marie autostoppeuse
+- Vélo tétris dans la voiture de Monia
+- rire de soulagement dans le bussur les côtes interminables et le vent de face
+- Dixie Lee, aucun goût
+- Arrêt à ... pour visiter la tante et l'oncle de Florence
+- Nouveau vélo: on apprécie sa légèreté / aérodynamisme
+- Sensation étrange d'avanger en quelques dizaines de minutes une journée entière de vélo, sans craindre ni les côtes, ni le vent, ni la soif, ni la faim.
+
+# Mercredi 13: Québec / Montréal
+
+Chez soit
+
+- Fin du voyage, on dort chez nous ce soir
+- Bilan du voyage
+- J'aime vraiment les voyages à vélo
+- ne sais pas vraiment pourquoi
+- "c'est dur le vélo, ..."
+- sensations, mémoires retrouvées 13 ans après
 
 ![alt text](20250813134642.mp4)
 
