@@ -9,17 +9,14 @@ Et on a vu un ours.
 
 # Samedi 2: Québec / Bic
 
-Camping du Parc Nation du Bic
+Nuit: Camping du Parc National du Bic
 
-- Vu Diane et enfants le matin
-- Mangé chez Saint Pierre
-- Marché le long du rivage au Bic
-- Ciel rose couchant / demi-lune devant l'église
-- "peut-être" entendu un phoque
-- vu grand héron
-- écouté: Animals (Pink Floyd)
+Les bagages sont faits, les vélos derrière la voiture. On dit au revoir aux enfants de Florence, en vacances à Québec, et on démarre, direction le Parc National du Bic. Oui, on pourra dire que c'est le ciel rose se couchant sur une demi-lune qui nous a amené au Bic. Ou bien ce grand héron, Cerbère de notre première balade le long du lac à la recherche de phoques.
 
-- ![alt text](20250802153021.jpg)
+Oui, on pourra dire.
+
+![alt text](20250802153021.jpg)
+
 - ![alt text](20250802180748.jpg)
 - ![alt text](20250802181638.jpg)
 - ![alt text](20250802181640.jpg)
@@ -27,41 +24,41 @@ Camping du Parc Nation du Bic
 - ![alt text](20250802183256.jpg)
 - ![alt text](20250802184432.jpg)
 
-TODO
+En fait, c'était surtout la perspective de manger [chez Saint Pierre](https://chezstpierre.ca/), un restaurant connu du Québec, qui nous fait s'arrêter au Bic ce soir. Très bon choix d'ailleurs, on recommande le resto.
 
 - ![alt text](20250802173830.jpg)
 - ![alt text](20250802183021.jpg)
 - ![alt text](20250802194143.jpg)
 
+Ce soir, dans la pénombre calme de la tente, j'écoute [Animals de Pink Floyd](https://fr.wikipedia.org/wiki/Animals_(album)). J'ai emprunté un lecteur MP3 tout simple à la bibliothèque à côté de chez moi. Dedans: des albums, des artistes que je n'ai jamais écouté. Ma liseuse tombée en panne, la lampe frontale économisée pour les urgences, je m'enfonce dans mon sac de couchage, des écouteurs aux oreilles, et j'écoute de la musique sans rien d'autre. Cela n'était plus arrivé depuis les intégrales de Renaud, à 29 ans, lors des premières nuits en Belgique vers l'Australie.
+
+
 # Dimanche 3: Bic / Parc de la Gaspésie
 
-🚲 40 km
-Camping de la rivière
+Distance à vélo: 40 km
+Nuit: Parc de la Gaspésie, Camping de la rivière
 
-- déjeuner Rimouski Chez Oeufs
-- beaucoup de jeux de mots Chez Oeufs
-- préparation sur le parking du point info Saint-Anne
-- Courses au Métro
-- Trois côtes à vélo jusqu'au Parc de la Gaspésie
-- petite pluie fine
-- quiproquo glace à l'accueil du parc
-- trois cyclistes qui partent traverser la Gaspésie vers l'est sur des chemins de gravier
-- coin entre deux court d'eau
+Breuvages jut'œufs, gauffre œufs'ropéennes, menus mystéri'œufs... Nous prenons un dernier petit-déjeuner [Chez Œufs](https://chezoeufs.com/) à Rimouski, à la carte chargée de jeux de mots. À Saint-Anne-des-Monts nous laissons la voiture devant le point d'information touristique: on se demandait où nous allions pouvoir la garer, mais il semblerait qu'on ne soit pas les premiers à faire de même. On charge les vélo sur le parking, une dernière course et puis nous voilà au pied de la montée vers le Parc de la Gaspésie.
 
-- écouté: The Blueprint (Jay-Z)
+Cette première vraie étape annonce la suite du voyage. Pendant 40km nous montons, sur 3 côtes à la suite, entourés d'uen forêt dense. Une petite pluie fine et agréable fait parfois baisser la températures de nos jambes loin d'être aguerries à l'exercice. Et nous installons finalement la tente à l'ombre des arbres du parc.
+
+Trois cyclises y font également bivouac pour la nuit: elles arrivent du Sud et traverseront la Gaspésie vers l'est à travers les chemins de gravier pour rejoindre Gaspé. 
 
 ![alt text](20250814021239.mp4)
 
 - ![alt text](20250803121205.jpg)
-- ![alt text](20250803162414.jpg)
 - ![alt text](20250803163048.jpg)
 - ![alt text](20250803171726.jpg)
-- ![alt text](20250803173125.jpg)
 - ![alt text](20250803190822.jpg)
 - ![alt text](20250803194611.jpg)
 - ![alt text](20250803130328.jpg)
 
-TODO
+![alt text](20250803162414.jpg)
+
+
+À l'acceuil du parc j'ai demandé deux glaces pour fêter ces premières pentes. On m'a indiqué les bacs dehors. Dehors ? Mais pourtant le réfrigérateur est à l'intérieur ? Allons-donc, sa langue aura fourché. Je prends donc deux cônes sur le chemin vers la tente. Plusieurs jours plus tard, le quiproquo est avéré: j'aurais dû demander deux crèmes glacées, et pas deux sacs de glaçons…
+
+On passera un long moment à simplement regarder deux bras d'eau se mélanger dans le calme à l'orée du bois, sous un autre ciel rose Gaspésien.
 
 - ![alt text](20250803172616.jpg)
 - ![alt text](20250803080548.jpg)
@@ -69,24 +66,22 @@ TODO
 - ![alt text](20250803190858.jpg)
 - ![alt text](20250803195831.jpg)
 - ![alt text](20250803195916.jpg)
-- ![alt text](20250803163134.jpg)
+
+Ce soir, je m'endors avec [The Blueprint, Jay-Z](https://fr.wikipedia.org/wiki/The_Blueprint).
 
 # Lundi 4: Parc de la Gaspésie 
 
-- sieste 3 heures
-- chihuahua Brutus
-
-- écouté: Best Of (Joy Division)
+Au sommet d'une tour de point nous rejoins un marcheur et son minuscule chihuahua. On plaisante vite sur cette bête sauvage, on lui demande si il part à la chasse aux ours avec. Beau joueur, lui suggère qu'il emmène son fauve à la chasse à l'orignal. On sourit en imaginant les 1.5kg du petit chien face à la demi-tonne de l'élan. Le maître fini par nous donner son nom: Brutus ! Larmes de rire…
 
 ![alt text](20250814021117.mp4)
 
-- ![alt text](20250804103600.jpg)
 - ![alt text](20250804104645.jpg)
 - ![alt text](20250804111444.jpg)
-- ![alt text](20250804125304.jpg)
 - ![alt text](20250804125537.jpg)
 
-TODO
+![alt text](20250804125304.jpg)
+
+La journée d'hier nous a plus fatigué que nous le pensions. Florence dors presque toute l'après-midi à l'ombre de la tente, pendant que j'investi de grandes quantités de nos noix à apprivoiser la faune locale. Timides au début, écureils et tamias perdent ensuite vite patience quand leur tribu de noisettes n'est pas déposé séance tenante sur la table en bois du camping. Ils me grimpent dessus pour monter plus vite et me rappeler à mes devoirs. Nous sommes chez eux, après tout.
 
 - ![alt text](20250804111622.webm)
 - ![alt text](20250804131708.webm)
@@ -94,54 +89,41 @@ TODO
 - ![alt text](20250804132619.webm)
 - ![alt text](20250804134215.webm)
 
-TODO
+Ce soir j'écoute pour la première fois de ma vie une compilation de [Joy Division](https://fr.wikipedia.org/wiki/Joy_Division). Le moins qu'on puisse dire, c'est qu'il va me falloir une sérieuse discussion avec un fan et beaucoup de temps pour qu'on m'explique le génie du groupe. 
 
 - ![alt text](20250804103457.jpg)
 - ![alt text](20250804182539.jpg)
 
 # Mardi 5: Parc de la Gaspésie / New Richmond
 
-🚲 110 km
-Camping de la Pointe Taylor
+Distance à vélo: 110 km
+Nuit: Camping de la Pointe Taylor
 
-- ours qui traverse la route
-- halte / panneaux solaires
-- gros rapace sur les berges de la rivière
-- fin interminable avec une longue séries de montées pour arriver au camping
-- insolation charles
+Arrêtés en pleine montée pour boire de l'eau, on se retourne sur une masse noire qui traverse la route déserte d'un pan de forêt à l'autre: un ours sauvage vient de passer à quelques dizaines de mètres de nous ! On se tournera vivement vers le moindre bruit du moindre buisson tout le reste la route, répétant entre deux coups de pédales nos scénarios de fuites ou d'intimidation. 
 
-- plus rien écouté le soir à partir de ce soir là, trop fatigué
+![alt text](20250805091023.jpg)
 
-- ![alt text](20250805091023.jpg)
 - ![alt text](20250805095507.jpg)
-- ![alt text](20250805100325.jpg)
 - ![alt text](20250805115904.jpg)
 - ![alt text](20250805115916.jpg)
 
-TODO
-
-- ![alt text](20250805171918.jpg)
-
-TODO
+L'arrivé à New Richmond est interminable. Là on pensait après 90km arriver à destination, on se rend vite compte qu'il nous restait encore 20 bons kilomètres sous le soleil et sur une route creusée d'un sillon permanent nous emmenant de côtes en côtes vers, enfin, le littoral. À la dernière pose, quelque chose ne va pas: on connait les sensations d'un corps exténué, mais là quelque chose cloche. Au camping, une courte marche est un calvaire. Écroulé sur la table, on compte les symptômes: fatigue intense, froid, impossibilité d'avaler quoi que soit. Aucun doute, je suis victime d'une insolation. Je m'écroule dans la tente sitôt montée.
 
 - ![alt text](20250814021031.mp4)
 - ![alt text](20250814021106.mp4)
 
+Cette nuit, et jusqu'à la fin, je n'écouterai plus de musique avant de dormir: la fatigue de la journée emportera systématiquement au soir avec elle toute vélléité mélomane.
+
+![alt text](20250805171918.jpg)
+
 
 # Mercredi 6: New Richmond / Port-Daniel
 
-🚲 85 km
-Motel de l'Anse
+Distance à vélo: 85 km
+Nuit: Motel de l'Anse
 
-- batteur Vince Lemyre
-- feux d'artifices
-- départ compliqué, hypoglycémie, déhydratation
-- bande de retraités au camping
-- beaucoup de Gatorade
-- vent dans le dos
-- compliqué de trouver le Motel de l'Anse
-- travaux: obligés de se faire une dernière montée, pas réussi à négocier
-- belle plage calme / baignade (à côté d'un des plus gros pollueurs atmosphérique du Québec)
+L'insolation d'hier complique le départ ce matin. Fatigue, hypoglycémie, déhydration: on guette les dépanneurs pour faire une pause et le plein de [Gatorade](https://fr.wikipedia.org/wiki/Gatorade). C'est très mauvais, mais efficace. L'après-midi se passe mieux. Le vent dans le dos nous pousse jusqu'aux derniers 200m du Motel de l'Anse où des travaux nous empêches de l'atteindre ! Il nous faire refaire quelques kilomètres et une belle côte pour enfin planter la tente à quelques dizaines de mètre de l'océan, et d'un joyeux groupe de retraités en vans qui se retrouvent tous les ans sur les routes. Nous voyant nous coucher avant le soleil, épuisés, la troupe, déjà passablement éméchée autour d'un feu, nou rassure : "ne vous inquiétez pas, à nos âges, on ne se couchent pas tard !".
+
 
 ![alt text](20250814020921.mp4)
 
@@ -149,9 +131,13 @@ Motel de l'Anse
 - ![alt text](20250806165909.jpg)
 - ![alt text](20250806170448.jpg)
 
-TODO
+Nous sommes réveillés en pleine nuit par des explosions à proximité: quelqu'un fait craquer des feux d'artifices sur la plage ! Surprenant, mais bref, on se retourne ensuite dans nos sacs de couchage pour finir la nuit. Au petit matin, en revenant d'un tour près de l'eau, dépassent du camion de nos voisins immédiats une boite de feux utilisés. Le sympatique coupable est batteur pour [Vince Lemire](https://www.vincelemire.com), un chanteur de country francophone. On avait un peu discuté la veille: il est là avec sa famille pour jouer un concert le lendemain même ("après être allé à la pêche le matin") dans un festival de la région. Le gars avait l'air vraiment heureux et gentil. Pour sa petite fille, on dirait une grande bande de cousins qui s'occupent d'elle et l'emmènent se balader.
 
 ![alt text](20250806132536.jpg)
+
+Flo prends son premier bain d'eau glaciale ce soir. "Mais si elle est bonne !". Elle est bonne… Non mais sérieusement… Mon intégration culturelle au Québec a ses limites et ma limite, c'est 20°C dans l'eau.
+
+On réalisera plus tard que dans cette baie se trouve un des principaux polleurs atmosphérique de la province, la [cimenterie McInnis](https://www.ledevoir.com/opinion/editoriaux/585501/cimenterie-mcinnis-secret-beton). Florence est toutefois sortie intacte de l'eau, à ce jour.
 
 # Jeudi 7: Port-Daniel / Ory
 
@@ -172,7 +158,6 @@ Chez Morgane (BeWelcome)
 - ![alt text](20250807103214.jpg)
 - ![alt text](20250807104832.jpg)
 - ![alt text](20250807105001.jpg)
-- ![alt text](20250807105107.jpg)
 - ![alt text](20250807105530.jpg)
 - ![alt text](20250807122659.jpg)
 - ![alt text](20250807124025.jpg)
@@ -192,6 +177,7 @@ Chez Morgane (BeWelcome)
 
 ![alt text](20250813143159.mp4)
 
+![alt text](20250807105107.jpg)
 
 # Vendredi 8: Percé
 
@@ -218,16 +204,16 @@ Chez Morgane (BeWelcome)
 - ![alt text](20250808121236.jpg)
 - ![alt text](20250808124824.jpg)
 - ![alt text](20250808124836.jpg)
-- ![alt text](20250808221231.jpg)
 
 TODO
 
-- ![alt text](20250808190027.jpg)
+![alt text](20250808190027.jpg)
 
 TODO
 
-- ![alt text](20250813141704.mp4)
+![alt text](20250813141704.mp4)
 
+![alt text](20250808221231.jpg)
 
 # Samedi 9: Ory / Gaspé
 
@@ -255,7 +241,6 @@ Camping Fort Ramsay
 - ![alt text](20250809111926.jpg)
 - ![alt text](20250809112730.jpg)
 - ![alt text](20250809113750.jpg)
-- ![alt text](20250809115146.jpg)
 - ![alt text](20250809115348.jpg)
 - ![alt text](20250809122922.jpg)
 - ![alt text](20250809142117.jpg)
@@ -266,7 +251,8 @@ Camping Fort Ramsay
 
 TODO
 
-- ![alt text](20250809120159.jpg)
+![alt text](20250809115146.jpg)
+![alt text](20250809120159.jpg)
 
 # Dimanche 10: Gaspé / Forillon
 
@@ -284,16 +270,15 @@ Camping Cap aux Rosiers
 - containers anti ours pour mettre les sacs
 - sacs très lourds
 
-- ![alt text](20250810131010.jpg)
-- ![alt text](20250810143045.jpg)
+![alt text](20250810131010.jpg)
+
 - ![alt text](20250810143128.jpg)
 - ![alt text](20250810143205.jpg)
-- ![alt text](20250810161035.jpg)
 - ![alt text](20250810180539.jpg)
 
 TODO
 
-- ![alt text](20250810180526.jpg)
+![alt text](20250810180526.jpg)
 
 # Lundi 11: Forillon / Anse à Valleau
 
@@ -314,7 +299,6 @@ Chez Monia à Anse à Valleau
 
 - ![alt text](20250811091359.jpg)
 - ![alt text](20250811105444.jpg)
-- ![alt text](20250811105501.jpg)
 - ![alt text](20250811115023.jpg)
 - ![alt text](20250811122449.jpg)
 - ![alt text](20250811123732.jpg)
@@ -325,10 +309,12 @@ Chez Monia à Anse à Valleau
 - ![alt text](20250811145548.jpg)
 - ![alt text](20250811150032.jpg)
 - ![alt text](20250811150311.jpg)
-- ![alt text](20250811150541.jpg)
 - ![alt text](20250811151436.jpg)
 - ![alt text](20250811152005.jpg)
 - ![alt text](20250811152019.jpg)
+
+
+![alt text](20250811105501.jpg)
 
 TODO
 
@@ -347,6 +333,11 @@ Chez la mère de Florence
 - Nouveau vélo: on apprécie sa légèreté / aérodynamisme
 - Sensation étrange d'avanger en quelques dizaines de minutes une journée entière de vélo, sans craindre ni les côtes, ni le vent, ni la soif, ni la faim.
 
+
+![alt text](20250813134642.mp4)
+
+![alt text](20250812091831.jpg)
+
 # Mercredi 13: Québec / Montréal
 
 Chez soit
@@ -357,12 +348,6 @@ Chez soit
 - ne sais pas vraiment pourquoi
 - "c'est dur le vélo, ..."
 - sensations, mémoires retrouvées 13 ans après
-
-![alt text](20250813134642.mp4)
-
-- ![alt text](20250812091831.jpg)
-
-TODO
 
 ![alt text](20250812155113.jpg)
 
