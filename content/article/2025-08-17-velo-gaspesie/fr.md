@@ -9,7 +9,7 @@ Et on a vu un ours.
 
 # Samedi 2: Québec / Bic
 
-Nuit: Camping du Parc National du Bic
+- Nuit: Camping du Parc National du Bic
 
 Les bagages sont faits, les vélos derrière la voiture. On dit au revoir aux enfants de Florence, en vacances à Québec, et on démarre, direction le Parc National du Bic. Oui, on pourra dire que c'est le ciel rose se couchant sur une demi-lune qui nous a amené au Bic. Ou bien ce grand héron, Cerbère de notre première balade le long du lac à la recherche de phoques.
 
@@ -35,8 +35,8 @@ Ce soir, dans la pénombre calme de la tente, j'écoute [Animals de Pink Floyd](
 
 # Dimanche 3: Bic / Parc de la Gaspésie
 
-Distance à vélo: 40 km
-Nuit: Parc de la Gaspésie, Camping de la rivière
+- Distance à vélo: 40 km
+- Nuit: Parc de la Gaspésie, Camping de la rivière
 
 Breuvages jut'œufs, gauffre œufs'ropéennes, menus mystéri'œufs... Nous prenons un dernier petit-déjeuner [Chez Œufs](https://chezoeufs.com/) à Rimouski, à la carte chargée de jeux de mots. À Saint-Anne-des-Monts nous laissons la voiture devant le point d'information touristique: on se demandait où nous allions pouvoir la garer, mais il semblerait qu'on ne soit pas les premiers à faire de même. On charge les vélo sur le parking, une dernière course et puis nous voilà au pied de la montée vers le Parc de la Gaspésie.
 
@@ -55,7 +55,6 @@ Trois cyclises y font également bivouac pour la nuit: elles arrivent du Sud et 
 
 ![alt text](20250803162414.jpg)
 
-
 À l'acceuil du parc j'ai demandé deux glaces pour fêter ces premières pentes. On m'a indiqué les bacs dehors. Dehors ? Mais pourtant le réfrigérateur est à l'intérieur ? Allons-donc, sa langue aura fourché. Je prends donc deux cônes sur le chemin vers la tente. Plusieurs jours plus tard, le quiproquo est avéré: j'aurais dû demander deux crèmes glacées, et pas deux sacs de glaçons…
 
 On passera un long moment à simplement regarder deux bras d'eau se mélanger dans le calme à l'orée du bois, sous un autre ciel rose Gaspésien.
@@ -70,6 +69,8 @@ On passera un long moment à simplement regarder deux bras d'eau se mélanger da
 Ce soir, je m'endors avec [The Blueprint, Jay-Z](https://fr.wikipedia.org/wiki/The_Blueprint).
 
 # Lundi 4: Parc de la Gaspésie 
+
+- Nuit: Parc de la Gaspésie, Camping de la rivière
 
 Au sommet d'une tour de point nous rejoins un marcheur et son minuscule chihuahua. On plaisante vite sur cette bête sauvage, on lui demande si il part à la chasse aux ours avec. Beau joueur, lui suggère qu'il emmène son fauve à la chasse à l'orignal. On sourit en imaginant les 1.5kg du petit chien face à la demi-tonne de l'élan. Le maître fini par nous donner son nom: Brutus ! Larmes de rire…
 
@@ -96,8 +97,8 @@ Ce soir j'écoute pour la première fois de ma vie une compilation de [Joy Divis
 
 # Mardi 5: Parc de la Gaspésie / New Richmond
 
-Distance à vélo: 110 km
-Nuit: Camping de la Pointe Taylor
+- Distance à vélo: 110 km
+- Nuit: Camping de la Pointe Taylor
 
 Arrêtés en pleine montée pour boire de l'eau, on se retourne sur une masse noire qui traverse la route déserte d'un pan de forêt à l'autre: un ours sauvage vient de passer à quelques dizaines de mètres de nous ! On se tournera vivement vers le moindre bruit du moindre buisson tout le reste la route, répétant entre deux coups de pédales nos scénarios de fuites ou d'intimidation. 
 
@@ -119,11 +120,10 @@ Cette nuit, et jusqu'à la fin, je n'écouterai plus de musique avant de dormir:
 
 # Mercredi 6: New Richmond / Port-Daniel
 
-Distance à vélo: 85 km
-Nuit: Motel de l'Anse
+- Distance à vélo: 85 km
+- Nuit: Motel de l'Anse
 
 L'insolation d'hier complique le départ ce matin. Fatigue, hypoglycémie, déhydration: on guette les dépanneurs pour faire une pause et le plein de [Gatorade](https://fr.wikipedia.org/wiki/Gatorade). C'est très mauvais, mais efficace. L'après-midi se passe mieux. Le vent dans le dos nous pousse jusqu'aux derniers 200m du Motel de l'Anse où des travaux nous empêches de l'atteindre ! Il nous faire refaire quelques kilomètres et une belle côte pour enfin planter la tente à quelques dizaines de mètre de l'océan, et d'un joyeux groupe de retraités en vans qui se retrouvent tous les ans sur les routes. Nous voyant nous coucher avant le soleil, épuisés, la troupe, déjà passablement éméchée autour d'un feu, nou rassure : "ne vous inquiétez pas, à nos âges, on ne se couchent pas tard !".
-
 
 ![alt text](20250814020921.mp4)
 
@@ -143,8 +143,8 @@ On réalisera plus tard que dans cette baie se trouve un des principaux polleurs
 
 # Jeudi 7: Port-Daniel / Ory
 
-Distance à vélo: 65 km
-Nuit: Chez Morgane de BeWelcome
+- Distance à vélo: 65 km
+- Nuit: Chez Morgane de BeWelcome
 
 Alongé sur la plage du du Cap-d'Éspoir après ce qui nous a semblé être maintenant une "petite journée" de 65km, on attends que notre hôte de ce soir, Morgane de [BeWelcome](https://www.bewelcome.org/) (un réseau d'hospitalité associatif), française venue s'installer en Gaspésie il y a quelques années, termine sa journée à la SEPAQ pour nous accueillir chez elle. Elle vit à quelques kilomètres de Percé sur une colline au milieu de ses chats, de ses poules, de son potager et de ses amis dispersés dans la région.
 
@@ -185,7 +185,7 @@ Sur la route on se fait dépasser par le même grand cycliste qu'on a salué hie
 
 # Vendredi 8: Percé
 
-Nuit: chez Morgane de BeWelcome
+- Nuit: chez Morgane de BeWelcome
 
 Percé est un petit village de pêcheur de morue devenu touristique grâce à une arche rocheuse, le [Rocher Percé](https://fr.wikipedia.org/wiki/Rocher_Perc%C3%A9). Florence prends le bateau pour la journée pour aller voir dans une île voisine une grande colonie de [fous de bassants](https://fr.wikipedia.org/wiki/Fou_de_Bassan). Moi je reste au port. L'avant-veille n'a pas aboutie uniquement sur une insolation, j'ai dû aussi m'abimer un peu les yeux. Je profite donc de la journée pour passer de compresses tièdes sur les paupières aux lunettes de soleils, à ombre des multiples cafés de la rue principale, pour lire et écrire nos notes de voyages.
 
@@ -214,8 +214,8 @@ Sur le bateau Florence apprends que les requins blancs commencent à visiter plu
 
 # Samedi 9: Ory / Gaspé
 
-80 km
-Camping Fort Ramsay
+- Distance à vélo: 80 km
+- Nuit: Camping Fort Ramsay
 
 - oh les pains
 - réveil coq
@@ -253,8 +253,8 @@ TODO
 
 # Dimanche 10: Gaspé / Forillon
 
-50 km
-Camping Cap aux Rosiers
+- Distance à vélo: 50 km
+- Nuit: Camping Cap aux Rosiers
 
 - Pas Cap bon ami, "vous n'êtes pas arrivés" de la dame de Parc Canada
 - camping près de la plage, vagues depuis la tente
@@ -279,8 +279,8 @@ TODO
 
 # Lundi 11: Forillon / Anse à Valleau
 
-17 km
-Chez Monia à Anse à Valleau
+- Distance à vélo: 17 km
+- Nuit: Chez Monia à Anse à Valleau
 
 - arrêt à l'Anse-au-Griffon
 - Marcel / Monia
@@ -320,7 +320,7 @@ TODO
 
 # Mardi 12: Anse à Valleau / Québec
 
-Chez la mère de Florence
+- Nuit: chez la mère de Florence
 
 - Marie autostoppeuse
 - Vélo tétris dans la voiture de Monia
@@ -337,7 +337,7 @@ Chez la mère de Florence
 
 # Mercredi 13: Québec / Montréal
 
-Chez soit
+- Nuit: chez soit
 
 - Fin du voyage, on dort chez nous ce soir
 - Bilan du voyage
