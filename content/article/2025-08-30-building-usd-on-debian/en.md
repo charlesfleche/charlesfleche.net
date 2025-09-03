@@ -24,7 +24,7 @@ These parts won't be built:
 The final file layout will look like:
 
 - `~/opt/OpenUSD-v25.08` is the final installation folder
-- `~/opt/OpenUSD-v25.08.environment` is be a sourceable script to set up the necessary environment variables to run the USD tools
+- `~/opt/OpenUSD-v25.08.environment` is a sourceable script to set up the necessary environment variables to run the USD tools
 - `~/tmp/OpenUSD` for the source code
 - `~/tmp/build-OpenUSD` for the temporary build files
 
