@@ -139,17 +139,16 @@ Flo prends son premier bain d'eau glaciale ce soir. "Mais si elle est bonne !". 
 
 On réalisera plus tard que dans cette baie se trouve un des principaux polleurs atmosphérique de la province, la [cimenterie McInnis](https://www.ledevoir.com/opinion/editoriaux/585501/cimenterie-mcinnis-secret-beton). Florence est toutefois sortie intacte de l'eau, à ce jour.
 
+À la sortie d'un parking on salue d'un signe un grand cycliste, lui aussi chargé de bagages.
+
 # Jeudi 7: Port-Daniel / Ory
 
-65 km
-Chez Morgane (BeWelcome)
+Distance à vélo: 65 km
+Nuit: Chez Morgane de BeWelcome
 
-- Morgane au 2ème rang
-- Poules / coq
-- Petit potager
-- Chasse infructeuse aux bleuets
-- Cantine cachée sur les quais
-- Arrêt sur la plage du Cap-d'Éspoir
+Alongé sur la plage du du Cap-d'Éspoir après ce qui nous a semblé être maintenant une "petite journée" de 65km, on attends que notre hôte de ce soir, Morgane de [BeWelcome](https://www.bewelcome.org/) (un réseau d'hospitalité associatif), française venue s'installer en Gaspésie il y a quelques années, termine sa journée à la SEPAQ pour nous accueillir chez elle. Elle vit à quelques kilomètres de Percé sur une colline au milieu de ses chats, de ses poules, de son potager et de ses amis dispersés dans la région.
+
+Les réseaux comme BeWelcome ont un fonctionnement simple: on s'incrit et on s'annonce "hôte" ou "voyageur". Un voyageur contactera ensuite des hotes de sa prochaine destination pour y trouver gîte, couvert ou simplement prendre un café pour identifier les points d'intérêts proches. C'est tout à fait gratuit, tout du moins sur BeWelcome, et presque 100% garanti de rencontrer quelqu'un de super, comme Morgane.
 
 ![alt text](20250814020739.mp4)
 
@@ -175,22 +174,22 @@ Chez Morgane (BeWelcome)
 - ![alt text](20250807184055.jpg)
 - ![alt text](20250807184412.jpg)
 
+Ce soir, on part à la cuillette aux bleuets sauvages à la lisière de bois fraîchement dégagé. Nous n'en trouverons aucune. Mais Morgane saura nous guider vers la meilleure poutine du coin, bien cachée au fond d'un quai d'une marina qu'on n'aurait jamais même pensé à explorer.
+
 ![alt text](20250813143159.mp4)
+
+Sur la route on se fait dépasser par le même grand cycliste qu'on a salué hier.
 
 ![alt text](20250807105107.jpg)
 
+
 # Vendredi 8: Percé
 
-Chez Morgane (BeWelcome)
+Nuit: chez Morgane de BeWelcome
 
-- rencontré [Boris Thebia, le photo journaliste](https://www.borisruth.com)
-- photographe de Guyane à vélo
-- Flo croisière rocher percé / fou de bassan
-- moi soigne mes yeux
-- compresses oeil
-- levé au chant du coq
-- contact de gaspé est une amie de Morgane
-- phoque / requin blancs
+Percé est un petit village de pêcheur de morue devenu touristique grâce à une arche rocheuse, le [Rocher Percé](https://fr.wikipedia.org/wiki/Rocher_Perc%C3%A9). Florence prends le bateau pour la journée pour aller voir dans une île voisine une grande colonie de [fous de bassants](https://fr.wikipedia.org/wiki/Fou_de_Bassan). Moi je reste au port. L'avant-veille n'a pas aboutie uniquement sur une insolation, j'ai dû aussi m'abimer un peu les yeux. Je profite donc de la journée pour passer de compresses tièdes sur les paupières aux lunettes de soleils, à ombre des multiples cafés de la rue principale, pour lire et écrire nos notes de voyages.
+
+Au détour d'un arabica je rencontre une figure connue: le grand cycliste des derniers jours fait lui aussi étape à Percé ! On fait connaissance avec [Boris Thebia](https://www.borisruth.com), un reporter photographe guyanais établi à Montréál. Lui aussi pédale autours de la Gaspésie, mais il est parti depuis bien plus longtemps que nous, vu qu'il a tout fait à vélo jusqu'ici !
 
 - ![alt text](20250808084907.jpg)
 - ![alt text](20250808085419.jpg)
@@ -205,11 +204,9 @@ Chez Morgane (BeWelcome)
 - ![alt text](20250808124824.jpg)
 - ![alt text](20250808124836.jpg)
 
-TODO
+Sur le bateau Florence apprends que les requins blancs commencent à visiter plus souvent les rivages gaspésiens à la recherche de phoques. Ceux-ci sont beaucoup moins chassés maintenant. Forcément, leur population attire les prédateurs. Cela dit, la probabilité d'avoir 1) un requin assez téméraire pour se rapprocher autant des plages et 2) un québecois assez fou pour se baigner dans l'eau froide plus que quelques minutes est assez faible pour qu'ils ne soient pas vraiment un danger.
 
 ![alt text](20250808190027.jpg)
-
-TODO
 
 ![alt text](20250813141704.mp4)
 
