@@ -1,8 +1,6 @@
 Title: Pointe de la Gaspésie à vélo
 Description: Une dizaine de jours à vélo autour de la pointe de la Gaspésie
 
-Cet article est encore WIP : je le publie afin de pouvoir montrer notre sélection de photos à nos amis, mais il manque encore des textes.
-
 En août 2025 nous avons pédalé en [Gaspésie](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie), péninsule de l'est du Québec. Ce voyage d'une dizaine de jours depuis [Saint-Anne-des-Monts](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie) à travers le Parc National de la Gaspésie vers New Richmond et Percé s'est achevé à Rivière-au-Renard où nous avons pris le bus pour retourner à Saint-Anne. Cinq cents kilomètres d'océan à notre droite, de soleil au dessus, de côtes raides, d'eau beaucoup trop froide pour un français et bien trop attirante pour ne pas s'y plonger pour une québecoise et parfois d'ours sur la route ont fait [ressurgir des sensations et souvenirs pour l'un](https://cambraicambrai.wordpress.com/) et découvrir une nouvelle façon de voyager pour l'autre.
 
 Et on a vu un ours.
@@ -217,18 +215,13 @@ Sur le bateau Florence apprends que les requins blancs commencent à visiter plu
 - Distance à vélo: 80 km
 - Nuit: Camping Fort Ramsay
 
-- oh les pains
-- réveil coq
-- magnifique auberge Camp de Base
-- famille de péruviens à la cantine au camping à midi
-- traverse pont / voie ferrée
-- baignade à -1000 degrés pour Flo
-- belle piste cyclable jusque Gaspé
-- fatigue, manque d'eau, manque hygiène, trop loin pour notre contact: arrêt dans les maisons des moustiques du camping de Fort Ramsay
-- revu Boris qui prenait un lift
+Et pourtant, sur la carte, ça passait sans problème. Certe, on devait longer la plage. En effet, il était attendu que la route se rétrécisse. Quand on s'est mis à rouler dans le sable, on a commencé à douter. Et quand il a fallu monter les sur la voie ferrée, le doute n'était plus permis: non, ce petit raccourci scénique n'en était pas vraiment un. Et nous de pousser vélos et chargement sur plusieurs centaines de mètres, d'abord sur le ballast, puis le cahots des traverses laisse une fois sur le pont la place à de petits joints de bois pour passer maladroitement de section en section à travers lesquelles l'eau s'agite sous nos pieds.
+
+Cette eau, encore à -1000 degrés tout au plus, dans laquelle évidemment Florence finira par se baigner longuement.
 
 ![alt text](20250813140944.mp4)
 
+La belle piste cyclable des derniers kilomètres jusque Gaspé devait nous emmener jusqu'à notre prochain contact, une amie recommandée par Morgane qui pouvait nous héberger la nuit. Mais elle était encore loin et le sommeil se faisait bas.L'étape nous avait fatigué, nous avions manquions d'eau depuis un trop long moment: tant pis, on restera dans un camping à la sortie de Gaspé pour ce soir.
 
 - ![alt text](20250809082733.jpg)
 - ![alt text](20250809090753.jpg)
@@ -246,53 +239,55 @@ Sur le bateau Florence apprends que les requins blancs commencent à visiter plu
 - ![alt text](20250809143913.jpg)
 - ![alt text](20250809153206.jpg)
 
-TODO
+On retrouve une dernière fois Boris par hasard à l'entrée de Gaspé où il attends son covoiturage pour entamer le retour vers Montréal.
 
 ![alt text](20250809115146.jpg)
 ![alt text](20250809120159.jpg)
+
 
 # Dimanche 10: Gaspé / Forillon
 
 - Distance à vélo: 50 km
 - Nuit: Camping Cap aux Rosiers
 
-- Pas Cap bon ami, "vous n'êtes pas arrivés" de la dame de Parc Canada
-- camping près de la plage, vagues depuis la tente
-- phoques qui sortent la tête de l'eau
-- excellente et inattendue pizza ce midi
-- eau de l'Atlantique froide et salée
-- ho les pains
-- logues montées dans Forillon
-- déjection d'ours sur le bord de la route
-- containers anti ours pour mettre les sacs
-- sacs très lourds
+"Oh la la, vous savez que vous n'êtes pas arrivés ?" nous dit la dame de Parc Canada, plein de compassion dans les yeux ? 
+
+L'épisode du manque d'eau de la veille nous a rendu un peu trop précautionneux: on s'est un peu trop chargé pour ce qui nous semblait une courte étape vers le Parc Forillon. Cette erreur va nous achever.
+
+On arrive d'abord déjà fatigué après du vent de face et des longues montées à l'entrée sud du parc, celle qui nous permettait, selon la carte, de rejoindre notre point de chute du soir en prenant une plus petite route pour limiter le dénivellé. Cette route se trouve impracticable pour les vélos. On rebrousse donc chemin pour traverser le parc vers le nord. S'en suit une montée interminable, raide, traitre avec ses virages en côtes qui cachent une ligne de fuite toujours plus verticale. La pluie fine est bienvenue, mais elle masque les bruits de la lisière de la forêt, cette lisière qui égrenne régulièrement des traces de passage d'ours.
 
 ![alt text](20250810131010.jpg)
+
+À l'enregistrement du Parc Forillon, la dame à l'accueil doit sentir notre épuisement. S'en suive quelques minutes de lutte contre l'informatique qui nous aboutira vers une place dans le camping le plus proche. On comprends son insistance en sortant du bâtiment administratif, quand on apperçoit la côte infinie, maléfique qui se perd dans la forêt vers on ne sait quel Tartare infernal.
+
+Et on rit quand même un peu quand on pose la tente de ne pas avoir à la grimper.
 
 - ![alt text](20250810143128.jpg)
 - ![alt text](20250810143205.jpg)
 - ![alt text](20250810180539.jpg)
 
-TODO
+On reste ce soir dans ce qui sera le meilleur camping du voyage. Cachés dans des fourrés, on cuisine et se couche au son des vagues de l'océan tout proche. Lui s'allonge dans une baie cintrées de hautes collines. On reste un long moment, assis sur les galets, à regarder les têtes des phoques plonger et remonter à la surface. Il reigne un calme, une atmosphère sereine dans le Parc Forillon, qui nous fait nous promette d'y revenir plus longtemps la prochaine fois.
 
 ![alt text](20250810180526.jpg)
 
+Totalement inattendue était l'excellente pizza de [Peppino](https://peppinopizza.ca) qu'on a mangé ce midi. Le restaurant est comme sorti de la route pile au moment où l'on cherchait un endroit où s'arrêter. Ils sont quand même forts, ces italiens.
+
+
 # Lundi 11: Forillon / Anse à Valleau
 
-- Distance à vélo: 17 km
+- Distance à vélo: 47 km
 - Nuit: Chez Monia à Anse à Valleau
 
-- arrêt à l'Anse-au-Griffon
-- Marcel / Monia
-- soirée collègues Monia
-- recroiser Monia à Montréal
-- forêt enchantée
-- montée en solo, mais de très bonne humeur
-- donné de l'eau par une petite dame dans une montée, avait envie de parler, je connaissais ça vie entière après une phrase de 10min
-- Marcel / melon d'eau
+L'étape de la veille avait été trop difficile. Les vertiges ce matin sont de mauvaise augure. Au pied d'une énième côte, derrière une station service, à l'ombre sur un banc, Florence doit s'allonger pour ne pas flancher. On envisage des solutions, on compare les hypothèse, on s'active un peu autour d'elle. Marcel le propriétaire du garage trotte jusque chez lui et revient avec de la pastèque fraiche. Moi je roule jusqu'au dépanneur à côté trouver du Gatorade, nectar nécessaire quand l'hypoglycémie guette. Et notre nouvelle amie Monia s'enquiert des horaires d'un bus qui nous ramènerait jusque Saint-Anne.
+
+Monia est de ces personnes dont on bénirait le ciel de nous les avoir mis sur notre route. Elle venait simplement faire réparer sa voiture par Marcel. En attendant la fin des travaux, elle passe derrière la caisse, sert de l'essence aux clients, si bien qu'on la prends pour une employée. On discute, on sympatise un peu et très vite elle nous propose son aide, son gîte (on pourra dormir chez elle dans un vrai lit ce soir), son couvert ("j'ai des copines qui viennent, venez, ça va être drôle !") et sa carosse. On mets un vélo sur le siège arrière, les sacoches dans le coffre, et voilà Florence embarquée jusqu'à une douche et une sieste au frais en quatre vrais mûrs de confort. 
+
 
 ![alt text](20250813140255.mp4)
 
+Moi je roule seul dans l'après-midi les 30 derniers kilomètres jusque Anse à Valleau chez Monia. Est-ce parceque je ne porte pas de sacs ? Est-ce parceque je sais Florence en sûreté ? Est-ce c'est le grisement de rouler à son propre rythme ? Est-ce les milliers de kilomètres du tour du monde qui reviennent d'un coup ? Je ne saurais dire, mais je me sens particulièrement de bonne humeur.
+
+On me hèle dans presque au sommet d'une côte. Une petit dame, une bonne soixantaine d'années, extrèmement mince et bronzée, m'offre de l'eau fraiche. On reste un moment à papoter, où j'apprends une phrase de 10 minutes, avec une majuscule au début et un unique point à la fin, toute la vie de cette dame, de son mari, de ses proches, de ses chiens et de sa maison. Je pense qu'elle avait envie de parler à nouvelle tête.
 
 - ![alt text](20250811091359.jpg)
 - ![alt text](20250811105444.jpg)
@@ -310,10 +305,9 @@ TODO
 - ![alt text](20250811152005.jpg)
 - ![alt text](20250811152019.jpg)
 
+Une fois chez Monia, en attendant le réveil de Florence je pars me promener dans les environs. La forêt a été aménagée pour le Noël des enfants du village: on y croise pêle-mêle, perchés dans les arbres, gnomes, nains, Dora l'exploratrice, Batman, des transformers, Elsa, Olaf et bien d'autres.
 
 ![alt text](20250811105501.jpg)
-
-TODO
 
 - ![alt text](20250811090852.jpg)
 - ![alt text](20250811203227.jpg)
@@ -322,35 +316,29 @@ TODO
 
 - Nuit: chez la mère de Florence
 
-- Marie autostoppeuse
-- Vélo tétris dans la voiture de Monia
-- rire de soulagement dans le bussur les côtes interminables et le vent de face
-- Dixie Lee, aucun goût
-- Arrêt à ... pour visiter la tante et l'oncle de Florence
-- Nouveau vélo: on apprécie sa légèreté / aérodynamisme
-- Sensation étrange d'avanger en quelques dizaines de minutes une journée entière de vélo, sans craindre ni les côtes, ni le vent, ni la soif, ni la faim.
-
+Nos enfances les yeux plongés dans [Tétris](https://en.wikipedia.org/wiki/Tetris) auront donc payées: il faudra bien des efforts pour faire rentrer vélos et sacs dans voiture de Monia. Elle nous dépose le matin à Rivière-Au-Renard ou nous attendons le bus vers Saint-Anne-des-Monts. Les côtes du nord-est de la Gaspésie sont ravageuses: sans aucun le plus difficile était à venir, et nous voilà, sourires aux lèvres, pouffant de rire depuis le confort de nos sièges, à nous imaginer haleter sur l'asphalte brûlant.
 
 ![alt text](20250813134642.mp4)
 
+Très vite après Saint-Anne on embarque Marie, autostoppeuse belge de visite en Gaspésie entre deux semestres de son doctorat. Elle nous attendra quelques heures sur la plage, au bord de l'eau du village où nous rendons visite à la tante et l'oncle de Florence.
+
+Visite qui se terminera par une ultime de baignade de Florece, sous mes yeux toujours perplexes quand à l'attrait de l'eau froide.
+
 ![alt text](20250812091831.jpg)
+
+Elle est étrange cette sensation d'avaler en quelques dizaines de minutes de voiture la distance d'une journée entière à vélo. Derrière le volant, on ne craint ni les dénivelés, ni le vent, ni la pluie, ni le soleil, ni la canicule, ni le froid. Et pourtant à aucun moment je n'aurais voulu tourner la clé du contact les jours précédents.
 
 # Mercredi 13: Québec / Montréal
 
-- Nuit: chez soit
+- Nuit: chez soit !
 
-- Fin du voyage, on dort chez nous ce soir
-- Bilan du voyage
-- J'aime vraiment les voyages à vélo
-- ne sais pas vraiment pourquoi
-- "c'est dur le vélo, ..."
-- sensations, mémoires retrouvées 13 ans après
+Les vélos sont déchargés, les sacs posés au sol. On dort chez soit ce soir. Après presque deux semaines de camping, il est sans aucune ambiguïté de retrouver lit, douche et la lumière connue du soleil se couchant encore une autre fois à travers des fenêtres connues.
+
+Et pourtant.
+
+Et pourtant, sans pouvoir vraiment l'expliquer, je me rends compte que j'aime intimement le voyage à vélo. Bien sûr il y a les douces hormones de l'effort. Évidemment il y a les souvenirs ravivés d'un tour du monde d'une autre époque. Mais quelle est la raison profonde ? Je l'ignore.
+
+Parce que, quand même, dans les côtes raides de la Gaspésie, je me faisais rire intérieurement à me répêter que "c'est dur le vélo, holala, [qu'est-ce qu'il faut être con pour faire ça comme sport](https://youtu.be/uJMMn4I7Ecs?feature=shared&t=289)" !
 
 ![alt text](20250812155113.jpg)
-
-
-
-
-
-
 
