@@ -22,6 +22,14 @@
 
 ## TIL
 
+* https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_INSTANCE.html
+    // We can't use C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe to get the Visual Studio version
+	// because our installation path is not standard nor registered through the Visual Studio Installer.
+	//
+	// The version CMake needs is stored as an attribute of VS executable. It can be found by right clicking an .exe,
+	// then Properties > Details > Product Version or from a PowerShell terminal:
+	//
+	// (Get-Item "C:\.nuget\packages\vs2019_buildtools\16.11.10\tools\Common7\IDE\vsn.exe").VersionInfo.ProductVersion
 * bsdtar --strip-components=1 -xvf /home/charles/Downloads/alab-techvars.v2.2.0.zip
 * Gooch shading, from looking at MaterialX nodes in USDShadeRegistry
 * jhead to rename jpeg by their EXIF https://unix.stackexchange.com/questions/6998/how-can-i-rename-photos-given-the-exif-data
