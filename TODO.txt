@@ -22,6 +22,7 @@
 
 ## TIL
 
+* cmake https://cmake.org/cmake/help/latest/prop_tgt/VS_PACKAGE_REFERENCES.html
 * https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_INSTANCE.html
     // We can't use C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe to get the Visual Studio version
 	// because our installation path is not standard nor registered through the Visual Studio Installer.
