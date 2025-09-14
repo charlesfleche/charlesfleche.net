@@ -22,6 +22,80 @@
 
 ## TIL
 
+* ultra leap does not work on trixie
+$ leapd  --help
+[14:56:51.258196535] [76733] [console] main()#28:  Starting leapd Version: 5.17.1.0 - a9f25232
+[14:56:51.260097081] [76733] [console] LicenseManager()#191:  License management is: Enabled
+[14:56:51.260250806] [76733] [console] refresh()#105:  0 activation keys(s) loaded from tokens
+[14:56:51.260318829] [76733] [console] refresh()#108:  0 license file(s) found
+[14:56:51.260379122] [76733] [console] LicenseManagerImpl()#55:  License server: https://tracking-licensing.ultraleap.com/api/1.0.0/licenses/actions/activate
+[14:56:51.260540165] [76733] [console] CreateFromFile()#53:  Unable to load Characteristics file, returning default
+[14:56:51.260568108] [76733] [console] initialise()#95:  Doing UVC tracking initialisation
+[14:56:51.260625580] [76733] [console] OnDeviceChange()#391:  On device change called
+[14:56:51.260660054] [76733] [console] ServerMain()#235:  Server Listening Settings: IP 127.0.0.1 Base Port 12345 Range 10
+[14:56:51.260770208] [76733] [console] ClientConfig()#35:  Config Loaded, allow pause-resume true, allow images true, paused false, tilt correction true, autoexposure enabled for mode: HMD false, Desktop true, Screentop false
+[14:56:51.260804673] [76733] [console] ClientConnectionManager()#20:  ClientConnectionManager started (5.17.1.0 - a9f25232)
+[14:56:51.260892997] [76733] [console] PrintSystemInfo()#146:  Platform Name: Linux
+[14:56:51.260929114] [76733] [console] PrintSystemInfo()#147:  OS Version: Debian GNU/Linux 13 (trixie)
+[14:56:51.261198744] [76733] [console] PrintSystemInfo()#148:  CPU Manufacturer: Intel
+[14:56:51.261429213] [76733] [console] PrintSystemInfo()#149:  CPU Model: Intel(R) Xeon(R) CPU E5-1650 0 @ 3.20GHz
+[14:56:51.261483296] [76733] [server] Start()#372:  Starting Ultraleap Tracking Server
+[14:56:51.261605363] [76739] [console] dispatch_worker()#701:  No license keys found
+[14:56:51.262429505] [76754] [console] StartHost()#54:  Running telemetry server on 127.0.0.1:1024
+[14:56:51.379618201] [76735] [console] create_capture_device()#34:  LMC detected
+[14:56:51.379762555] [76735] [console] update_uvc_firmware()#178:  Opening capture device with ID 1
+[14:56:51.883702809] [76735] [console] update_uvc_firmware()#267:  Device Type: LMC, Firmware: 1.7.0, Serial Number: LP00541544132
+[14:56:51.894296567] [76741] [console] TrackingRunner()#160:  Created TrackingRunner, default mode Desktop
+[14:56:51.904839192] [76735] [console] refresh()#105:  0 activation keys(s) loaded from tokens
+[14:56:51.904923477] [76735] [console] refresh()#108:  0 license file(s) found
+[14:56:51.927237629] [76741] [console] start()#199:  Attempting to create tracker: 1
+[14:56:51.927383259] [76741] [console] ModelManager()#63:  Found 10 LDATS in /usr/share/ultraleap
+[14:56:51.927394519] [76741] [console] ModelManager()#66:  LDAT name: ldat-430152.ldat
+[14:56:51.927944161] [76741] [console] ModelManager()#66:  LDAT name: ldat-429419.ldat
+[14:56:51.928355209] [76741] [console] ModelManager()#66:  LDAT name: ldat-430856.ldat
+[14:56:51.928772073] [76741] [console] ModelManager()#66:  LDAT name: ldat-426392.ldat
+[14:56:51.929182275] [76741] [console] ModelManager()#66:  LDAT name: ldat-426437.ldat
+[14:56:51.929591455] [76741] [console] ModelManager()#66:  LDAT name: ldat-430861.ldat
+[14:56:51.929991628] [76741] [console] ModelManager()#66:  LDAT name: ldat-431319.ldat
+[14:56:51.930395764] [76741] [console] ModelManager()#66:  LDAT name: ldat-426643.ldat
+[14:56:51.930799703] [76741] [console] ModelManager()#66:  LDAT name: ldat-429281.ldat
+[14:56:51.931186259] [76741] [console] ModelManager()#66:  LDAT name: ldat-432858.ldat
+[14:56:51.931573146] [76741] [console] getPlatformModels()#91:  Looking for cal: leap cams: 2
+[14:56:51.931594682] [76741] [console] getPlatformModels()#190:  model 429269 in ldat-429419.ldat is viable
+[14:56:51.931607391] [76741] [console] getPlatformModels()#190:  model 426334-lmc in ldat-426392.ldat is viable
+[14:56:51.931635625] [76741] [console] resolveHints()#104:  HintResolver did not accept any hints
+[14:56:51.931654504] [76741] [console] create()#827:  Setting model: 426334-lmc from ldat-426392.ldat
+[14:56:52.261742107] [76739] [console] dispatch_worker()#701:  No license keys found
+[14:56:52.656384909] [76741] [user] create_execution_engine()#21:  Loaded AOT model with ABI version 2
+[14:56:52.657110246] [76741] [user] create_execution_engine()#30:  Initialised AOTv1 execution engine
+[14:56:52.657460067] [76741] [console] setCameraCalibration()#1284:  Override Raw Calibration not required, actual Raw Calibration:
+[14:56:52.657517606] [76741] [console] pretty_print_calibration()#95:
+        0.5000000, 38.7652550, 1.0000000, -320.0000000, -240.0000000, 134.5333099,
+        0.0151390, -0.0009335, -0.0038298, -1.7632543, 14.8688469, -1.3172436,
+        13.5935278, 1.2720000, 0.2982000, 0.0177000, 1.4640000, 0.3432000,
+        -0.0067050, 0.0007375, 0.0017399, 7.9999380, 0.0306931, -0.0207746,
+        -0.0305800, 7.9990249, -0.2537540, -0.0038498, 0.0605450, -0.0017967,
+        7.5501494, 0.2703134, 0.4404847, 0.0131956, -0.1712389, 0.4306334,
+        -0.0557763, -320.0000000, -240.0000000, 133.8660431, 0.0107827, -0.0070094,
+        0.0039259, 4.6523671, 14.8688469, 4.8949509, 15.9654989, 1.2720000,
+        0.2982000, 0.0177000, 1.4640000, 0.3432000, -0.0067050, -0.0025496,
+        0.0038313, 7.9997420, -0.0311038, -0.0067875, 0.0317084, 7.9994731,
+        -0.2451930, -0.0279516, 0.0431841, -0.0012137, 7.5501494, 0.2703134,
+        0.4404847, 0.0131956, -0.1712389, 0.4306334, -0.0557763,
+[14:56:52.683936878] [76741] [console] DumpCallback()#16:  Crash dump written to: /home/charles/.local/share/ultraleap/crashes/e63cf7ab-b60a-4ff8-dc36a49a-2d4d5885.dmp
+Illegal instruction
+
+[25962.218009] usb 3-4: new high-speed USB device number 8 using xhci_hcd
+[25962.364753] usb 3-4: New USB device found, idVendor=f182, idProduct=0003, bcdDevice= 0.00
+[25962.364762] usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[25962.364764] usb 3-4: Product: Leap Motion Controller
+[25962.364766] usb 3-4: Manufacturer: Leap Motion
+[25962.377093] usb 3-4: Found UVC 1.00 device Leap Motion Controller (f182:0003)
+[25967.418135] usb 3-4: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
+[25972.090940] usb 3-4: usbfs: interface 0 claimed by uvcvideo while 'leapd' sets config #1
+[25972.216644] usb 3-4: reset high-speed USB device number 8 using xhci_hcd
+[25973.341693] traps: leapd[77671] trap invalid opcode ip:7f659823c368 sp:7f65cd1ff100 error:0 in ul_tmp_xl3GkRP8.dat[24d368,7f6597fef000+3f82000]
+
 * bsdtar --strip-components=1 -xvf /home/charles/Downloads/alab-techvars.v2.2.0.zip
 * Gooch shading, from looking at MaterialX nodes in USDShadeRegistry
 * jhead to rename jpeg by their EXIF https://unix.stackexchange.com/questions/6998/how-can-i-rename-photos-given-the-exif-data
