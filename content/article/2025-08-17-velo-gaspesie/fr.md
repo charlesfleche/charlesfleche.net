@@ -1,7 +1,7 @@
 Title: Pointe de la Gaspésie à vélo
 Description: Une dizaine de jours à vélo autour de la pointe de la Gaspésie
 
-En août 2025 nous avons pédalé en [Gaspésie](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie), péninsule de l'est du Québec. Ce voyage d'une dizaine de jours depuis [Sainte-Anne-des-Monts](https://en.wikipedia.org/wiki/Sainte-Anne-des-Monts) à travers le Parc National de la Gaspésie vers New Richmond et Percé s'est achevé à Rivière-au-Renard où nous avons pris le bus pour retourner à Saint-Anne. Cinq cents kilomètres d'océan à notre droite, de soleil au dessus, de côtes raides, d'eau beaucoup trop froide pour un français et bien trop attirante pour ne pas s'y plonger pour une québecoise et parfois d'ours sur la route ont fait [ressurgir des sensations et souvenirs pour l'un](https://cambraicambrai.wordpress.com/) et découvrir une nouvelle façon de voyager pour l'autre.
+En août 2025 nous avons pédalé en [Gaspésie](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie), péninsule de l'est du Québec. Ce voyage d'une dizaine de jours depuis [Sainte-Anne-des-Monts](https://en.wikipedia.org/wiki/Sainte-Anne-des-Monts) à travers le Parc National de la Gaspésie vers New Richmond et Percé s'est achevé à Rivière-au-Renard où nous avons pris le bus pour retourner à Saint-Anne. Cinq cents kilomètres d'océan à notre droite, de soleil au dessus, de côtes raides, d'eau beaucoup trop froide pour un français et bien trop attirante pour ne pas s'y plonger pour une québecoise ont fait [ressurgir des sensations et souvenirs](https://cambraicambrai.wordpress.com/) pour l'un et découvrir une nouvelle façon de voyager pour l'autre.
 
 Et on a vu un ours.
 
@@ -9,14 +9,17 @@ Et on a vu un ours.
 
 - Nuit: Camping du Parc National du Bic
 
-Les bagages sont faits, les vélos derrière la voiture. On dit au revoir aux enfants de Florence, en vacances à Québec, et on démarre, direction le Parc National du Bic. Oui, on pourra dire que c'est le ciel rose se couchant sur une demi-lune qui nous a amené au Bic. Ou bien ce grand héron, Cerbère de notre première balade le long du lac à la recherche de phoques.
+Les bagages sont faits, les vélos derrière la voiture. On dit au revoir aux enfants de Florence, en vacances à Québec, et on démarre, direction le Parc National du Bic.
+
+Oui, on pourra dire que c'est le ciel rose se couchant sur une demi-lune qui nous a amené au Bic. Ou bien ce grand héron, Cerbère de notre première balade le long du lac à la recherche de phoques.
 
 Oui, on pourra dire.
 
 ![alt text](20250802153021.jpg)
 
 - ![alt text](20250802180748.jpg)
-- ![alt text](20250802181638.jpg)
+- ![alt text](20250802181638.jpg):w
+
 - ![alt text](20250802181640.jpg)
 - ![alt text](20250802182019.jpg)
 - ![alt text](20250802183256.jpg)
@@ -38,7 +41,7 @@ Ce soir, dans la pénombre calme de la tente, j'écoute [Animals de Pink Floyd](
 
 Breuvages jut'œufs, gauffre œufs'ropéennes, menus mystéri'œufs... Nous prenons un dernier petit-déjeuner [Chez Œufs](https://chezoeufs.com/) à Rimouski, à la carte chargée de jeux de mots. À Saint-Anne-des-Monts nous laissons la voiture devant le point d'information touristique: on se demandait où nous allions pouvoir la garer, mais il semblerait qu'on ne soit pas les premiers à faire de même. On charge les vélo sur le parking, une dernière course et puis nous voilà au pied de la montée vers le Parc de la Gaspésie.
 
-Cette première vraie étape annonce la suite du voyage. Pendant 40km nous montons, sur 3 côtes à la suite, entourés d'uen forêt dense. Une petite pluie fine et agréable fait parfois baisser la températures de nos jambes loin d'être aguerries à l'exercice. Et nous installons finalement la tente à l'ombre des arbres du parc.
+Cette première vraie étape annonce la suite du voyage. Pendant 40km nous montons, sur 3 côtes à la suite, entourés d'une forêt dense. Une petite pluie fine et agréable fait parfois baisser la températures de nos jambes loin d'être aguerries à l'exercice. Et nous installons finalement la tente à l'ombre des arbres du parc.
 
 Trois cyclises y font également bivouac pour la nuit: elles arrivent du Sud et traverseront la Gaspésie vers l'est à travers les chemins de gravier pour rejoindre Gaspé. 
 
@@ -53,7 +56,7 @@ Trois cyclises y font également bivouac pour la nuit: elles arrivent du Sud et 
 
 ![alt text](20250803162414.jpg)
 
-À l'acceuil du parc j'ai demandé deux glaces pour fêter ces premières pentes. On m'a indiqué les bacs dehors. Dehors ? Mais pourtant le réfrigérateur est à l'intérieur ? Allons-donc, sa langue aura fourché. Je prends donc deux cônes sur le chemin vers la tente. Plusieurs jours plus tard, le quiproquo est avéré: j'aurais dû demander deux crèmes glacées, et pas deux sacs de glaçons…
+À l'acceuil du parc j'ai demandé deux glaces pour fêter ces premières pentes. On m'a indiqué les bacs dehors. Dehors ? Mais pourtant le réfrigérateur est à l'intérieur ? Allons-donc, sa langue de la dame de l'accueil aura fourché. Je prends donc deux cônes sur le chemin vers la tente. Plusieurs jours plus tard, le quiproquo est avéré: j'aurais dû demander deux crèmes glacées, et pas deux sacs de glaçons…
 
 On passera un long moment à simplement regarder deux bras d'eau se mélanger dans le calme à l'orée du bois, sous un autre ciel rose Gaspésien.
 
@@ -70,7 +73,7 @@ Ce soir, je m'endors avec [The Blueprint, Jay-Z](https://fr.wikipedia.org/wiki/T
 
 - Nuit: Parc de la Gaspésie, Camping de la rivière
 
-Au sommet d'une tour de point nous rejoins un marcheur et son minuscule chihuahua. On plaisante vite sur cette bête sauvage, on lui demande si il part à la chasse aux ours avec. Beau joueur, lui suggère qu'il emmène son fauve à la chasse à l'orignal. On sourit en imaginant les 1.5kg du petit chien face à la demi-tonne de l'élan. Le maître fini par nous donner son nom: Brutus ! Larmes de rire…
+Au sommet d'une tour de point nous rejoint un marcheur et son minuscule chihuahua. On plaisante vite sur cette bête sauvage, on lui demande si il part à la chasse aux ours avec. Beau joueur, on lui suggère d'emmener son fauve à la chasse à l'orignal. On sourit en imaginant les 1.5kg du petit chien face à la demi-tonne de l'élan. Le maître fini par nous donner son nom: Brutus ! Larmes de rire…
 
 ![alt text](20250814021117.mp4)
 
@@ -80,7 +83,7 @@ Au sommet d'une tour de point nous rejoins un marcheur et son minuscule chihuahu
 
 ![alt text](20250804125304.jpg)
 
-La journée d'hier nous a plus fatigué que nous le pensions. Florence dors presque toute l'après-midi à l'ombre de la tente, pendant que j'investi de grandes quantités de nos noix à apprivoiser la faune locale. Timides au début, écureils et tamias perdent ensuite vite patience quand leur tribu de noisettes n'est pas déposé séance tenante sur la table en bois du camping. Ils me grimpent dessus pour monter plus vite et me rappeler à mes devoirs. Nous sommes chez eux, après tout.
+La journée d'hier nous a fatigué plus que nous le pensions. Florence dors presque toute l'après-midi à l'ombre de la tente, pendant que j'investi de grandes quantités de nos noix à apprivoiser la faune locale. Timides au début, écureils et tamias perdent ensuite vite patience quand leur tribu de noisettes n'est pas déposé séance tenante sur la table en bois du camping. Ils me grimpent dessus pour monter plus vite et me rappeler à mes devoirs. Nous sommes chez eux, après tout.
 
 - ![alt text](20250804111622.webm)
 - ![alt text](20250804131708.webm)
@@ -106,7 +109,7 @@ Arrêtés en pleine montée pour boire de l'eau, on se retourne sur une masse no
 - ![alt text](20250805115904.jpg)
 - ![alt text](20250805115916.jpg)
 
-L'arrivé à New Richmond est interminable. Là on pensait après 90km arriver à destination, on se rend vite compte qu'il nous restait encore 20 bons kilomètres sous le soleil et sur une route creusée d'un sillon permanent nous emmenant de côtes en côtes vers, enfin, le littoral. À la dernière pose, quelque chose ne va pas: on connait les sensations d'un corps exténué, mais là quelque chose cloche. Au camping, une courte marche est un calvaire. Écroulé sur la table, on compte les symptômes: fatigue intense, froid, impossibilité d'avaler quoi que soit. Aucun doute, je suis victime d'une insolation. Je m'écroule dans la tente sitôt montée.
+L'arrivé à New Richmond est interminable. Là on où pensait arriver à destination après 90km, on se rend vite compte qu'il nous restait encore 20 bons kilomètres sous le soleil sur une route creusée d'un sillon permanent nous emmenant de côtes en côtes vers, enfin, le littoral. À la dernière pause, quelque chose ne va pas: on connait les sensations d'un corps exténué, mais là l'épuisement est différent. Au camping, une courte marche est un calvaire. Écroulé sur la table, on compte les symptômes: fatigue intense, froid, impossibilité d'avaler quoi que soit. Aucun doute, je suis victime d'une insolation. Je m'écroule dans la tente sitôt montée.
 
 - ![alt text](20250814021031.mp4)
 - ![alt text](20250814021106.mp4)
@@ -121,7 +124,7 @@ Cette nuit, et jusqu'à la fin, je n'écouterai plus de musique avant de dormir:
 - Distance à vélo: 85 km
 - Nuit: Motel de l'Anse
 
-L'insolation d'hier complique le départ ce matin. Fatigue, hypoglycémie, déhydration: on guette les dépanneurs pour faire une pause et le plein de [Gatorade](https://fr.wikipedia.org/wiki/Gatorade). C'est très mauvais, mais efficace. L'après-midi se passe mieux. Le vent dans le dos nous pousse jusqu'aux derniers 200m du Motel de l'Anse où des travaux nous empêches de l'atteindre ! Il nous faire refaire quelques kilomètres et une belle côte pour enfin planter la tente à quelques dizaines de mètre de l'océan, et d'un joyeux groupe de retraités en vans qui se retrouvent tous les ans sur les routes. Nous voyant nous coucher avant le soleil, épuisés, la troupe, déjà passablement éméchée autour d'un feu, nou rassure : "ne vous inquiétez pas, à nos âges, on ne se couchent pas tard !".
+L'insolation d'hier complique le départ ce matin. Fatigue, hypoglycémie, déhydration: on guette les dépanneurs pour faire une pause et le plein de [Gatorade](https://fr.wikipedia.org/wiki/Gatorade). C'est très mauvais, mais efficace. L'après-midi se passe mieux. Le vent dans le dos nous pousse jusqu'aux derniers 200m du Motel de l'Anse où des travaux nous empêches de l'atteindre ! Il nous refaire quelques kilomètres et une belle côte pour enfin planter la tente à quelques dizaines de mètre de l'océan. Nos voisins sont de joyeux groupes de retraités en vans se retrouvant tous les ans sur les routes. Nous voyant nous coucher avant le soleil, épuisés, la troupe, déjà passablement éméchée autour d'un feu, nous rassure : "ne vous inquiétez pas, à nos âges, on ne se couchent pas tard !".
 
 ![alt text](20250814020921.mp4)
 
@@ -135,7 +138,7 @@ Nous sommes réveillés en pleine nuit par des explosions à proximité: quelqu'
 
 Flo prends son premier bain d'eau glaciale ce soir. "Mais si elle est bonne !". Elle est bonne… Non mais sérieusement… Mon intégration culturelle au Québec a ses limites et ma limite, c'est 20°C dans l'eau.
 
-On réalisera plus tard que dans cette baie se trouve un des principaux polleurs atmosphérique de la province, la [cimenterie McInnis](https://www.ledevoir.com/opinion/editoriaux/585501/cimenterie-mcinnis-secret-beton). Florence est toutefois sortie intacte de l'eau, à ce jour.
+On réalisera plus tard que dans cette baie se trouve un des principaux pollueurs atmosphérique de la province, la [cimenterie McInnis](https://www.ledevoir.com/opinion/editoriaux/585501/cimenterie-mcinnis-secret-beton). Florence est toutefois sortie intacte de l'eau, à ce jour.
 
 À la sortie d'un parking on salue d'un signe un grand cycliste, lui aussi chargé de bagages.
 
@@ -176,10 +179,9 @@ Ce soir, on part à la cuillette aux bleuets sauvages à la lisière de bois fra
 
 ![alt text](20250813143159.mp4)
 
-Sur la route on se fait dépasser par le même grand cycliste qu'on a salué hier.
-
 ![alt text](20250807105107.jpg)
 
+Sur la route on se fait dépasser par le même grand cycliste qu'on a salué hier.
 
 # Vendredi 8: Percé
 
@@ -202,7 +204,7 @@ Au détour d'un arabica je rencontre une figure connue: le grand cycliste des de
 - ![alt text](20250808124824.jpg)
 - ![alt text](20250808124836.jpg)
 
-Sur le bateau Florence apprends que les requins blancs commencent à visiter plus souvent les rivages gaspésiens à la recherche de phoques. Ceux-ci sont beaucoup moins chassés maintenant. Forcément, leur population attire les prédateurs. Cela dit, la probabilité d'avoir 1) un requin assez téméraire pour se rapprocher autant des plages et 2) un québecois assez fou pour se baigner dans l'eau froide plus que quelques minutes est assez faible pour qu'ils ne soient pas vraiment un danger.
+Sur le bateau Florence apprends que les requins blancs commencent à visiter plus souvent les rivages gaspésiens à la recherche de phoques. Ceux-ci sont beaucoup moins chassés maintenant. Forcément, leur population attire les prédateurs. Cela dit, la probabilité d'avoir 1) un requin assez téméraire pour se rapprocher autant des plages et 2) un québecois assez fou pour se baigner dans l'eau froide plus que quelques minutes est assez faible pour qu'il n'y ait vraiment de danger.
 
 ![alt text](20250808190027.jpg)
 
@@ -215,13 +217,13 @@ Sur le bateau Florence apprends que les requins blancs commencent à visiter plu
 - Distance à vélo: 80 km
 - Nuit: Camping Fort Ramsay
 
-Et pourtant, sur la carte, ça passait sans problème. Certe, on devait longer la plage. En effet, il était attendu que la route se rétrécisse. Quand on s'est mis à rouler dans le sable, on a commencé à douter. Et quand il a fallu monter les sur la voie ferrée, le doute n'était plus permis: non, ce petit raccourci scénique n'en était pas vraiment un. Et nous de pousser vélos et chargement sur plusieurs centaines de mètres, d'abord sur le ballast, puis le cahots des traverses laisse une fois sur le pont la place à de petits joints de bois pour passer maladroitement de section en section à travers lesquelles l'eau s'agite sous nos pieds.
+Et pourtant, sur la carte, ça passait sans problème. Certe, on devait longer la plage. En effet, il était attendu que la route se rétrécisse. Quand on s'est mis à rouler dans le sable, on a commencé à douter. Et quand il a fallu monter les vélos sur la voie ferrée, il a fallu se rendre à l'évidence: non, ce petit raccourci scénique n'en était pas vraiment un. Et nous de pousser vélos et chargement sur plusieurs centaines de mètres, d'abord sur le ballast. Puis le cahot des traverses laisse une fois sur le pont la place à de petits joints de bois pour passer maladroitement de section en section à travers lesquelles l'eau s'agite sous nos pieds.
 
-Cette eau, encore à -1000 degrés tout au plus, dans laquelle évidemment Florence finira par se baigner longuement.
+Eau, encore à -1000 degrés tout au plus, dans laquelle évidemment Florence finira par se baigner longuement.
 
 ![alt text](20250813140944.mp4)
 
-La belle piste cyclable des derniers kilomètres jusque Gaspé devait nous emmener jusqu'à notre prochain contact, une amie recommandée par Morgane qui pouvait nous héberger la nuit. Mais elle était encore loin et le sommeil se faisait bas.L'étape nous avait fatigué, nous avions manquions d'eau depuis un trop long moment: tant pis, on restera dans un camping à la sortie de Gaspé pour ce soir.
+La belle piste cyclable des derniers kilomètres jusque Gaspé devait nous emmener jusqu'à notre prochain contact, une amie recommandée par Morgane qui pouvait nous héberger la nuit. Mais elle était encore loin et le soleil se faisait bas. L'étape nous avait fatigué, nous avions manquions d'eau depuis un trop long moment: tant pis, on restera dans un camping à la sortie de Gaspé pour ce soir.
 
 - ![alt text](20250809082733.jpg)
 - ![alt text](20250809090753.jpg)
@@ -258,7 +260,7 @@ On arrive d'abord déjà fatigué après du vent de face et des longues montées
 
 ![alt text](20250810131010.jpg)
 
-À l'enregistrement du Parc Forillon, la dame à l'accueil doit sentir notre épuisement. S'en suive quelques minutes de lutte contre l'informatique qui nous aboutira vers une place dans le camping le plus proche. On comprends son insistance en sortant du bâtiment administratif, quand on apperçoit la côte infinie, maléfique qui se perd dans la forêt vers on ne sait quel Tartare infernal.
+À l'enregistrement du Parc Forillon, la dame à l'accueil doit sentir notre épuisement. S'en suive quelques minutes de lutte contre l'informatique qui aboutira vers une place dans le camping le plus proche. On comprends son insistance en sortant du bâtiment administratif, quand on apperçoit la côte infinie, maléfique qui se perd dans la forêt vers on ne sait quel Tartare infernal.
 
 Et on rit quand même un peu quand on pose la tente de ne pas avoir à la grimper.
 
@@ -266,11 +268,11 @@ Et on rit quand même un peu quand on pose la tente de ne pas avoir à la grimpe
 - ![alt text](20250810143205.jpg)
 - ![alt text](20250810180539.jpg)
 
-On reste ce soir dans ce qui sera le meilleur camping du voyage. Cachés dans des fourrés, on cuisine et se couche au son des vagues de l'océan tout proche. Lui s'allonge dans une baie cintrées de hautes collines. On reste un long moment, assis sur les galets, à regarder les têtes des phoques plonger et remonter à la surface. Il reigne un calme, une atmosphère sereine dans le Parc Forillon, qui nous fait nous promette d'y revenir plus longtemps la prochaine fois.
+On reste ce soir dans ce qui sera la meilleure nuit du voyage. Cachés dans des fourrés, on cuisine et se couche au son des vagues de l'océan tout proche. Il s'allonge dans une baie cintrées de hautes collines. On reste un long moment, assis sur les galets, à regarder les têtes des phoques plonger et remonter à la surface. Il reigne un calme, une atmosphère sereine dans le Parc Forillon, qui nous fait nous promette d'y revenir plus longtemps la prochaine fois.
 
 ![alt text](20250810180526.jpg)
 
-Totalement inattendue était l'excellente pizza de [Peppino](https://peppinopizza.ca) qu'on a mangé ce midi. Le restaurant est comme sorti de la route pile au moment où l'on cherchait un endroit où s'arrêter. Ils sont quand même forts, ces italiens.
+Totalement inattendue était l'excellente pizza de [Peppino](https://peppinopizza.ca) qu'on a mangé ce midi. Le restaurant est comme sorti de la route pile au moment où l'on cherchait un endroit où s'arrêter.
 
 
 # Lundi 11: Forillon / Anse à Valleau
@@ -278,16 +280,16 @@ Totalement inattendue était l'excellente pizza de [Peppino](https://peppinopizz
 - Distance à vélo: 47 km
 - Nuit: Chez Monia à Anse à Valleau
 
-L'étape de la veille avait été trop difficile. Les vertiges ce matin sont de mauvaise augure. Au pied d'une énième côte, derrière une station service, à l'ombre sur un banc, Florence doit s'allonger pour ne pas flancher. On envisage des solutions, on compare les hypothèse, on s'active un peu autour d'elle. Marcel le propriétaire du garage trotte jusque chez lui et revient avec de la pastèque fraiche. Moi je roule jusqu'au dépanneur à côté trouver du Gatorade, nectar nécessaire quand l'hypoglycémie guette. Et notre nouvelle amie Monia s'enquiert des horaires d'un bus qui nous ramènerait jusque Saint-Anne.
+L'étape de la veille avait été trop difficile. Les vertiges ce matin sont de mauvaises augures. Au pied d'une énième côte, derrière une station service, à l'ombre sur un banc, Florence doit s'allonger pour ne pas flancher. On envisage des solutions, on compare les hypothèse, on s'active un peu autour d'elle. Marcel le propriétaire du garage trotte jusque chez lui et revient avec de la pastèque fraiche. Moi je roule jusqu'au dépanneur à côté trouver du Gatorade, nectar nécessaire quand l'hypoglycémie guette. Et notre nouvelle amie Monia s'enquiert des horaires d'un bus qui nous ramènerait jusque Saint-Anne.
 
-Monia est de ces personnes dont on bénirait le ciel de nous les avoir mis sur notre route. Elle venait simplement faire réparer sa voiture par Marcel. En attendant la fin des travaux, elle passe derrière la caisse, sert de l'essence aux clients, si bien qu'on la prends pour une employée. On discute, on sympatise un peu et très vite elle nous propose son aide, son gîte (on pourra dormir chez elle dans un vrai lit ce soir), son couvert ("j'ai des copines qui viennent, venez, ça va être drôle !") et sa carosse. On mets un vélo sur le siège arrière, les sacoches dans le coffre, et voilà Florence embarquée jusqu'à une douche et une sieste au frais en quatre vrais mûrs de confort. 
+Monia est de ces personnes dont on bénirait le ciel de nous les avoir mis sur notre route. Elle venait simplement faire réparer sa voiture. En attendant la fin des travaux, elle passe derrière la caisse, sert de l'essence aux clients, si bien qu'on la prend pour une employée. On discute, on sympathise un peu et très vite elle nous propose son aide, son gîte (on pourra dormir chez elle dans un vrai lit ce soir), son couvert ("j'ai des copines qui viennent, venez, ça va être drôle !") et son carosse. On mets un vélo sur le siège arrière, les sacoches dans le coffre, et voilà Florence embarquée jusqu'à une douche et une sieste au frais en quatre vrais mûrs de confort. 
 
 
 ![alt text](20250813140255.mp4)
 
 Moi je roule seul dans l'après-midi les 30 derniers kilomètres jusque Anse à Valleau chez Monia. Est-ce parceque je ne porte pas de sacs ? Est-ce parceque je sais Florence en sûreté ? Est-ce c'est le grisement de rouler à son propre rythme ? Est-ce les milliers de kilomètres du tour du monde qui reviennent d'un coup ? Je ne saurais dire, mais je me sens particulièrement de bonne humeur.
 
-On me hèle dans presque au sommet d'une côte. Une petit dame, une bonne soixantaine d'années, extrèmement mince et bronzée, m'offre de l'eau fraiche. On reste un moment à papoter, où j'apprends une phrase de 10 minutes, avec une majuscule au début et un unique point à la fin, toute la vie de cette dame, de son mari, de ses proches, de ses chiens et de sa maison. Je pense qu'elle avait envie de parler à nouvelle tête.
+On me hèle presque au sommet d'une côte. Une petit dame, une bonne soixantaine d'années, extrèmement mince et bronzée, m'offre de l'eau fraîche. On reste un moment à papoter, où j'apprends d'une phrase de 10 minutes, avec une majuscule au début et un unique point à la fin, toute la vie de cette dame, de son mari, de ses proches, de ses chiens et de sa maison. Je pense qu'elle avait envie de parler à une nouvelle tête.
 
 - ![alt text](20250811091359.jpg)
 - ![alt text](20250811105444.jpg)
@@ -316,13 +318,13 @@ Une fois chez Monia, en attendant le réveil de Florence je pars me promener dan
 
 - Nuit: chez la mère de Florence
 
-Nos enfances les yeux plongés dans [Tétris](https://en.wikipedia.org/wiki/Tetris) auront donc payées: il faudra bien des efforts pour faire rentrer vélos et sacs dans voiture de Monia. Elle nous dépose le matin à Rivière-Au-Renard ou nous attendons le bus vers Sainte-Anne-des-Monts. Les côtes du nord-est de la Gaspésie sont ravageuses: sans aucun le plus difficile était à venir, et nous voilà, sourires aux lèvres, pouffant de rire depuis le confort de nos sièges, à nous imaginer haleter sur l'asphalte brûlant.
+Nos enfances les yeux plongés dans [Tétris](https://en.wikipedia.org/wiki/Tetris) auront donc payées: il faudra bien des efforts pour faire rentrer vélos et sacs dans voiture de Monia. Elle nous dépose le matin à Rivière-Au-Renard ou nous attendons le bus vers Sainte-Anne-des-Monts. Les côtes du nord-est de la Gaspésie sont ravageuses: sans aucun doute le plus difficile était à venir. Et nous voilà, sourires aux lèvres, pouffant de rire depuis le confort de nos sièges, à nous imaginer haleter sur l'asphalte brûlant.
 
 ![alt text](20250813134642.mp4)
 
 Très vite après Saint-Anne on embarque Marie, autostoppeuse belge de visite en Gaspésie entre deux semestres de son doctorat. Elle nous attendra quelques heures sur la plage, au bord de l'eau du village où nous rendons visite à la tante et l'oncle de Florence.
 
-Visite qui se terminera par une ultime de baignade de Florece, sous mes yeux toujours perplexes quand à l'attrait de l'eau froide.
+Visite qui se terminera par une ultime de baignade de Florence, sous mes yeux toujours perplexes quand à l'attrait de l'eau froide.
 
 ![alt text](20250812091831.jpg)
 
@@ -332,7 +334,7 @@ Elle est étrange cette sensation d'avaler en quelques dizaines de minutes de vo
 
 - Nuit: chez soit !
 
-Les vélos sont déchargés, les sacs posés au sol. On dort chez soit ce soir. Après presque deux semaines de camping, il est sans aucune ambiguïté de retrouver lit, douche et la lumière connue du soleil se couchant encore une autre fois à travers des fenêtres connues.
+Les vélos sont déchargés, les sacs posés au sol. On dort chez soit ce soir. Après presque deux semaines de camping, il est sans aucune ambiguïté doux de retrouver lit, douche et la lumière connue du soleil se couchant encore une autre fois à travers des fenêtres connues.
 
 Et pourtant.
 
