@@ -30,6 +30,9 @@ The final file layout will look like:
 
 Is something not explained well enough ? Is there an ambiguity somewhere ? Am I grammatically challenged in English ? Please [drop me a message](mailto:charles.fleche@free.fr) or even better, submit a [pull request](https://github.com/charlesfleche/charlesfleche.net/edit/master/content/article/2025-08-30-building-usd-on-debian/en.md). 
 
+# Why not running the OpenUSD's build script ?
+
+OpenUSD is usually built from a [python script](https://github.com/PixarAnimationStudios/OpenUSD/blob/dev/build_scripts/build_usd.py) that takes care of downloading and compiling the required dependencies. At the time of writing this guide, although building OpenUSD is fine with it, it then fails at runtime because of invalid TBB binary symbols. I assume that there is a confusion somewhere between system's TBB and build time TBB. We'll make sure that the problem does not happen by having a single TBB: the Debian's one.
 
 # Install system dependencies
 
