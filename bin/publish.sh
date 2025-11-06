@@ -9,4 +9,4 @@ rsync \
     --human-readable \
     --delete \
     build/dist/ \
-    cf:/srv/www/charlesfleche.net/
+    pi:/srv/www/charlesfleche.net/

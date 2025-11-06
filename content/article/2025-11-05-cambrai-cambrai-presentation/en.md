@@ -1,7 +1,7 @@
 Title: Cambrai-Cambrai presentation
 Description: Photos to illustrate Cambrai-Cambrai presentations
 
-From time to time I visit schools and companies to speak about my 2011-2012 cycling trip around the world [from Cambrai, France to Cambrai, Australia(http://cambrai-cambrai.net). Here is the gallery of images I'm using to illustrate the speech, also [downloadable as a 210 MB zip file](https://files.charlesfleche.net/permanent/charles-velo.zip).
+From time to time I visit schools and companies to speak about my 2011-2012 cycling trip around the world [from Cambrai, France to Cambrai, Australia](http://cambrai-cambrai.net). Here is the gallery of images I'm using to illustrate the speech, also [downloadable as a 210 MB zip file](https://files.charlesfleche.net/permanent/charles-velo.zip).
 
 
 - ![alt text](001.thumb.jpg)
