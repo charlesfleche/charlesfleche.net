@@ -18,7 +18,7 @@ Oui, on pourra dire.
 ![alt text](20250802153021.jpg)
 
 - ![alt text](20250802180748.jpg)
-- ![alt text](20250802181638.jpg):w
+- ![alt text](20250802181638.jpg)
 
 - ![alt text](20250802181640.jpg)
 - ![alt text](20250802182019.jpg)

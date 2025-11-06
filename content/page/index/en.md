@@ -9,6 +9,6 @@ With [Previz](https://previz.co), we made a real-time 3D content planning and pr
 
 A few years ago I cycled from [France to Australia](http://cambrai-cambrai.net) with [Siugi](http://siugi.com). This has been a crazy trip, but by no mean did it cured my travel bug. Since then I keep on traveling the world for work and fun.
 
-In early 2019 I joined the R&D team of the visual effects studio [Rodeo FX](https://www.rodeofx.com) in Montréal, Canada to write [Python](https://python.org) and [C++](https://en.wikipedia.org/wiki/C%2B%2B) pipeline code with [USD](https://graphics.pixar.com/usd/docs/index.html) and [Qt](https://www.qt.io/) for their artists. I'm now discovering the video games world at [Ubisoft](https://montreal.ubisoft.com).
+In early 2019 I joined the R&D team of the visual effects studio [Rodeo FX](https://www.rodeofx.com) in Montréal, Canada to write [Python](https://python.org) and [C++](https://en.wikipedia.org/wiki/C%2B%2B) pipeline code with [USD](https://graphics.pixar.com/usd/docs/index.html) and [Qt](https://www.qt.io/) for their artists. I'm now discovering the video games world at [Ubisoft Montréal](https://montreal.ubisoft.com).
 
 Let's be in touch by [Email](mailto:charles.fleche@free.fr) or [Mastodon](https://mamot.fr/@charlesfleche).
