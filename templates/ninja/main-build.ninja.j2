@@ -12,7 +12,7 @@ rule render_html
     command = python $bin_path/render_html.py $slug $in $out
 
 rule convert_img
-    command = convert $in -quality 60 -geometry $geometry $out
+    command = magick convert $in -quality 60 -geometry $geometry $out
 
 build $all_articles_data_path: combine_all_articles_data {{ article_data_paths | join(" ") }}
 
