@@ -28,7 +28,11 @@ print("Next file to publish:", jpg)
 if not args.dry_run:
     cl = instagrapi.Client()
     print(cl.login(os.environ["INSTAGRAM_USERNAME"], os.environ["INSTAGRAM_PASSWORD"]))
-    #media = cl.photo_upload(path=jpg)
-    #print(media)
+    media = cl.photo_upload(path=jpg)
+
+    db[jpg.name] = media.dict()
+    with db_path.open("w") as fp:
+        json.dump(db, fp, indent=4, sort_keys=True, ensure_ascii=False)
+
 
 
