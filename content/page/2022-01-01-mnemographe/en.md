@@ -247,4 +247,6 @@ Path: /mnemographe/index.html
 - ![alt text](20260130-210506.jpg)
 - ![alt text](20260130-213618.jpg)
 - ![alt text](20260130-214026.jpg)
+- ![alt text](20260130-194141.jpg)
+- ![alt text](20260203-200321.jpg)
 
