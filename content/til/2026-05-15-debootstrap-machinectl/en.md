@@ -19,8 +19,12 @@ ResolvConf=bind-uplink
 ```sh
 # First, we create the minimal base system
 
-sudo debootstrap --variant=minbase --include=dbus,systemd-container stable /var/lib/machines/my-container https://deb.debian.org/debian/
-
+sudo debootstrap                   \
+  --variant=minbase                \
+  --include=dbus,systemd-container \
+  stable                           \
+  /var/lib/machines/my-container   \
+  https://deb.debian.org/debian/
 
 # Then, we start the container and open a sheel
 
