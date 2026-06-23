@@ -52,6 +52,13 @@ I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily s
 - `<leader>b` (custom) — Toggle breakpoint
 - `<leader>x` (custom, trouble.nvim) — Toggle diagnostics panel
 
+## File browser
+- `<leader>ff` — Find files
+- `<leader>fg` — Live grep (requires rgrep)
+- `<leader>fb` — List buffers
+- `<leader>fh` — Help tags
+- `<leader>fo` — Recently opened files
+
 ## Command-line / Ex Commands
 - `:%s/.../.../g` — Substitute over whole buffer
 - `:g/^  /d` — Delete all lines starting with two spaces
@@ -63,4 +70,5 @@ I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily s
 - `:checkhealth provider` — Check clipboard provider
 
 ## Misc
+- `:qa` — Quit vim and all buffers
 - `<leader>` — Custom prefix key, default `\`, commonly remapped to `Space` via `vim.g.mapleader = " "`
