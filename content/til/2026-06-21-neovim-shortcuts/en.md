@@ -51,6 +51,8 @@ I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily s
 - `<F11>` — DAP: step into
 - `<leader>b` (custom) — Toggle breakpoint
 - `<leader>x` (custom, trouble.nvim) — Toggle diagnostics panel
+- `<leader>sS` — Show workspace symbols
+- `<leader>ss` — Show document symbols
 
 ## File browser
 - `<leader>ff` — Find files
