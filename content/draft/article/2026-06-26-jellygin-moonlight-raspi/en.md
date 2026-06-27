@@ -1,118 +1,135 @@
-Title: jellygin-moonlight-raspi
-Description:
-Tags:
---
+---
+title: jellygin-moonlight-raspi
+description: Building a low-power Raspberry Pi 4 kiosk that streams games from a workstation and video from Jellyfin
+tags: [raspberry-pi, debian, moonlight, jellyfin, wayland, cage]
+---
 
-Goal:
+# jellygin-moonlight-raspi
 
-- a low powered, low consumption machine to stream games from my workstation and play video from a jellyfin server.
-- When powered, I can grab my game controller, starts steam in big picture mode and play, all without needed to grab a keyboard to log in.
+## The goal
 
-Techs:
+I wanted a small, low-power box sitting under the TV that does exactly two things:
 
-- Debian trixie, because that's what I run everywhere by default
-- Raspberry Pi 4 I already owned
-- Game streaming with [moonlight-qt](TODO: add link here) TODO: short description of moonlight
-- Video streaming with [jellyfin-mpv-shim](TODO: add link here) TODO: short description of jellyfin-mpv-shim
-- [Cage](TODO: add link here) wayland display manager taylored for this kind of kiosk setup. TODO: explain briefly what a kiosk is
+- Stream games from my main workstation, controller in hand, no keyboard required.
+- Play video from my Jellyfin server.
 
-Why Cage ? Both moonlight and video can run [without a display server](https://linuxvox.com/blog/linux-dri/) linux xorg or wayland. But they then take full ownership of the GPU memory and can't run both at the same time. Cage is used here to help sharing the GPU. I chose cage because it's dead simple and purposely made to run applications in full screen. It will always display moonlight, but when the jellyfin shim starts a video, it'll open an [mpv](TODO: add link here) that will take the full screen until it is stopped.
+Power it on, grab the gamepad, and Steam Big Picture is already waiting. No login screen, no desktop to navigate, nothing. For video, there's nothing to launch by hand either. I just open a Jellyfin client (the [mobile app](https://jellyfin.org/docs/general/clients/) or the [web player](https://jellyfin.org/docs/general/clients/)) on my phone or laptop, hit **Cast to Device**, and pick the Pi from the list. [jellyfin-mpv-shim](https://github.com/jellyfin/jellyfin-mpv-shim) registers itself on the network as exactly that kind of castable target, so it shows up next to any Chromecasts or other Jellyfin clients already on the LAN.
 
-Note about audio:
+Here's how I built it.
 
-- no [pulseaudio](TODO: add link here) or [pipewire](TODO: add link here), [alsa](TODO: add link here) is enough for now, as no application are playing sound at the same time, so there is no need for audio mixing. Keep thing simple until it's needed.
-- use the Raspberry Pi audio output jack, not HDMI:
-  - It's the default Raspberry Pi output, so no need for extra configuration
-  - I didn't notice video / latency yet (that can happen when audio and video are not transported by the same HDMI signal)
-  - I've noticed in a previous setup weird audio artifacts as if a noise gate was really slow to open with audio routed through the video projector HDMI input. Not sure if the problem is the projector or the super cheap loudspeakers that play audio, so I want to try direct jack output from the Pi for a while
+## The stack
+
+- **Debian trixie**: what I run everywhere, so no surprises.
+- **Raspberry Pi 4**: already had one lying around.
+- **[moonlight-qt](https://github.com/moonlight-stream/moonlight-qt)** for game streaming. It's the open-source client for NVIDIA's GameStream protocol (and, here, for [Sunshine](https://github.com/LizardByte/Sunshine), which plays the role of the streaming host on the workstation side).
+- **[jellyfin-mpv-shim](https://github.com/jellyfin/jellyfin-mpv-shim)** for video. It's a lightweight Jellyfin client that uses [mpv](https://mpv.io/) as its playback backend and gets remote-controlled by other Jellyfin apps on the network, similar in spirit to a Chromecast.
+- **[Cage](https://github.com/cage-kiosk/cage)**, a Wayland compositor built specifically for kiosk setups. A "kiosk", if the term is new to you, is just a machine locked into running a single full-screen application, with no window manager chrome, no taskbar, and no easy way out to a desktop.
+
+### Why bother with a compositor at all?
+
+Both moonlight-qt and mpv can [run directly against the kernel's DRI/DRM layer](https://linuxvox.com/blog/linux-dri/), without Xorg or Wayland in the picture. But when they do, each one grabs exclusive ownership of the GPU, fine if only one of them ever runs, useless the moment you want both moonlight and video playback available on the same machine.
+
+Cage solves that by sitting in between and brokering GPU access. I picked it because it does one thing: run an application full-screen, and get out of the way. The setup here always keeps moonlight-qt running and visible, except when jellyfin-mpv-shim starts a video, at which point mpv takes over the screen until playback stops.
+
+### A word on audio
+
+No PulseAudio, no PipeWire: just [ALSA](https://www.alsa-project.org/). Nothing here ever needs to mix two audio streams at once, so there's no reason to drag in a sound server. Keep it simple until something actually requires more.
+
+I'm also using the Pi's analog audio jack instead of HDMI audio:
+
+- It's the default output, so zero extra configuration.
+- No audio/video sync issues so far, a known risk when audio and video don't travel over the same HDMI link.
+- On a previous setup, I got odd audio artifacts through the projector's HDMI input: something like a noise gate that was way too slow to open. I'm not sure if the projector or the (very cheap) speakers were at fault, but routing audio straight out of the Pi's jack sidesteps the question entirely.
 
 ## Sunshine on the workstation
 
-- Download the .deb (there is no debian repo yet)
-- Install
-- Allow low-latency desktop video capture 
-- Ensure the user has access to inputs like the gamepad (that should already be the case)
-- Enable sunshine at startup. It consumes almost no CPU/memory when not actively streaming
-- Ensure the steam binary is findable by sunshine. 
+Sunshine acts as the streaming host: the thing moonlight-qt on the Pi connects to. There's no Debian repo for it yet, so we grab the `.deb` straight from GitHub releases.
 
-```
+```bash
 wget https://github.com/LizardByte/Sunshine/releases/download/v2026.516.143833/sunshine-debian-trixie-amd64.deb
 sudo apt install ./sunsine-debian-trixie-amd64.deb
-# 1. Allow Sunshine to access the KMS/DRM graphics subsystem for low-latency capture
+
+# Allow Sunshine to access the KMS/DRM graphics subsystem for low-latency capture
 sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
-# 2. Grant gamepad and mouse input capabilities to your user group
-    sudo usermod -aG input $USER
-# Reboot your host machine to apply these system-level group privileges!
-    systemctl --user enable --now app-dev.lizardbyte.app.Sunshine.service
+
+# Grant gamepad and mouse input access to your user
+sudo usermod -aG input $USER
+
+# Group changes only take effect after a reboot
+sudo reboot
 ```
 
-Sunshine is ran by systemd and I don't think the default systemd service file shipped with the debian package passes the PATH environment variable, which means that we need to give the full path to the applications sunshine is running.
+Once it's back up, enable the user service so Sunshine starts automatically:
 
-- Open the [Sunshine configuration panel](https://localhost:47990)
-- Go to Applications > Steam Big Picture > Edit
-- Set the full path to steam in the `Undo command` and `Detached commands` field. `setsid steam` becomes `setsid /usr/games/steam`.
-- Save the configuration
+```bash
+systemctl --user enable --now app-dev.lizardbyte.app.Sunshine.service
+```
+
+That unit name looks like a Flatpak app ID because it is one: the `.deb` is really just a Flatpak bundle with a thin wrapper around it, not a native package. It still installs and runs through `apt` like you'd expect, but under the hood it's `flatpak` doing the work, which is why the systemd unit follows Flatpak's reverse-DNS naming instead of a plain `sunshine.service`.
+
+It sits idle at essentially zero CPU/memory when nothing is streaming, so there's no harm in leaving it always on.
+
+One gotcha: the systemd unit shipped with the Debian package doesn't inherit your shell's `PATH`. That means any command Sunshine runs needs to be given as a full path: `steam` alone won't resolve.
+
+- Open the [Sunshine configuration panel](https://localhost:47990).
+- Go to **Applications → Steam Big Picture → Edit**.
+- In both the **Detached commands** and **Undo command** fields, change `setsid steam` to `setsid /usr/games/steam`.
+- Save.
 
 ![Set the full path to steam in the Sunshine configuration](sunshine.png)
 
-## Raspberry pi preparation
+## Raspberry Pi preparation
 
-- Installed the [Raspeberry PI OS Lite](https://www.raspberrypi.com/software/operating-systems/) version to start from a mininal instal
-- Had to invoke [rpi-imager](TODO: add link here) is a [slightly unusual way](https://charlesfleche.net/rpi-imager-on-wayland/) to run it as root through xwayland on my [sway](TODO: insert link to sway compositor here) desktop.
+I flashed [Raspberry Pi OS Lite](https://www.raspberrypi.com/software/operating-systems/) to start from a minimal base: no desktop environment to strip out later.
 
+Flashing itself was slightly fiddly: I run [sway](https://swaywm.org/) as my desktop, and [rpi-imager](https://github.com/raspberrypi/rpi-imager) needs to run as root, which on Wayland means going through XWayland in a [somewhat unusual way](https://charlesfleche.net/rpi-imager-on-wayland/).
 
-Allowing more unified memory to be allocated to the GPU is recommanded by the [moonlight documentation](https://github.com/moonlight-stream/moonlight-docs/wiki/Fixing-Hardware-Decoding-Problems#raspberry-pi)
+Once booted, the [moonlight documentation](https://github.com/moonlight-stream/moonlight-docs/wiki/Fixing-Hardware-Decoding-Problems#raspberry-pi) recommends bumping the memory reserved for the GPU:
 
 ```bash
 echo "gpu_mem=128" | sudo tee -a /boot/config.txt
 sudo reboot
 ```
 
-## Moonlight install
+## Installing Moonlight
 
-Simple, just run the [official script](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4)
+Nothing fancy here: the [official install script](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4) handles adding the repository:
 
 ```bash
 curl -1sLf \
   'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-qt/setup.deb.sh' \
-  | \
-  distro=raspbian codename=$(lsb_release -cs) sudo -E bash
+  | distro=raspbian codename=$(lsb_release -cs) sudo -E bash
 sudo apt install moonlight-qt
 ```
 
-## jellyfin-mpv-shim 
+## jellyfin-mpv-shim
 
-### install
+### Installing it
 
-- Install the video player [mpv](TODO: link to the mpv media player) from the debian 
-- no debian package in the repository for jellyfin-mpv-shim
-- install it straight from the [python package index](TODO: link to the jellyfin-mpv-shim pypi package page)
-- [pipx](TODO: link to pipx) to fetch the package and put the exectuable in the `PATH`
-
+- `mpv`, the video player itself, comes straight from the Debian repos.
+- `jellyfin-mpv-shim` doesn't have a Debian package, so it's installed from the [Python Package Index](https://pypi.org/project/jellyfin-mpv-shim/).
+- [pipx](https://pipx.pypa.io/) handles fetching it into its own isolated environment and dropping the executable on your `PATH`.
 
 ```bash
 sudo apt install pipx mpv
 pipx install jellyfin-mpv-shim
-pipx inject jellyfin-mpv-shim pillow  # to avoid a warning in the logs
+pipx inject jellyfin-mpv-shim pillow  # silences a warning in the logs
 pipx ensurepath
-jellyfin-mpv-shim  # Run once to initialize configuration
+jellyfin-mpv-shim  # run once to generate the initial configuration
 ```
 
+### Tuning mpv
 
-### mpv configuration
+The Pi 4's CPU has no business decoding video on its own, everything needs to go through the GPU, or playback chokes. The two settings that matter most are `profile=fast` and `vo=gpu-next`, which together let `hwdec=v4l2m2m-copy` actually kick in. Everything else in the config below is fine-tuning on top of that.
 
-- The raspberry pi 4 needs to tweaked for video playback performance,. mainly to force GPU decoding as the CPU is not powerful enough for smooth playback.
-- Most important parameters are `profile=fast` and `vo=gpu-next` to allow `hwdec=v4l2m2m-copy`
-- Rest is fine tuning to allow even faster decoding
-
-jellyfin-mpv-shim has it's own mpv configuration. During performance testing when running mpv on its own, I find that confusing vs using mpv's default config. To make sure mpv always run with the same config, I just create a symbolic link:
+`jellyfin-mpv-shim` keeps its own `mpv.conf`, separate from mpv's own default one. That split confused me more than once while benchmarking mpv standalone, so I just symlink the two together, one config, used everywhere:
 
 ```bash
 mkdir -p ~/.config/mpv
 ln -s ~/.config/jellyfin-mpv-shim/mpv.conf ~/.config/mpv/mpv.conf
 ```
 
-The `mpv.conf` is:
+`~/.config/jellyfin-mpv-shim/mpv.conf`:
 
 ```ini
 # --- Hardware decoding ---
@@ -126,7 +143,7 @@ gpu-api=opengl
 # --- Fast decoding profile ---
 profile=fast
 
-# --- Scaling (cheap, since Pi 4 GPU is weak) ---
+# --- Scaling (cheap, since the Pi 4 GPU is weak) ---
 scale=bilinear
 dscale=bilinear
 cscale=bilinear
@@ -145,8 +162,8 @@ target-colorspace-hint=no
 
 # --- Audio ---
 audio-channels=stereo
-# Preconfiguring pipewire and pulse just in case I need them one day
-# and don't spend an hour not understanding why audio is always alsa
+# Pre-listing pipewire and pulse just in case I need them one day,
+# instead of spending an hour wondering why audio is stuck on alsa
 ao=pipewire,pulse,alsa
 
 # --- Cache / smoother seeking on network shares (e.g. Jellyfin) ---
@@ -163,29 +180,33 @@ sub-font-size=32
 
 ### Cage
 
-- install cage
-- make a script to run moonlight the jellyfin shim
-- enable autologin so the machine boots straight into moonlight
+Three things left: install Cage, write a small script that launches both apps, and set up autologin so the Pi boots straight into them.
 
-First, the script to run that will run moonlight and the jellyfin shim. Notes:
-- uses full path executables as to make it safe run from systemd  
-- ensure we run moonlight in wayland directly and not xwayland accidentaly
+The launch script. Note the full paths to the binaries (important once this runs under systemd, where `PATH` can't be trusted) and the explicit `QT_QPA_PLATFORM=wayland`, to make sure moonlight-qt talks to Cage directly instead of accidentally falling back to XWayland.
 
-I save it in `/home/charles/statup-apps.sh`
+Saved as `/home/charles/startup-apps.sh`:
 
 ```bash
 #!/usr/bin/env bash
 export QT_QPA_PLATFORM=wayland
-exec /usr/bin/moonlight-qt &
+/usr/bin/moonlight-qt &
 exec /home/charles/.local/bin/jellyfin-mpv-shim
 ```
 
-Then systemd service to autologin the `charles` user into cage. Saved as `/etc/systemd/system/display-manager.service`. This service file has been simplified from the service file suggested on [cage's documentation](https://github.com/cage-kiosk/cage/wiki/Starting-Cage-on-boot-with-systemd/d1f06017c22413058524f616004f03ab1af0328a).
+Both processes need to stay alive together, so only the last one in the script gets `exec`'d (replacing the shell); the first one is backgrounded with `&`.
 
-```systemd
+Don't forget to make it executable:
+
+```bash
+chmod +x /home/charles/startup-apps.sh
+```
+
+Next, the systemd unit that autologs the `charles` user straight into Cage on boot, saved as `/etc/systemd/system/display-manager.service`. This is a trimmed-down version of the unit suggested in [Cage's own documentation](https://github.com/cage-kiosk/cage/wiki/Starting-Cage-on-boot-with-systemd/d1f06017c22413058524f616004f03ab1af0328a).
+
+```ini
 # This is a system unit for launching Cage with auto-login as the
 # user configured here. For this to work, wlroots must be built
-# with systemd logind support.
+# with systemd-logind support.
 
 [Unit]
 Description=Cage Wayland compositor
@@ -207,9 +228,7 @@ After=getty@tty1.service
 
 [Service]
 Type=simple
-#ExecStart=/usr/bin/cage
 ExecStart=/usr/bin/cage -sd -- /home/charles/startup-apps.sh
-#ExecStartPost=+sh -c exec chvt 1
 Restart=always
 User=charles
 # Log this user with utmp, letting it show up with commands 'w' and
@@ -231,7 +250,7 @@ PAMName=cage
 WantedBy=graphical.target
 ```
 
-Last thing, we actually install cage, disable default services that could conflict and enable cage to start at boot.
+Finally, install Cage, disable whatever could fight it for the same TTY, and tell systemd to boot graphically:
 
 ```bash
 # Install cage
@@ -240,11 +259,15 @@ sudo apt install cage
 # Stop the standard console login from blocking that same TTY
 sudo systemctl disable getty@tty1.service
 
-# Tell systemd to default to the graphical target
+# Default to the graphical target instead of a plain console
 sudo systemctl set-default graphical.target
+
+# Enable our autologin unit
+sudo systemctl enable display-manager.service
 ```
 
-# Ready to stream
+## Ready to stream
 
-And that's it. After reboot, the raspberry pi should boot into moonligh and wait for jellyshin playback to be requested by another player on the LAN, like a smartphone jellyfin client or the web frontend.
+And that's it. After a reboot, the Pi boots straight into moonlight-qt and sits there, waiting. Hit "stream" from the workstation and you're playing Steam Big Picture games on the TV. Open Jellyfin from your phone or any web browser on the LAN and hit "cast": mpv pops up full-screen, plays the video, and hands control back to moonlight the moment it's done.
 
+No keyboard, no login prompt, no fuss.
