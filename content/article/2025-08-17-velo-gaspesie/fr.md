@@ -1,5 +1,6 @@
 Title: Pointe de la Gaspésie à vélo
 Description: Une dizaine de jours à vélo autour de la pointe de la Gaspésie
+og_image: 20250805091023.jpg
 
 En août 2025 nous avons pédalé en [Gaspésie](https://fr.wikipedia.org/wiki/Gasp%C3%A9sie), péninsule de l'est du Québec. Ce voyage d'une dizaine de jours depuis [Sainte-Anne-des-Monts](https://en.wikipedia.org/wiki/Sainte-Anne-des-Monts) à travers le Parc National de la Gaspésie vers New Richmond et Percé s'est achevé à Rivière-au-Renard où nous avons pris le bus pour retourner à Saint-Anne. Cinq cents kilomètres d'océan à notre droite, de soleil au dessus, de côtes raides, d'eau beaucoup trop froide pour un français et bien trop attirante pour ne pas s'y plonger pour une québecoise ont fait [ressurgir des sensations et souvenirs](https://cambraicambrai.wordpress.com/) pour l'un et découvrir une nouvelle façon de voyager pour l'autre.
 

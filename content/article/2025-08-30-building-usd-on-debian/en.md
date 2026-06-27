@@ -1,5 +1,6 @@
 Title: Building OpenUSD on Debian
 Description: A step-by-step how-to guide to build USD on Debian
+og_image: usdview-debian-alab.png
 
 ![usdview on debian displaying ALab](usdview-debian-alab.png)
 

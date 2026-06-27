@@ -1,6 +1,7 @@
 ---
 title: Streaming games and Jellyfin on a Raspberry Pi 4
 description: Building a low-power Raspberry Pi 4 kiosk that streams games from a workstation and video from Jellyfin
+og_image: sunshine.png
 tags: [raspberry-pi, debian, moonlight, jellyfin, wayland, cage]
 ---
 

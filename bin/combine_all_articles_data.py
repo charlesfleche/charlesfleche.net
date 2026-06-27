@@ -77,7 +77,7 @@ for fp in args.paths:
                 "tag": "meta",
                 "attrs": {
                     "property": "og:image",
-                    "content": "",
+                    "content": f"{article_data['url']}/{article_data.get('og_image')}" if article_data.get("og_image") else "",
                 },
             },
             {
