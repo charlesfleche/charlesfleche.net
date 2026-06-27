@@ -19,6 +19,13 @@ I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily s
 - `"+y` — Yank selection to system clipboard
 - `ggVG"+y` — Select + copy whole buffer to clipboard
 
+- `a` start editing after the current cursor position
+- `A` start editing at the very end of the current line
+- `i` start editing on the current cursor position
+- `I` start editing at the first non-blank character of the current line
+- `d` start editing on a brand new line below the cursor
+- `O` start editing on a brand new line above the cursor.
+
 ## Windows / Splits
 - `Ctrl-w v` — Vertical split
 - `Ctrl-w s` — Horizontal split
