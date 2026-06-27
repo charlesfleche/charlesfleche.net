@@ -43,7 +43,7 @@ I'm also using the Pi's analog audio jack instead of HDMI audio:
 
 Sunshine acts as the streaming host: the thing moonlight-qt on the Pi connects to. There's no Debian repo for it yet, so we grab the `.deb` straight from GitHub releases.
 
-```bash
+```sh
 wget https://github.com/LizardByte/Sunshine/releases/download/v2026.516.143833/sunshine-debian-trixie-amd64.deb
 sudo apt install ./sunsine-debian-trixie-amd64.deb
 
@@ -59,7 +59,7 @@ sudo usermod -aG input $USER
 
 Once it's back up, enable the user service so Sunshine starts automatically:
 
-```bash
+```sh
 systemctl --user enable --now app-dev.lizardbyte.app.Sunshine.service
 ```
 
@@ -84,7 +84,7 @@ Flashing itself was slightly fiddly: I run [sway](https://swaywm.org/) as my des
 
 Once booted, the [moonlight documentation](https://github.com/moonlight-stream/moonlight-docs/wiki/Fixing-Hardware-Decoding-Problems#raspberry-pi) recommends bumping the memory reserved for the GPU:
 
-```bash
+```sh
 echo "gpu_mem=128" | sudo tee -a /boot/config.txt
 sudo reboot
 ```
@@ -93,7 +93,7 @@ sudo reboot
 
 Nothing fancy here: the [official install script](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4) handles adding the repository:
 
-```bash
+```sh
 curl -1sLf \
   'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-qt/setup.deb.sh' \
   | distro=raspbian codename=$(lsb_release -cs) sudo -E bash
@@ -104,11 +104,9 @@ sudo apt install moonlight-qt
 
 ## Installing it
 
-- `mpv`, the video player itself, comes straight from the Debian repos.
-- `jellyfin-mpv-shim` doesn't have a Debian package, so it's installed from the [Python Package Index](https://pypi.org/project/jellyfin-mpv-shim/).
-- [pipx](https://pipx.pypa.io/) handles fetching it into its own isolated environment and dropping the executable on your `PATH`.
+`mpv`, the video player itself, comes straight from the Debian repos. `jellyfin-mpv-shim` doesn't have a Debian package, so it's installed from the [Python Package Index](https://pypi.org/project/jellyfin-mpv-shim/). And [pipx](https://pipx.pypa.io/) handles fetching it into its own isolated environment and dropping the executable on your `PATH`.
 
-```bash
+```sh
 sudo apt install pipx mpv
 pipx install jellyfin-mpv-shim
 pipx inject jellyfin-mpv-shim pillow  # silences a warning in the logs
@@ -122,7 +120,7 @@ The Pi 4's CPU is too slow to decode video smoothly on its own. We need to force
 
 `jellyfin-mpv-shim` keeps its own `mpv.conf`, separate from mpv's own default one. That split confused me more than once while benchmarking mpv standalone, so I just symlink the two together:
 
-```bash
+```sh
 mkdir -p ~/.config/mpv
 ln -s ~/.config/jellyfin-mpv-shim/mpv.conf ~/.config/mpv/mpv.conf
 ```
@@ -184,7 +182,7 @@ The launch script. Note the full paths to the binaries (important once this runs
 
 `/home/charles/startup-apps.sh`:
 
-```bash
+```sh
 !/usr/bin/env bash
 export QT_QPA_PLATFORM=wayland
 /usr/bin/moonlight-qt &
@@ -195,7 +193,7 @@ Both processes need to stay alive together, so only the last one in the script g
 
 Don't forget to make it executable:
 
-```bash
+```sh
 chmod +x /home/charles/startup-apps.sh
 ```
 
@@ -250,7 +248,7 @@ WantedBy=graphical.target
 
 Finally, install Cage, disable whatever could fight it for the same TTY, and tell systemd to boot graphically:
 
-```bash
+```sh
 # Install cage
 sudo apt install cage
 
