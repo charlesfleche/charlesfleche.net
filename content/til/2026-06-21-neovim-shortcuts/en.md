@@ -34,6 +34,13 @@ I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily s
 - Normal mode: `gbc` toggle a block comment on the current line
 - Normal mode: `gc` + motion, comment out text defined by a motion
 
+### Indentation
+
+- Visual mode: `>` indent to the right
+- Visual mode: `<` indent to the left
+- Normal mode: `>>` indent to the right 
+- Normal mode: `<<` indent to the left 
+
 ## Windows / Splits
 - `Ctrl-w v` — Vertical split
 - `Ctrl-w s` — Horizontal split
