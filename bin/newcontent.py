@@ -31,7 +31,8 @@ from jinja2 import Environment, FileSystemLoader
 
 _ROOT_DIR = Path(__file__).parent.parent
 _TEMPLATES_DIR = _ROOT_DIR / "templates" / "content"
-_DRAFT_DIR = _ROOT_DIR / "content" / "draft"
+_CONTENT_DIR = _ROOT_DIR / "content"
+_DRAFT_DIR = _CONTENT_DIR / "draft"
 
 _ENV = Environment(loader=FileSystemLoader(_TEMPLATES_DIR))
 
@@ -56,6 +57,12 @@ def main() -> None:
         epilog='Example:\n  uvx bin/newcontent.py "My Post" --category tutorial --lang fr',
     )
     parser.add_argument("title", nargs="+", help="Title of the new content")
+    parser.add_argument(
+        "--draft",
+        "-t",
+        action="store_true",
+        help="Set the new content as draft",
+    )
     parser.add_argument(
         "--category",
         "-c",
@@ -84,7 +91,9 @@ def main() -> None:
     title = " ".join(args.title)
     slug = slugify(title)
     folder_name = f"{args.date.strftime('%Y-%m-%d')}-{slug}"
-    output_path = _DRAFT_DIR / args.category / folder_name / f"{args.lang}.md"
+
+    base_dir = _DRAFT_DIR if args.draft else _CONTENT_DIR
+    output_path = base_dir / args.category / folder_name / f"{args.lang}.md"
 
     content = render_content(title=title)
 
