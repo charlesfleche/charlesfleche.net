@@ -26,6 +26,14 @@ I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily s
 - `d` start editing on a brand new line below the cursor
 - `O` start editing on a brand new line above the cursor.
 
+### Comments
+
+- Visual mode: `gc` toggle line comment
+- Visual mode: `gb` toggle block comments
+- Normal mode: `gcc` toggle comment on the current line
+- Normal mode: `gbc` toggle a block comment on the current line
+- Normal mode: `gc` + motion, comment out text defined by a motion
+
 ## Windows / Splits
 - `Ctrl-w v` — Vertical split
 - `Ctrl-w s` — Horizontal split
