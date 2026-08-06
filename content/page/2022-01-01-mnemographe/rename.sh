@@ -1,4 +1,3 @@
 #!/bin/bash
 
-exiftool '-filename<DateTimeOriginal' -d %Y%m%d-%H%M%S.jpg .
-
+exiftool -m '-filename<GPSDateTime' '-filename<CreateDate' '-filename<DateTimeOriginal' -d "%Y%m%d-%H%M%S.%%le" .
