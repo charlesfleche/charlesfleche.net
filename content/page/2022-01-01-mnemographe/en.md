@@ -2,6 +2,7 @@ Title: Mnémographe
 Description: Mnémographe description
 Path: /mnemographe/index.html
 
+
 - ![alt text](20220101-111853.jpg)
 - ![alt text](20220102-194804.jpg)
 - ![alt text](20220103-202156.jpg)
@@ -295,6 +296,8 @@ Path: /mnemographe/index.html
 - ![alt text](20260624-211107.jpg)
 - ![alt text](20260627-221417.jpg)
 - ![alt text](20260708-203028.jpg)
+- ![alt text](20260714-182709.jpg)
+- ![alt text](20260715-071427.jpg)
 - ![alt text](20260715-173630.jpg)
 - ![alt text](20260715-182605.jpg)
 - ![alt text](20260715-183840.jpg)
@@ -303,4 +306,16 @@ Path: /mnemographe/index.html
 - ![alt text](20260719-174412.jpg)
 - ![alt text](20260719-180057.jpg)
 - ![alt text](20260719-185858.jpg)
+- ![alt text](20260803-174726.jpg)
+- ![alt text](20260805-080140.jpg)
+- ![alt text](20260805-080844.jpg)
+- ![alt text](20260806-080000.jpg)
+- ![alt text](20260806-090000.jpg)
+- ![alt text](20260806-100000.jpg)
+- ![alt text](20260806-110000.jpg)
+- ![alt text](20260806-120000.jpg)
+- ![alt text](20260806-130000.jpg)
+- ![alt text](20260806-140000.jpg)
+- ![alt text](20260806-150000.jpg)
+- ![alt text](20260806-160000.jpg)
 - ![alt text](20260806-201044.jpg)
