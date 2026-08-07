@@ -10,7 +10,8 @@ This works great until I need to connect to my corporate VPN, which explicitly d
 
 ```bash
 resolvectl status
-``
+```
+
 ```
 # ...
 
@@ -92,7 +93,6 @@ example.com: 2606:4700:10::6814:179a           -- link: eno1
 -- Data is authenticated: no; Data was acquired via local or encrypted transport: no
 -- Data from: cache network
 ```
-
 ```bash
 resolvectl query --interface=wg-mullvad-ca example.com
 ```
