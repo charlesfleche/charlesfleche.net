@@ -29,11 +29,11 @@ The final file layout will look like:
 - `~/tmp/OpenUSD` for the source code
 - `~/tmp/build-OpenUSD` for the temporary build files
 
-Is something not explained well enough ? Is there an ambiguity somewhere ? Am I grammatically challenged in English ? Please [drop me a message](mailto:charles.fleche@free.fr) or even better, submit a [pull request](https://github.com/charlesfleche/charlesfleche.net/edit/master/content/article/2025-08-30-building-usd-on-debian/en.md). 
+Is something not explained well enough? Is there an ambiguity somewhere? Am I grammatically challenged in English? Please [drop me a message](mailto:charles.fleche@free.fr) or even better, submit a [pull request](https://github.com/charlesfleche/charlesfleche.net/edit/master/content/article/2025-08-30-building-usd-on-debian/en.md).
 
-# Why not running the OpenUSD's build script ?
+# Why not run the OpenUSD build script?
 
-OpenUSD is usually built from a [python script](https://github.com/PixarAnimationStudios/OpenUSD/blob/dev/build_scripts/build_usd.py) that takes care of downloading and compiling the required dependencies. At the time of writing this guide, although building OpenUSD is fine with it, it then fails at runtime because of invalid TBB binary symbols. I assume that there is a confusion somewhere between system's TBB and build time TBB. We'll make sure that the problem does not happen by having a single TBB: the Debian's one.
+OpenUSD is usually built from a [python script](https://github.com/PixarAnimationStudios/OpenUSD/blob/dev/build_scripts/build_usd.py) that takes care of downloading and compiling the required dependencies. At the time of writing this guide, although building OpenUSD is fine with it, it then fails at runtime because of invalid TBB binary symbols. I assume that there is some confusion between the system's TBB and the build time TBB. We'll make sure that the problem does not happen by having a single TBB: Debian's one.
 
 # Install system dependencies
 
@@ -42,7 +42,7 @@ First, we need to install some packages:
 - [Git](https://git-scm.com/) to fetch the USD source code
 - [CMake](https://cmake.org/), [make](https://www.gnu.org/software/make/) and [g++](https://gcc.gnu.org/) to compile USD
 - the development packages "\*-dev" of the dependencies
-- the Python packages needed during build ([python3-jinja2 ](https://jinja.palletsprojects.com/) or at runtime
+- the Python packages needed during build ([python3-jinja2](https://jinja.palletsprojects.com/)) or at runtime
 - the [Qt User Interface Compiler (uic)](https://doc.qt.io/qt-6/uic.html) provided by [qt6-base-dev-tools](https://packages.debian.org/unstable/qt6-base-dev-tools)
 
 
@@ -69,7 +69,7 @@ sudo apt install \
 
 # Working around an OpenSubdiv packaging bug
 
-[OpenSubdiv](https://github.com/PixarAnimationStudios/OpenSubdiv/), Pixar's mesh subdivision surface library, is installed by [libosd-dev](https://packages.debian.org/trixie/libosd-dev). The package ships the [shared libraries](https://en.wikipedia.org/wiki/Shared_library) [libosdCPU.so and libosdGPU.so](https://packages.debian.org/trixie/amd64/libosd-dev/filelist) only, and not the static versions "libosdCPU.a" and "libosdGPU.a". This in turns confuses cmake, which expects both files to be present on the filesystem or it'll fail while searching for OpenSubdiv.
+[OpenSubdiv](https://github.com/PixarAnimationStudios/OpenSubdiv/), Pixar's mesh subdivision surface library, is installed by [libosd-dev](https://packages.debian.org/trixie/libosd-dev). The package ships the [shared libraries](https://en.wikipedia.org/wiki/Shared_library) [libosdCPU.so and libosdGPU.so](https://packages.debian.org/trixie/amd64/libosd-dev/filelist) only, and not the static versions "libosdCPU.a" and "libosdGPU.a". This in turn confuses cmake, which expects both files to be present on the filesystem or it'll fail while searching for OpenSubdiv.
 
 We are going to trick cmake by creating empty files at the expected static library paths. This will be good enough to build USD for now, [until the debian package is fixed](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1112551).
 
@@ -81,7 +81,7 @@ sudo touch \
 
 # Fetch OpenUSD's source code
 
-The public version of OpenUSD ([Pixar](https://www.pixar.com/) keeps a version internally) is developped on [GitHub](https://github.com/PixarAnimationStudios/OpenUSD). We'll clone it locally and get the version we want to build.
+The public version of OpenUSD ([Pixar](https://www.pixar.com/) keeps a version internally) is developed on [GitHub](https://github.com/PixarAnimationStudios/OpenUSD). We'll clone it locally and get the version we want to build.
 
 ```bash
 # First, we ensure our build and install folders exist
@@ -108,7 +108,7 @@ git apply 3541.patch
 
 # Building and installing USD
 
-Everything should now be in order to build and install OpenUSD. We're going to make a temporary build folder, configure the build system with cmake, then build and install USD. The source code is rather large, so it's going to take a little while. On my 12 cores Xeon E5-1650, it takes around half an hour. 
+Everything should now be in order to build and install OpenUSD. We're going to make a temporary build folder, configure the build system with cmake, then build and install USD. The source code is rather large, so it's going to take a little while. On my 12-core Xeon E5-1650, it takes around half an hour.
 
 ```bash
 # Move to the temporary build folder

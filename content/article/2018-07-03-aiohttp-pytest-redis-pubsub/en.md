@@ -2,7 +2,7 @@ Title: Testing Redis PUB/SUB in Python / aiohttp with pytest
 Tags: python, redis, aiohttp, pytest
 Description: Send a callback as a fixture and be done with it
 
-Recently I had to write [Python](https://python.org) unit tests for the [Redis PUB/SUB mechanism](https://redis.io/topics/pubsub). Backend code is written around the [async](https://docs.python.org/3/library/asyncio.html) web framework [aiohttp](https://aiohttp.readthedocs.io/en/stable/index.html) and tests are ran with [pytest](https://docs.pytest.org/en/latest/). I was looking for a way to keep test code as compact as possible to make it easy to read while hiding the piping (database connection, async loop manipulation, etc). I also wanted to be able to send a command to Redis and read a resulting message from a PUB topic.
+Recently I had to write [Python](https://python.org) unit tests for the [Redis PUB/SUB mechanism](https://redis.io/topics/pubsub). Backend code is written around the [async](https://docs.python.org/3/library/asyncio.html) web framework [aiohttp](https://aiohttp.readthedocs.io/en/stable/index.html) and tests are run with [pytest](https://docs.pytest.org/en/latest/). I was looking for a way to keep test code as compact as possible to make it easy to read while hiding the piping (database connection, async loop manipulation, etc). I also wanted to be able to send a command to Redis and read a resulting message from a PUB topic.
 
 # Handling Redis connection in a fixture
 
@@ -16,7 +16,7 @@ async def store_id(redis, id):
 Ideally the testing code should not have to deal with opening / closing a connection to a Redis engine:
 
 - it makes it easier to replace the redis object by a mock
-- it keep the test case readable and focused on actual testing and nothing else
+- it keeps the test case readable and focused on actual testing and nothing else
 
 
 This is how the test case should look like:
@@ -27,9 +27,9 @@ async def test_store_id(redis):
     assert await store_id(redis, id)
 ```
 
-If you are not familiar with pytest, the `redis` argument here is actually a [testing fixture](https://docs.pytest.org/en/latest/fixture.html): this value is computed each time a test / module / session (depending of the [scope](https://docs.pytest.org/en/latest/fixture.html#scope-sharing-a-fixture-instance-across-tests-in-a-class-module-or-session] of the fixture)) is ran and injected into each test function. The [aiohttp plugin for pytest](https://pypi.org/project/pytest-aiohttp/) defines a few fixtures. Here `loop` (giving access to the current async execution loop) is particularly useful to setup a new Redis connection: `aioredis.create_redis` is async and will run in the default loop if not specified. However, the fixture function is already running within a loop (not necessarily the default one, we don't know about the implementation details of pytest): `create_redis` will raise an exception if not passed the current loop.
+If you are not familiar with pytest, the `redis` argument here is actually a [testing fixture](https://docs.pytest.org/en/latest/fixture.html): this value is computed each time a test / module / session (depending on the [scope](https://docs.pytest.org/en/latest/fixture.html#scope-sharing-a-fixture-instance-across-tests-in-a-class-module-or-session] of the fixture)) is run and injected into each test function. The [aiohttp plugin for pytest](https://pypi.org/project/pytest-aiohttp/) defines a few fixtures. Here `loop` (giving access to the current async execution loop) is particularly useful to setup a new Redis connection: `aioredis.create_redis` is async and will run in the default loop if not specified. However, the fixture function is already running within a loop (not necessarily the default one, we don't know about the implementation details of pytest): `create_redis` will raise an exception if not passed the current loop.
 
-A very nice feature of pytest fixtures is [the ability of expressing teardown](https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code) code in a simple way: if the function `yield` a value (instead of simply returning it), all the remaining code will be executed at the end of the fixture scope. This is especially convenient to ensure database connections are cleanly closed.
+A very nice feature of pytest fixtures is [the ability to express teardown](https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code) code in a simple way: if the function `yield`s a value (instead of simply returning it), all the remaining code will be executed at the end of the fixture scope. This is especially convenient to ensure database connections are cleanly closed.
 
 This is what the test module looks like:
 
@@ -70,7 +70,7 @@ async def store_id(redis, id):
     return False
 ```
 
-We want to test if the ID is properly published, but still hide the implementation details around connection setup / teardown. A neat way of achieving this is to have a fixture returning a callable (a closure in our case, but if could be class with a `__call__` method), hiding all the piping code. The callable will take another callable as an argument, to be executed when a message is received.
+We want to test if the ID is properly published, but still hide the implementation details around connection setup / teardown. A neat way of achieving this is to have a fixture returning a callable (a closure in our case, but it could be a class with a `__call__` method), hiding all the piping code. The callable will take another callable as an argument, to be executed when a message is received.
 
 ``` python
 @pytest.fixture()

@@ -1,5 +1,5 @@
 Title: Changing several Blender scenes, single undo step
-Description: What is pushed on the Undo stack when a script modifies several scenes at once ?
+Description: What is pushed on the Undo stack when a script modifies several scenes at once?
 Tags: blender, python
 
 Text editors like [VSCodium](https://vscodium.com/) have an undo stack per opened text file. One can modify file A, switch to file B, edit it, get back to file A and trigger an undo: only the active file A will be reversed, not file B.
@@ -9,13 +9,13 @@ Blender can also modify several scenes within the same session, albeit with two 
 1. a single document contains all scenes
 2. the user can edit a single scene at once
 
-The second point is naturally enforced by the fact that switching the active scene is an undoable command by itself: select a scene, CTRL+Z, and we're back to the previous scene. In VSCodium selecting an active text editor panel goes into another undo stack, the one that allows to navigate through the documents, but not into the documents edition stack.
+The second point is naturally enforced by the fact that switching the active scene is an undoable command by itself: select a scene, CTRL+Z, and we're back to the previous scene. In VSCodium selecting an active text editor panel goes into another undo stack, the one that allows navigating through the documents, but not into the document editing stack.
 
 So I wanted to test my assumptions for a few situations regarding Python scripts and undo stack:
 
-1. Are all python changes revertable in a single undo ?
-1. Are the ops and data APIs handled differently ?
-1. What happens when a script modifies several scenes ?
+1. Are all python changes revertable in a single undo?
+1. Are the ops and data APIs handled differently?
+1. What happens when a script modifies several scenes?
 
 TL;DR: python scripts changes are always revertable as a single undo step.
 

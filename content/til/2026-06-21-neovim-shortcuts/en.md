@@ -2,7 +2,7 @@ Title: neovim shortcuts
 Description: My list of neovim shortcuts, as I learn them
 Tags:
 
-I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily shortcut based that I need to learn little by little. Here is a list to help me memorize them:
+I'm trying to learn [neovim](https://neovim.io/) more thoroughly. It's heavily shortcut based, with a lot that I need to learn little by little. Here is a list to help me memorize them:
 
 # Neovim Shortcuts Summary
 

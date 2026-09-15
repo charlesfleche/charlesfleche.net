@@ -2,7 +2,7 @@ Title: Shared SdfLayer and TfNotice
 Description: Each stage sends its own change notice
 Tags: openusd, usd, python
 
-What happens if two [`UsdStage`](https://openusd.org/release/api/class_usd_stage.html) in the same processus share an [`SdfLayer`](https://openusd.org/release/api/class_sdf_layer.html) ? Turns out this does what is expected, with a twist:
+What happens if two [`UsdStage`](https://openusd.org/release/api/class_usd_stage.html) in the same process share an [`SdfLayer`](https://openusd.org/release/api/class_sdf_layer.html)? Turns out this does what is expected, with a twist:
 
 1. Modifying a stage modifies the other
 1. But the stage change notification is first sent to the last opened stage

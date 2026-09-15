@@ -12,7 +12,7 @@ I recently rebuilt the local dev environment for a small Ansible project. Here's
 
 # Why not Vagrant / VirtualBox
 
-The old setup used Vagrant with the VirtualBox provider. That stopped being a good option on Debian: (trixie) [dropped VirtualBox from its repositories entirely](https://wiki.debian.org/VirtualBox) because of licensing issues with upstream. Getting VirtualBox running now means pulling packages from Oracle's own repository instead of the distro, which is extra friction for something that's supposed to be a quick `apt install`.
+The old setup used Vagrant with the VirtualBox provider. That stopped being a good option on Debian: trixie [dropped VirtualBox from its repositories entirely](https://wiki.debian.org/VirtualBox) because of licensing issues with upstream. Getting VirtualBox running now means pulling packages from Oracle's own repository instead of the distro, which is extra friction for something that's supposed to be a quick `apt install`.
 
 So I moved to [Molecule](https://ansible.readthedocs.io/projects/molecule/) with its [libvirt driver](https://github.com/ansible-community/molecule-libvirt), which talks to libvirt/QEMU directly, no Vagrant in the loop.
 
@@ -132,7 +132,7 @@ The other piece is `converge.yml`, the playbook Molecule runs against the VM:
 
 It sets one fact, `deployment_is_dev`, then hands off to the real production playbook via [`ansible.builtin.import_playbook`](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/import_playbook_module.html). No dev-specific copy of the playbook to keep in sync. It's the exact same one used in production.
 
-Roles can check `deployment_is_dev` and branch where needed. The main use case for me is SSL: in production, a role asks [Certbot](https://certbot.eff.org/) to issue a real certificate.During development, it just generates a self-signed one instead, so `molecule test` doesn't need internet access to an ACME server or a real domain name.
+Roles can check `deployment_is_dev` and branch where needed. The main use case for me is SSL: in production, a role asks [Certbot](https://certbot.eff.org/) to issue a real certificate. During development, it just generates a self-signed one instead, so `molecule test` doesn't need internet access to an ACME server or a real domain name.
 
 # Result
 

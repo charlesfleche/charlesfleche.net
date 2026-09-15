@@ -1,12 +1,12 @@
 Title: A minimal debian for machinectl
 Description: Preparing a minimal machine for machinectl
 
-I sometime need a quick, minimal debian server to test a package without compromising my main workstation. This machine has an uncommon networking setup, so I need [`systemd-resolved`](https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html) installed on the guest early.
+I sometimes need a quick, minimal debian server to test a package without compromising my main workstation. This machine has an uncommon networking setup, so I need [`systemd-resolved`](https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html) installed on the guest early.
 
 ```
 # /etc/systemd/nspawn/my-container.nspawn
 #
-# This strip down sample shows the container network configuration.
+# This stripped-down sample shows the container network configuration.
 # It needs to be named as the container. Here: my-container.nspawn
 
 [Network]
@@ -26,12 +26,12 @@ sudo debootstrap                   \
   /var/lib/machines/my-container   \
   https://deb.debian.org/debian/
 
-# Then, we start the container and open a sheel
+# Then, we start the container and open a shell
 
 sudo machinectl start my-container
 sudo machinectl shell my-container
 
-# Lastly, we make sure the the networkd service is enabled and running
+# Lastly, we make sure the networkd service is enabled and running
 
 systemctl enable --now systemd-networkd
 

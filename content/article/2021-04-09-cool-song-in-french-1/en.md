@@ -2,7 +2,7 @@ Title: Cool songs in French #1 - Accents
 Tags: music, french, lyrics
 Description: A playlist of songs with different French accents
 
-In March 2021 I started volunteering as a French tutor for [La Maison de l'amitié](https://www.maisondelamitie.ca/) in Montréal. Eventually we went a bit astray for the program the conversation drifted toward music. This first playlist contains titles sang with different French accents from artists from all over the world. Listen to the [playlist on Spotify](https://open.spotify.com/embed/playlist/04LPX2pZdqAkAncsamOuuZ).
+In March 2021 I started volunteering as a French tutor for [La Maison de l'amitié](https://www.maisondelamitie.ca/) in Montréal. Eventually we went a bit astray from the program: the conversation drifted toward music. This first playlist contains titles sang with different French accents from artists from all over the world. Listen to the [playlist on Spotify](https://open.spotify.com/embed/playlist/04LPX2pZdqAkAncsamOuuZ).
 
 - Richard Desjardins: [Québec](#quebec)
 - Lisa LeBlanc: [New Brunswick](#new-brunswick)
@@ -96,7 +96,7 @@ J'aime pour toujours.
 
 <iframe id="new-brunswick" width="560" height="315" src="https://www.youtube.com/embed/tccPG-2tm0c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-Lisa LeBlanc is a young follk / rock singer from New Brunswick. In this songs she complains about her life who recently became very dull, as nothing is happening anymore.
+Lisa LeBlanc is a young folk / rock singer from New Brunswick. In this song she complains about her life, which recently became very dull, as nothing is happening anymore.
 
 ```text
 Cerbeau ramolli
@@ -135,7 +135,7 @@ J'suis rendue plate à mourir, j'feel mon cerveau ramollir
 
 <iframe id="louisiana" width="560" height="315" src="https://www.youtube.com/embed/XCWIXIEizKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-In Louisiana there is still a community of French speaking Americans, the Acadiens. Zachary Richard is without any doubt the most famous of them. In this song he says that working is too difficult, stealing is bad, so he lives on love and hopes to live long !
+In Louisiana there is still a community of French speaking Americans, the Acadians. Zachary Richard is without any doubt the most famous of them. In this song he says that working is too difficult, stealing is bad, so he lives on love and hopes to live long!
 
 ```text
 Travailler c'est trop dur
@@ -164,7 +164,7 @@ J'dis que j'vis sur l'amour, et j'espère de viv' vieux!
 
 <iframe id="belgium" width="560" height="315" src="https://www.youtube.com/embed/rYdk70VSfv8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-For European native French speakers, as the capital of Belgium Brussels is the little sister of Paris and is often considered funnier and more relaxed. In this song Dick Annegarn tells Brussels that he will leave Paris soon as this city tired him, in his mind and his body and will be back in Belgium.
+For European native French speakers, as the capital of Belgium, Brussels is the little sister of Paris and is often considered funnier and more relaxed. In this song Dick Annegarn tells Brussels that he will leave Paris soon, as this city has tired him, in his mind and his body, and will be back in Belgium.
 
 ```text
 Bruxelles
@@ -211,7 +211,7 @@ Paris je te laisse mon lit
 
 <iframe id="north" width="560" height="315" src="https://www.youtube.com/embed/UB-qVqgSioo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture"></iframe>
 
-M.A.P. comes from my native region, the North of France. "Lillo" is local way to call the inhabitants of Lille. In this song they list everything that is wrong in the city, from the notoriously bad weather to the corrupt politicians and the rampant poverty, but eventually tell their love of Lille. Don't trust the words in the lyrics: they are sang with a somewhat strong Northern accent and the text is written that way: many words below are not typically French.
+M.A.P. comes from my native region, the North of France. "Lillo" is a local way to call the inhabitants of Lille. In this song they list everything that is wrong in the city, from the notoriously bad weather to the corrupt politicians and the rampant poverty, but eventually tell of their love for Lille. Don't trust the words in the lyrics: they are sung with a somewhat strong Northern accent and the text is written that way: many words below are not typically French.
 
 ```text
 M.A.P (Ministère des Affaires Populaires)
@@ -312,7 +312,7 @@ un vrai, un vrai de vrai de chnord
 
 <iframe id="paris" width="560" height="315" src="https://www.youtube.com/embed/plLgDMslgwo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-Java is a "rap-musette": a comical blend of very modern rap and the traditionnal French music style played with accordion, "le musette". The bad comes from Paris and in this song they play with of the clichés of the typical Parisian: a moody lovable who speaks in slang with a strong accent.
+Java is a "rap-musette": a comical blend of very modern rap and the traditional French music style played with accordion, "le musette". The band comes from Paris and in this song they play with the clichés of the typical Parisian: a moody, lovable character who speaks in slang with a strong accent.
 
 ```text
 J'me marre
@@ -408,9 +408,9 @@ Mourir pour des idées, oui mais de mort lente... Point barre
 
 <iframe id="occitania" width="560" height="315" src="https://www.youtube.com/embed/jtssC13qIsM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-Francis Cabrel is one of most popular French musician and has been since the late 70's: virtually everyone in French speaking countries know a few of his songs. He's from the South West of France, close to the Pyrenees and Spain. Cabrel notorioulsy speaks and sing with a the very strong accent of the region.
+Francis Cabrel is one of the most popular French musicians and has been since the late 70's: virtually everyone in French speaking countries knows a few of his songs. He's from the South West of France, close to the Pyrenees and Spain. Cabrel notoriously speaks and sings with the very strong accent of the region.
 
-This song is one of his most famous and controversial. Cabrel sings has if we was a bull in a corrida (a fight with an human in an arena that is almost always fatal for the animal), at first confused by the light and the crowd as the gates open, then slowly understanding that it is a fight to the death.
+This song is one of his most famous and controversial. Cabrel sings as if he was a bull in a corrida (a fight with a human in an arena that is almost always fatal for the animal), at first confused by the light and the crowd as the gates open, then slowly understanding that it is a fight to the death.
 
 The last part in Spanish is sang by Nicolas Reyes, from the Gypsy Kings.
 
@@ -482,9 +482,9 @@ Y mataremos otros
 
 <iframe id="marseille" width="560" height="315" src="https://www.youtube.com/embed/SUYiugTpu8g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-Massilia Sound System is reggae band from Marseille (previously known as Massilia), one of the major port of the Mediterranean. Their accent is very typical of the region and his often cited as a "singing accent".
+Massilia Sound System is a reggae band from Marseille (previously known as Massilia), one of the major ports of the Mediterranean. Their accent is very typical of the region and is often cited as a "singing accent".
 
-If the theme of the song is a rant against lying governements, the form is quite original: for Massilia Sound System, everyone or everything is lying, "tout le monde ment". So they put together a noun ("physique", "mental", "vulgaire") and the verb "mentir" ("ment", "lying" in English) to make adverbs:
+If the theme of the song is a rant against lying governments, the form is quite original: for Massilia Sound System, everyone or everything is lying, "tout le monde ment". So they put together a noun ("physique", "mental", "vulgaire") and the verb "mentir" ("ment", "lying" in English) to make adverbs:
 - "physique ment" (noun + verb) sounds like "physiquement" (adverb)
 - "sage ment" (noun + verb) sounds like "sagement" (adverb)
 - etc
@@ -582,9 +582,9 @@ Le médical ment, y a pas de calmant.
 
 <iframe id="mali" width="560" height="315" src="https://www.youtube.com/embed/gnvJEhRNkSw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-Amadou and Mariam are a couple coming from Mali, one the French speaking countries of Africa. They met in the 70's in a institute for yound blind people in Bamako, started they musical carreer in the 80's to finally reaching stardom in the late 90's with a string of successes in France, starting with the love song "Je pense à toi": "I'm thinking about you".
+Amadou and Mariam are a couple coming from Mali, one of the French speaking countries of Africa. They met in the 70's in an institute for young blind people in Bamako, started their musical career in the 80's before finally reaching stardom in the late 90's with a string of successes in France, starting with the love song "Je pense à toi": "I'm thinking about you".
 
-The lyrics may sound simple, but they hold very special meaning for this blind couple: "If I can't see you,  I can't say anything / I can't do anything, I can't see anything / I don't want to know anyting, my love, my dear".
+The lyrics may sound simple, but they hold a very special meaning for this blind couple: "If I can't see you, I can't say anything / I can't do anything, I can't see anything / I don't want to know anything, my love, my dear".
 
 ```text
 Je pense à toi
@@ -620,7 +620,7 @@ Ne m'abandonnes pas, mon amour, ma chérie
 
 <iframe id="caribbeans" width="560" height="315" src="https://www.youtube.com/embed/I-6RPhurZIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" ></iframe>
 
-In the French islands of the Caribbean, a group of languages that blends French and local languages is spoken: le créole. If the sound of the word may sometime feel familiar, the grammar and the way words are written can be quite different. In this song, "ja tan pou nou respecté nou" sounds like "J'attends pour nous respecter nous", which, I think, means something like "What do we wait for for self-respect ?". But don't take my word for it, that's really a guess... What is sure is that the band, Delgrès, totally rock: they are a blues band, with very modern tones and sound, and almost exclusively sing in créole.
+In the French islands of the Caribbean, a group of languages that blends French and local languages is spoken: le créole. If the sound of the word may sometimes feel familiar, the grammar and the way words are written can be quite different. In this song, "ja tan pou nou respecté nou" sounds like "J'attends pour nous respecter nous", which, I think, means something like "What are we waiting for, for self-respect?". But don't take my word for it, that's really a guess... What is sure is that the band, Delgrès, totally rock: they are a blues band, with very modern tones and sound, and almost exclusively sing in créole.
 
 ```text
 Respecte Nou

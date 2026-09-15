@@ -1,10 +1,12 @@
 Title: Temporarily overriding a strict DNS over VPN
 Description: Corporation says no to VPN connection over Mullvad
-Tags:# Temporarily overriding systemd-resolved DNS when Mullvad is too strict
+Tags: dns, vpn, mullvad, systemd-resolved
+
+# Temporarily overriding systemd-resolved DNS when Mullvad is too strict
 
 My default setup locks DNS resolution to my [Mullvad](https://mullvad.net) VPN connection only. Mullvad is also my default route for all internet traffic. A firewall rule adds another security layer, blocking anything not routed through the VPN: all outbound traffic goes through the VPN.
 
-This works great until I need to connect to my corporate VPN, which explicitly disallow connecting over Mullvad.
+This works great until I need to connect to my corporate VPN, which explicitly disallows connecting over Mullvad.
 
 ## Before: DNS locked to Mullvad
 
@@ -33,7 +35,7 @@ Current DNS Server: 100.64.0.7
 
 ## Resetting the global DNS
 
-After dropping the firewall and the Mullvad connecting, a global DNS needs to be set to allow resolving on `eno1`.
+After dropping the firewall and the Mullvad connection, a global DNS needs to be set to allow resolving on `eno1`.
 
 ```bash
 sudo resolvectl dns eno1 9.9.9.9
@@ -57,7 +59,7 @@ Current DNS Server: 100.64.0.7
      Default Route: yes
 ```
 
-Note both links now claim `Default Route: yes`. It's not a big deal to here: `wg-mullvad-ca` is not active connection anymore, so nothing will be routed to it anyway.
+Note both links now claim `Default Route: yes`. It's not a big deal here: `wg-mullvad-ca` is not an active connection anymore, so nothing will be routed to it anyway.
 
 ## Verifying resolution actually moved
 

@@ -1,10 +1,10 @@
 Title: UsdEditContext within an SdfChangeBlock
-Description: Is the notice still emitted ?
+Description: Is the notice still emitted?
 Tags: openusd, usd, python, code
 
-No USD level changes should be made within an [`SdfChangeBlock`](https://openusd.org/release/api/class_sdf_change_block.html). I wanted to check if this still stands for "edition" that are purely at the USD level: as far as I know an changing a change edit target does not touch the Sdf API.
+No USD level changes should be made within an [`SdfChangeBlock`](https://openusd.org/release/api/class_sdf_change_block.html). I wanted to check if this still stands for "edits" that are purely at the USD level: as far as I know, changing an edit target does not touch the Sdf API.
 
-Turns out: [`StageEditTargetChanged`](https://openusd.org/release/api/class_usd_notice_1_1_stage_edit_target_changed.html) are still emitted without throwing exception within an `SdfChangeBlock`.
+Turns out: [`StageEditTargetChanged`](https://openusd.org/release/api/class_usd_notice_1_1_stage_edit_target_changed.html) is still emitted without throwing an exception within an `SdfChangeBlock`.
 
 ```python
 # /// script

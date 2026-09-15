@@ -2,7 +2,7 @@ Title: Displaying live DNS queries
 Description: Monitoring system wide name resolution queries
 Tags: [linux, dns, systemd, resolved]
 
-`resolved monitor` shows the live DNS queries. It needs to run as root.
+`resolvectl monitor` shows the live DNS queries. It needs to run as root.
 
 ```bash
 $ resolvectl monitor

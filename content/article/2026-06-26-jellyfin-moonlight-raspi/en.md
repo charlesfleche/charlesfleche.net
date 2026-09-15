@@ -13,7 +13,7 @@ I wanted a small, low-power box that does exactly two things:
 - Stream games from my main workstation, controller in hand, no keyboard required.
 - Play video from my Jellyfin server.
 
-No login screen, no desktop to navigate, nothing. For video, there's nothing to launch by hand either. I just open a Jellyfin client (the [mobile app](https://jellyfin.org/docs/general/clients/) or the [web player](https://jellyfin.org/docs/general/clients/)) on my phone or a another machine, hit **Cast to Device**, and pick the Pi from the list. [jellyfin-mpv-shim](https://github.com/jellyfin/jellyfin-mpv-shim) registers itself on the network as exactly that kind of castable target, so it shows up next to any Chromecasts or other Jellyfin clients already on the LAN.
+No login screen, no desktop to navigate, nothing. For video, there's nothing to launch by hand either. I just open a Jellyfin client (the [mobile app](https://jellyfin.org/docs/general/clients/) or the [web player](https://jellyfin.org/docs/general/clients/)) on my phone or another machine, hit **Cast to Device**, and pick the Pi from the list. [jellyfin-mpv-shim](https://github.com/jellyfin/jellyfin-mpv-shim) registers itself on the network as exactly that kind of castable target, so it shows up next to any Chromecasts or other Jellyfin clients already on the LAN.
 
 
 # The stack
@@ -32,7 +32,7 @@ Cage solves that by sitting in between and brokering GPU access. I picked it bec
 
 ## A word on audio
 
-No PulseAudio, no PipeWire: just [ALSA](https://www.alsa-project.org/). Nothing here ever needs to mix two audio streams at once, so there's no reason to drag in a sound server. I'll try this for few weeks and see if a sound server is actually required in the long run.
+No PulseAudio, no PipeWire: just [ALSA](https://www.alsa-project.org/). Nothing here ever needs to mix two audio streams at once, so there's no reason to drag in a sound server. I'll try this for a few weeks and see if a sound server is actually required in the long run.
 
 I'm also using the Pi's analog audio jack instead of HDMI audio:
 
@@ -46,7 +46,7 @@ Sunshine acts as the streaming host: the thing moonlight-qt on the Pi connects t
 
 ```sh
 wget https://github.com/LizardByte/Sunshine/releases/download/v2026.516.143833/sunshine-debian-trixie-amd64.deb
-sudo apt install ./sunsine-debian-trixie-amd64.deb
+sudo apt install ./sunshine-debian-trixie-amd64.deb
 
 # Allow Sunshine to access the KMS/DRM graphics subsystem for low-latency capture
 sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
@@ -79,7 +79,7 @@ The systemd unit shipped with the Debian package doesn't inherit your shell's `P
 
 # Raspberry Pi preparation
 
-I flashed [Raspberry Pi OS Lite](https://www.raspberrypi.com/software/operating-systems/) to start from a minimal base. Only what is needed is going to be installed, minimizing maintenance problems are speeding up the install.
+I flashed [Raspberry Pi OS Lite](https://www.raspberrypi.com/software/operating-systems/) to start from a minimal base. Only what is needed is going to be installed, minimizing maintenance problems and speeding up the install.
 
 Flashing itself was slightly fiddly: I run [sway](https://swaywm.org/) as my desktop, and [rpi-imager](https://github.com/raspberrypi/rpi-imager) needs to run as root, which on Wayland means going through XWayland in a [somewhat unusual way](https://charlesfleche.net/rpi-imager-on-wayland/).
 
@@ -184,7 +184,7 @@ The launch script. Note the full paths to the binaries (important once this runs
 `/home/charles/startup-apps.sh`:
 
 ```sh
-!/usr/bin/env bash
+#!/usr/bin/env bash
 export QT_QPA_PLATFORM=wayland
 /usr/bin/moonlight-qt &
 exec /home/charles/.local/bin/jellyfin-mpv-shim
