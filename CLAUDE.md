@@ -79,4 +79,5 @@ Everything lands under `build/dist/`, which is the document root served by `bin/
 
 ## Other scripts
 
+- `bin/poster.py` — posts the next unposted image of `content/page/2022-01-01-mnemographe` to a destination (Mastodon for now), configured in `poster.yml`. Tags and alt text live in per-image XMP sidecars (`<stem>.xmp`, `dc:subject`/`dc:description`); the REST payload of a post is written next to the image as `<stem>.<destination>.json`, which is what marks it as posted. Access tokens come from `POSTER_<DESTINATION>_API_TOKEN` only. Single file with a uv script header (`bin/poster.py list|tag|post|import`); not part of the site build.
 - `bin/instapublish.py` — half-finished helper (uses `instagrapi`) for cross-posting `content/page/2022-01-01-mnemographe` photos to Instagram; not part of the site build.

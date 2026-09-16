@@ -1,0 +1,22 @@
+# Configuration of bin/poster.py, which posts the next unposted image of a
+# folder to each destination. Access tokens are never stored here: every
+# destination reads its own POSTER_<DESTINATION>_API_TOKEN environment
+# variable, e.g. POSTER_MASTODON_API_TOKEN.
+
+images: content/page/2022-01-01-mnemographe
+
+destinations:
+  # The destination name is the one passed on the command line, and the one
+  # used for the payload sidecars: <image stem>.mastodon.json
+  mastodon:
+    type: mastodon
+    instance: https://mamot.fr
+    visibility: public
+    language: en
+    # Prepended to the tags of every image, in this order.
+    default_tags: [Mnémographe, Photo, Photography]
+    # `import` only looks at the posts carrying this tag.
+    import_tag: mnemographe
+    # Maximum perceptual hash distance, out of 64 bits, for `import` to
+    # consider a posted image and a local one to be the same photo.
+    match_threshold: 10

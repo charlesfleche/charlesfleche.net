@@ -1,0 +1,170 @@
+{
+    "account": {
+        "acct": "charlesfleche",
+        "avatar": "https://static.mamot.fr/accounts/avatars/000/000/810/original/00ff00f7439592d5.png",
+        "avatar_description": "",
+        "avatar_static": "https://static.mamot.fr/accounts/avatars/000/000/810/original/00ff00f7439592d5.png",
+        "bot": false,
+        "created_at": "2017-04-06T00:00:00.000Z",
+        "discoverable": true,
+        "display_name": "Charles Flèche",
+        "emojis": [],
+        "feature_approval": {
+            "automatic": [
+                "public"
+            ],
+            "current_user": "automatic",
+            "manual": []
+        },
+        "fields": [
+            {
+                "name": "Blog",
+                "value": "<a href=\"https://charlesfleche.net\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">charlesfleche.net</span><span class=\"invisible\"></span></a>",
+                "verified_at": "2025-05-14T02:25:30.098+00:00"
+            },
+            {
+                "name": "LinkedIn",
+                "value": "<a href=\"https://linkedin.com/in/charlesfleche\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">linkedin.com/in/charlesfleche</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+            },
+            {
+                "name": "Cycle RTW",
+                "value": "<a href=\"http://cambrai-cambrai.net\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">http://</span><span class=\"\">cambrai-cambrai.net</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+            },
+            {
+                "name": "GPG",
+                "value": "46D15635B47C4C58C453C9CB130857F6C64DA3E1",
+                "verified_at": null
+            }
+        ],
+        "followers_count": 269,
+        "following_count": 808,
+        "group": false,
+        "header": "https://mamot.fr/headers/original/missing.png",
+        "header_description": "",
+        "header_static": "https://mamot.fr/headers/original/missing.png",
+        "hide_collections": true,
+        "id": "810",
+        "indexable": false,
+        "last_status_at": "2026-08-03",
+        "locked": false,
+        "noindex": false,
+        "note": "<p><a href=\"https://mamot.fr/tags/C\" class=\"mention hashtag\" rel=\"tag\">#<span>C</span></a>++ and <a href=\"https://mamot.fr/tags/Python\" class=\"mention hashtag\" rel=\"tag\">#<span>Python</span></a> software developer living in <a href=\"https://mamot.fr/tags/Montr%C3%A9al\" class=\"mention hashtag\" rel=\"tag\">#<span>Montréal</span></a>, <a href=\"https://mamot.fr/tags/Qu%C3%A9bec\" class=\"mention hashtag\" rel=\"tag\">#<span>Québec</span></a></p><p><a href=\"https://mamot.fr/tags/Geek\" class=\"mention hashtag\" rel=\"tag\">#<span>Geek</span></a> bénévole à <a href=\"https://epicerieledetour.org\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">epicerieledetour.org</span><span class=\"invisible\"></span></a>, une épicerie communautaire au <a href=\"https://batiment7.org\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">batiment7.org</span><span class=\"invisible\"></span></a> dans le quartier de <a href=\"https://mamot.fr/tags/PointeSaintCharles\" class=\"mention hashtag\" rel=\"tag\">#<span>PointeSaintCharles</span></a></p><p>Je tague mes joies quotidiennes avec <a href=\"https://mamot.fr/tags/ArtDeLaJoie\" class=\"mention hashtag\" rel=\"tag\">#<span>ArtDeLaJoie</span></a>, des souvenirs en noir et blanc avec <a href=\"https://mamot.fr/tags/Mn%C3%A9mographe\" class=\"mention hashtag\" rel=\"tag\">#<span>Mnémographe</span></a> et les livres lus et films vus avec <a href=\"https://mamot.fr/tags/VuLu\" class=\"mention hashtag\" rel=\"tag\">#<span>VuLu</span></a></p>",
+        "roles": [],
+        "show_featured": true,
+        "show_media": true,
+        "show_media_replies": true,
+        "statuses_count": 897,
+        "uri": "https://mamot.fr/users/charlesfleche",
+        "url": "https://mamot.fr/@charlesfleche",
+        "username": "charlesfleche"
+    },
+    "application": {
+        "name": "Fedilab",
+        "website": "https://fedilab.app"
+    },
+    "bookmarked": false,
+    "card": null,
+    "content": "<p><a href=\"https://mamot.fr/tags/Mn%C3%A9mographe\" class=\"mention hashtag\" rel=\"tag\">#<span>Mnémographe</span></a><br /><a href=\"https://mamot.fr/tags/Photo\" class=\"mention hashtag\" rel=\"tag\">#<span>Photo</span></a><br /><a href=\"https://mamot.fr/tags/Photography\" class=\"mention hashtag\" rel=\"tag\">#<span>Photography</span></a><br /><a href=\"https://mamot.fr/tags/BlackAndWhite\" class=\"mention hashtag\" rel=\"tag\">#<span>BlackAndWhite</span></a><br /><a href=\"https://mamot.fr/tags/Photographie\" class=\"mention hashtag\" rel=\"tag\">#<span>Photographie</span></a><br /><a href=\"https://mamot.fr/tags/NoirEtBlanc\" class=\"mention hashtag\" rel=\"tag\">#<span>NoirEtBlanc</span></a><br /><a href=\"https://mamot.fr/tags/Canada\" class=\"mention hashtag\" rel=\"tag\">#<span>Canada</span></a><br /><a href=\"https://mamot.fr/tags/Qu%C3%A9bec\" class=\"mention hashtag\" rel=\"tag\">#<span>Québec</span></a><br /><a href=\"https://mamot.fr/tags/Montr%C3%A9al\" class=\"mention hashtag\" rel=\"tag\">#<span>Montréal</span></a><br /><a href=\"https://mamot.fr/tags/FleurDeLys\" class=\"mention hashtag\" rel=\"tag\">#<span>FleurDeLys</span></a></p>",
+    "created_at": "2025-10-30T01:38:04.025Z",
+    "edited_at": null,
+    "emojis": [],
+    "favourited": false,
+    "favourites_count": 6,
+    "filtered": [],
+    "id": "115460556981843152",
+    "in_reply_to_account_id": null,
+    "in_reply_to_id": null,
+    "language": "fr",
+    "media_attachments": [
+        {
+            "blurhash": "UOE:0n00?bD%ofM{ofof9FIUfQ%M9F?bRjIU",
+            "description": null,
+            "id": "115460556967352333",
+            "meta": {
+                "original": {
+                    "aspect": 1.0,
+                    "height": 1298,
+                    "size": "1298x1298",
+                    "width": 1298
+                },
+                "small": {
+                    "aspect": 1.0,
+                    "height": 480,
+                    "size": "480x480",
+                    "width": 480
+                }
+            },
+            "preview_remote_url": null,
+            "preview_url": "https://static.mamot.fr/media_attachments/files/115/460/556/967/352/333/small/d898e6c46822d1c7.jpg",
+            "remote_url": null,
+            "text_url": null,
+            "type": "image",
+            "url": "https://static.mamot.fr/media_attachments/files/115/460/556/967/352/333/original/d898e6c46822d1c7.jpg"
+        }
+    ],
+    "mentions": [],
+    "muted": false,
+    "pinned": false,
+    "poll": null,
+    "quote": null,
+    "quote_approval": {
+        "automatic": [],
+        "current_user": "automatic",
+        "manual": []
+    },
+    "quotes_count": 0,
+    "reblog": null,
+    "reblogged": false,
+    "reblogs_count": 0,
+    "replies_count": 0,
+    "sensitive": false,
+    "spoiler_text": "",
+    "tagged_collections": [],
+    "tags": [
+        {
+            "name": "mnemographe",
+            "url": "https://mamot.fr/tags/mnemographe"
+        },
+        {
+            "name": "photo",
+            "url": "https://mamot.fr/tags/photo"
+        },
+        {
+            "name": "photography",
+            "url": "https://mamot.fr/tags/photography"
+        },
+        {
+            "name": "blackandwhite",
+            "url": "https://mamot.fr/tags/blackandwhite"
+        },
+        {
+            "name": "photographie",
+            "url": "https://mamot.fr/tags/photographie"
+        },
+        {
+            "name": "noiretblanc",
+            "url": "https://mamot.fr/tags/noiretblanc"
+        },
+        {
+            "name": "canada",
+            "url": "https://mamot.fr/tags/canada"
+        },
+        {
+            "name": "quebec",
+            "url": "https://mamot.fr/tags/quebec"
+        },
+        {
+            "name": "montreal",
+            "url": "https://mamot.fr/tags/montreal"
+        },
+        {
+            "name": "fleurdelys",
+            "url": "https://mamot.fr/tags/fleurdelys"
+        }
+    ],
+    "uri": "https://mamot.fr/users/charlesfleche/statuses/115460556981843152",
+    "url": "https://mamot.fr/@charlesfleche/115460556981843152",
+    "visibility": "public"
+}
