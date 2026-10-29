@@ -2,6 +2,7 @@ instagrapi
 jinja2
 markdown
 ninja
+Pillow
 Pygments
 pyyaml
 typogrify
