@@ -50,7 +50,7 @@ main > article header h1
   font-size: 2rem;
 }
 
-article h1, h2, h3, h4
+article :is(h1, h2, h3, h4)
 {
   color: var(--accent);
   margin-top: var(--double-gap);
@@ -70,7 +70,9 @@ nav ul {
   padding: 0px;
   display: flex;
   flex-direction: row;
-  gap: var(--gap);
+  /* Too many items for a phone screen: wrap them on several lines */
+  flex-wrap: wrap;
+  gap: var(--half-gap) var(--gap);
 }
 
 nav ul li {
@@ -98,6 +100,8 @@ footer a {
 
 pre {
   padding: var(--gap);
+  /* Long code lines scroll inside the block, not the whole page */
+  overflow-x: auto;
 }
 
 pre, blockquote {
@@ -126,10 +130,20 @@ img, video {
 
 .gallery {
   display: grid;
-  grid-template-columns: auto auto auto;
+  /* minmax(0, ...): columns may shrink below the images' width */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: var(--half-gap);
 }
 
-.gallery img, video {
+.gallery img, .gallery video {
   margin: 0px;
+}
+
+/* Embedded videos have fixed width and height attributes */
+iframe {
+  display: block;
+  margin: var(--gap) auto;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
