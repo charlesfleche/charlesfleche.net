@@ -1,4 +1,5 @@
-build {{ dist_path }}: render_html $all_articles_data_path
+{# Implicit dependencies, after |: not passed as $in, but the page is stale when they change -#}
+build {{ dist_path }}: render_html $all_articles_data_path | {{ render_html_deps | join(" ") }}
     slug = {{ slug }}
 
 {% for command, src, dst, vars in media_paths %}build {{ dst }}: {{ command }} {{ src }}

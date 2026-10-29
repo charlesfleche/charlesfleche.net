@@ -14,7 +14,7 @@ rule render_html
 rule convert_img
     command = magick convert $in -quality 60 -geometry $geometry $out
 
-build $all_articles_data_path: combine_all_articles_data {{ article_data_paths | join(" ") }}
+build $all_articles_data_path: combine_all_articles_data {{ article_data_paths | join(" ") }} | {{ global_data_path }} $bin_path/combine_all_articles_data.py
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}

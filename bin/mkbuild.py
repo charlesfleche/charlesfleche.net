@@ -36,6 +36,12 @@ def safe_ninja(path):
 _ENV.filters["safe_ninja"] = safe_ninja
 
 
+# Pages are rendered by this script, with any of these templates
+_RENDER_HTML_DEPS = [
+    safe_ninja(path)
+    for path in [_BIN_DIR / "render_html.py", *sorted((_THEME_DIR / "templates").iterdir())]
+]
+
 _SUBNINJA_PATHS = []
 _ARTICLES_DATA_PATHS = []
 
@@ -250,6 +256,7 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
             "article-build.ninja.j2",
             slug=data["slug"],
             dist_path=safe_ninja(dist_path),
+            render_html_deps=_RENDER_HTML_DEPS,
             media_paths=[
                 (
                     media_command,
