@@ -14,13 +14,13 @@
   {% for article in articles.by_date %}
   <entry>
     <title>{{ article.title }}</title>
-    <link href="{{ article.url }}" />
-		<link href="{{ article.url }}" rel="alternate" type="text/html" />
+    <link href="{{ article.url }}" rel="alternate" type="text/html" />
     <id>{{ article.article_id }}</id>
     <published>{{ article.datetime }}</published>
-		<updated>{{ article.datetime }}</updated>
+    <updated>{{ article.datetime }}</updated>
     <summary>{{ article.description }}</summary>
-    <content type="xhtml">
+    <!-- Images are relative to the article -->
+    <content type="xhtml" xml:base="{{ article.url }}/">
       <div xmlns="http://www.w3.org/1999/xhtml">
         {{ article.content_path | read_text }}
       </div>
