@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {%- for article in articles.by_slug.values() | sort(attribute="path") %}
+  {%- if article.category != "draft" and article.template.endswith(".html.j2") %}
+  <url>
+    <loc>{{ article.url }}</loc>
+    {#- Pages are undated, or change with every new article #}
+    {%- if article.category != "page" %}
+    <lastmod>{{ article.date }}</lastmod>
+    {%- endif %}
+  </url>
+  {%- endif %}
+  {%- endfor %}
+</urlset>
