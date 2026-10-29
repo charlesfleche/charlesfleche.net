@@ -14,7 +14,7 @@
   {% for article in articles.by_category[cat_key] %}
   <p>
     <time datetime="{{ article.date }}">{{ article.date }}</time>
-    <a href={{ article.path }}>{{ article.title }}</a><br />{{ article.description }}
+    <a href="{{ article.path }}">{{ article.title }}</a><br />{{ article.description }}
   </p>
   {% endfor %}
   {% endfor %}

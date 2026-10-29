@@ -3,8 +3,7 @@ import copy
 import json
 from collections import defaultdict
 from datetime import datetime
-from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import yaml
 
@@ -30,8 +29,10 @@ for fp in args.paths:
     date = datetime.fromisoformat(article_data["date"])
     url = urlparse(article_data["url"])
 
+    # Without the trailing slash, as the IDs were before: an entry whose ID
+    # changes shows up as a new one in feed readers
     article_data["article_id"] = (
-        f"tag:{url.netloc},{date.strftime('%Y-%m-%d')}:{article_data['path']}"
+        f"tag:{url.netloc},{date.strftime('%Y-%m-%d')}:{article_data['path'].rstrip('/')}"
     )
 
     # Head
@@ -77,7 +78,7 @@ for fp in args.paths:
                 "tag": "meta",
                 "attrs": {
                     "property": "og:image",
-                    "content": f"{article_data['url']}/{article_data.get('og_image')}" if article_data.get("og_image") else "",
+                    "content": urljoin(article_data["url"], article_data["og_image"]) if article_data.get("og_image") else "",
                 },
             },
             {
@@ -109,7 +110,7 @@ for article_data in all_articles_data["by_slug"].values():
         {
             "name": "#TIL",
             "attrs": {
-                "href": str(Path(all_articles_data["by_slug"]["til"]["path"]).parent)
+                "href": all_articles_data["by_slug"]["til"]["path"]
             },
         },
     )
@@ -118,9 +119,7 @@ for article_data in all_articles_data["by_slug"].values():
         {
             "name": "Mnémographe",
             "attrs": {
-                "href": str(
-                    Path(all_articles_data["by_slug"]["mnemographe"]["path"]).parent
-                )
+                "href": all_articles_data["by_slug"]["mnemographe"]["path"]
             },
         },
     )

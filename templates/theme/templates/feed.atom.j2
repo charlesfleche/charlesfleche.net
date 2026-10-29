@@ -20,7 +20,7 @@
     <updated>{{ article.datetime }}</updated>
     <summary>{{ article.description }}</summary>
     <!-- Images are relative to the article -->
-    <content type="xhtml" xml:base="{{ article.url }}/">
+    <content type="xhtml" xml:base="{{ article.url }}">
       <div xmlns="http://www.w3.org/1999/xhtml">
         {{ article.content_path | read_text }}
       </div>

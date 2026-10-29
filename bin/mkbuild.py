@@ -316,11 +316,12 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
         data["date"] = "2009-10-14"
 
     if data["category"] == "page":
-        data["path"] = data.get("path", f"/{data['slug']}.html")
-        data["fs_path"] = data["path"]
+        data["fs_path"] = data.get("path", f"/{data['slug']}.html")
     else:
-        data["path"] = data.get("path", f"/{data['slug']}")
-        data["fs_path"] = f"{data['path']}/index.html"
+        data["fs_path"] = f"{data.get('path', '/' + data['slug']).rstrip('/')}/index.html"
+
+    # URL path, as served: directories end with a slash, else the server redirects
+    data["path"] = re.sub(r"(?<=/)index\.html$", "", data["fs_path"])
 
     # Paths
 
