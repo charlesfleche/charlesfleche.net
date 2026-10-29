@@ -9,11 +9,14 @@ import yaml
 
 parser = argparse.ArgumentParser()
 parser.add_argument("global_data", type=argparse.FileType("r"))
+parser.add_argument("stylesheets", type=argparse.FileType("r"))
 parser.add_argument("out", type=argparse.FileType("w"))
 parser.add_argument("paths", nargs="+", type=argparse.FileType("r"))
 args = parser.parse_args()
 
 global_data = yaml.safe_load(args.global_data)
+# The stylesheets, in cascade order, as published: under a hash of their content
+global_data["stylesheets"] = json.load(args.stylesheets)
 
 all_articles_data = {"by_slug": {}}
 for fp in args.paths:

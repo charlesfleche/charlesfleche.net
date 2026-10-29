@@ -5,8 +5,17 @@ all_articles_data_path = {{ all_articles_data_path }}
 rule ln
     command = python $bin_path/ln_or_cp.py $in $out
 
+# Stylesheet URLs are computed by mkbuild.py, from the stylesheets found in
+# their directory: when they change, ninja reruns mkbuild.py and reloads
+# build.ninja before building
+rule regenerate
+    command = python $bin_path/mkbuild.py
+    generator = 1
+
+build build.ninja: regenerate | $bin_path/mkbuild.py {{ stylesheet_paths | join(" ") }}
+
 rule combine_all_articles_data
-    command = python $bin_path/combine_all_articles_data.py {{ global_data_path }} $out $in
+    command = python $bin_path/combine_all_articles_data.py {{ global_data_path }} {{ stylesheets_path }} $out $in
 
 rule render_html
     command = python $bin_path/render_html.py $slug $in $out
@@ -15,7 +24,7 @@ rule convert_img
     # > only shrinks larger images, never enlarges smaller ones
     command = magick $in -auto-orient -resize '$geometry>' -quality 60 $out
 
-build $all_articles_data_path: combine_all_articles_data {{ article_data_paths | join(" ") }} | {{ global_data_path }} $bin_path/combine_all_articles_data.py
+build $all_articles_data_path: combine_all_articles_data {{ article_data_paths | join(" ") }} | {{ global_data_path }} {{ stylesheets_path }} $bin_path/combine_all_articles_data.py
 
 {% for path in subninja_paths %}subninja {{ path }}
 {% endfor %}

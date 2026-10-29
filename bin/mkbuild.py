@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import hashlib
 import json
 import mimetypes
 import pathlib
@@ -21,7 +22,9 @@ _CONTENT_DIR = _REPO_DIR / "content"
 _NINJA_TEMPLATES_DIR = _REPO_DIR / "templates/ninja"
 _THEME_DIR = _REPO_DIR / "templates/theme"
 _THEME_STATIC_DIR = _THEME_DIR / "static"
+_STYLESHEETS_DIR = _THEME_STATIC_DIR / "css"
 _GLOBAL_DATA_PATH = _REPO_DIR / "global.yml"
+_STYLESHEETS_PATH = _BUILD_DIR / "stylesheets.json"
 
 _ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(_NINJA_TEMPLATES_DIR),
@@ -336,16 +339,35 @@ class MdExtension(Extension):
         )
 
 
+def _hashed(path):
+    """03-main.css -> 03-main.<hash of its content>.css: a new URL whenever it
+    changes, so browsers can cache it forever"""
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+    return path.with_suffix(f".{digest}{path.suffix}")
+
+
+# Stylesheets, in cascade order: the order of their file names, which start
+# with a number
+
+stylesheet_srcs = sorted(_STYLESHEETS_DIR.glob("*.css"))
+
+with _mkdir_open(_STYLESHEETS_PATH, "w") as fp:
+    json.dump(
+        [f"/{_hashed(src).relative_to(_THEME_STATIC_DIR).as_posix()}" for src in stylesheet_srcs],
+        fp,
+    )
+
 # Copy static theme
 
-static_paths = [
-    (
-        safe_ninja(src),
-        safe_ninja(_DIST_DIR / src.relative_to(_THEME_STATIC_DIR)),
+static_paths = []
+for src in sorted(_THEME_STATIC_DIR.glob("**/*")):
+    if not src.is_file():
+        continue
+    dst = _hashed(src) if src in stylesheet_srcs else src
+    static_paths.append(
+        (safe_ninja(src), safe_ninja(_DIST_DIR / dst.relative_to(_THEME_STATIC_DIR)))
     )
-    for src in _THEME_STATIC_DIR.glob("**/*")
-    if src.is_file()
-]
+
 static_build_path = _BUILD_DIR / "static.ninja"
 with _mkdir_open(static_build_path, "w") as fp:
     _render(fp, "static-build.ninja.j2", static_paths=static_paths)
@@ -439,6 +461,10 @@ with main_build_ninja.open("w") as fp:
         bin_path=_BIN_DIR,
         theme_dir=_THEME_DIR,
         global_data_path=safe_ninja(_GLOBAL_DATA_PATH),
+        stylesheets_path=safe_ninja(_STYLESHEETS_PATH),
+        # The directory too: its modification time changes when a stylesheet
+        # is added, removed or renamed
+        stylesheet_paths=[safe_ninja(path) for path in [_STYLESHEETS_DIR, *stylesheet_srcs]],
         subninja_paths=[safe_ninja(path) for path in _SUBNINJA_PATHS],
         article_data_paths=[safe_ninja(path) for path in _ARTICLES_DATA_PATHS],
         all_articles_data_path=safe_ninja(_BUILD_DIR / "all_articles_data.json"),
