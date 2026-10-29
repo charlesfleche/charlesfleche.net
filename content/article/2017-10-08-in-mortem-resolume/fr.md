@@ -21,7 +21,7 @@ Si le déclenchement des médias se fait en majorité depuis la régie, deux con
 1. la technicienne son étant assignée au lancement des médias, cette tâche doit être facilitée au maximum pour lui permettre de garder sa concentration sur sa fonction principale
 2. certains effets (comme le scanner) doivent pouvoir être pilotés depuis les comédiens sur scène
 
-La mise en œuvre technique du projet est réalisée autour d'une composition [Resolume Avenue](Resolume Avenue) (serveur de média) pilotée *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control) par des interfaces simplifiées sur smartphones et laptops.
+La mise en œuvre technique du projet est réalisée autour d'une composition [Resolume Avenue](https://resolume.com/software/avenue-arena) (serveur de média) pilotée *via* le protocole [OSC](https://fr.wikipedia.org/wiki/Open_Sound_Control) par des interfaces simplifiées sur smartphones et laptops.
 
 # La composition Resolume Avenue
 
