@@ -97,6 +97,37 @@ def _display_size(image_path, geometry):
     return width, height
 
 
+def _article_data(md_path, meta):
+    """Article data from its markdown path and meta headers"""
+    data = {}
+    for key, value in meta.items():
+        if len(value) == 1:
+            data[key] = value[0]
+
+    # Extracting article data from path
+
+    m = re.match(
+        r".*?/(?P<category>\w+)/((?P<date>\d{4}-\d{2}-\d{2})-)?(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
+        str(pathlib.PurePosixPath(md_path)),
+    )
+    if m is None:
+        raise RuntimeError(f"Failed to parse {md_path}")
+    data.update(m.groupdict())
+
+    if data["date"] is None:
+        data["date"] = "2009-10-14"
+
+    if data["category"] == "page":
+        data["fs_path"] = data.get("path", f"/{data['slug']}.html")
+    else:
+        data["fs_path"] = f"{data.get('path', '/' + data['slug']).rstrip('/')}/index.html"
+
+    # URL path, as served: directories end with a slash, else the server redirects
+    data["path"] = re.sub(r"(?<=/)index\.html$", "", data["fs_path"])
+
+    return data
+
+
 @contextmanager
 def _mkdir_open(path, *args, **kwargs):
     path.parent.mkdir(exist_ok=True, parents=True)
@@ -117,15 +148,24 @@ def _add_article_data_path(path):
 
 
 class MediaProcessor(Treeprocessor):
-    def __init__(self, md, base_dir):
+    def __init__(self, md, md_path):
         super().__init__(md)
 
+        self.md_path = md_path
         # Images are located relative to the markdown file
-        self.base_dir = base_dir
+        self.base_dir = md_path.parent
         self.srcs = []
         self.media_count = 0
 
+    def _url(self, path):
+        """URL of a media, absolute: the content is also aggregated in other pages (TIL, feed)"""
+        return f"{self.url_dir}/{path}"
+
     def run(self, root):
+        # The meta preprocessor already ran: the article's Path: is known
+        fs_path = _article_data(self.md_path, self.md.Meta)["fs_path"]
+        self.url_dir = str(pathlib.PurePosixPath(fs_path).parent).rstrip("/")
+
         self._make_galleries(root)
         self._imgs_to_media(root)
 
@@ -174,7 +214,7 @@ class MediaProcessor(Treeprocessor):
         # The alt belongs to the img, not the link
         alt, title = self._description(el, src)
 
-        el.attrib["href"] = str(src)
+        el.attrib["href"] = self._url(src)
 
         self.srcs.append(["ln", safe_ninja(src), safe_ninja(src), {}])
 
@@ -194,7 +234,7 @@ class MediaProcessor(Treeprocessor):
             dst = pathlib.Path(src.with_suffix(f".{geometry}{suffix}").name)
 
             source = ET.SubElement(picture, "source")
-            source.set("srcset", str(dst))
+            source.set("srcset", self._url(dst))
             source.set("type", mimetype)
 
             self.srcs.append(["convert_img", safe_ninja(src), safe_ninja(dst), args])
@@ -202,7 +242,7 @@ class MediaProcessor(Treeprocessor):
         width, height = _display_size(self.base_dir / src, geometry)
 
         img = ET.SubElement(picture, "img")
-        img.set("src", str(dst))
+        img.set("src", self._url(dst))
         img.set("alt", alt)
         if title:
             img.set("title", title)
@@ -240,7 +280,7 @@ class MediaProcessor(Treeprocessor):
         el.set("preload", "metadata")
 
         source = ET.SubElement(el, "source")
-        source.set("src", str(src))
+        source.set("src", self._url(src))
         source.set("type", mimetypes.guess_type(str(src))[0])
 
         self.srcs.append(["ln", safe_ninja(src), safe_ninja(src), {}])
@@ -252,13 +292,13 @@ class MediaProcessor(Treeprocessor):
 
 
 class MdExtension(Extension):
-    def __init__(self, base_dir, **kwargs):
+    def __init__(self, md_path, **kwargs):
         super().__init__(**kwargs)
 
-        self.base_dir = base_dir
+        self.md_path = md_path
 
     def extendMarkdown(self, md):
-        md.MediaProcessor = MediaProcessor(md, self.base_dir)
+        md.MediaProcessor = MediaProcessor(md, self.md_path)
         md.treeprocessors.register(
             md.MediaProcessor,
             "mediaprocessor",
@@ -291,37 +331,13 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
             "codehilite",
             "meta",
             "fenced_code",
-            MdExtension(md_path.parent),
+            MdExtension(md_path),
         ]
     )
 
     article_content = md.convert(md_path.read_text())
 
-    data = {}
-    for key, value in md.Meta.items():
-        if len(value) == 1:
-            data[key] = value[0]
-
-    # Extracting article data from path
-
-    m = re.match(
-        r".*?/(?P<category>\w+)/((?P<date>\d{4}-\d{2}-\d{2})-)?(?P<slug>[a-z0-9-]+)/(?P<lang>fr|en).md$",
-        str(pathlib.PurePosixPath(md_path)),
-    )
-    if m is None:
-        raise RuntimeError(f"Failed to parse {md_path}")
-    data.update(m.groupdict())
-
-    if data["date"] is None:
-        data["date"] = "2009-10-14"
-
-    if data["category"] == "page":
-        data["fs_path"] = data.get("path", f"/{data['slug']}.html")
-    else:
-        data["fs_path"] = f"{data.get('path', '/' + data['slug']).rstrip('/')}/index.html"
-
-    # URL path, as served: directories end with a slash, else the server redirects
-    data["path"] = re.sub(r"(?<=/)index\.html$", "", data["fs_path"])
+    data = _article_data(md_path, md.Meta)
 
     # Paths
 
