@@ -149,14 +149,6 @@ for article_data in all_articles_data["by_slug"].values():
         }
     )
 
-# Set feed date to latest article
-
-latest_article = max(
-    all_articles_data["by_slug"].values(),
-    key=lambda d: d.get("date", "0"),
-)
-all_articles_data["by_slug"]["feed"]["date"] = latest_article.get("date")
-
 by_date = []
 all_articles_data["by_date"] = by_date
 
@@ -176,5 +168,10 @@ for article_data in reversed(
     if category not in ("draft", "page"):
         by_date.append(article_data)
 
+# Set feed date to latest published article: drafts and pages are not in the feed
+
+feed_data = all_articles_data["by_slug"]["feed"]
+feed_data["date"] = by_date[0]["date"]
+feed_data["datetime"] = by_date[0]["datetime"]
 
 json.dump(all_articles_data, args.out, indent=2, sort_keys=True)
