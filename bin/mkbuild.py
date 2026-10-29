@@ -57,6 +57,9 @@ _XMP_NS = {
 }
 _XML_LANG = "{http://www.w3.org/XML/1998/namespace}lang"
 
+# Accessible name of a link to a full size image that has no description
+_FULL_SIZE_LABEL = {"en": "Full size image", "fr": "Image en taille réelle"}
+
 # EXIF orientations of images rotated by a quarter turn
 _EXIF_ORIENTATION = 0x0112
 _EXIF_TRANSPOSED = (5, 6, 7, 8)
@@ -163,7 +166,9 @@ class MediaProcessor(Treeprocessor):
 
     def run(self, root):
         # The meta preprocessor already ran: the article's Path: is known
-        fs_path = _article_data(self.md_path, self.md.Meta)["fs_path"]
+        data = _article_data(self.md_path, self.md.Meta)
+        fs_path = data["fs_path"]
+        self.lang = data["lang"]
         self.url_dir = str(pathlib.PurePosixPath(fs_path).parent).rstrip("/")
 
         self._make_galleries(root)
@@ -215,6 +220,10 @@ class MediaProcessor(Treeprocessor):
         alt, title = self._description(el, src)
 
         el.attrib["href"] = self._url(src)
+        if not alt:
+            # The picture is the link's only content: without alt, the link
+            # would have no name for screen readers
+            el.set("aria-label", f"{_FULL_SIZE_LABEL[self.lang]} {src.name}")
 
         self.srcs.append(["ln", safe_ninja(src), safe_ninja(src), {}])
 
