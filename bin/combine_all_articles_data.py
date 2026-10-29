@@ -144,7 +144,7 @@ for article_data in all_articles_data["by_slug"].values():
                 "href": all_articles_data["by_slug"]["feed"]["path"],
                 "type": all_articles_data["by_slug"]["feed"]["type"],
                 "rel": "alternate",
-                "title": all_articles_data["by_slug"]["feed"]["title"],
+                "title": article_data["site_title"],
             },
         }
     )
