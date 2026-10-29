@@ -35,72 +35,52 @@ for fp in args.paths:
         f"tag:{url.netloc},{date.strftime('%Y-%m-%d')}:{article_data['path'].rstrip('/')}"
     )
 
+    # Draft
+
+    if article_data["category"] == "draft":
+        article_data["title"] = f"DRAFT: {article_data['title']}"
+
     # Head
 
-    article_data["head"].extend(
+    def meta(attr, key, content):
+        return {"tag": "meta", "attrs": {attr: key, "content": content}}
+
+    head = article_data["head"]
+    head.extend(
         [
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "description",
-                    "content": article_data["description"],
-                },
-            },
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "og:title",
-                    "content": article_data.get("title", ""),
-                },
-            },
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "og:description",
-                    "content": article_data.get("description", ""),
-                },
-            },
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "og:type",
-                    "content": "article",
-                },
-            },
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "og:url",
-                    "content": article_data["url"],
-                },
-            },
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "og:image",
-                    "content": urljoin(article_data["url"], article_data["og_image"]) if article_data.get("og_image") else "",
-                },
-            },
-            {
-                "tag": "meta",
-                "attrs": {
-                    "property": "og:image:alt",
-                    "content": "",
-                },
-            },
+            # description is a standard name, not an OpenGraph property
+            meta("name", "description", article_data["description"]),
+            {"tag": "link", "attrs": {"rel": "canonical", "href": article_data["url"]}},
+            meta("property", "og:site_name", article_data["site_title"]),
+            meta("property", "og:title", article_data["title"]),
+            meta("property", "og:description", article_data["description"]),
+            meta(
+                "property",
+                "og:type",
+                "website" if article_data["category"] == "page" else "article",
+            ),
+            meta("property", "og:url", article_data["url"]),
         ]
     )
+    if og_image := article_data.get("og_image"):
+        head.extend(
+            [
+                meta("property", "og:image", urljoin(article_data["url"], og_image)),
+                meta("name", "twitter:card", "summary_large_image"),
+            ]
+        )
+    else:
+        head.append(meta("name", "twitter:card", "summary"))
+
+    # Drafts are published to be previewed, but must not be indexed
+    if article_data["category"] == "draft":
+        head.append(meta("name", "robots", "noindex"))
 
     # Dates
 
     article_data["datetime"] = (
         datetime.fromisoformat(article_data["date"]).isoformat() + "Z"
     )
-
-    # Draft
-
-    if article_data["category"] == "draft":
-        article_data["title"] = f"DRAFT: {article_data['title']}"
 
     all_articles_data["by_slug"][article_data["slug"]] = article_data
 

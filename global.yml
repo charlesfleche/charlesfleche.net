@@ -20,7 +20,7 @@ nav:
 head:
   - tag: meta
     attrs:
-      property: author
+      name: author
       content: Charles Flèche
 
   # TODO: ideally css links should be computed from the static theme paths
