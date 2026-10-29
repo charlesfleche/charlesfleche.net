@@ -72,9 +72,13 @@ for fp in args.paths:
     else:
         head.append(meta("name", "twitter:card", "summary"))
 
-    # Drafts are published to be previewed, but must not be indexed
+    # Drafts are published to be previewed, but must not be indexed, nor
+    # pages with a Robots: noindex header (404)
     if article_data["category"] == "draft":
-        head.append(meta("name", "robots", "noindex"))
+        article_data["robots"] = "noindex"
+    article_data["indexed"] = "noindex" not in article_data.get("robots", "")
+    if not article_data["indexed"]:
+        head.append(meta("name", "robots", article_data["robots"]))
 
     # Dates
 
