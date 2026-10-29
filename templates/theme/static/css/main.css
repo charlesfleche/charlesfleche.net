@@ -31,11 +31,16 @@ body {
   max-width: 48rem;
 }
 
-body > header > h1 {
+body > header > .site-title {
   margin-bottom: 0px;
   margin-top: 0px;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+body > header > .site-title a {
+  color: inherit;
+  text-decoration: none;
 }
 
 main > article header h1

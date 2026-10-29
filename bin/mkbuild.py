@@ -291,13 +291,34 @@ class MediaProcessor(Treeprocessor):
     }
 
 
+class HeadingProcessor(Treeprocessor):
+    """Shifts headings: "#" is an h<baselevel>, "##" the level below, etc."""
+
+    def __init__(self, md, baselevel):
+        super().__init__(md)
+
+        self.baselevel = baselevel
+
+    def run(self, root):
+        for el in root.iter():
+            if m := re.fullmatch(r"h([1-6])", el.tag):
+                level = int(m[1]) + self.baselevel - 1
+                if level > 6:
+                    raise RuntimeError(f"Heading too deep, h{level}: {el.text}")
+                el.tag = f"h{level}"
+
+
 class MdExtension(Extension):
-    def __init__(self, md_path, **kwargs):
+    def __init__(self, md_path, baselevel, **kwargs):
         super().__init__(**kwargs)
 
         self.md_path = md_path
+        self.baselevel = baselevel
 
     def extendMarkdown(self, md):
+        md.treeprocessors.register(
+            HeadingProcessor(md, self.baselevel), "headingprocessor", 20
+        )
         md.MediaProcessor = MediaProcessor(md, self.md_path)
         md.treeprocessors.register(
             md.MediaProcessor,
@@ -331,7 +352,8 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
             "codehilite",
             "meta",
             "fenced_code",
-            MdExtension(md_path),
+            # The page title is the only h1: content "#" headings are h2
+            MdExtension(md_path, baselevel=2),
         ]
     )
 

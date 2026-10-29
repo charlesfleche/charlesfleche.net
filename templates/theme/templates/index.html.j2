@@ -9,7 +9,7 @@
   {{ content_path | read_text }}
 
   {% for cat_key, cat_name in [("article", "Articles"), ("til", "#TIL")] %}
-  <h1>{{ cat_name }}</h1>
+  <h2>{{ cat_name }}</h2>
 
   {% for article in articles.by_category[cat_key] %}
   <p>
