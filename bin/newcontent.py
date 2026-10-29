@@ -13,6 +13,7 @@ Usage:
 
 Output path:
     content/[category]/[year-month-day]-[slug]/[lang].md
+    content/draft/[year-month-day]-[slug]/[lang].md with --draft
 
 Template lookup order (first match wins):
     templates/content/[category].[lang].md.j2
@@ -61,7 +62,7 @@ def main() -> None:
         "--draft",
         "-t",
         action="store_true",
-        help="Set the new content as draft",
+        help="Set the new content as draft, in content/draft instead of its category",
     )
     parser.add_argument(
         "--category",
@@ -92,8 +93,10 @@ def main() -> None:
     slug = slugify(title)
     folder_name = f"{args.date.strftime('%Y-%m-%d')}-{slug}"
 
-    base_dir = _DRAFT_DIR if args.draft else _CONTENT_DIR
-    output_path = base_dir / args.category / folder_name / f"{args.lang}.md"
+    # Drafts are a category of their own: the build only finds content at
+    # content/<category>/<folder>/<lang>.md, so not in content/draft/<category>
+    category_dir = _DRAFT_DIR if args.draft else _CONTENT_DIR / args.category
+    output_path = category_dir / folder_name / f"{args.lang}.md"
 
     content = render_content(title=title)
 
