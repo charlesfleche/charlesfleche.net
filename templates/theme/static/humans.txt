@@ -4,11 +4,11 @@
 # TEAM
 
     Author: Charles Flèche
-    Masotodon: https://mamot.fr/@charlesfleche
+    Mastodon: https://mamot.fr/@charlesfleche
 
 # TECHNOLOGY COLOPHON
 
     CSS3, HTML5
-    Nginx
+    Caddy
     HTML5 Boilerplate template
     Custom static blog code https://github.com/charlesfleche/charlesfleche.net
