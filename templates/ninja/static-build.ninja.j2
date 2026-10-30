@@ -1,3 +1,4 @@
 {%for src, dst in static_paths %}build {{ dst }}: ln {{ src }}
 {% endfor %}
+build {{ stylesheet_dst }}: concat {{ stylesheet_srcs | join(" ") }}
 

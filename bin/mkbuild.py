@@ -339,38 +339,39 @@ class MdExtension(Extension):
         )
 
 
-def _hashed(path):
-    """03-main.css -> 03-main.<hash of its content>.css: a new URL whenever it
-    changes, so browsers can cache it forever"""
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
-    return path.with_suffix(f".{digest}{path.suffix}")
-
-
 # Stylesheets, in cascade order: the order of their file names, which start
-# with a number
+# with a number. Concatenated into a single file, one request, published under
+# a hash of its content: a new URL whenever it changes, so browsers can cache
+# it forever
 
 stylesheet_srcs = sorted(_STYLESHEETS_DIR.glob("*.css"))
 
+# The same bytes as `cat` produces in the concat rule
+digest = hashlib.sha256(b"".join(src.read_bytes() for src in stylesheet_srcs)).hexdigest()[:8]
+stylesheet_url = f"/css/site.{digest}.css"
+
 with _mkdir_open(_STYLESHEETS_PATH, "w") as fp:
-    json.dump(
-        [f"/{_hashed(src).relative_to(_THEME_STATIC_DIR).as_posix()}" for src in stylesheet_srcs],
-        fp,
-    )
+    json.dump([stylesheet_url], fp)
 
 # Copy static theme
 
-static_paths = []
-for src in sorted(_THEME_STATIC_DIR.glob("**/*")):
-    if not src.is_file():
-        continue
-    dst = _hashed(src) if src in stylesheet_srcs else src
-    static_paths.append(
-        (safe_ninja(src), safe_ninja(_DIST_DIR / dst.relative_to(_THEME_STATIC_DIR)))
+static_paths = [
+    (
+        safe_ninja(src),
+        safe_ninja(_DIST_DIR / src.relative_to(_THEME_STATIC_DIR)),
     )
-
+    for src in sorted(_THEME_STATIC_DIR.glob("**/*"))
+    if src.is_file() and src not in stylesheet_srcs
+]
 static_build_path = _BUILD_DIR / "static.ninja"
 with _mkdir_open(static_build_path, "w") as fp:
-    _render(fp, "static-build.ninja.j2", static_paths=static_paths)
+    _render(
+        fp,
+        "static-build.ninja.j2",
+        static_paths=static_paths,
+        stylesheet_srcs=[safe_ninja(src) for src in stylesheet_srcs],
+        stylesheet_dst=safe_ninja(_DIST_DIR / stylesheet_url.lstrip("/")),
+    )
 _add_subninja(static_build_path)
 
 # Make articles build.ninja

@@ -15,7 +15,7 @@ parser.add_argument("paths", nargs="+", type=argparse.FileType("r"))
 args = parser.parse_args()
 
 global_data = yaml.safe_load(args.global_data)
-# The stylesheets, in cascade order, as published: under a hash of their content
+# The stylesheets, as published: concatenated, under a hash of their content
 global_data["stylesheets"] = json.load(args.stylesheets)
 
 all_articles_data = {"by_slug": {}}

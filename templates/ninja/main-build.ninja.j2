@@ -5,14 +5,17 @@ all_articles_data_path = {{ all_articles_data_path }}
 rule ln
     command = python $bin_path/ln_or_cp.py $in $out
 
-# Stylesheet URLs are computed by mkbuild.py, from the stylesheets found in
-# their directory: when they change, ninja reruns mkbuild.py and reloads
+# The stylesheet URL is computed by mkbuild.py, from the stylesheets found
+# in their directory: when they change, ninja reruns mkbuild.py and reloads
 # build.ninja before building
 rule regenerate
     command = python $bin_path/mkbuild.py
     generator = 1
 
 build build.ninja: regenerate | $bin_path/mkbuild.py {{ stylesheet_paths | join(" ") }}
+
+rule concat
+    command = cat $in > $out
 
 rule combine_all_articles_data
     command = python $bin_path/combine_all_articles_data.py {{ global_data_path }} {{ stylesheets_path }} $out $in
