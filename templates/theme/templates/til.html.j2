@@ -15,7 +15,7 @@
             <time datetime="{{ article.date }}">{{ article.date }}</time>
         </header>
 
-        {{ article.content_path | read_text }}
+        {{ article.nested_content_path | read_text }}
     </article>
     {% endfor %}
 </article>

@@ -353,19 +353,22 @@ _add_subninja(static_build_path)
 
 # Make articles build.ninja
 
-for md_path in _CONTENT_DIR.glob("*/*/*.md"):
-    # Parsing article's markdown
-
-    md = markdown.Markdown(
+def _markdown(md_path, baselevel):
+    return markdown.Markdown(
         extensions=[
             "codehilite",
             "meta",
             "fenced_code",
-            # The page title is the only h1: content "#" headings are h2
-            MdExtension(md_path, baselevel=2),
+            MdExtension(md_path, baselevel),
         ]
     )
 
+
+for md_path in _CONTENT_DIR.glob("*/*/*.md"):
+    # Parsing article's markdown
+
+    # The page title is the only h1: content "#" headings are h2
+    md = _markdown(md_path, baselevel=2)
     article_content = md.convert(md_path.read_text())
 
     data = _article_data(md_path, md.Meta)
@@ -387,6 +390,14 @@ for md_path in _CONTENT_DIR.glob("*/*/*.md"):
     article_content_path.write_text(article_content)
 
     data["content_path"] = str(article_content_path)
+
+    # TILs are also nested in the TIL page, under an h2 title: there their
+    # headings start at h3
+    if data["category"] == "til":
+        nested_content = _markdown(md_path, baselevel=3).convert(md_path.read_text())
+        nested_content_path = build_dir / f"{md_path.stem}.nested.html"
+        nested_content_path.write_text(nested_content)
+        data["nested_content_path"] = str(nested_content_path)
 
     # Write article data json
 
