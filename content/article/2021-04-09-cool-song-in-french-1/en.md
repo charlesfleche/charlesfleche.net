@@ -2,7 +2,7 @@ Title: Cool songs in French #1 - Accents
 Tags: music, french, lyrics
 Description: A playlist of songs with different French accents
 
-In March 2021 I started volunteering as a French tutor for [La Maison de l'amitié](https://www.maisondelamitie.ca/) in Montréal. Eventually we went a bit astray from the program: the conversation drifted toward music. This first playlist contains titles sang with different French accents from artists from all over the world. Listen to the [playlist on Spotify](https://open.spotify.com/embed/playlist/04LPX2pZdqAkAncsamOuuZ).
+In March 2021 I started volunteering as a French tutor for [La Maison de l'amitié](https://www.maisondelamitie.ca/) in Montréal. Eventually we went a bit astray from the program: the conversation drifted toward music. This first playlist contains titles sang with different French accents from artists from all over the world. Listen to the [playlist on Spotify](https://open.spotify.com/playlist/04LPX2pZdqAkAncsamOuuZ).
 
 - Richard Desjardins: [Québec](#quebec)
 - Lisa LeBlanc: [New Brunswick](#new-brunswick)
