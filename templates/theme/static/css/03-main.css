@@ -3,7 +3,10 @@
   --background: #282A36;
   --foreground: #F8F8F2;
   --selection: #44475A;
-  --comment: #6272A4;
+  /* Syntax colors are too close to --selection */
+  --code-background: #21222C;
+  /* Dracula's #6272A4 is too dark to read: lightened to a 4.5 contrast ratio */
+  --comment: #8A97C0;
   --red: #FF5555;
   --orange: #FFB86C;
   --yellow: #F1FA8C;
@@ -79,6 +82,13 @@ nav ul li {
   list-style-type: none;
 }
 
+/* Large enough to be tapped */
+nav a {
+  display: inline-block;
+  min-width: 1.5rem;
+  line-height: 1.5rem;
+}
+
 /* article header h1 {
   color: var(--accent);
 } */
@@ -102,14 +112,12 @@ pre {
   padding: var(--gap);
   /* Long code lines scroll inside the block, not the whole page */
   overflow-x: auto;
-}
-
-pre, blockquote {
-  background-color: var(--selection);
+  background-color: var(--code-background);
 }
 
 blockquote {
   margin: 0px;
+  background-color: var(--selection);
 }
 
 blockquote p {

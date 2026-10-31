@@ -49,7 +49,16 @@ _RENDER_HTML_DEPS = [
 _SUBNINJA_PATHS = []
 _ARTICLES_DATA_PATHS = []
 
-_CONVERT_GEOMETRY = {"default": "960x", "gallery": "320x"}
+# Widths of the srcset of an image, in ascending order
+_CONVERT_WIDTHS = {"default": (480, 720, 960), "gallery": (160, 240, 320)}
+# Displayed width of an image, from the layout of 03-main.css: the width of
+# body's content, and of a column of .gallery
+_DISPLAY_SIZES = {
+    "default": "min(100vw - 2rem, 48rem)",
+    "gallery": "calc((min(100vw - 2rem, 48rem) - 1rem) / 3)",
+}
+# Images of the first row of a page: likely its largest paint, not deferred
+_EAGER_COUNT = {"default": 1, "gallery": 3}
 
 # Placeholder alt of many images, not a description
 _PLACEHOLDER_ALT = "alt text"
@@ -90,13 +99,12 @@ def _xmp_description(image_path):
     return ""
 
 
-def _display_size(image_path, geometry):
-    """Size of the image once oriented and resized to geometry (\"960x>\")"""
+def _display_size(image_path, max_width):
+    """Size of the image once oriented and resized to at most max_width"""
     with Image.open(image_path) as image:
         width, height = image.size
         if image.getexif().get(_EXIF_ORIENTATION) in _EXIF_TRANSPOSED:
             width, height = height, width
-    max_width = int(geometry.rstrip("x>"))
     if width > max_width:
         # Rounding half up, as ImageMagick does
         width, height = max_width, int(height * max_width / width + 0.5)
@@ -230,10 +238,13 @@ class MediaProcessor(Treeprocessor):
 
         self.srcs.append(["ln", safe_ninja(src), safe_ninja(src), {}])
 
-        geometry = _CONVERT_GEOMETRY[el.attrib.pop("__purpose", "default")]
-        args = {
-            "geometry": geometry,
-        }
+        purpose = el.attrib.pop("__purpose", "default")
+        max_width = _CONVERT_WIDTHS[purpose][-1]
+        width, height = _display_size(self.base_dir / src, max_width)
+        # The largest variant is smaller than max_width if the image is. The
+        # other variants would only be copies of it: never enlarged
+        widths = {w: w for w in _CONVERT_WIDTHS[purpose][:-1] if w < width}
+        widths[max_width] = width
 
         picture = ET.SubElement(el, "picture")
         # Hardcoding mimetype rather than calling mimetypes.guess_type
@@ -243,15 +254,17 @@ class MediaProcessor(Treeprocessor):
             (".webp", "image/webp"),
             (".jpeg", "image/jpeg"),
         ]:
-            dst = pathlib.Path(src.with_suffix(f".{geometry}{suffix}").name)
+            srcset = []
+            for geometry, variant_width in widths.items():
+                dst = pathlib.Path(src.with_suffix(f".{geometry}x{suffix}").name)
+                srcset.append(f"{self._url(dst)} {variant_width}w")
+                args = {"geometry": f"{geometry}x"}
+                self.srcs.append(["convert_img", safe_ninja(src), safe_ninja(dst), args])
 
             source = ET.SubElement(picture, "source")
-            source.set("srcset", self._url(dst))
+            source.set("srcset", ", ".join(srcset))
+            source.set("sizes", _DISPLAY_SIZES[purpose])
             source.set("type", mimetype)
-
-            self.srcs.append(["convert_img", safe_ninja(src), safe_ninja(dst), args])
-
-        width, height = _display_size(self.base_dir / src, geometry)
 
         img = ET.SubElement(picture, "img")
         img.set("src", self._url(dst))
@@ -261,8 +274,7 @@ class MediaProcessor(Treeprocessor):
         # Reserves the image's space before it loads: no layout shift
         img.set("width", str(width))
         img.set("height", str(height))
-        # The first media is likely the largest paint of the page: not deferred
-        if self.media_count:
+        if self.media_count >= _EAGER_COUNT[purpose]:
             img.set("loading", "lazy")
         img.set("decoding", "async")
 
