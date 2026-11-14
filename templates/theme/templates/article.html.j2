@@ -13,4 +13,12 @@
 
 </article>
 
+{# Articles and TILs only: drafts and pages have no previous and next #}
+{% if category in ("article", "til") %}
+<nav class="adjacent" aria-label="{{ 'Articles précédent et suivant' if lang == 'fr' else 'Previous and next articles' }}">
+  <a rel="prev" href="{{ previous.path }}">← {{ previous.title }}</a>
+  <a rel="next" href="{{ next.path }}">{{ next.title }} →</a>
+</nav>
+{% endif %}
+
 {% endblock main %}

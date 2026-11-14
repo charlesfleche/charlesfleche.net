@@ -154,6 +154,21 @@ for article_data in reversed(
     if category not in ("draft", "page"):
         by_date.append(article_data)
 
+# Previous and next articles, in the order of by_date (latest first): the
+# oldest has no previous and the latest no next, they link to the homepage.
+# Only the path and title are kept: whole articles would be circular references
+
+
+def adjacent(index):
+    if 0 <= index < len(by_date):
+        return {"path": by_date[index]["path"], "title": by_date[index]["title"]}
+    return {"path": "/", "title": "Home"}
+
+
+for index, article_data in enumerate(by_date):
+    article_data["previous"] = adjacent(index + 1)
+    article_data["next"] = adjacent(index - 1)
+
 # Set feed date to latest published article: drafts and pages are not in the feed
 
 feed_data = all_articles_data["by_slug"]["feed"]

@@ -156,3 +156,16 @@ iframe {
   aspect-ratio: 16 / 9;
   border: 0;
 }
+
+/* Previous article on the left, next one on the right */
+nav.adjacent {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-top: var(--double-gap);
+  padding-bottom: 0;
+}
+
+nav.adjacent a[rel="next"] {
+  text-align: right;
+}
