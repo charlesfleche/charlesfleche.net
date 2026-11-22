@@ -24,6 +24,11 @@ watch INBOX listens to the local Syncthing REST API, and runs ingest each time
 the Syncthing folder holding INBOX is idle after a change in INBOX. INBOX is a
 subfolder of a Syncthing folder, not a folder of its own.
 
+tag opens every photo of the gallery, newest added first, with its tags and
+alt text, in git's editor (GIT_EDITOR, core.editor, VISUAL, EDITOR). On save,
+it writes the XMP sidecars that changed, commits, pushes and mirrors them to
+MIRROR. The header of the edited file explains its format.
+
 post DESTINATION posts the oldest unposted photo, by file name. A photo counts
 as posted to a destination once <stem>.<destination>.json — the REST payload
 of the post — sits next to it. Tags and alt text live in an XMP sidecar
@@ -39,6 +44,7 @@ Usage:
 
     bin/mnemographe.py ingest ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py watch ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
+    bin/mnemographe.py tag --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py post mastodon --dry-run          # what would be posted
     bin/mnemographe.py post mastodon                    # post it
 
@@ -48,15 +54,20 @@ The sidecars stay readable by other tools:
 """
 
 import argparse
+import contextlib
 import dataclasses
+import fcntl
 import json
+import math
 import mimetypes
 import os
 import pathlib
 import re
+import shutil
 import stat
 import subprocess
 import sys
+import tempfile
 import time
 import unicodedata
 import xml.etree.ElementTree as ET
@@ -101,6 +112,23 @@ _XPACKET_BEGIN = '<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>\n'
 _XPACKET_END = '\n<?xpacket end="w"?>\n'
 
 _NON_WORD_RE = re.compile(r"\W")
+# Characters XML 1.0 does not allow
+_NOT_XML_RE = re.compile("[^\t\n\r\x20-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
+
+# The tag editor's first column: a letter per network the photo is posted to
+_POSTED_COLUMN = {"mastodon": "m", "instagram": "i"}
+_POSTED_RE = re.compile("".join(f"[{letter}-]" for letter in _POSTED_COLUMN.values()))
+_TAGS_FILE_NAME = "MNEMOGRAPHE_TAGS"
+_TAGS_FILE_HEADER = """\
+# Tag the mnémographes, newest added first. One photo per line:
+#   <posted> <file> <tag> <tag> ... [| <alt text>]
+# <posted> shows the networks the photo is posted to: m Mastodon, i Instagram,
+# - not yet. It is ignored on save.
+# Tags are separated by spaces, without #, and hold letters, digits and _ only.
+# The alt text is everything after the first |. No |: no alt text.
+# A removed line leaves its photo unchanged. Lines starting with # are ignored.
+# An editor exiting with an error, or no photo line at all, changes nothing.
+"""
 
 
 class MnemographeError(Exception):
@@ -123,6 +151,10 @@ class Xmp:
     @classmethod
     def load(cls, path: pathlib.Path) -> "Xmp":
         if path.exists():
+            # The file's own prefixes, e.g. darktable:, survive a save
+            for _, (prefix, uri) in ET.iterparse(path, events=("start-ns",)):
+                if prefix:
+                    ET.register_namespace(prefix, uri)
             root = ET.parse(path).getroot()
         else:
             root = ET.fromstring(_XMP_TEMPLATE)
@@ -138,19 +170,15 @@ class Xmp:
     def _find(self, name: str) -> ET.Element | None:
         return next(iter(self.root.iter(_q(name))), None)
 
-    def _container(self, name: str) -> ET.Element:
-        """The rdf:Description holding `name`, creating the element if needed."""
-        for description in self._descriptions():
-            if description.find(_q(name)) is not None:
-                return description
-        descriptions = self._descriptions()
-        if not descriptions:
+    def _first_description(self) -> ET.Element:
+        """The first rdf:Description, created if there is none."""
+        description = self._find("rdf:Description")
+        if description is None:
             rdf = self.root.find(_q("rdf:RDF"))
             if rdf is None:
                 rdf = ET.SubElement(self.root, _q("rdf:RDF"))
-            descriptions = [ET.SubElement(rdf, _q("rdf:Description"))]
-            descriptions[0].set(_q("rdf:about"), "")
-        return descriptions[0]
+            description = ET.SubElement(rdf, _q("rdf:Description"), {_q("rdf:about"): ""})
+        return description
 
     @property
     def tags(self) -> list[str]:
@@ -166,11 +194,11 @@ class Xmp:
 
     @tags.setter
     def tags(self, tags: list[str]) -> None:
-        description = self._container("dc:subject")
-        subject = description.find(_q("dc:subject"))
-        if subject is None:
-            subject = ET.SubElement(description, _q("dc:subject"))
-        subject.clear()
+        """No tags remove dc:subject."""
+        self.remove("dc:subject")
+        if not tags:
+            return
+        subject = ET.SubElement(self._first_description(), _q("dc:subject"))
         bag = ET.SubElement(subject, _q("rdf:Bag"))
         for tag in tags:
             ET.SubElement(bag, _q("rdf:li")).text = tag
@@ -193,15 +221,36 @@ class Xmp:
 
     @description.setter
     def description(self, text: str) -> None:
-        container = self._container("dc:description")
-        element = container.find(_q("dc:description"))
+        """Replaces the x-default text, keeping the other languages. An empty
+        text removes it, and dc:description once no language is left."""
+        for description in self._descriptions():
+            # Shorthand form: dc:description as an attribute
+            if _q("dc:description") in description.attrib:
+                del description.attrib[_q("dc:description")]
+        element = self._find("dc:description")
         if element is None:
-            element = ET.SubElement(container, _q("dc:description"))
-        element.clear()
-        alt = ET.SubElement(element, _q("rdf:Alt"))
-        li = ET.SubElement(alt, _q("rdf:li"))
-        li.set(_XML_LANG, "x-default")
-        li.text = text
+            element = ET.SubElement(self._first_description(), _q("dc:description"))
+        alt = element.find(_q("rdf:Alt"))
+        if alt is None:
+            element.clear()
+            alt = ET.SubElement(element, _q("rdf:Alt"))
+        for li in alt.findall(_q("rdf:li")):
+            if li.get(_XML_LANG) == "x-default":
+                alt.remove(li)
+        if text:
+            li = ET.Element(_q("rdf:li"), {_XML_LANG: "x-default"})
+            li.text = text
+            alt.insert(0, li)
+        if not alt.findall(_q("rdf:li")):
+            self.remove("dc:description")
+
+    def remove(self, name: str) -> None:
+        """Removes `name`, element or shorthand attribute, from every rdf:Description."""
+        for description in self._descriptions():
+            for element in description.findall(_q(name)):
+                description.remove(element)
+            if _q(name) in description.attrib:
+                del description.attrib[_q(name)]
 
     def save(self) -> None:
         ET.indent(self.root, space=" ")
@@ -377,6 +426,23 @@ def git(*args: str) -> None:
     subprocess.run(["git", "-C", str(_REPO_ROOT), *args], check=True)
 
 
+@contextlib.contextmanager
+def repository_lock():
+    """Serializes the commands that write, commit and push in the repository."""
+    git_dir = subprocess.run(
+        ["git", "-C", str(_REPO_ROOT), "rev-parse", "--absolute-git-dir"], check=True, capture_output=True, text=True
+    ).stdout.strip()
+    with open(pathlib.Path(git_dir) / "mnemographe.lock", "w") as fd:
+        fcntl.flock(fd, fcntl.LOCK_EX)
+        yield
+
+
+def pull_and_push() -> None:
+    """Pulls, and pushes the commits a previous run could not push."""
+    git("pull", "--rebase")
+    git("push")
+
+
 def photos(count: int) -> str:
     return f"{count} photo" if count == 1 else f"{count} photos"
 
@@ -529,69 +595,225 @@ def check_inbox(inbox: pathlib.Path, gallery_stems: set[str]) -> dict[pathlib.Pa
 
 
 def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_destination: str | None) -> None:
-    gallery = config.images
-    check_mirror(mirror, gallery)
-    # Pushes the commits a previous ingest could not push
-    git("pull", "--rebase")
-    git("push")
-    try:
-        new_names = check_inbox(inbox, {image.stem for image in config.images_of()})
-    except InboxError as error:
-        notify("Mnémographe ingest failed", str(error), "mnemographe,warning")
-        raise
-    if not new_names:
-        print(f"{inbox} is empty")
-        return
+    with repository_lock():
+        gallery = config.images
+        check_mirror(mirror, gallery)
+        pull_and_push()
+        try:
+            new_names = check_inbox(inbox, {image.stem for image in config.images_of()})
+        except InboxError as error:
+            notify("Mnémographe ingest failed", str(error), "mnemographe,warning")
+            raise
+        if not new_names:
+            print(f"{inbox} is empty")
+            return
 
-    # Arguments, never a shell: file names cannot inject anything. The paths
-    # are absolute, so none starts with a dash. In -d, %% is a literal %.
-    destination_format = str(gallery).replace("%", "%%") + "/" + _RENAME_DATE_FORMAT + ".%%le"
-    subprocess.run(
-        ["exiftool", "-d", destination_format]
-        + [f"-filename<{tag}" for tag in _RENAME_DATE_TAGS]
-        + [str(path) for path in new_names],
-        # Not check=True: what moved and what stayed is checked below
-    )
-    moved = {source: gallery / name for source, name in new_names.items() if (gallery / name).is_file()}
-    if len(moved) != len(new_names):
-        raise MnemographeError(
-            "exiftool did not move every photo, clean up by hand:\n"
-            + "".join(f"moved {source.name} to {destination}\n" for source, destination in moved.items())
-            + "".join(f"left {source}\n" for source in new_names if source not in moved)
+        # Arguments, never a shell: file names cannot inject anything. The paths
+        # are absolute, so none starts with a dash. In -d, %% is a literal %.
+        destination_format = str(gallery).replace("%", "%%") + "/" + _RENAME_DATE_FORMAT + ".%%le"
+        subprocess.run(
+            ["exiftool", "-d", destination_format]
+            + [f"-filename<{tag}" for tag in _RENAME_DATE_TAGS]
+            + [str(path) for path in new_names],
+            # Not check=True: what moved and what stayed is checked below
         )
+        moved = {source: gallery / name for source, name in new_names.items() if (gallery / name).is_file()}
+        if len(moved) != len(new_names):
+            raise MnemographeError(
+                "exiftool did not move every photo, clean up by hand:\n"
+                + "".join(f"moved {source.name} to {destination}\n" for source, destination in moved.items())
+                + "".join(f"left {source}\n" for source in new_names if source not in moved)
+            )
 
-    paths = [str(path) for path in moved.values()]
-    git("add", "--", *paths)
-    git("commit", "--message", f"Add {photos(len(paths))} to mnémographe", "--", *paths)
-    git("pull", "--rebase")
-    git("push")
+        paths = [str(path) for path in moved.values()]
+        git("add", "--", *paths)
+        git("commit", "--message", f"Add {photos(len(paths))} to mnémographe", "--", *paths)
+        git("pull", "--rebase")
+        git("push")
 
-    # publish.sh and uv pip run without the environment of this script, which
-    # `uv run --script` sets: they use the repository's .venv
-    environment = {key: value for key, value in os.environ.items() if key != "VIRTUAL_ENV"}
-    subprocess.run(
-        ["uv", "pip", "install", "--quiet", "--python", str(_REPO_ROOT / ".venv" / "bin" / "python"),
-         "--requirement", str(_REPO_ROOT / "requirements.txt")],
-        check=True,
-        env=environment,
-    )
-    publish = [str(_REPO_ROOT / "bin" / "publish.sh")]
-    if publish_destination is not None:
-        publish.append(publish_destination)
-    subprocess.run(publish, check=True, env=environment)
-    # Last: a problem on the phone side never holds back the blog
-    mirror_gallery(gallery, mirror)
+        # publish.sh and uv pip run without the environment of this script, which
+        # `uv run --script` sets: they use the repository's .venv
+        environment = {key: value for key, value in os.environ.items() if key != "VIRTUAL_ENV"}
+        subprocess.run(
+            ["uv", "pip", "install", "--quiet", "--python", str(_REPO_ROOT / ".venv" / "bin" / "python"),
+             "--requirement", str(_REPO_ROOT / "requirements.txt")],
+            check=True,
+            env=environment,
+        )
+        publish = [str(_REPO_ROOT / "bin" / "publish.sh")]
+        if publish_destination is not None:
+            publish.append(publish_destination)
+        subprocess.run(publish, check=True, env=environment)
+        # Last: a problem on the phone side never holds back the blog
+        mirror_gallery(gallery, mirror)
 
-    untagged = sum(1 for image in config.images_of() if not Xmp.for_image(image).tags)
-    notify(
-        f"{photos(len(paths))} added to the mnémographe",
-        f"Blog published, phone gallery updated. {photos(untagged)} to tag.",
-        "mnemographe,frame_with_picture",
-    )
+        untagged = sum(1 for image in config.images_of() if not Xmp.for_image(image).tags)
+        notify(
+            f"{photos(len(paths))} added to the mnémographe",
+            f"Blog published, phone gallery updated. {photos(untagged)} to tag.",
+            "mnemographe,frame_with_picture",
+        )
 
 
 def cmd_ingest(args: argparse.Namespace, config: Config) -> None:
     ingest(config, args.inbox.resolve(), args.mirror, args.publish_destination)
+
+
+def added_times(gallery: pathlib.Path) -> dict[str, int]:
+    """The author time of the commit that added each file of the gallery, by file name.
+
+    A renamed file keeps the time it was added under its first name.
+    """
+    result = subprocess.run(
+        ["git", "-C", str(_REPO_ROOT), "-c", "core.quotePath=false", "log", "--reverse", "-M",
+         "--name-status", "--format=%x00%at", "--", str(gallery)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    added: dict[str, int] = {}
+    for line in result.stdout.splitlines():
+        if line.startswith("\0"):
+            commit_time = int(line.removeprefix("\0"))
+            continue
+        if not line:
+            continue
+        status, *paths = line.split("\t")
+        names = [pathlib.PurePosixPath(path).name for path in paths]
+        if status == "A":
+            added[names[0]] = commit_time
+        elif status.startswith("R"):
+            added[names[1]] = added.pop(names[0])
+        elif status == "D":
+            del added[names[0]]
+    return added
+
+
+def same_hashtag(tags: list[str]) -> list[str]:
+    """The tags that fold() to the same hashtag as another one."""
+    folded = [fold(tag) for tag in tags]
+    return [tag for tag, key in zip(tags, folded) if folded.count(key) > 1]
+
+
+def posted_column(image: pathlib.Path) -> str:
+    return "".join(letter if is_posted(image, network) else "-" for network, letter in _POSTED_COLUMN.items())
+
+
+def tags_file(images: list[pathlib.Path]) -> str:
+    """The text the tag editor opens: one line per photo, after the header."""
+    lines = []
+    problems = []
+    for image in images:
+        xmp = Xmp.for_image(image)
+        bad_tags = [tag for tag in xmp.tags if _NON_WORD_RE.search(tag)]
+        if bad_tags:
+            problems.append(f"{xmp.path.name}: tags with other characters than letters, digits and _: {' '.join(bad_tags)}")
+        if same_hashtag(xmp.tags):
+            problems.append(f"{xmp.path.name}: tags that are the same hashtag: {' '.join(same_hashtag(xmp.tags))}")
+        if len(xmp.description.splitlines()) > 1:
+            problems.append(f"{xmp.path.name}: alt text on several lines")
+        line = " ".join([posted_column(image), image.name, *xmp.tags])
+        if xmp.description:
+            line += f" | {xmp.description}"
+        lines.append(line + "\n")
+    if problems:
+        raise MnemographeError("The tag editor cannot show these sidecars, fix them by hand:\n" + "\n".join(problems))
+    return _TAGS_FILE_HEADER + "".join(lines)
+
+
+def parse_tags_file(text: str, images_by_name: dict[str, pathlib.Path]) -> dict[str, tuple[list[str], str]]:
+    """The tags and alt text of each photo of the edited text, or every error in it."""
+    entries: dict[str, tuple[list[str], str]] = {}
+    line_numbers: dict[str, int] = {}
+    errors = []
+    for number, line in enumerate(unicodedata.normalize("NFC", text).splitlines(), start=1):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        head, _, alt = line.partition("|")
+        words = head.split()
+        if len(words) < 2 or not _POSTED_RE.fullmatch(words[0]):
+            errors.append(f"line {number}: not <posted> <file> ...: {line}")
+            continue
+        name, tags = words[1], words[2:]
+        if name not in images_by_name:
+            errors.append(f"line {number}: no photo {name} in the gallery")
+        elif name in entries:
+            errors.append(f"line {number}: {name} is on line {line_numbers[name]} already")
+        bad_tags = [tag for tag in tags if _NON_WORD_RE.search(tag)]
+        if bad_tags:
+            errors.append(f"line {number}: tags with other characters than letters, digits and _: {' '.join(bad_tags)}")
+        if same_hashtag(tags):
+            errors.append(f"line {number}: tags that are the same hashtag: {' '.join(same_hashtag(tags))}")
+        if _NOT_XML_RE.search(alt):
+            errors.append(f"line {number}: the alt text holds characters XML does not allow")
+        line_numbers.setdefault(name, number)
+        entries[name] = (tags, alt.strip())
+    if errors:
+        raise MnemographeError("\n".join(errors))
+    if not entries:
+        raise MnemographeError("no photo line")
+    return entries
+
+
+def edit(path: pathlib.Path) -> None:
+    """Opens path in git's editor, and runs it as git does: the setting may hold options."""
+    editor = subprocess.run(
+        ["git", "-C", str(_REPO_ROOT), "var", "GIT_EDITOR"], check=True, capture_output=True, text=True
+    ).stdout.strip()
+    status = subprocess.run(["sh", "-c", f'{editor} "$@"', editor, str(path)]).returncode
+    if status != 0:
+        raise MnemographeError(f"the editor exited with status {status}: nothing changed, the file is kept: {path}")
+
+
+def cmd_tag(args: argparse.Namespace, config: Config) -> None:
+    gallery = config.images
+    # Not while the editor is open: the watch may ingest meanwhile
+    with repository_lock():
+        mirror = check_mirror(args.mirror, gallery)
+        pull_and_push()
+        images = config.images_of()
+        added = added_times(gallery)
+    # Photos not committed yet have no added time: they go on top
+    newest_first = sorted(
+        images, key=lambda image: (added.get(image.name, math.inf), image.name), reverse=True
+    )
+    text = tags_file(newest_first)
+    # Named like git's own files, so editors open it as plain text. Kept
+    # when anything fails, so the edits are never lost
+    directory = pathlib.Path(tempfile.mkdtemp(prefix="mnemographe-tag-"))
+    path = directory / _TAGS_FILE_NAME
+    path.write_text(text, encoding="utf-8")
+    edit(path)
+    try:
+        entries = parse_tags_file(path.read_text(encoding="utf-8"), {image.name: image for image in images})
+    except MnemographeError as error:
+        raise MnemographeError(f"{error}\nNothing written, the edited file is kept: {path}") from None
+
+    with repository_lock():
+        changed = []
+        for name, (tags, alt) in entries.items():
+            xmp = Xmp.for_image(gallery / name)
+            if tags == xmp.tags and alt == xmp.description:
+                continue
+            # Only the changed field: the other keeps its exact form
+            if tags != xmp.tags:
+                xmp.tags = tags
+            if alt != xmp.description:
+                xmp.description = alt
+            xmp.save()
+            changed.append(str(xmp.path))
+        shutil.rmtree(directory)
+        if not changed:
+            print("nothing changed")
+            return
+
+        git("add", "--", *changed)
+        git("commit", "--message", f"Tag {photos(len(changed))} in mnémographe", "--", *changed)
+        git("pull", "--rebase")
+        git("push")
+        mirror_gallery(gallery, mirror)
+    print(f"tagged {photos(len(changed))}, pushed, mirrored to {mirror}")
 
 
 def syncthing_config(inbox: pathlib.Path) -> tuple[str, str, str]:
@@ -688,6 +910,15 @@ def main() -> int:
             help="rsync destination of bin/publish.sh, its own default if not given",
         )
         command.set_defaults(func=func)
+
+    tag = subparsers.add_parser("tag", help="edit the tags and alt texts of the photos in git's editor")
+    tag.add_argument(
+        "--mirror",
+        type=pathlib.Path,
+        required=True,
+        help="existing directory to mirror the gallery to, e.g. a Syncthing folder of the phone",
+    )
+    tag.set_defaults(func=cmd_tag)
 
     args = parser.parse_args()
     try:
