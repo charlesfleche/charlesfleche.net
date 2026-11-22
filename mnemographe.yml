@@ -1,7 +1,7 @@
-# Configuration of bin/mnemographe.py, which ingests new photos into the
-# gallery and posts the next unposted one to each destination. Access tokens
-# are never stored here: every destination reads its own
-# POSTER_<DESTINATION>_API_TOKEN environment variable, e.g.
+# Configuration of bin/mnemographe.py: the gallery it ingests photos into,
+# and the networks it posts them to. Each `post` call posts one photo to one
+# network. Access tokens are never stored here: every network reads its own
+# POSTER_<NETWORK>_API_TOKEN environment variable, e.g.
 # POSTER_MASTODON_API_TOKEN.
 
 images: content/page/2022-01-01-mnemographe

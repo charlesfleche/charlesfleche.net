@@ -7,10 +7,13 @@
 
 The gallery is the folder named by `images` in mnemographe.yml, at the root of
 the git repository holding this script: content/page/2022-01-01-mnemographe.
-Every command that writes starts with git pull --rebase and git push, so a
-commit a previous run could not push goes out. It fails on a post json left
-uncommitted in the gallery. ingest, tag and post hold a lock in the git
-directory, so they never interleave in one clone.
+
+ingest, tag and a real post start with git pull --rebase and git push, so a
+commit a previous run could not push goes out. They fail first on any
+uncommitted file of the gallery. After their own commit, they pull --rebase
+and push again. They hold a lock in the git directory: ingest and post for
+their whole run, tag before and after its editor, not while it is open. watch
+runs ingest. queue and post --dry-run run no git at all.
 
 ingest INBOX --mirror DIR checks every file of INBOX first, and moves nothing
 if one is not a square JPEG with an EXIF date, or would collide with another
@@ -39,10 +42,10 @@ notifies the post URL. Without a tagged photo left, it notifies a warning.
 
 Right before the call that makes a post public, post writes
 <stem>.<network>.pending, and removes it once the json is written. A marker
-left by a crash stops later posts to that network: check the network, then
-write the json by hand or delete the marker. On Mastodon, the same
-Idempotency-Key for a given photo also makes a retry within an hour return the
-first post.
+left by a crash stops later posts to that network: check the network, write
+the json by hand if the photo is posted, and delete the marker. On Mastodon,
+the same Idempotency-Key for a given photo also makes a retry within an hour
+return the first post.
 
 queue NETWORK lists the tagged photos NETWORK will get, in publish order.
 
