@@ -6,13 +6,13 @@ rule ln
     command = python $bin_path/ln_or_cp.py $in $out
 
 # The stylesheet URL is computed by mkbuild.py, from the stylesheets found
-# in their directory: when they change, ninja reruns mkbuild.py and reloads
-# build.ninja before building
+# in their directory, and galleries from the images found in theirs: when
+# they change, ninja reruns mkbuild.py and reloads build.ninja before building
 rule regenerate
     command = python $bin_path/mkbuild.py
     generator = 1
 
-build build.ninja: regenerate | $bin_path/mkbuild.py {{ stylesheet_paths | join(" ") }}
+build build.ninja: regenerate | $bin_path/mkbuild.py {{ stylesheet_paths | join(" ") }} {{ gallery_dirs | join(" ") }}
 
 rule concat
     command = cat $in > $out

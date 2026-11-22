@@ -10,24 +10,24 @@ A static site generator for charlesfleche.net (a personal blog), built from scra
 
 ```sh
 # Regenerate build/build.ninja from content/ and templates/, then build the site
-python bin/mkbuild.py && ninja -C build
+uv run python bin/mkbuild.py && uv run ninja -C build
 
 # Serve the built site locally
 bin/serve.sh          # python -m http.server -d build/dist, http://localhost:8000
 
 # Publish: rebuild, prune build/dist of files the graph no longer produces,
 # then rsync --delete it to the production host over ssh, forcing IPv4
-bin/publish.sh
+uv run bin/publish.sh
 
 # Scaffold a new content file
-python bin/newcontent.py "My Post Title"                       # content/article/<date>-<slug>/en.md
-python bin/newcontent.py "My Post" --category til --lang fr    # content/til/<date>-<slug>/fr.md
-python bin/newcontent.py "My Post" --draft                     # content/draft/<date>-<slug>/en.md
+uv run python bin/newcontent.py "My Post Title"                       # content/article/<date>-<slug>/en.md
+uv run python bin/newcontent.py "My Post" --category til --lang fr    # content/til/<date>-<slug>/fr.md
+uv run python bin/newcontent.py "My Post" --draft                     # content/draft/<date>-<slug>/en.md
 ```
 
-`mkbuild.py` must be re-run (not just `ninja`) whenever content files are added/removed/renamed, or a Markdown file is edited, since it's what discovers `content/*/*/*.md`, converts the Markdown and regenerates the ninja graph. Running `ninja -C build` alone only re-executes existing build edges. Page edges list `render_html.py` and every theme template as implicit dependencies, and the combine edge lists `global.yml` and its script, so ninja alone picks up changes to those. `build.ninja` itself is a `generator` edge depending on `mkbuild.py`, the stylesheets and their directory (whose mtime changes when one is added, removed or renamed): when one changes, ninja reruns `mkbuild.py` before building. ninja never deletes outputs of removed edges: `build/dist` can hold stale files, which `publish.sh` prunes (files not listed by `ninja -t targets all`, compared relative to `build/dist`; it aborts rather than prune more than half the site).
+`mkbuild.py` must be re-run (not just `ninja`) whenever content files are added/removed/renamed, or a Markdown file is edited, since it's what discovers `content/*/*/*.md`, converts the Markdown and regenerates the ninja graph. Running `ninja -C build` alone only re-executes existing build edges. Page edges list `render_html.py` and every theme template as implicit dependencies, and the combine edge lists `global.yml` and its script, so ninja alone picks up changes to those. `build.ninja` itself is a `generator` edge depending on `mkbuild.py`, the stylesheets and their directory, and the directory of every `[[gallery]]` marker (directories whose mtime changes when a file is added, removed or renamed): when one changes, ninja reruns `mkbuild.py` before building. ninja never deletes outputs of removed edges: `build/dist` can hold stale files, which `publish.sh` prunes (files not listed by `ninja -t targets all`, compared relative to `build/dist`; it aborts rather than prune more than half the site).
 
-Dependencies are in `requirements.txt` (installed in `.venv`); `magick` (ImageMagick) and `ninja` must be available on `$PATH` as system binaries.
+Dependencies, `ninja` included, are in `requirements.txt` (installed in `.venv`): there is no system ninja, so run the build through `uv run` (or with `.venv/bin` on `$PATH`), whose commands call `python` and the venv's `ninja`. Only `magick` (ImageMagick) must be available on `$PATH` as a system binary.
 
 There is no test suite, linter config, or CI in this repo.
 
@@ -63,6 +63,10 @@ Site-wide config (nav links, `<head>` entries, author/site metadata such as `sit
    - `ln` hardlinks (falls back to copy) static files/videos into `build/dist/` unmodified.
 
 Everything lands under `build/dist/`, which is the document root served by `bin/serve.sh` and synced by `bin/publish.sh`.
+
+### The `GalleryProcessor` Markdown preprocessor
+
+A line holding only `[[gallery]]` is replaced, before parsing, by a bullet list of every `*.jpg`/`*.jpeg` of the `.md` file's directory, sorted by name (dates, as in `content/page/2022-01-01-mnemographe`), with empty alts: `MediaProcessor` then makes it a gallery, described by the XMP sidecars. A marker in a directory without images fails the build.
 
 ### The `MediaProcessor` Markdown extension
 

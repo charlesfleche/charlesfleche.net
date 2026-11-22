@@ -11,6 +11,7 @@ from xml.etree import ElementTree as ET
 import jinja2
 import markdown
 from markdown.extensions import Extension
+from markdown.preprocessors import Preprocessor
 from markdown.treeprocessors import Treeprocessor
 from PIL import Image
 
@@ -48,6 +49,14 @@ _RENDER_HTML_DEPS = [
 
 _SUBNINJA_PATHS = []
 _ARTICLES_DATA_PATHS = []
+# Directories listed by a gallery marker: build.ninja depends on them, their
+# modification time changes when an image is added, removed or renamed
+_GALLERY_DIRS = set()
+
+# A line of its own, replaced by a gallery of every image of the markdown's
+# directory
+_GALLERY_MARKER = "[[gallery]]"
+_GALLERY_SUFFIXES = (".jpg", ".jpeg")
 
 # Widths of the srcset of an image, in ascending order
 _CONVERT_WIDTHS = {"default": (480, 720, 960), "gallery": (160, 240, 320)}
@@ -332,6 +341,35 @@ class HeadingProcessor(Treeprocessor):
                 el.tag = f"h{level}"
 
 
+class GalleryProcessor(Preprocessor):
+    """Replaces the gallery marker by a list of the images of the markdown's directory"""
+
+    def __init__(self, md, md_path):
+        super().__init__(md)
+
+        self.md_path = md_path
+
+    def run(self, lines):
+        result = []
+        for line in lines:
+            if line.strip() != _GALLERY_MARKER:
+                result.append(line)
+                continue
+            gallery_dir = self.md_path.parent
+            # Named after their date: in chronological order
+            images = sorted(
+                path.name
+                for path in gallery_dir.iterdir()
+                if path.suffix.lower() in _GALLERY_SUFFIXES
+            )
+            if not images:
+                raise RuntimeError(f"No image for {_GALLERY_MARKER} in {gallery_dir}")
+            _GALLERY_DIRS.add(gallery_dir)
+            # Empty alts: described by their XMP sidecar
+            result.extend(f"- ![]({name})" for name in images)
+        return result
+
+
 class MdExtension(Extension):
     def __init__(self, md_path, baselevel, **kwargs):
         super().__init__(**kwargs)
@@ -340,6 +378,11 @@ class MdExtension(Extension):
         self.baselevel = baselevel
 
     def extendMarkdown(self, md):
+        md.preprocessors.register(
+            GalleryProcessor(md, self.md_path),
+            "galleryprocessor",
+            25,  # < 27 to run after meta, which removes the headers
+        )
         md.treeprocessors.register(
             HeadingProcessor(md, self.baselevel), "headingprocessor", 20
         )
@@ -478,6 +521,7 @@ with main_build_ninja.open("w") as fp:
         # The directory too: its modification time changes when a stylesheet
         # is added, removed or renamed
         stylesheet_paths=[safe_ninja(path) for path in [_STYLESHEETS_DIR, *stylesheet_srcs]],
+        gallery_dirs=[safe_ninja(path) for path in sorted(_GALLERY_DIRS)],
         subninja_paths=[safe_ninja(path) for path in _SUBNINJA_PATHS],
         article_data_paths=[safe_ninja(path) for path in _ARTICLES_DATA_PATHS],
         all_articles_data_path=safe_ninja(_BUILD_DIR / "all_articles_data.json"),
