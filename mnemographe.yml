@@ -16,3 +16,9 @@ destinations:
     language: en
     # Prepended to the tags of every image, in this order.
     default_tags: [Mnémographe, Photo, Photography]
+  # The Instagram API with Instagram Login. Instagram fetches the photo from
+  # images_url + its file name: the gallery's originals on the blog.
+  instagram:
+    type: instagram
+    images_url: https://charlesfleche.net/mnemographe/
+    default_tags: [Mnémographe, Photo, Photography]

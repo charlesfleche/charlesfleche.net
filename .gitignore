@@ -181,3 +181,7 @@ cython_debug/
 
 # Posts of bin/mnemographe.py that did not finish
 *.pending
+
+# The refreshed tokens of bin/mnemographe.py, never in git
+/*-token.json
+/.*-token.json.*

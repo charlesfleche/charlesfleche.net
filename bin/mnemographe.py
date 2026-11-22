@@ -3,70 +3,68 @@
 # requires-python = ">=3.11"
 # dependencies = ["requests", "pyyaml"]
 # ///
-"""mnemographe.py — ingest new photos into the mnémographe gallery, and post them.
+"""mnemographe.py — ingest new photos into the mnémographe gallery, tag and post them.
 
 The gallery is the folder named by `images` in mnemographe.yml, at the root of
-the repository holding this script: content/page/2022-01-01-mnemographe.
+the git repository holding this script: content/page/2022-01-01-mnemographe.
+Every command that writes starts with git pull --rebase and git push, so a
+commit a previous run could not push goes out. It fails on a post json left
+uncommitted in the gallery. ingest, tag and post hold a lock in the git
+directory, so they never interleave in one clone.
 
-ingest INBOX checks every file of INBOX, and fails before moving anything if
-one is not a square JPEG with an EXIF date, or would collide with another
-photo. It renames them after their date, %Y%m%d-%H%M%S.<lowercase extension>,
-taken from DateTimeOriginal, else CreateDate, else GPSDateTime, and moves them
-into the gallery. It then commits and pushes them, mirrors the gallery to
-MIRROR, publishes the blog with bin/publish.sh, and notifies through
-ntfy-publish. It works on the git repository holding this script, after
-pulling it and pushing what a previous run could not push.
+ingest INBOX --mirror DIR checks every file of INBOX first, and moves nothing
+if one is not a square JPEG with an EXIF date, or would collide with another
+photo: it notifies the problems. Otherwise it renames the photos after their
+date, %Y%m%d-%H%M%S.<lowercase extension> (DateTimeOriginal, else CreateDate,
+else GPSDateTime), moves them into the gallery, commits, pushes, publishes the
+blog with bin/publish.sh, mirrors the gallery to DIR, and notifies.
 
-MIRROR, an existing directory outside the repository, becomes a copy of the
-gallery with rsync --delete: anything else in it is deleted.
+DIR, an existing directory outside the repository that mostly holds gallery
+files, becomes a copy of the gallery with rsync --delete.
 
-watch INBOX listens to the local Syncthing REST API, and runs ingest each time
-the Syncthing folder holding INBOX is idle after a change in INBOX. INBOX is a
-subfolder of a Syncthing folder, not a folder of its own.
+watch INBOX --mirror DIR listens to the local Syncthing REST API, and runs
+ingest each time the Syncthing folder holding INBOX is idle after a change in
+INBOX. INBOX is a subfolder of a Syncthing folder.
 
-tag opens every photo of the gallery, newest added first, with its tags and
-alt text, in git's editor (GIT_EDITOR, core.editor, VISUAL, EDITOR). On save,
-it writes the XMP sidecars that changed, commits, pushes and mirrors them to
-MIRROR. The header of the edited file explains its format.
+tag --mirror DIR opens every photo, newest added first, with its tags and alt
+text, in git's editor. On save, it writes the XMP sidecars <stem>.xmp that
+changed (dc:subject and dc:description), commits, pushes and mirrors. The
+header of the edited file explains its format.
 
-post NETWORK posts the tagged photo with the oldest file name among those not
-posted to NETWORK yet: untagged photos are skipped. A photo counts as posted
-to a network once <stem>.<network>.json — the API responses of the post —
-sits next to it. Tags and alt text live in an XMP sidecar <stem>.xmp
-(dc:subject and dc:description), readable and writable by exiftool, darktable
-and digiKam. post pulls and pushes first, then commits and pushes the json, and
+post NETWORK posts the tagged photo with the oldest file name not posted to
+NETWORK yet, skipping untagged ones, then commits and pushes
+<stem>.<network>.json, the API responses, which marks it as posted, and
 notifies the post URL. Without a tagged photo left, it notifies a warning.
 --dry-run only prints what it would post: no git, no network, no token.
 
-A crash after the post leaves the json commit local: the next run pushes it
-before posting. A crash between the post and writing the json is not
-recovered, except on Mastodon: its Idempotency-Key header, the same for a
-given photo, makes a retry within an hour return the first post.
+Right before the call that makes a post public, post writes
+<stem>.<network>.pending, and removes it once the json is written. A marker
+left by a crash stops later posts to that network: check the network, then
+write the json by hand or delete the marker. On Mastodon, the same
+Idempotency-Key for a given photo also makes a retry within an hour return the
+first post.
 
 queue NETWORK lists the tagged photos NETWORK will get, in publish order.
 
-Destinations are configured in mnemographe.yml. Access tokens are read from the
-environment only, never from the configuration file:
-POSTER_<DESTINATION>_API_TOKEN, e.g. POSTER_MASTODON_API_TOKEN.
+Networks are configured in mnemographe.yml. Access tokens come from the
+environment only, as POSTER_<NETWORK>_API_TOKEN, and never reach child
+processes. Instagram keeps its refreshed token in instagram-token.json, at the
+root of the repository and ignored by git: see the Instagram class.
 
 Usage:
 
     bin/mnemographe.py ingest ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py watch ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py tag --mirror ~/Syncthing/3a-Pictures/Mnémographe
-    bin/mnemographe.py post mastodon --dry-run          # what would be posted
-    bin/mnemographe.py post mastodon                    # post it
-    bin/mnemographe.py queue mastodon
-
-The sidecars stay readable by other tools:
-
-    exiftool -s -XMP-dc:Subject -ext xmp content/page/2022-01-01-mnemographe
+    bin/mnemographe.py post mastodon --dry-run
+    bin/mnemographe.py queue instagram
 """
 
 import argparse
 import contextlib
 import dataclasses
 import fcntl
+import hashlib
 import json
 import math
 import mimetypes
@@ -80,6 +78,7 @@ import sys
 import tempfile
 import time
 import unicodedata
+import urllib.parse
 import xml.etree.ElementTree as ET
 
 import requests
@@ -122,6 +121,7 @@ _XPACKET_BEGIN = '<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>\n'
 _XPACKET_END = '\n<?xpacket end="w"?>\n'
 
 _NON_WORD_RE = re.compile(r"\W")
+_TOKEN_RE = re.compile(r"[A-Za-z0-9._-]+")
 # Characters XML 1.0 does not allow
 _NOT_XML_RE = re.compile("[^\t\n\r\x20-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
 
@@ -349,12 +349,18 @@ def check_no_pending_post(images: list[pathlib.Path], network: str) -> None:
             )
 
 
+def check_token(token: str, origin: str) -> str:
+    """token, if it looks like one. The error never shows it."""
+    if not _TOKEN_RE.fullmatch(token):
+        raise MnemographeError(f"{origin} is not a token: empty, or with other characters than letters, digits, ., _ and -")
+    return token
+
+
 def api_token(name: str) -> str:
     variable = "POSTER_" + _NON_WORD_RE.sub("_", name).upper() + "_API_TOKEN"
-    token = os.environ.get(variable, "").strip()
-    if not token:
+    if variable not in os.environ:
         raise MnemographeError(f"{variable} is not set: export it with the {name} access token")
-    return token
+    return check_token(os.environ[variable], variable)
 
 
 class Mastodon:
@@ -420,7 +426,138 @@ class Mastodon:
         return payload["url"]
 
 
-_DESTINATION_TYPES = {"mastodon": Mastodon}
+def write_state(path: pathlib.Path, state: dict) -> None:
+    """Replaces path with the json of state, readable by its owner only."""
+    fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
+    with os.fdopen(fd, "w", encoding="utf-8") as file:
+        os.fchmod(file.fileno(), 0o600)
+        json.dump(state, file)
+        file.flush()
+        os.fsync(file.fileno())
+    os.replace(tmp, path)
+
+
+def read_state(path: pathlib.Path) -> dict:
+    """The state write_state wrote, if the file is still readable by its owner only."""
+    if stat.S_IMODE(path.stat().st_mode) != 0o600:
+        raise MnemographeError(f"{path} must have mode 0600")
+    with path.open(encoding="utf-8") as file:
+        return json.load(file)
+
+
+class Instagram:
+    """The Instagram destination, with the Instagram API with Instagram Login.
+
+    Instagram fetches the photo from its URL on the blog, so the blog must be
+    published first. Its long-lived token lasts 60 days, and can be refreshed
+    once it is a day old. instagram-token.json, at the root of the
+    repository and ignored by git, holds the token in use, and the sha256
+    of the POSTER_INSTAGRAM_API_TOKEN it comes from: when that variable
+    changes, its token replaces the stored one. Once the state is 7 days old, prepare() refreshes the token, even
+    when no photo is left to post.
+    """
+
+    # Meta's rules: the API, caption and image limits of POST /<IG_ID>/media,
+    # and a container polled at most once a minute, for 5 minutes
+    host = "https://graph.instagram.com"
+    version = "v27.0"
+    max_hashtags = 30
+    max_bytes = 8 * 1024 * 1024
+    status_poll_seconds = 60
+    status_timeout_seconds = 5 * 60
+    refresh_after_seconds = 7 * 24 * 3600
+
+    def __init__(self, name: str, config: dict) -> None:
+        self.name = name
+        self.images_url = config["images_url"]
+        self.session = requests.Session()
+        self.session.headers["User-Agent"] = "mnemographe.py (+https://charlesfleche.net)"
+
+    def _request(self, method: str, path: str, **kwargs) -> dict:
+        return request(self.session, method, f"{self.host}/{self.version}{path}", **kwargs).json()
+
+    def prepare(self) -> None:
+        self.session.headers["Authorization"] = f"Bearer {self._token()}"
+
+    def _token(self) -> str:
+        path = _REPO_ROOT / f"{self.name}-token.json"
+        environment_token = api_token(self.name)
+        source = hashlib.sha256(environment_token.encode()).hexdigest()
+        state = read_state(path) if path.exists() else None
+        if state is None or state["source"] != source:
+            if state is not None:
+                print(f"the {self.name} token of the environment changed: it replaces the one of {path}")
+            state = {"source": source, "token": environment_token}
+            write_state(path, state)
+        if time.time() - path.stat().st_mtime > self.refresh_after_seconds:
+            state["token"] = self._refresh(state["token"])
+            write_state(path, state)
+        return state["token"]
+
+    def _refresh(self, token: str) -> str:
+        # The token is a query parameter here, and the message of a requests
+        # exception holds the URL: it is left out
+        try:
+            response = request(
+                requests.Session(),
+                "GET",
+                f"{self.host}/refresh_access_token",
+                params={"grant_type": "ig_refresh_token", "access_token": token},
+            )
+            refreshed = response.json()["access_token"]
+        except requests.RequestException as error:
+            raise MnemographeError(f"refreshing the {self.name} token failed: {type(error).__name__}") from None
+        return check_token(refreshed, f"the refreshed {self.name} token")
+
+    def _user_id(self) -> str:
+        """The IG_ID."""
+        # Meta's docs show both shapes of GET /me: flat, and in a data list
+        me = self._request("GET", "/me", params={"fields": "user_id,username"})
+        if "user_id" in me:
+            return me["user_id"]
+        if "data" in me and len(me["data"]) == 1 and "user_id" in me["data"][0]:
+            return me["data"][0]["user_id"]
+        raise MnemographeError(f"GET /me of {self.name} has no user_id: {str(me)[:500]}")
+
+    def post(self, image: pathlib.Path, text: str, description: str, record: PostRecord) -> dict:
+        if image.stat().st_size > self.max_bytes:
+            raise MnemographeError(f"{image.name} is larger than the {self.max_bytes} bytes {self.name} takes")
+        image_url = self.images_url + urllib.parse.quote(image.name)
+        status = requests.head(image_url, timeout=60).status_code
+        if status != 200:
+            raise MnemographeError(f"{image.name} is not on the blog yet: HEAD {image_url} returned {status}")
+
+        user_id = self._user_id()
+        parameters = {"image_url": image_url, "caption": text}
+        if description:
+            parameters["alt_text"] = description
+        container = self._request("POST", f"/{user_id}/media", json=parameters)
+        status = self._wait_container(container["id"])
+        record.pending({"container": container, "status": status})
+        published = self._request("POST", f"/{user_id}/media_publish", json={"creation_id": container["id"]})
+        payload = {"container": container, "status": status, "media_publish": published}
+        record.posted(payload)
+        return payload
+
+    def _wait_container(self, container_id: str) -> dict:
+        deadline = time.monotonic() + self.status_timeout_seconds
+        while True:
+            status = self._request("GET", f"/{container_id}", params={"fields": "status_code"})
+            if status["status_code"] == "FINISHED":
+                return status
+            if status["status_code"] in ("ERROR", "EXPIRED"):
+                raise MnemographeError(f"{self.name} container {container_id}: {status}")
+            if time.monotonic() > deadline:
+                raise MnemographeError(f"{self.name} container {container_id} still {status['status_code']} after {self.status_timeout_seconds} s")
+            time.sleep(self.status_poll_seconds)
+
+    def post_url(self, payload: dict) -> str:
+        """The permalink of the published post, for the notification only."""
+        media_id = payload["media_publish"]["id"]
+        return self._request("GET", f"/{media_id}", params={"fields": "permalink"})["permalink"]
+
+
+_DESTINATION_TYPES = {"mastodon": Mastodon, "instagram": Instagram}
 
 
 @dataclasses.dataclass
