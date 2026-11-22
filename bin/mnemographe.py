@@ -12,9 +12,13 @@ ingest INBOX checks every file of INBOX, and fails before moving anything if
 one is not a square JPEG with an EXIF date, or would collide with another
 photo. It renames them after their date, %Y%m%d-%H%M%S.<lowercase extension>,
 taken from DateTimeOriginal, else CreateDate, else GPSDateTime, and moves them
-into the gallery. It then commits and pushes them, publishes the blog with
-bin/publish.sh, and notifies through ntfy-publish. It works on the git
-repository holding this script, after pulling it.
+into the gallery. It then commits and pushes them, mirrors the gallery to
+MIRROR, publishes the blog with bin/publish.sh, and notifies through
+ntfy-publish. It works on the git repository holding this script, after
+pulling it and pushing what a previous run could not push.
+
+MIRROR, an existing directory outside the repository, becomes a copy of the
+gallery with rsync --delete: anything else in it is deleted.
 
 watch INBOX listens to the local Syncthing REST API, and runs ingest each time
 the Syncthing folder holding INBOX is idle after a change in INBOX. INBOX is a
@@ -33,8 +37,8 @@ POSTER_<DESTINATION>_API_TOKEN, e.g. POSTER_MASTODON_API_TOKEN.
 
 Usage:
 
-    bin/mnemographe.py ingest ~/Syncthing/3a-Pictures/minbox
-    bin/mnemographe.py watch ~/Syncthing/3a-Pictures/minbox
+    bin/mnemographe.py ingest ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
+    bin/mnemographe.py watch ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py post mastodon --dry-run          # what would be posted
     bin/mnemographe.py post mastodon                    # post it
 
@@ -377,6 +381,50 @@ def photos(count: int) -> str:
     return f"{count} photo" if count == 1 else f"{count} photos"
 
 
+def check_mirror(mirror: pathlib.Path, gallery: pathlib.Path) -> pathlib.Path:
+    """MIRROR, resolved, once it is safe to mirror the gallery into with rsync --delete."""
+    if mirror.is_symlink():
+        raise MnemographeError(f"mirror {mirror} is a symbolic link")
+    mirror = mirror.resolve()
+    if not mirror.is_dir():
+        raise MnemographeError(f"mirror {mirror} is not an existing directory")
+    if mirror.is_relative_to(_REPO_ROOT):
+        raise MnemographeError(f"mirror {mirror} is inside the repository {_REPO_ROOT}")
+    if _REPO_ROOT.is_relative_to(mirror):
+        raise MnemographeError(f"mirror {mirror} holds the repository {_REPO_ROOT}")
+    # rsync --delete would delete them: a gallery mirror only holds files
+    names = [path.name for path in mirror.iterdir()]
+    directories = sorted(name for name in names if (mirror / name).is_dir())
+    if directories:
+        raise MnemographeError(f"mirror {mirror} holds directories: {', '.join(directories)}")
+    # As publish.sh: a mirror mostly of other files is another folder
+    gallery_names = {path.name for path in gallery.iterdir()}
+    foreign = [name for name in names if name not in gallery_names]
+    if len(foreign) > len(names) / 2:
+        raise MnemographeError(
+            f"mirror {mirror}: {len(foreign)} of its {len(names)} files are not in the gallery, "
+            "it is not a gallery mirror"
+        )
+    return mirror
+
+
+def mirror_gallery(gallery: pathlib.Path, mirror: pathlib.Path) -> None:
+    """Makes MIRROR a copy of the gallery, deleting what the gallery does not hold."""
+    mirror = check_mirror(mirror, gallery)
+    # rsync works in the checked directory itself, even if its path changes:
+    # Syncthing writes the phone's changes there, it is not only ours
+    fd = os.open(mirror, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        subprocess.run(
+            ["rsync", "--archive", "--delete", f"{gallery}/", "./"],
+            cwd=f"/proc/self/fd/{fd}",
+            pass_fds=(fd,),
+            check=True,
+        )
+    finally:
+        os.close(fd)
+
+
 def exif_metadata(paths: list[pathlib.Path]) -> dict[pathlib.Path, dict]:
     """What exiftool reads of each photo: file type, size, dates and problems."""
     result = subprocess.run(
@@ -480,11 +528,12 @@ def check_inbox(inbox: pathlib.Path, gallery_stems: set[str]) -> dict[pathlib.Pa
     return new_names
 
 
-def ingest(config: Config, inbox: pathlib.Path, publish_destination: str | None) -> None:
+def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_destination: str | None) -> None:
+    gallery = config.images
+    check_mirror(mirror, gallery)
     # Pushes the commits a previous ingest could not push
     git("pull", "--rebase")
     git("push")
-    gallery = config.images
     try:
         new_names = check_inbox(inbox, {image.stem for image in config.images_of()})
     except InboxError as error:
@@ -530,17 +579,19 @@ def ingest(config: Config, inbox: pathlib.Path, publish_destination: str | None)
     if publish_destination is not None:
         publish.append(publish_destination)
     subprocess.run(publish, check=True, env=environment)
+    # Last: a problem on the phone side never holds back the blog
+    mirror_gallery(gallery, mirror)
 
     untagged = sum(1 for image in config.images_of() if not Xmp.for_image(image).tags)
     notify(
         f"{photos(len(paths))} added to the mnémographe",
-        f"Blog published. {photos(untagged)} to tag.",
+        f"Blog published, phone gallery updated. {photos(untagged)} to tag.",
         "mnemographe,frame_with_picture",
     )
 
 
 def cmd_ingest(args: argparse.Namespace, config: Config) -> None:
-    ingest(config, args.inbox.resolve(), args.publish_destination)
+    ingest(config, args.inbox.resolve(), args.mirror, args.publish_destination)
 
 
 def syncthing_config(inbox: pathlib.Path) -> tuple[str, str, str]:
@@ -570,6 +621,7 @@ def watch_events(events: list[dict], folder: str, prefix: str, pending: bool, on
 
 def cmd_watch(args: argparse.Namespace, config: Config) -> None:
     inbox = args.inbox.resolve()
+    check_mirror(args.mirror, config.images)
     api_key, folder, prefix = syncthing_config(inbox)
     session = requests.Session()
     session.headers["X-API-Key"] = api_key
@@ -587,7 +639,7 @@ def cmd_watch(args: argparse.Namespace, config: Config) -> None:
 
     def on_idle() -> None:
         try:
-            ingest(config, inbox, args.publish_destination)
+            ingest(config, inbox, args.mirror, args.publish_destination)
         except InboxError as error:
             # Already notified: waits for the next change in the inbox
             print(f"error: {error}", file=sys.stderr)
@@ -625,6 +677,12 @@ def main() -> int:
     ):
         command = subparsers.add_parser(name, help=help)
         command.add_argument("inbox", type=pathlib.Path)
+        command.add_argument(
+            "--mirror",
+            type=pathlib.Path,
+            required=True,
+            help="existing directory to mirror the gallery to, e.g. a Syncthing folder of the phone",
+        )
         command.add_argument(
             "--publish-destination",
             help="rsync destination of bin/publish.sh, its own default if not given",
