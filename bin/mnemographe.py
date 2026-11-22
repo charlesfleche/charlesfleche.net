@@ -1,81 +1,82 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["requests", "pyyaml", "pillow", "imagehash"]
+# dependencies = ["requests", "pyyaml"]
 # ///
-"""poster.py — post the next unposted image of a folder to Mastodon (and later, elsewhere).
+"""mnemographe.py — ingest new photos into the mnémographe gallery, and post them.
 
-Images are posted oldest first, by filename. An image counts as posted to a
-destination once <stem>.<destination>.json — the REST payload of the post —
-sits next to it. Tags and alt text live in an XMP sidecar <stem>.xmp
-(dc:subject and dc:description), readable and writable by exiftool, darktable
-and digiKam. An image without tags is never posted: the script fails loudly so
-the systemd unit shows as failed.
+The gallery is the folder named by `images` in mnemographe.yml, at the root of
+the repository holding this script: content/page/2022-01-01-mnemographe.
 
-Destinations are configured in poster.yml at the repository root. Access
-tokens are read from the environment only, never from the configuration file:
+ingest INBOX checks every file of INBOX, and fails before moving anything if
+one is not a square JPEG with an EXIF date, or would collide with another
+photo. It renames them after their date, %Y%m%d-%H%M%S.<lowercase extension>,
+taken from DateTimeOriginal, else CreateDate, else GPSDateTime, and moves them
+into the gallery. It then commits and pushes them, publishes the blog with
+bin/publish.sh, and notifies through ntfy-publish. It works on the git
+repository holding this script, after pulling it.
+
+watch INBOX listens to the local Syncthing REST API, and runs ingest each time
+the Syncthing folder holding INBOX is idle after a change in INBOX. INBOX is a
+subfolder of a Syncthing folder, not a folder of its own.
+
+post DESTINATION posts the oldest unposted photo, by file name. A photo counts
+as posted to a destination once <stem>.<destination>.json — the REST payload
+of the post — sits next to it. Tags and alt text live in an XMP sidecar
+<stem>.xmp (dc:subject and dc:description), readable and writable by exiftool,
+darktable and digiKam. A photo without tags is never posted: the script fails
+loudly so the systemd unit shows as failed.
+
+Destinations are configured in mnemographe.yml. Access tokens are read from the
+environment only, never from the configuration file:
 POSTER_<DESTINATION>_API_TOKEN, e.g. POSTER_MASTODON_API_TOKEN.
 
 Usage:
 
-    bin/poster.py list mastodon                         # what needs tags next
-    bin/poster.py list mastodon -u -p | xargs -d '\n' swayimg   # look at the untagged ones
-    bin/poster.py tag IMAGE Vélo Bicycle Québec         # write <stem>.xmp
-    bin/poster.py tag IMAGE --description "Alt text"    # alt text
-    bin/poster.py tag IMAGE                             # show current tags
-    bin/poster.py post mastodon --dry-run               # what would be posted
-    bin/poster.py post mastodon                         # post it
-    bin/poster.py import mastodon --dry-run             # match existing posts
-
-`import` walks the destination's own history, downloads the images of every
-post carrying the configured tag, matches them against the local folder with
-perceptual hashes, and writes the sidecars of the images already posted.
+    bin/mnemographe.py ingest ~/Syncthing/3a-Pictures/minbox
+    bin/mnemographe.py watch ~/Syncthing/3a-Pictures/minbox
+    bin/mnemographe.py post mastodon --dry-run          # what would be posted
+    bin/mnemographe.py post mastodon                    # post it
 
 The sidecars stay readable by other tools:
 
     exiftool -s -XMP-dc:Subject -ext xmp content/page/2022-01-01-mnemographe
-
-Systemd, as a user unit — ~/.config/systemd/user/poster@.service:
-
-    [Service]
-    Type=oneshot
-    EnvironmentFile=%h/.config/poster/env      # POSTER_MASTODON_API_TOKEN=..., mode 600
-    WorkingDirectory=%h/src/charlesfleche.net
-    ExecStart=%h/src/charlesfleche.net/bin/poster.py post %i
-
-and ~/.config/systemd/user/poster@.timer:
-
-    [Timer]
-    OnCalendar=daily
-    Persistent=true
-
-    [Install]
-    WantedBy=timers.target
-
-then `systemctl --user enable --now poster@mastodon.timer`.
 """
 
 import argparse
 import dataclasses
-import html
 import json
 import mimetypes
 import os
 import pathlib
 import re
+import stat
+import subprocess
 import sys
 import time
 import unicodedata
 import xml.etree.ElementTree as ET
 
-import imagehash
 import requests
 import yaml
-from PIL import Image, ImageOps
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
-_DEFAULT_CONFIG_PATH = _REPO_ROOT / "mnemographe.yml"
+_CONFIG_PATH = _REPO_ROOT / "mnemographe.yml"
 _IMAGE_SUFFIXES = (".jpg", ".jpeg")
+
+# Ingest renames photos after the last of these tags they have, as
+# exiftool -filename<GPSDateTime -filename<CreateDate -filename<DateTimeOriginal
+_RENAME_DATE_TAGS = ("GPSDateTime", "CreateDate", "DateTimeOriginal")
+_RENAME_DATE_FORMAT = "%Y%m%d-%H%M%S"
+_RENAME_DATE_RE = re.compile(r"\d{8}-\d{6}")
+# The sides of a square photo differ by 1% at most
+_SQUARE_TOLERANCE = 0.01
+# Larger than any photo of the gallery (6144 px)
+_MAX_SIDE = 8000
+
+_SYNCTHING_CONFIG_PATH = pathlib.Path.home() / ".config" / "syncthing" / "config.xml"
+_SYNCTHING_URL = "http://127.0.0.1:8384"
+_SYNCTHING_EVENTS = "ItemFinished,StateChanged"
 
 _XMP_NS = {
     "x": "adobe:ns:meta/",
@@ -87,7 +88,7 @@ for _prefix, _uri in _XMP_NS.items():
     ET.register_namespace(_prefix, _uri)
 
 _XML_LANG = "{http://www.w3.org/XML/1998/namespace}lang"
-_XMP_TEMPLATE = """<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="poster.py">
+_XMP_TEMPLATE = """<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="mnemographe.py">
  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"/>
  </rdf:RDF>
@@ -95,11 +96,10 @@ _XMP_TEMPLATE = """<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="poster.py">
 _XPACKET_BEGIN = '<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>\n'
 _XPACKET_END = '\n<?xpacket end="w"?>\n'
 
-_HASHTAG_RE = re.compile(r'class="mention hashtag"[^>]*>#<span>([^<]+)</span>')
 _NON_WORD_RE = re.compile(r"\W")
 
 
-class PosterError(Exception):
+class MnemographeError(Exception):
     """An error worth exiting on, printed without a traceback."""
 
 
@@ -235,66 +235,35 @@ def write_json(path: pathlib.Path, data: object) -> None:
     tmp.replace(path)
 
 
-def read_json(path: pathlib.Path, default: object = None) -> object:
-    try:
-        with path.open(encoding="utf-8") as fd:
-            return json.load(fd)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return default
-
-
-def cache_dir(*parts: str) -> pathlib.Path:
-    root = os.environ.get("XDG_CACHE_HOME") or pathlib.Path.home() / ".cache"
-    path = pathlib.Path(root, "poster", *parts)
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
 def api_token(name: str) -> str:
     variable = "POSTER_" + _NON_WORD_RE.sub("_", name).upper() + "_API_TOKEN"
     token = os.environ.get(variable, "").strip()
     if not token:
-        raise PosterError(f"{variable} is not set: export it with the {name} access token")
+        raise MnemographeError(f"{variable} is not set: export it with the {name} access token")
     return token
 
 
-@dataclasses.dataclass
-class Attachment:
-    id: str
-    url: str
-    description: str
-
-
-@dataclasses.dataclass
-class Post:
-    payload: dict
-    url: str
-    created_at: str
-    tags: list[str]
-    attachments: list[Attachment]
-
-
 class Mastodon:
-    """The Mastodon destination: posts a status, and walks the account history."""
+    """The Mastodon destination: posts a status."""
 
     def __init__(self, name: str, config: dict) -> None:
         self.name = name
         self.instance = config["instance"].rstrip("/")
-        self.visibility = config.get("visibility", "public")
-        self.language = config.get("language")
+        self.visibility = config["visibility"]
+        self.language = config["language"]
         self.session = requests.Session()
         self.session.headers["Authorization"] = f"Bearer {api_token(name)}"
-        self.session.headers["User-Agent"] = "poster.py (+https://charlesfleche.net)"
+        self.session.headers["User-Agent"] = "mnemographe.py (+https://charlesfleche.net)"
 
     def _request(self, method: str, path: str, **kwargs) -> requests.Response:
         url = path if path.startswith("http") else f"{self.instance}{path}"
         response = self.session.request(method, url, timeout=300, **kwargs)
         if not response.ok:
-            raise PosterError(f"{method} {url} returned {response.status_code}: {response.text[:500]}")
+            raise MnemographeError(f"{method} {url} returned {response.status_code}: {response.text[:500]}")
         return response
 
     def post(self, image: pathlib.Path, text: str, description: str) -> dict:
-        mimetype = mimetypes.guess_type(image.name)[0] or "image/jpeg"
+        mimetype = mimetypes.guess_type(image.name)[0]
         with image.open("rb") as fd:
             response = self._request(
                 "POST",
@@ -325,47 +294,8 @@ class Mastodon:
             if response.status_code == 200:
                 return response.json()
             if time.monotonic() > deadline:
-                raise PosterError(f"media {media_id} was still processing after {timeout:g}s")
+                raise MnemographeError(f"media {media_id} was still processing after {timeout:g}s")
             time.sleep(2)
-
-    def history(self, tag: str | None) -> list[Post]:
-        """Every own status with media, newest first, optionally filtered by tag."""
-        account = self._request("GET", "/api/v1/accounts/verify_credentials").json()
-        url = f"/api/v1/accounts/{account['id']}/statuses"
-        params = {"only_media": "true", "exclude_reblogs": "true", "limit": 40}
-        posts = []
-        while url:
-            response = self._request("GET", url, params=params)
-            statuses = response.json()
-            if not statuses:
-                break
-            for status in statuses:
-                names = {fold(t["name"]) for t in status.get("tags", [])}
-                if tag and fold(tag) not in names:
-                    continue
-                attachments = [
-                    Attachment(a["id"], a["url"], a.get("description") or "")
-                    for a in status.get("media_attachments", [])
-                    if a.get("type") == "image" and a.get("url")
-                ]
-                if attachments:
-                    posts.append(
-                        Post(
-                            payload=status,
-                            url=status["url"],
-                            created_at=status["created_at"],
-                            tags=self._hashtags(status),
-                            attachments=attachments,
-                        )
-                    )
-            url, params = response.links.get("next", {}).get("url"), None
-        return posts
-
-    @staticmethod
-    def _hashtags(status: dict) -> list[str]:
-        """Hashtags with their original casing, which status["tags"] has folded away."""
-        found = [html.unescape(t) for t in _HASHTAG_RE.findall(status.get("content", ""))]
-        return found or [t["name"] for t in status.get("tags", [])]
 
 
 _DESTINATION_TYPES = {"mastodon": Mastodon}
@@ -373,42 +303,23 @@ _DESTINATION_TYPES = {"mastodon": Mastodon}
 
 @dataclasses.dataclass
 class Config:
-    path: pathlib.Path
     images: pathlib.Path
     destinations: dict
 
     @classmethod
     def load(cls, path: pathlib.Path) -> "Config":
-        try:
-            with path.open(encoding="utf-8") as fd:
-                data = yaml.safe_load(fd) or {}
-        except FileNotFoundError:
-            raise PosterError(f"no configuration file at {path}") from None
+        with path.open(encoding="utf-8") as fd:
+            data = yaml.safe_load(fd)
         return cls(
-            path=path,
-            images=(path.parent / data.get("images", ".")).resolve(),
-            destinations=data.get("destinations") or {},
+            images=(path.parent / data["images"]).resolve(),
+            destinations=data["destinations"],
         )
 
-    def destination_config(self, name: str) -> dict:
-        try:
-            return self.destinations[name]
-        except KeyError:
-            known = ", ".join(sorted(self.destinations)) or "none"
-            raise PosterError(f"unknown destination {name!r} in {self.path} (known: {known})") from None
-
     def destination(self, name: str):
-        config = self.destination_config(name)
-        try:
-            factory = _DESTINATION_TYPES[config["type"]]
-        except KeyError:
-            known = ", ".join(sorted(_DESTINATION_TYPES))
-            raise PosterError(f"destination {name!r} has unsupported type {config.get('type')!r} (known: {known})") from None
-        return factory(name, config)
+        config = self.destinations[name]
+        return _DESTINATION_TYPES[config["type"]](name, config)
 
     def images_of(self) -> list[pathlib.Path]:
-        if not self.images.is_dir():
-            raise PosterError(f"{self.images} is not a directory")
         images = [p for p in self.images.iterdir() if p.suffix.lower() in _IMAGE_SUFFIXES]
         return sorted(images, key=lambda p: p.name)
 
@@ -421,139 +332,9 @@ def is_posted(image: pathlib.Path, destination: str) -> bool:
     return payload_path(image, destination).exists()
 
 
-def phash(path: pathlib.Path) -> imagehash.ImageHash:
-    with Image.open(path) as img:
-        return imagehash.phash(ImageOps.exif_transpose(img))
-
-
-def local_hashes(images: list[pathlib.Path]) -> dict[pathlib.Path, imagehash.ImageHash]:
-    """Perceptual hashes of the local images, cached by size and mtime."""
-    cache_path = cache_dir() / "hashes.json"
-    cache = read_json(cache_path, {}) or {}
-    hashes, stale = {}, []
-    for image in images:
-        stat = image.stat()
-        entry = cache.get(str(image))
-        if not entry or entry["size"] != stat.st_size or entry["mtime_ns"] != stat.st_mtime_ns:
-            stale.append((image, stat))
-        else:
-            hashes[image] = imagehash.hex_to_hash(entry["phash"])
-    if stale:
-        print(f"hashing {len(stale)} local images…", file=sys.stderr)
-        for image, stat in stale:
-            hashes[image] = phash(image)
-            cache[str(image)] = {
-                "size": stat.st_size,
-                "mtime_ns": stat.st_mtime_ns,
-                "phash": str(hashes[image]),
-            }
-        write_json(cache_path, cache)
-    return hashes
-
-
-def download(session: requests.Session, attachment: Attachment, destination: str) -> pathlib.Path:
-    suffix = pathlib.PurePosixPath(attachment.url.split("?")[0]).suffix or ".jpg"
-    path = cache_dir(destination, "media") / f"{attachment.id}{suffix}"
-    if not path.exists():
-        response = session.get(attachment.url, timeout=300)
-        response.raise_for_status()
-        path.write_bytes(response.content)
-    return path
-
-
-def match(
-    local: dict[pathlib.Path, imagehash.ImageHash],
-    remote: dict[str, imagehash.ImageHash],
-    threshold: int,
-) -> tuple[dict[str, tuple[pathlib.Path, int]], dict[str, tuple[pathlib.Path, int]]]:
-    """Assign attachments to local images, closest pairs first, one to one."""
-    candidates = sorted(
-        (local_hash - remote_hash, image.name, image, attachment_id)
-        for attachment_id, remote_hash in remote.items()
-        for image, local_hash in local.items()
-    )
-    matched: dict[str, tuple[pathlib.Path, int]] = {}
-    nearest: dict[str, tuple[pathlib.Path, int]] = {}
-    taken: set[pathlib.Path] = set()
-    for distance, _, image, attachment_id in candidates:
-        nearest.setdefault(attachment_id, (image, distance))
-        if distance <= threshold and attachment_id not in matched and image not in taken:
-            matched[attachment_id] = (image, distance)
-            taken.add(image)
-    unmatched = {k: v for k, v in nearest.items() if k not in matched}
-    return matched, unmatched
-
-
-def cmd_import(args: argparse.Namespace, config: Config) -> None:
-    name = args.destination
-    destination_config = config.destination_config(name)
-    threshold = args.threshold if args.threshold is not None else destination_config.get("match_threshold", 10)
-    defaults = {fold(tag) for tag in destination_config.get("default_tags", [])}
-    images = config.images_of()
-    destination = config.destination(name)
-
-    tag = None if args.all_media else destination_config.get("import_tag")
-    posts = destination.history(tag)
-    attachments = [(post, attachment) for post in posts for attachment in post.attachments]
-    print(f"{len(posts)} posts, {len(attachments)} images on {name}")
-    if not attachments:
-        return
-
-    downloads = requests.Session()
-    remote = {}
-    for post, attachment in attachments:
-        remote[attachment.id] = phash(download(downloads, attachment, name))
-    by_id = {attachment.id: (post, attachment) for post, attachment in attachments}
-
-    matched, unmatched = match(local_hashes(images), remote, threshold)
-    payloads = sidecars = 0
-    for attachment_id, (image, distance) in sorted(matched.items(), key=lambda kv: kv[1][0].name):
-        post, attachment = by_id[attachment_id]
-        payload = payload_path(image, name)
-        actions = []
-
-        # The payload of an imported post is stored exactly as a post made here
-        # would store it, which is what marks the image as posted.
-        if payload.exists() and not args.force:
-            actions.append("payload kept")
-        else:
-            actions.append("payload")
-            if not args.dry_run:
-                write_json(payload, post.payload)
-                payloads += 1
-
-        # Every matched image gets its sidecar, so the tags of the posts made
-        # before this script are kept under version control too.
-        xmp = Xmp.for_image(image)
-        existing = xmp.tags
-        tags = dedupe(existing + [t for t in post.tags if fold(t) not in defaults])
-        description = xmp.description or attachment.description
-        if xmp.path.exists() and tags == existing and description == xmp.description:
-            actions.append("sidecar kept")
-        else:
-            actions.append("tags: " + (" ".join(tags) or "(none)"))
-            if not args.dry_run:
-                xmp.tags = tags
-                if description:
-                    xmp.description = description
-                xmp.save()
-                sidecars += 1
-        print(f"  {image.name}  d={distance:2d}  {post.url}  [{', '.join(actions)}]")
-
-    for attachment_id, (image, distance) in sorted(unmatched.items(), key=lambda kv: kv[1][1]):
-        post, _ = by_id[attachment_id]
-        print(f"  UNMATCHED {post.created_at[:10]} {post.url} closest {image.name} d={distance}")
-
-    print(
-        f"{len(matched)} matched, {len(unmatched)} unmatched, "
-        f"{payloads} payload(s) and {sidecars} sidecar(s) written"
-        f"{' (dry run)' if args.dry_run else ''}"
-    )
-
-
 def cmd_post(args: argparse.Namespace, config: Config) -> None:
     name = args.destination
-    destination_config = config.destination_config(name)
+    destination_config = config.destinations[name]
     images = config.images_of()
     pending = [image for image in images if not is_posted(image, name)]
     if not pending:
@@ -562,11 +343,11 @@ def cmd_post(args: argparse.Namespace, config: Config) -> None:
     image = pending[0]
     xmp = Xmp.for_image(image)
     if not xmp.tags:
-        raise PosterError(
+        raise MnemographeError(
             f"{image} has no tags\n"
-            f"  tag it with: bin/poster.py tag {image} Tag1 Tag2"
+            f"  tag it in its XMP sidecar: {xmp.path}"
         )
-    text = hashtags(destination_config.get("default_tags", []) + xmp.tags)
+    text = hashtags(destination_config["default_tags"] + xmp.tags)
     description = xmp.description
     print(f"{image.name} ({len(pending)} left)")
     print(f"  {text}")
@@ -576,46 +357,261 @@ def cmd_post(args: argparse.Namespace, config: Config) -> None:
         return
     payload = config.destination(name).post(image, text, description)
     write_json(payload_path(image, name), payload)
-    print(f"  posted: {payload.get('url')}")
+    print(f"  posted: {payload['url']}")
 
 
-def cmd_tag(args: argparse.Namespace, config: Config) -> None:
-    image = pathlib.Path(args.image)
-    if not image.is_file():
-        raise PosterError(f"no such image: {image}")
-    xmp = Xmp.for_image(image)
-    if args.tags:
-        xmp.tags = dedupe(args.tags if args.replace else xmp.tags + args.tags)
-    if args.description is not None:
-        xmp.description = args.description
-    if args.tags or args.description is not None:
-        xmp.save()
-    print(f"{xmp.path.name}: {' '.join(xmp.tags) or '(no tags)'}")
-    if xmp.description:
-        print(f"  alt: {xmp.description}")
+class InboxError(MnemographeError):
+    """INBOX holds files that ingest refuses: nothing was moved."""
 
 
-def cmd_list(args: argparse.Namespace, config: Config) -> None:
-    name = args.destination
-    images = config.images_of()
-    pending = [(image, Xmp.for_image(image).tags) for image in images if not is_posted(image, name)]
-    if args.untagged:
-        pending = [(image, tags) for image, tags in pending if not tags]
-    if args.paths:
-        # Bare paths, one per line, to pipe into a viewer:
-        #   bin/poster.py list mastodon --paths | xargs -d '\n' swayimg
-        for image, _ in pending:
-            print(image)
+def notify(title: str, message: str, tags: str) -> None:
+    # --option=value: a value starting with a dash is not read as an option
+    subprocess.run(["ntfy-publish", f"--tags={tags}", f"--title={title}", f"--message={message}"], check=True)
+
+
+def git(*args: str) -> None:
+    subprocess.run(["git", "-C", str(_REPO_ROOT), *args], check=True)
+
+
+def photos(count: int) -> str:
+    return f"{count} photo" if count == 1 else f"{count} photos"
+
+
+def exif_metadata(paths: list[pathlib.Path]) -> dict[pathlib.Path, dict]:
+    """What exiftool reads of each photo: file type, size, dates and problems."""
+    result = subprocess.run(
+        ["exiftool", "-json", "-d", _RENAME_DATE_FORMAT, "-Error", "-Warning", "-FileType", "-ImageWidth", "-ImageHeight"]
+        + [f"-{tag}" for tag in _RENAME_DATE_TAGS]
+        + [str(path) for path in paths],
+        # Not check=True: exiftool exits with 1 when it cannot read a file,
+        # which is a problem of that file, found in its JSON
+        capture_output=True,
+        text=True,
+    )
+    metadata = {pathlib.Path(entry["SourceFile"]): entry for entry in json.loads(result.stdout)}
+    if set(metadata) != set(paths):
+        raise MnemographeError(f"exiftool did not read every photo: {result.stderr}")
+    return metadata
+
+
+def file_problem(path: pathlib.Path) -> str | None:
+    """Why path is not a file ingest takes, from its name and type."""
+    if path.name.startswith(".trashed-"):
+        return "a file in the Android trash"
+    if path.name.startswith(".syncthing.") and path.name.endswith(".tmp"):
+        return "a Syncthing temporary file, of a sync not finished"
+    if path.name.startswith("."):
+        return "a hidden file"
+    mode = os.lstat(path).st_mode
+    if stat.S_ISLNK(mode):
+        return "a symbolic link"
+    if stat.S_ISDIR(mode):
+        return "a directory"
+    if not stat.S_ISREG(mode):
+        return "not a regular file"
+    if path.suffix.lower() not in _IMAGE_SUFFIXES:
+        return "not a .jpg or .jpeg file"
+    return None
+
+
+def photo_problem(metadata: dict) -> str | None:
+    """Why exiftool's metadata of a photo is not a photo ingest takes."""
+    if "Error" in metadata:
+        return f"exiftool cannot read it: {metadata['Error']}"
+    if metadata["FileType"] != "JPEG":
+        return f"a {metadata['FileType']} file, not a JPEG"
+    if "Warning" in metadata:
+        return f"exiftool warns: {metadata['Warning']}"
+    width, height = metadata["ImageWidth"], metadata["ImageHeight"]
+    if max(width, height) > _MAX_SIDE:
+        return f"larger than {_MAX_SIDE} px ({width}x{height})"
+    if abs(width - height) > _SQUARE_TOLERANCE * max(width, height):
+        return f"not square ({width}x{height})"
+    return None
+
+
+def rename_date(metadata: dict) -> str | None:
+    """The date the photo is renamed after, formatted as _RENAME_DATE_FORMAT.
+
+    exiftool renames after the last of its -filename< arguments whose tag
+    exists, so the dates are taken in the reverse order of _RENAME_DATE_TAGS.
+    """
+    for tag in reversed(_RENAME_DATE_TAGS):
+        if tag in metadata:
+            date = str(metadata[tag])
+            return date if _RENAME_DATE_RE.fullmatch(date) else None
+    return None
+
+
+def check_inbox(inbox: pathlib.Path, gallery_stems: set[str]) -> dict[pathlib.Path, str]:
+    """The new name of every file of INBOX, or an InboxError listing every problem."""
+    problems = []
+    jpegs = []
+    for path in sorted(inbox.iterdir()):
+        problem = file_problem(path)
+        if problem is None:
+            jpegs.append(path)
+        else:
+            problems.append(f"{path.name}: {problem}")
+
+    metadata_of = exif_metadata(jpegs) if jpegs else {}
+    new_names = {}
+    sources_of_stem: dict[str, list[pathlib.Path]] = {}
+    for path in jpegs:
+        metadata = metadata_of[path]
+        problem = photo_problem(metadata)
+        if problem is not None:
+            problems.append(f"{path.name}: {problem}")
+            continue
+        date = rename_date(metadata)
+        if date is None:
+            problems.append(f"{path.name}: no EXIF date ({', '.join(_RENAME_DATE_TAGS)})")
+            continue
+        if date in gallery_stems:
+            problems.append(f"{path.name}: {date} is already in the gallery")
+        sources_of_stem.setdefault(date, []).append(path)
+        new_names[path] = f"{date}{path.suffix.lower()}"
+    for stem, sources in sorted(sources_of_stem.items()):
+        if len(sources) > 1:
+            problems.append(f"{', '.join(p.name for p in sources)}: would all be named {stem}")
+
+    if problems:
+        raise InboxError(f"Nothing was moved from {inbox}:\n" + "\n".join(problems))
+    return new_names
+
+
+def ingest(config: Config, inbox: pathlib.Path, publish_destination: str | None) -> None:
+    # Pushes the commits a previous ingest could not push
+    git("pull", "--rebase")
+    git("push")
+    gallery = config.images
+    try:
+        new_names = check_inbox(inbox, {image.stem for image in config.images_of()})
+    except InboxError as error:
+        notify("Mnémographe ingest failed", str(error), "mnemographe,warning")
+        raise
+    if not new_names:
+        print(f"{inbox} is empty")
         return
-    for image, tags in pending:
-        print(f"  {image.name}  {' '.join(tags) or 'UNTAGGED'}")
-    untagged = sum(1 for _, tags in pending if not tags)
-    print(f"{len(images) - len(pending)} posted to {name}, {len(pending)} left, {untagged} untagged")
+
+    # Arguments, never a shell: file names cannot inject anything. The paths
+    # are absolute, so none starts with a dash. In -d, %% is a literal %.
+    destination_format = str(gallery).replace("%", "%%") + "/" + _RENAME_DATE_FORMAT + ".%%le"
+    subprocess.run(
+        ["exiftool", "-d", destination_format]
+        + [f"-filename<{tag}" for tag in _RENAME_DATE_TAGS]
+        + [str(path) for path in new_names],
+        # Not check=True: what moved and what stayed is checked below
+    )
+    moved = {source: gallery / name for source, name in new_names.items() if (gallery / name).is_file()}
+    if len(moved) != len(new_names):
+        raise MnemographeError(
+            "exiftool did not move every photo, clean up by hand:\n"
+            + "".join(f"moved {source.name} to {destination}\n" for source, destination in moved.items())
+            + "".join(f"left {source}\n" for source in new_names if source not in moved)
+        )
+
+    paths = [str(path) for path in moved.values()]
+    git("add", "--", *paths)
+    git("commit", "--message", f"Add {photos(len(paths))} to mnémographe", "--", *paths)
+    git("pull", "--rebase")
+    git("push")
+
+    # publish.sh and uv pip run without the environment of this script, which
+    # `uv run --script` sets: they use the repository's .venv
+    environment = {key: value for key, value in os.environ.items() if key != "VIRTUAL_ENV"}
+    subprocess.run(
+        ["uv", "pip", "install", "--quiet", "--python", str(_REPO_ROOT / ".venv" / "bin" / "python"),
+         "--requirement", str(_REPO_ROOT / "requirements.txt")],
+        check=True,
+        env=environment,
+    )
+    publish = [str(_REPO_ROOT / "bin" / "publish.sh")]
+    if publish_destination is not None:
+        publish.append(publish_destination)
+    subprocess.run(publish, check=True, env=environment)
+
+    untagged = sum(1 for image in config.images_of() if not Xmp.for_image(image).tags)
+    notify(
+        f"{photos(len(paths))} added to the mnémographe",
+        f"Blog published. {photos(untagged)} to tag.",
+        "mnemographe,frame_with_picture",
+    )
+
+
+def cmd_ingest(args: argparse.Namespace, config: Config) -> None:
+    ingest(config, args.inbox.resolve(), args.publish_destination)
+
+
+def syncthing_config(inbox: pathlib.Path) -> tuple[str, str, str]:
+    """The API key, and the id of the Syncthing folder holding INBOX and the path of INBOX in it."""
+    root = ET.parse(_SYNCTHING_CONFIG_PATH).getroot()
+    api_key = root.find("gui").find("apikey").text
+    for folder in root.findall("folder"):
+        folder_path = pathlib.Path(folder.get("path")).expanduser().resolve()
+        if inbox.is_relative_to(folder_path) and inbox != folder_path:
+            return api_key, folder.get("id"), inbox.relative_to(folder_path).as_posix()
+    raise MnemographeError(f"{inbox} is not a subfolder of a Syncthing folder of {_SYNCTHING_CONFIG_PATH}")
+
+
+def watch_events(events: list[dict], folder: str, prefix: str, pending: bool, on_idle) -> bool:
+    """Calls on_idle when the folder is idle after a change in prefix: whether a change is still pending."""
+    for event in events:
+        data = event["data"]
+        if data["folder"] != folder:
+            continue
+        if event["type"] == "ItemFinished" and (data["item"] == prefix or data["item"].startswith(prefix + "/")):
+            pending = True
+        elif event["type"] == "StateChanged" and data["to"] == "idle" and pending:
+            on_idle()
+            pending = False
+    return pending
+
+
+def cmd_watch(args: argparse.Namespace, config: Config) -> None:
+    inbox = args.inbox.resolve()
+    api_key, folder, prefix = syncthing_config(inbox)
+    session = requests.Session()
+    session.headers["X-API-Key"] = api_key
+
+    def events(since: int, **params) -> list[dict]:
+        # Event ids count per event mask: every request uses the same one.
+        # The timeout is longer than the 60 s long poll
+        response = session.get(
+            _SYNCTHING_URL + "/rest/events",
+            params={"since": since, "events": _SYNCTHING_EVENTS, **params},
+            timeout=90,
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def on_idle() -> None:
+        try:
+            ingest(config, inbox, args.publish_destination)
+        except InboxError as error:
+            # Already notified: waits for the next change in the inbox
+            print(f"error: {error}", file=sys.stderr)
+
+    # The last event before looking at the inbox, so no later change is missed
+    latest = events(0, limit=1, timeout=1)
+    since = latest[-1]["id"] if latest else 0
+    pending = any(inbox.iterdir())
+    if pending:
+        response = session.get(_SYNCTHING_URL + "/rest/db/status", params={"folder": folder}, timeout=90)
+        response.raise_for_status()
+        if response.json()["state"] == "idle":
+            on_idle()
+            pending = False
+    print(f"watching {prefix} in Syncthing folder {folder}, from event {since}", flush=True)
+    while True:
+        new_events = events(since)
+        if new_events:
+            since = new_events[-1]["id"]
+        pending = watch_events(new_events, folder, prefix, pending, on_idle)
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="poster", description=__doc__.splitlines()[0])
-    parser.add_argument("-c", "--config", type=pathlib.Path, default=_DEFAULT_CONFIG_PATH)
+    parser = argparse.ArgumentParser(prog="mnemographe", description=__doc__.splitlines()[0])
     subparsers = parser.add_subparsers(required=True)
 
     post = subparsers.add_parser("post", help="post the next unposted image")
@@ -623,31 +619,22 @@ def main() -> int:
     post.add_argument("-n", "--dry-run", action="store_true")
     post.set_defaults(func=cmd_post)
 
-    tag = subparsers.add_parser("tag", help="read or write the tags of an image")
-    tag.add_argument("image")
-    tag.add_argument("tags", nargs="*")
-    tag.add_argument("-d", "--description", help="alt text")
-    tag.add_argument("-r", "--replace", action="store_true", help="replace the tags instead of adding to them")
-    tag.set_defaults(func=cmd_tag)
-
-    listing = subparsers.add_parser("list", help="list the images still to post")
-    listing.add_argument("destination")
-    listing.add_argument("-p", "--paths", action="store_true", help="print bare paths, to pipe into a viewer")
-    listing.add_argument("-u", "--untagged", action="store_true", help="only the images without tags")
-    listing.set_defaults(func=cmd_list)
-
-    importer = subparsers.add_parser("import", help="import images already posted to the destination")
-    importer.add_argument("destination")
-    importer.add_argument("-n", "--dry-run", action="store_true")
-    importer.add_argument("-t", "--threshold", type=int, help="maximum perceptual hash distance")
-    importer.add_argument("--all-media", action="store_true", help="do not filter the history by tag")
-    importer.add_argument("-f", "--force", action="store_true", help="overwrite existing payloads")
-    importer.set_defaults(func=cmd_import)
+    for name, func, help in (
+        ("ingest", cmd_ingest, "move the photos of INBOX into the gallery, commit, push and publish"),
+        ("watch", cmd_watch, "ingest INBOX each time Syncthing has synced a change in it"),
+    ):
+        command = subparsers.add_parser(name, help=help)
+        command.add_argument("inbox", type=pathlib.Path)
+        command.add_argument(
+            "--publish-destination",
+            help="rsync destination of bin/publish.sh, its own default if not given",
+        )
+        command.set_defaults(func=func)
 
     args = parser.parse_args()
     try:
-        args.func(args, Config.load(args.config))
-    except PosterError as error:
+        args.func(args, Config.load(_CONFIG_PATH))
+    except MnemographeError as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
     return 0

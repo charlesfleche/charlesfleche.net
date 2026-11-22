@@ -2,6 +2,19 @@
 
 set -euo pipefail
 
+# Usage: publish.sh [rsync destination], the production web root by default
+if [ $# -gt 1 ]; then
+    echo "Usage: $0 [rsync destination]" >&2
+    exit 1
+fi
+destination=${1-pi:/srv/www/charlesfleche.net/}
+case "$destination" in
+    "" | -*)
+        echo "Not an rsync destination: '$destination'" >&2
+        exit 1
+        ;;
+esac
+
 # Paths below are relative to the repository root
 cd "$(dirname "$0")/.."
 
@@ -40,4 +53,4 @@ rsync \
     --human-readable \
     --delete \
     build/dist/ \
-    pi:/srv/www/charlesfleche.net/
+    "$destination"

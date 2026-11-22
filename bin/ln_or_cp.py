@@ -7,6 +7,10 @@ parser.add_argument("src", type=pathlib.Path)
 parser.add_argument("dst", type=pathlib.Path)
 args = parser.parse_args()
 
+# The build only publishes files of the repository, never what a link points to
+if args.src.is_symlink():
+    raise SystemExit(f"{args.src} is a symbolic link")
+
 args.dst.parent.mkdir(parents=True, exist_ok=True)
 args.dst.unlink(missing_ok=True)
 try:

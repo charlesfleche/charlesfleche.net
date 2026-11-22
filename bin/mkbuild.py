@@ -87,7 +87,7 @@ _EXIF_TRANSPOSED = (5, 6, 7, 8)
 
 
 def _xmp_description(image_path):
-    """dc:description of the image's XMP sidecar, as written by poster.py"""
+    """dc:description of the image's XMP sidecar, as written by mnemographe.py"""
     xmp_path = image_path.with_suffix(".xmp")
     if not xmp_path.is_file():
         return ""
@@ -99,7 +99,7 @@ def _xmp_description(image_path):
         element = description.find("dc:description", _XMP_NS)
         if element is not None:
             # Usually a rdf:Alt of localized rdf:li: the x-default one first,
-            # as poster.py reads it
+            # as mnemographe.py reads it
             lis = element.findall(".//rdf:li", _XMP_NS)
             lis.sort(key=lambda li: li.get(_XML_LANG) != "x-default")
             for candidate in [*lis, element]:
