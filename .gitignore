@@ -178,3 +178,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Posts of bin/mnemographe.py that did not finish
+*.pending

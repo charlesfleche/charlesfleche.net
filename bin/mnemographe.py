@@ -29,12 +29,21 @@ alt text, in git's editor (GIT_EDITOR, core.editor, VISUAL, EDITOR). On save,
 it writes the XMP sidecars that changed, commits, pushes and mirrors them to
 MIRROR. The header of the edited file explains its format.
 
-post DESTINATION posts the oldest unposted photo, by file name. A photo counts
-as posted to a destination once <stem>.<destination>.json — the REST payload
-of the post — sits next to it. Tags and alt text live in an XMP sidecar
-<stem>.xmp (dc:subject and dc:description), readable and writable by exiftool,
-darktable and digiKam. A photo without tags is never posted: the script fails
-loudly so the systemd unit shows as failed.
+post NETWORK posts the tagged photo with the oldest file name among those not
+posted to NETWORK yet: untagged photos are skipped. A photo counts as posted
+to a network once <stem>.<network>.json — the API responses of the post —
+sits next to it. Tags and alt text live in an XMP sidecar <stem>.xmp
+(dc:subject and dc:description), readable and writable by exiftool, darktable
+and digiKam. post pulls and pushes first, then commits and pushes the json, and
+notifies the post URL. Without a tagged photo left, it notifies a warning.
+--dry-run only prints what it would post: no git, no network, no token.
+
+A crash after the post leaves the json commit local: the next run pushes it
+before posting. A crash between the post and writing the json is not
+recovered, except on Mastodon: its Idempotency-Key header, the same for a
+given photo, makes a retry within an hour return the first post.
+
+queue NETWORK lists the tagged photos NETWORK will get, in publish order.
 
 Destinations are configured in mnemographe.yml. Access tokens are read from the
 environment only, never from the configuration file:
@@ -47,6 +56,7 @@ Usage:
     bin/mnemographe.py tag --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py post mastodon --dry-run          # what would be posted
     bin/mnemographe.py post mastodon                    # post it
+    bin/mnemographe.py queue mastodon
 
 The sidecars stay readable by other tools:
 
@@ -288,6 +298,57 @@ def write_json(path: pathlib.Path, data: object) -> None:
     tmp.replace(path)
 
 
+def child_environment() -> dict[str, str]:
+    """The environment of this process, without the access tokens."""
+    return {key: value for key, value in os.environ.items() if not key.startswith("POSTER_")}
+
+
+def run(args: list[str], **kwargs) -> subprocess.CompletedProcess:
+    """subprocess.run, with the environment of child_environment() unless env is given."""
+    kwargs.setdefault("env", child_environment())
+    return subprocess.run(args, **kwargs)
+
+
+def request(session: requests.Session, method: str, url: str, **kwargs) -> requests.Response:
+    """An HTTP request that fails loudly unless it succeeds."""
+    response = session.request(method, url, timeout=300, **kwargs)
+    if not response.ok:
+        raise MnemographeError(f"{method} {url} returned {response.status_code}: {response.text[:500]}")
+    return response
+
+
+class PostRecord:
+    """The files that record the post of a photo to a network, next to it.
+
+    The pending marker is written right before the call that makes the post
+    public, and removed once the json, the API responses, is written. A
+    marker left by a crash stops later posts to that network: the photo may
+    or may not be public.
+    """
+
+    def __init__(self, image: pathlib.Path, network: str) -> None:
+        self.json = image.with_suffix(f".{network}.json")
+        self.marker = image.with_suffix(f".{network}.pending")
+
+    def pending(self, known: dict) -> None:
+        write_json(self.marker, known)
+
+    def posted(self, payload: dict) -> None:
+        write_json(self.json, payload)
+        self.marker.unlink()
+
+
+def check_no_pending_post(images: list[pathlib.Path], network: str) -> None:
+    """Fails on the marker of a post to the network that did not finish."""
+    for image in images:
+        record = PostRecord(image, network)
+        if record.marker.exists():
+            raise MnemographeError(
+                f"a post of {image.name} to {network} did not finish: check {network} for {image.name}. "
+                f"If it is posted, write {record.json} by hand. In both cases, delete {record.marker}."
+            )
+
+
 def api_token(name: str) -> str:
     variable = "POSTER_" + _NON_WORD_RE.sub("_", name).upper() + "_API_TOKEN"
     token = os.environ.get(variable, "").strip()
@@ -299,23 +360,24 @@ def api_token(name: str) -> str:
 class Mastodon:
     """The Mastodon destination: posts a status."""
 
+    # Mastodon has no hashtag limit of its own
+    max_hashtags = math.inf
+
     def __init__(self, name: str, config: dict) -> None:
         self.name = name
         self.instance = config["instance"].rstrip("/")
         self.visibility = config["visibility"]
         self.language = config["language"]
         self.session = requests.Session()
-        self.session.headers["Authorization"] = f"Bearer {api_token(name)}"
         self.session.headers["User-Agent"] = "mnemographe.py (+https://charlesfleche.net)"
 
     def _request(self, method: str, path: str, **kwargs) -> requests.Response:
-        url = path if path.startswith("http") else f"{self.instance}{path}"
-        response = self.session.request(method, url, timeout=300, **kwargs)
-        if not response.ok:
-            raise MnemographeError(f"{method} {url} returned {response.status_code}: {response.text[:500]}")
-        return response
+        return request(self.session, method, f"{self.instance}{path}", **kwargs)
 
-    def post(self, image: pathlib.Path, text: str, description: str) -> dict:
+    def prepare(self) -> None:
+        self.session.headers["Authorization"] = f"Bearer {api_token(self.name)}"
+
+    def post(self, image: pathlib.Path, text: str, description: str, record: PostRecord) -> dict:
         mimetype = mimetypes.guess_type(image.name)[0]
         with image.open("rb") as fd:
             response = self._request(
@@ -327,7 +389,8 @@ class Mastodon:
         media = response.json()
         if response.status_code == 202:
             media = self._wait_media(media["id"])
-        return self._request(
+        record.pending({"media": media})
+        status = self._request(
             "POST",
             "/api/v1/statuses",
             json={
@@ -336,9 +399,12 @@ class Mastodon:
                 "visibility": self.visibility,
                 "language": self.language,
             },
-            # Survives a retry after a crash between posting and writing the sidecar.
-            headers={"Idempotency-Key": f"poster-{self.name}-{image.stem}"},
+            # The same for a given photo: Mastodon answers a retry within an
+            # hour with the first post
+            headers={"Idempotency-Key": f"mnemographe-{self.name}-{image.stem}"},
         ).json()
+        record.posted(status)
+        return status
 
     def _wait_media(self, media_id: str, timeout: float = 120) -> dict:
         deadline = time.monotonic() + timeout
@@ -349,6 +415,9 @@ class Mastodon:
             if time.monotonic() > deadline:
                 raise MnemographeError(f"media {media_id} was still processing after {timeout:g}s")
             time.sleep(2)
+
+    def post_url(self, payload: dict) -> str:
+        return payload["url"]
 
 
 _DESTINATION_TYPES = {"mastodon": Mastodon}
@@ -377,40 +446,75 @@ class Config:
         return sorted(images, key=lambda p: p.name)
 
 
-def payload_path(image: pathlib.Path, destination: str) -> pathlib.Path:
-    return image.with_suffix(f".{destination}.json")
+def is_posted(image: pathlib.Path, network: str) -> bool:
+    return PostRecord(image, network).json.exists()
 
 
-def is_posted(image: pathlib.Path, destination: str) -> bool:
-    return payload_path(image, destination).exists()
+def publish_queue(config: Config, network: str) -> tuple[list[pathlib.Path], list[pathlib.Path]]:
+    """The photos not posted to the network yet: the tagged ones in publish order, and the untagged ones."""
+    pending = [image for image in config.images_of() if not is_posted(image, network)]
+    tagged = [image for image in pending if Xmp.for_image(image).tags]
+    return tagged, [image for image in pending if image not in tagged]
+
+
+def post(config: Config, network: str, dry_run: bool) -> None:
+    network_config = config.destinations[network]
+    destination = config.destination(network)
+    if not dry_run:
+        check_no_pending_post(config.images_of(), network)
+        pull_and_push(config.images)
+        destination.prepare()
+    tagged, untagged = publish_queue(config, network)
+    if not tagged:
+        print(f"no tagged photo left for {network}, {photos(len(untagged))} to tag")
+        if not dry_run:
+            notify(
+                f"No mnémographe left for {network}",
+                f"Tag more photos: {photos(len(untagged))} to tag.",
+                "mnemographe,warning",
+            )
+        return
+
+    image = tagged[0]
+    xmp = Xmp.for_image(image)
+    tags = dedupe(network_config["default_tags"] + xmp.tags)
+    if len(tags) > destination.max_hashtags:
+        raise MnemographeError(
+            f"{image.name} has {len(tags)} hashtags with the default ones, "
+            f"{network} takes {destination.max_hashtags} at most: remove some of its tags"
+        )
+    text = hashtags(tags)
+    print(f"{image.name} ({len(tagged)} tagged left)")
+    print(f"  {text}")
+    print(f"  alt: {xmp.description or '(none)'}")
+    if dry_run:
+        return
+
+    record = PostRecord(image, network)
+    payload = destination.post(image, text, xmp.description, record)
+    git("add", "--", str(record.json))
+    git("commit", "--message", f"Post {image.name} to {network}", "--", str(record.json))
+    git("pull", "--rebase")
+    git("push")
+    url = destination.post_url(payload)
+    print(f"  posted: {url}")
+    notify(f"{image.name} posted to {network}", url, "mnemographe,outbox_tray")
 
 
 def cmd_post(args: argparse.Namespace, config: Config) -> None:
-    name = args.destination
-    destination_config = config.destinations[name]
-    images = config.images_of()
-    pending = [image for image in images if not is_posted(image, name)]
-    if not pending:
-        print(f"all {len(images)} images are already posted to {name}")
-        return
-    image = pending[0]
-    xmp = Xmp.for_image(image)
-    if not xmp.tags:
-        raise MnemographeError(
-            f"{image} has no tags\n"
-            f"  tag it in its XMP sidecar: {xmp.path}"
-        )
-    text = hashtags(destination_config["default_tags"] + xmp.tags)
-    description = xmp.description
-    print(f"{image.name} ({len(pending)} left)")
-    print(f"  {text}")
-    if description:
-        print(f"  alt: {description}")
     if args.dry_run:
+        post(config, args.network, dry_run=True)
         return
-    payload = config.destination(name).post(image, text, description)
-    write_json(payload_path(image, name), payload)
-    print(f"  posted: {payload['url']}")
+    # Two networks may post at the same time from the same clone
+    with repository_lock():
+        post(config, args.network, dry_run=False)
+
+
+def cmd_queue(args: argparse.Namespace, config: Config) -> None:
+    tagged, untagged = publish_queue(config, args.network)
+    for image in tagged:
+        print(image.name, " ".join(Xmp.for_image(image).tags))
+    print(f"{photos(len(tagged))} tagged and {photos(len(untagged))} untagged left for {args.network}")
 
 
 class InboxError(MnemographeError):
@@ -419,17 +523,17 @@ class InboxError(MnemographeError):
 
 def notify(title: str, message: str, tags: str) -> None:
     # --option=value: a value starting with a dash is not read as an option
-    subprocess.run(["ntfy-publish", f"--tags={tags}", f"--title={title}", f"--message={message}"], check=True)
+    run(["ntfy-publish", f"--tags={tags}", f"--title={title}", f"--message={message}"], check=True)
 
 
 def git(*args: str) -> None:
-    subprocess.run(["git", "-C", str(_REPO_ROOT), *args], check=True)
+    run(["git", "-C", str(_REPO_ROOT), *args], check=True)
 
 
 @contextlib.contextmanager
 def repository_lock():
     """Serializes the commands that write, commit and push in the repository."""
-    git_dir = subprocess.run(
+    git_dir = run(
         ["git", "-C", str(_REPO_ROOT), "rev-parse", "--absolute-git-dir"], check=True, capture_output=True, text=True
     ).stdout.strip()
     with open(pathlib.Path(git_dir) / "mnemographe.lock", "w") as fd:
@@ -437,8 +541,21 @@ def repository_lock():
         yield
 
 
-def pull_and_push() -> None:
-    """Pulls, and pushes the commits a previous run could not push."""
+def pull_and_push(gallery: pathlib.Path) -> None:
+    """Pulls, and pushes the commits a previous run could not push.
+
+    Fails on any uncommitted file of the gallery, like a post json left by a
+    crash: it must not be forgotten.
+    """
+    status = run(
+        ["git", "-C", str(_REPO_ROOT), "status", "--porcelain", "-z", "--untracked-files=all", "--", str(gallery)],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    uncommitted = [entry for entry in status.split("\0") if entry]
+    if uncommitted:
+        raise MnemographeError(f"commit or remove these files of the gallery first: {', '.join(uncommitted)}")
     git("pull", "--rebase")
     git("push")
 
@@ -481,7 +598,7 @@ def mirror_gallery(gallery: pathlib.Path, mirror: pathlib.Path) -> None:
     # Syncthing writes the phone's changes there, it is not only ours
     fd = os.open(mirror, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     try:
-        subprocess.run(
+        run(
             ["rsync", "--archive", "--delete", f"{gallery}/", "./"],
             cwd=f"/proc/self/fd/{fd}",
             pass_fds=(fd,),
@@ -493,7 +610,7 @@ def mirror_gallery(gallery: pathlib.Path, mirror: pathlib.Path) -> None:
 
 def exif_metadata(paths: list[pathlib.Path]) -> dict[pathlib.Path, dict]:
     """What exiftool reads of each photo: file type, size, dates and problems."""
-    result = subprocess.run(
+    result = run(
         ["exiftool", "-json", "-d", _RENAME_DATE_FORMAT, "-Error", "-Warning", "-FileType", "-ImageWidth", "-ImageHeight"]
         + [f"-{tag}" for tag in _RENAME_DATE_TAGS]
         + [str(path) for path in paths],
@@ -598,7 +715,7 @@ def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_de
     with repository_lock():
         gallery = config.images
         check_mirror(mirror, gallery)
-        pull_and_push()
+        pull_and_push(gallery)
         try:
             new_names = check_inbox(inbox, {image.stem for image in config.images_of()})
         except InboxError as error:
@@ -611,7 +728,7 @@ def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_de
         # Arguments, never a shell: file names cannot inject anything. The paths
         # are absolute, so none starts with a dash. In -d, %% is a literal %.
         destination_format = str(gallery).replace("%", "%%") + "/" + _RENAME_DATE_FORMAT + ".%%le"
-        subprocess.run(
+        run(
             ["exiftool", "-d", destination_format]
             + [f"-filename<{tag}" for tag in _RENAME_DATE_TAGS]
             + [str(path) for path in new_names],
@@ -633,8 +750,8 @@ def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_de
 
         # publish.sh and uv pip run without the environment of this script, which
         # `uv run --script` sets: they use the repository's .venv
-        environment = {key: value for key, value in os.environ.items() if key != "VIRTUAL_ENV"}
-        subprocess.run(
+        environment = {key: value for key, value in child_environment().items() if key != "VIRTUAL_ENV"}
+        run(
             ["uv", "pip", "install", "--quiet", "--python", str(_REPO_ROOT / ".venv" / "bin" / "python"),
              "--requirement", str(_REPO_ROOT / "requirements.txt")],
             check=True,
@@ -643,7 +760,7 @@ def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_de
         publish = [str(_REPO_ROOT / "bin" / "publish.sh")]
         if publish_destination is not None:
             publish.append(publish_destination)
-        subprocess.run(publish, check=True, env=environment)
+        run(publish, check=True, env=environment)
         # Last: a problem on the phone side never holds back the blog
         mirror_gallery(gallery, mirror)
 
@@ -664,7 +781,7 @@ def added_times(gallery: pathlib.Path) -> dict[str, int]:
 
     A renamed file keeps the time it was added under its first name.
     """
-    result = subprocess.run(
+    result = run(
         ["git", "-C", str(_REPO_ROOT), "-c", "core.quotePath=false", "log", "--reverse", "-M",
          "--name-status", "--format=%x00%at", "--", str(gallery)],
         check=True,
@@ -758,10 +875,10 @@ def parse_tags_file(text: str, images_by_name: dict[str, pathlib.Path]) -> dict[
 
 def edit(path: pathlib.Path) -> None:
     """Opens path in git's editor, and runs it as git does: the setting may hold options."""
-    editor = subprocess.run(
+    editor = run(
         ["git", "-C", str(_REPO_ROOT), "var", "GIT_EDITOR"], check=True, capture_output=True, text=True
     ).stdout.strip()
-    status = subprocess.run(["sh", "-c", f'{editor} "$@"', editor, str(path)]).returncode
+    status = run(["sh", "-c", f'{editor} "$@"', editor, str(path)]).returncode
     if status != 0:
         raise MnemographeError(f"the editor exited with status {status}: nothing changed, the file is kept: {path}")
 
@@ -771,13 +888,11 @@ def cmd_tag(args: argparse.Namespace, config: Config) -> None:
     # Not while the editor is open: the watch may ingest meanwhile
     with repository_lock():
         mirror = check_mirror(args.mirror, gallery)
-        pull_and_push()
+        pull_and_push(gallery)
         images = config.images_of()
         added = added_times(gallery)
-    # Photos not committed yet have no added time: they go on top
-    newest_first = sorted(
-        images, key=lambda image: (added.get(image.name, math.inf), image.name), reverse=True
-    )
+    # pull_and_push() refused uncommitted files: every photo has a time
+    newest_first = sorted(images, key=lambda image: (added[image.name], image.name), reverse=True)
     text = tags_file(newest_first)
     # Named like git's own files, so editors open it as plain text. Kept
     # when anything fails, so the edits are never lost
@@ -888,10 +1003,16 @@ def main() -> int:
     parser = argparse.ArgumentParser(prog="mnemographe", description=__doc__.splitlines()[0])
     subparsers = parser.add_subparsers(required=True)
 
-    post = subparsers.add_parser("post", help="post the next unposted image")
-    post.add_argument("destination")
-    post.add_argument("-n", "--dry-run", action="store_true")
+    post = subparsers.add_parser("post", help="post the oldest tagged photo not posted to NETWORK yet")
+    post.add_argument("network")
+    post.add_argument(
+        "-n", "--dry-run", action="store_true", help="only print what would be posted: no git, no network, no token"
+    )
     post.set_defaults(func=cmd_post)
+
+    queue = subparsers.add_parser("queue", help="list the tagged photos NETWORK will get, in publish order")
+    queue.add_argument("network")
+    queue.set_defaults(func=cmd_queue)
 
     for name, func, help in (
         ("ingest", cmd_ingest, "move the photos of INBOX into the gallery, commit, push and publish"),
