@@ -74,7 +74,7 @@ import yaml
 from PIL import Image, ImageOps
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
-_DEFAULT_CONFIG_PATH = _REPO_ROOT / "poster.yml"
+_DEFAULT_CONFIG_PATH = _REPO_ROOT / "mnemographe.yml"
 _IMAGE_SUFFIXES = (".jpg", ".jpeg")
 
 _XMP_NS = {
