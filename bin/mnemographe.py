@@ -956,6 +956,11 @@ def posted_column(image: pathlib.Path) -> str:
     return "".join(letter if is_posted(image, network) else "-" for network, letter in _POSTED_COLUMN.items())
 
 
+def tag_fields(xmp: "Xmp") -> tuple[list[str], str]:
+    """The fields of xmp that the tag editor edits: its tags and its alt text."""
+    return xmp.tags, xmp.description
+
+
 def tags_file(images: list[pathlib.Path]) -> str:
     """The text the tag editor opens: one line per photo, after the header."""
     lines = []
@@ -1034,6 +1039,8 @@ def cmd_tag(args: argparse.Namespace, config: Config) -> None:
     # pull_and_push() refused uncommitted files: every photo has a time
     newest_first = sorted(images, key=lambda image: (added[image.name], image.name), reverse=True)
     text = tags_file(newest_first)
+    # What the editor shows: the edits are the differences from it
+    shown = {image.name: tag_fields(Xmp.for_image(image)) for image in images}
     # Named like git's own files, so editors open it as plain text. Kept
     # when anything fails, so the edits are never lost
     directory = pathlib.Path(tempfile.mkdtemp(prefix="mnemographe-tag-"))
@@ -1045,12 +1052,20 @@ def cmd_tag(args: argparse.Namespace, config: Config) -> None:
     except MnemographeError as error:
         raise MnemographeError(f"{error}\nNothing written, the edited file is kept: {path}") from None
 
+    edits = {name: fields for name, fields in entries.items() if fields != shown[name]}
     with repository_lock():
+        # Another tag session, or another clone, may have tagged meanwhile:
+        # never overwrite its work
+        pull_and_push(gallery)
+        conflicts = [name for name in edits if tag_fields(Xmp.for_image(gallery / name)) != shown[name]]
+        if conflicts:
+            raise MnemographeError(
+                f"changed while the editor was open: {', '.join(sorted(conflicts))}\n"
+                f"Nothing written, the edited file is kept: {path}"
+            )
         changed = []
-        for name, (tags, alt) in entries.items():
+        for name, (tags, alt) in edits.items():
             xmp = Xmp.for_image(gallery / name)
-            if tags == xmp.tags and alt == xmp.description:
-                continue
             # Only the changed field: the other keeps its exact form
             if tags != xmp.tags:
                 xmp.tags = tags
