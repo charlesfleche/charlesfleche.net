@@ -13,6 +13,11 @@
      <rdf:li>Wall</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">Framed photos hung on an old stone wall.</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

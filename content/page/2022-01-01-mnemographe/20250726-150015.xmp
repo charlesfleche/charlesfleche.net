@@ -14,6 +14,11 @@
      <rdf:li>Child</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">A child lying on a wooden floor in a bedroom.</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

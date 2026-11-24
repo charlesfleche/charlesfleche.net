@@ -12,6 +12,11 @@
      <rdf:li>NotreDame</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">Notre-Dame de Paris lit at night, above the Seine.</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

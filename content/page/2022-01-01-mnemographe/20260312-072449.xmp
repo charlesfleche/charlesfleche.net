@@ -16,6 +16,11 @@
      <rdf:li>Char</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">Icicles hanging from a frozen car.</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

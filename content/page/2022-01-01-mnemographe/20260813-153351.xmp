@@ -1,8 +1,13 @@
 <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
-<x:xmpmeta xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:x="adobe:ns:meta/" x:xmptk="mnemographe.py">
+<x:xmpmeta xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:x="adobe:ns:meta/" x:xmptk="mnemographe.py">
  <rdf:RDF>
   <rdf:Description rdf:about="">
-   </rdf:Description>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">A blue door covered with graffiti and stickers.</rdf:li>
+    </rdf:Alt>
+   </dc:description>
+  </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>
 <?xpacket end="w"?>

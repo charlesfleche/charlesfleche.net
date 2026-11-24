@@ -13,6 +13,11 @@
      <rdf:li>Dupont</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">A cut-out figure of a man in a bowler hat that says "Entrez donc!".</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

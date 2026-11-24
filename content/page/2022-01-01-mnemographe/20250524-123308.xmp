@@ -15,6 +15,11 @@
      <rdf:li>PointeSaintCharles</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">Two "La Pointe, quartier populaire" protest signs on a bench.</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

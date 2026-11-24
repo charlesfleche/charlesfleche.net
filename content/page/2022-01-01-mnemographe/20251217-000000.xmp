@@ -12,6 +12,11 @@
      <rdf:li>Graffiti</rdf:li>
     </rdf:Bag>
    </dc:subject>
+   <dc:description>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">A stencil on the ground that reads "J'espère que c'était le gauche #jeramasse".</rdf:li>
+    </rdf:Alt>
+   </dc:description>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>
