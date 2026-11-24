@@ -35,8 +35,8 @@ ssh pi journalctl -u mnemographe-post@instagram  # pi: the posts of a network
 - **The inbox is refused.** The notification lists each file and its problem: not a JPEG, not square, no EXIF date, or a name already taken. Nothing moved. Fix or remove the files on the phone. The next sync starts a new ingest.
 - **A `.pending` marker stops the posts.** A post crashed after the network got it, or just before. The error names the photo, its json and its marker. Check the network for the photo. If it is posted, write `<stem>.<network>.json` by hand and commit it. In both cases, delete the marker.
 - **A file of the gallery is not committed.** The error names it. Commit it or remove it by hand, then push.
-- **The Instagram token expired.** Put a new token in the si vault and converge pi. The new environment token replaces the stored one by itself, because its hash changes. There is no file to delete.
-- **A photo is too large for Instagram.** Instagram takes 8 MB at most. Replace the original with a smaller JPEG of the same name, and commit it.
+- **Instagram asks to confirm a login.** The post fails and notifies. Approve the login in the Instagram app, then start `mnemographe-post@instagram` again on pi. Instagram uses its private API, through instagrapi: Instagram can refuse or lock a login from a server.
+- **The Instagram password changed.** Put the new password in the si vault and converge pi. If the session still fails, delete `instagram-session.json` at the root of pi's clone.
 - **A unit gives up.** systemd sends a notification with the end of its journal. Read the full journal with the commands above.
 
 ### Where things are

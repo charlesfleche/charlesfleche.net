@@ -1,8 +1,8 @@
 # Configuration of bin/mnemographe.py: the gallery it ingests photos into,
 # and the networks it posts them to. Each `post` call posts one photo to one
-# network. Access tokens are never stored here: every network reads its own
-# POSTER_<NETWORK>_API_TOKEN environment variable, e.g.
-# POSTER_MASTODON_API_TOKEN.
+# network. Secrets are never stored here: Mastodon reads its access token from
+# POSTER_MASTODON_API_TOKEN, Instagram its password from
+# POSTER_INSTAGRAM_PASSWORD.
 
 images: content/page/2022-01-01-mnemographe
 
@@ -16,9 +16,9 @@ destinations:
     language: en
     # Prepended to the tags of every image, in this order.
     default_tags: [Mnémographe, Photo, Photography]
-  # The Instagram API with Instagram Login. Instagram fetches the photo from
-  # images_url + its file name: the gallery's originals on the blog.
+  # Instagram's private API, through instagrapi: logs in as username with
+  # POSTER_INSTAGRAM_PASSWORD, and uploads the photo file.
   instagram:
     type: instagram
-    images_url: https://charlesfleche.net/mnemographe/
+    username: charlesfleche_
     default_tags: [Mnémographe, Photo, Photography]

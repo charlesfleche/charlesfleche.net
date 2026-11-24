@@ -1,7 +1,7 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["requests", "pyyaml"]
+# dependencies = ["instagrapi", "requests", "pyyaml"]
 # ///
 """mnemographe.py — ingest new photos into the mnémographe gallery, tag and post them.
 
@@ -49,10 +49,12 @@ return the first post.
 
 queue NETWORK lists the tagged photos NETWORK will get, in publish order.
 
-Networks are configured in mnemographe.yml. Access tokens come from the
-environment only, as POSTER_<NETWORK>_API_TOKEN, and never reach child
-processes. Instagram keeps its refreshed token in instagram-token.json, at the
-root of the repository and ignored by git: see the Instagram class.
+Networks are configured in mnemographe.yml. Secrets come from the
+environment only, and never reach child processes: Mastodon reads its access
+token from POSTER_MASTODON_API_TOKEN, Instagram its password from
+POSTER_INSTAGRAM_PASSWORD. Instagram keeps its session in
+instagram-session.json, at the root of the repository and ignored by git: see
+the Instagram class.
 
 Usage:
 
@@ -67,7 +69,6 @@ import argparse
 import contextlib
 import dataclasses
 import fcntl
-import hashlib
 import json
 import math
 import mimetypes
@@ -81,9 +82,10 @@ import sys
 import tempfile
 import time
 import unicodedata
-import urllib.parse
 import xml.etree.ElementTree as ET
 
+import instagrapi
+import instagrapi.exceptions
 import requests
 import yaml
 
@@ -448,116 +450,89 @@ def read_state(path: pathlib.Path) -> dict:
         return json.load(file)
 
 
-class Instagram:
-    """The Instagram destination, with the Instagram API with Instagram Login.
+class InstagramLoginError(MnemographeError):
+    pass
 
-    Instagram fetches the photo from its URL on the blog, so the blog must be
-    published first. Its long-lived token lasts 60 days, and can be refreshed
-    once it is a day old. instagram-token.json, at the root of the
-    repository and ignored by git, holds the token in use, and the sha256
-    of the POSTER_INSTAGRAM_API_TOKEN it comes from: when that variable
-    changes, its token replaces the stored one. Once the state is 7 days old, prepare() refreshes the token, even
-    when no photo is left to post.
+
+def refuse_challenge(username: str, choice: object) -> str:
+    """instagrapi's challenge_code_handler: never wait for a code on stdin."""
+    raise InstagramLoginError(
+        f"Instagram asks to confirm a login of {username}: approve it in the Instagram app, then run again"
+    )
+
+
+def secret(variable: str) -> str:
+    """The value of the environment variable, which must be set and not empty. Errors never show it."""
+    value = os.environ.get(variable, "")
+    if not value:
+        raise MnemographeError(f"{variable} is not set: export it")
+    return value
+
+
+class Instagram:
+    """The Instagram destination, through instagrapi: Instagram's private API.
+
+    It logs in as the account, with POSTER_INSTAGRAM_PASSWORD and, when
+    the account has two-factor authentication, the TOTP seed of
+    POSTER_INSTAGRAM_TOTP_SEED. The session, which stands for the password,
+    is kept in instagram-session.json, at the root of the repository and
+    ignored by git (mode 0600), so it logs in again only when Instagram ends
+    the session. A login that Instagram asks to confirm fails: approve it in
+    the Instagram app, then run again.
     """
 
-    # Meta's rules: the API, caption and image limits of POST /<IG_ID>/media,
-    # and a container polled at most once a minute, for 5 minutes
-    host = "https://graph.instagram.com"
-    version = "v27.0"
+    # Instagram's caption limit
     max_hashtags = 30
-    max_bytes = 8 * 1024 * 1024
-    status_poll_seconds = 60
-    status_timeout_seconds = 5 * 60
-    refresh_after_seconds = 7 * 24 * 3600
 
     def __init__(self, name: str, config: dict) -> None:
         self.name = name
-        self.images_url = config["images_url"]
-        self.session = requests.Session()
-        self.session.headers["User-Agent"] = "mnemographe.py (+https://charlesfleche.net)"
-
-    def _request(self, method: str, path: str, **kwargs) -> dict:
-        return request(self.session, method, f"{self.host}/{self.version}{path}", **kwargs).json()
+        self.username = config["username"]
+        self.session = _REPO_ROOT / f"{self.name}-session.json"
+        self.client: instagrapi.Client | None = None
 
     def prepare(self) -> None:
-        self.session.headers["Authorization"] = f"Bearer {self._token()}"
+        """Logs in, also when nothing is left to post, so the session stays in use."""
+        password = secret("POSTER_INSTAGRAM_PASSWORD")
+        totp_seed = os.environ.get("POSTER_INSTAGRAM_TOTP_SEED", "")
+        client = instagrapi.Client()
+        client.challenge_code_handler = refuse_challenge
+        # Pauses between private API calls, as the app does
+        client.delay_range = [1, 3]
+        if self.session.exists():
+            client.set_settings(read_state(self.session))
 
-    def _token(self) -> str:
-        path = _REPO_ROOT / f"{self.name}-token.json"
-        environment_token = api_token(self.name)
-        source = hashlib.sha256(environment_token.encode()).hexdigest()
-        state = read_state(path) if path.exists() else None
-        if state is None or state["source"] != source:
-            if state is not None:
-                print(f"the {self.name} token of the environment changed: it replaces the one of {path}")
-            state = {"source": source, "token": environment_token}
-            write_state(path, state)
-        if time.time() - path.stat().st_mtime > self.refresh_after_seconds:
-            state["token"] = self._refresh(state["token"])
-            write_state(path, state)
-        return state["token"]
+        def login() -> None:
+            code = client.totp_generate_code(totp_seed) if totp_seed else ""
+            client.login(self.username, password, verification_code=code)
 
-    def _refresh(self, token: str) -> str:
-        # The token is a query parameter here, and the message of a requests
-        # exception holds the URL: it is left out
         try:
-            response = request(
-                requests.Session(),
-                "GET",
-                f"{self.host}/refresh_access_token",
-                params={"grant_type": "ig_refresh_token", "access_token": token},
-            )
-            refreshed = response.json()["access_token"]
-        except requests.RequestException as error:
-            raise MnemographeError(f"refreshing the {self.name} token failed: {type(error).__name__}") from None
-        return check_token(refreshed, f"the refreshed {self.name} token")
-
-    def _user_id(self) -> str:
-        """The IG_ID."""
-        # Meta's docs show both shapes of GET /me: flat, and in a data list
-        me = self._request("GET", "/me", params={"fields": "user_id,username"})
-        if "user_id" in me:
-            return me["user_id"]
-        if "data" in me and len(me["data"]) == 1 and "user_id" in me["data"][0]:
-            return me["data"][0]["user_id"]
-        raise MnemographeError(f"GET /me of {self.name} has no user_id: {str(me)[:500]}")
+            login()
+            # login() trusts a stored session: check it, and log in again,
+            # as the same device, when Instagram ended it
+            try:
+                client.account_info()
+            except instagrapi.exceptions.LoginRequired:
+                uuids = client.get_settings()["uuids"]
+                client.set_settings({})
+                client.set_uuids(uuids)
+                login()
+        except instagrapi.exceptions.ClientError as error:
+            raise InstagramLoginError(f"the {self.name} login of {self.username} failed: {type(error).__name__}: {error}") from None
+        write_state(self.session, client.get_settings())
+        self.client = client
 
     def post(self, image: pathlib.Path, text: str, description: str, record: PostRecord) -> dict:
-        if image.stat().st_size > self.max_bytes:
-            raise MnemographeError(f"{image.name} is larger than the {self.max_bytes} bytes {self.name} takes")
-        image_url = self.images_url + urllib.parse.quote(image.name)
-        status = requests.head(image_url, timeout=60).status_code
-        if status != 200:
-            raise MnemographeError(f"{image.name} is not on the blog yet: HEAD {image_url} returned {status}")
-
-        user_id = self._user_id()
-        parameters = {"image_url": image_url, "caption": text}
-        if description:
-            parameters["alt_text"] = description
-        container = self._request("POST", f"/{user_id}/media", json=parameters)
-        status = self._wait_container(container["id"])
-        record.pending({"container": container, "status": status})
-        published = self._request("POST", f"/{user_id}/media_publish", json={"creation_id": container["id"]})
-        payload = {"container": container, "status": status, "media_publish": published}
+        assert self.client is not None, "prepare() first"
+        record.pending({"username": self.username})
+        # custom_accessibility_caption: the alt text field of the app
+        extra = {"custom_accessibility_caption": description} if description else {}
+        media = self.client.photo_upload(image, text, extra_data=extra)
+        payload = media.model_dump(mode="json")
         record.posted(payload)
         return payload
 
-    def _wait_container(self, container_id: str) -> dict:
-        deadline = time.monotonic() + self.status_timeout_seconds
-        while True:
-            status = self._request("GET", f"/{container_id}", params={"fields": "status_code"})
-            if status["status_code"] == "FINISHED":
-                return status
-            if status["status_code"] in ("ERROR", "EXPIRED"):
-                raise MnemographeError(f"{self.name} container {container_id}: {status}")
-            if time.monotonic() > deadline:
-                raise MnemographeError(f"{self.name} container {container_id} still {status['status_code']} after {self.status_timeout_seconds} s")
-            time.sleep(self.status_poll_seconds)
-
     def post_url(self, payload: dict) -> str:
-        """The permalink of the published post, for the notification only."""
-        media_id = payload["media_publish"]["id"]
-        return self._request("GET", f"/{media_id}", params={"fields": "permalink"})["permalink"]
+        return f"https://www.instagram.com/p/{payload['code']}/"
 
 
 _DESTINATION_TYPES = {"mastodon": Mastodon, "instagram": Instagram}
