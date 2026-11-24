@@ -66,7 +66,7 @@ Everything lands under `build/dist/`, which is the document root served by `bin/
 
 ### The `GalleryProcessor` Markdown preprocessor
 
-A line holding only `[[gallery]]` is replaced, before parsing, by a bullet list of every `*.jpg`/`*.jpeg` of the `.md` file's directory, sorted by name (dates, as in `content/page/2022-01-01-mnemographe`), with empty alts: `MediaProcessor` then makes it a gallery, described by the XMP sidecars. A marker in a directory without images fails the build.
+A line holding only `[[gallery]]` is replaced, before parsing, by a bullet list of every `*.jpg`/`*.jpeg` of the `.md` file's directory, sorted by name (dates), with empty alts. `[[gallery reverse]]` sorts them the other way, most recent first (as in `content/page/2022-01-01-mnemographe`): `MediaProcessor` then makes it a gallery, described by the XMP sidecars. A marker in a directory without images fails the build.
 
 ### The `MediaProcessor` Markdown extension
 

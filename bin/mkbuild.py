@@ -54,8 +54,8 @@ _ARTICLES_DATA_PATHS = []
 _GALLERY_DIRS = set()
 
 # A line of its own, replaced by a gallery of every image of the markdown's
-# directory
-_GALLERY_MARKER = "[[gallery]]"
+# directory, in the order of their names or, reversed, most recent first
+_GALLERY_MARKERS = {"[[gallery]]": False, "[[gallery reverse]]": True}
 _GALLERY_SUFFIXES = (".jpg", ".jpeg")
 
 # Widths of the srcset of an image, in ascending order
@@ -352,18 +352,22 @@ class GalleryProcessor(Preprocessor):
     def run(self, lines):
         result = []
         for line in lines:
-            if line.strip() != _GALLERY_MARKER:
+            marker = line.strip()
+            if marker not in _GALLERY_MARKERS:
                 result.append(line)
                 continue
             gallery_dir = self.md_path.parent
             # Named after their date: in chronological order
             images = sorted(
-                path.name
-                for path in gallery_dir.iterdir()
-                if path.suffix.lower() in _GALLERY_SUFFIXES
+                (
+                    path.name
+                    for path in gallery_dir.iterdir()
+                    if path.suffix.lower() in _GALLERY_SUFFIXES
+                ),
+                reverse=_GALLERY_MARKERS[marker],
             )
             if not images:
-                raise RuntimeError(f"No image for {_GALLERY_MARKER} in {gallery_dir}")
+                raise RuntimeError(f"No image for {marker} in {gallery_dir}")
             _GALLERY_DIRS.add(gallery_dir)
             # Empty alts: described by their XMP sidecar
             result.extend(f"- ![]({name})" for name in images)
