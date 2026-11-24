@@ -1,4 +1,3 @@
-instagrapi
 jinja2
 markdown
 ninja
