@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">An empty street at night, lit by streetlights.</rdf:li>
+     <rdf:li xml:lang="x-default">An empty street at night, lit by streetlights. / Une rue vide la nuit, éclairée par des lampadaires.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A thrift store on a snowy street corner at dusk.</rdf:li>
+     <rdf:li xml:lang="x-default">A thrift store on a snowy street corner at dusk. / Une friperie au coin d'une rue enneigée, au crépuscule.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

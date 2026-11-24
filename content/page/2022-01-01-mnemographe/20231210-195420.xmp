@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">The Eiffel Tower and a lit tower in the night sky.</rdf:li>
+     <rdf:li xml:lang="x-default">The Eiffel Tower and a lit tower in the night sky. / La tour Eiffel et une tour éclairée dans le ciel nocturne.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

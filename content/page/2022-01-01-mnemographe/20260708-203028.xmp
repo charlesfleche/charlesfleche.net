@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A dim bar with a lamp, an old telephone and a brick wall.</rdf:li>
+     <rdf:li xml:lang="x-default">A dim bar with a lamp, an old telephone and a brick wall. / Un bar sombre avec une lampe, un vieux téléphone et un mur de briques.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

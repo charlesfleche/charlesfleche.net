@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">People going down the stairs of a Paris Métro entrance.</rdf:li>
+     <rdf:li xml:lang="x-default">People going down the stairs of a Paris Métro entrance. / Des gens descendent les marches d'une entrée du métro de Paris.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

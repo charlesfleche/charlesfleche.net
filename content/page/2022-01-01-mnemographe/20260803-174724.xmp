@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A colorful mural of a man's face, with graffiti lettering.</rdf:li>
+     <rdf:li xml:lang="x-default">A colorful mural of a man's face, with graffiti lettering. / Une murale colorée d'un visage d'homme, avec des lettres de graffiti.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

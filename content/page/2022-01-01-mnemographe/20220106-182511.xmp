@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A page of handwritten notes, with crossed-out words.</rdf:li>
+     <rdf:li xml:lang="x-default">A page of handwritten notes, with crossed-out words. / Une page de notes manuscrites, avec des mots barrés.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A snowy forest path, with the sun shining through the trees.</rdf:li>
+     <rdf:li xml:lang="x-default">A snowy forest path, with the sun shining through the trees. / Un sentier enneigé en forêt, avec le soleil entre les arbres.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

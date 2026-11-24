@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">An airport departures board.</rdf:li>
+     <rdf:li xml:lang="x-default">An airport departures board. / Un tableau des départs dans un aéroport.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

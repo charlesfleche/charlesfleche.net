@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A snowy courtyard at night, seen from a balcony.</rdf:li>
+     <rdf:li xml:lang="x-default">A snowy courtyard at night, seen from a balcony. / Une cour enneigée la nuit, vue d'un balcon.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

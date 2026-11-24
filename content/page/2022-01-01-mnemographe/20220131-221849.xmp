@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A notebook full of handwriting, with a pen lying on it.</rdf:li>
+     <rdf:li xml:lang="x-default">A notebook full of handwriting, with a pen lying on it. / Un carnet plein d'écriture, avec un stylo posé dessus.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

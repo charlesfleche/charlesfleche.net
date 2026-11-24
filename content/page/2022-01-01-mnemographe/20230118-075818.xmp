@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A person looking at a phone in a dark plane cabin.</rdf:li>
+     <rdf:li xml:lang="x-default">A person looking at a phone in a dark plane cabin. / Une personne regarde son téléphone dans la cabine sombre d'un avion.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

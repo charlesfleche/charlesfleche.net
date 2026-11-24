@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A person sitting on a rock above the city.</rdf:li>
+     <rdf:li xml:lang="x-default">A person sitting on a rock above the city. / Une personne assise sur un rocher au-dessus de la ville.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

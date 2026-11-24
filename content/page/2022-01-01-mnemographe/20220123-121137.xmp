@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A long underground corridor lit by ceiling lights.</rdf:li>
+     <rdf:li xml:lang="x-default">A long underground corridor lit by ceiling lights. / Un long couloir souterrain éclairé par des lumières au plafond.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

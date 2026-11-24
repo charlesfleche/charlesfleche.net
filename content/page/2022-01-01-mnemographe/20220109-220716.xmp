@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A screenshot of chat messages about a music session.</rdf:li>
+     <rdf:li xml:lang="x-default">A screenshot of chat messages about a music session. / Une capture d'écran de messages à propos d'une session de musique.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

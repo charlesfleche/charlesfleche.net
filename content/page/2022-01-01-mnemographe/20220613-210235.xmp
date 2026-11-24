@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A street between tall buildings at sunset.</rdf:li>
+     <rdf:li xml:lang="x-default">A street between tall buildings at sunset. / Une rue entre de grands immeubles au coucher du soleil.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

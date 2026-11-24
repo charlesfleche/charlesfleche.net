@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A foggy street at night, lit by streetlights, with parked cars.</rdf:li>
+     <rdf:li xml:lang="x-default">A foggy street at night, lit by streetlights, with parked cars. / Une rue dans le brouillard la nuit, éclairée par des lampadaires, avec des voitures garées.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

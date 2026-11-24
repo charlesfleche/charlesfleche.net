@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A cup of coffee, a teapot and a plate of breakfast leftovers.</rdf:li>
+     <rdf:li xml:lang="x-default">A cup of coffee, a teapot and a plate of breakfast leftovers. / Une tasse de café, une théière et une assiette de restes de petit-déjeuner.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>

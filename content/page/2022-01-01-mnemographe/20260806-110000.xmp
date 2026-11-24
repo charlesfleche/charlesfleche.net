@@ -4,7 +4,7 @@
   <rdf:Description rdf:about="">
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">A man walking past a yellow shop called Paul Boutique.</rdf:li>
+     <rdf:li xml:lang="x-default">A man walking past a yellow shop called Paul Boutique. / Un homme passe devant une boutique jaune nommée Paul Boutique.</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>
