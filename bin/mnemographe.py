@@ -454,11 +454,33 @@ class InstagramLoginError(MnemographeError):
     pass
 
 
-def refuse_challenge(username: str, choice: object) -> str:
-    """instagrapi's challenge_code_handler: never wait for a code on stdin."""
+def refuse_challenge(username: str, *args: object) -> str:
+    """instagrapi's challenge and password handlers: never act on a challenge, nor wait on stdin."""
     raise InstagramLoginError(
         f"Instagram asks to confirm a login of {username}: approve it in the Instagram app, then run again"
     )
+
+
+def instagram_error(error: Exception) -> str:
+    """The type and message of an instagrapi error, without the Instagram response it may hold."""
+    return f"{type(error).__name__}: {str(getattr(error, 'message', '') or '')[:200]}"
+
+
+class OneShotClient(instagrapi.Client):
+    """instagrapi's Client, which sends the request that publishes a post once only.
+
+    instagrapi resends a request after a timeout or an incomplete read: the
+    post may then be published twice.
+    """
+
+    _publish_sent = False
+
+    def _send_private_request(self, endpoint, *args, **kwargs):
+        if endpoint == "media/configure/":
+            if self._publish_sent:
+                raise MnemographeError("instagrapi tried to send the post again: it may be public already")
+            self._publish_sent = True
+        return super()._send_private_request(endpoint, *args, **kwargs)
 
 
 def secret(variable: str) -> str:
@@ -493,13 +515,22 @@ class Instagram:
     def prepare(self) -> None:
         """Logs in, also when nothing is left to post, so the session stays in use."""
         password = secret("POSTER_INSTAGRAM_PASSWORD")
-        totp_seed = os.environ.get("POSTER_INSTAGRAM_TOTP_SEED", "")
-        client = instagrapi.Client()
+        # Instagram shows the seed in groups of 4
+        totp_seed = os.environ.get("POSTER_INSTAGRAM_TOTP_SEED", "").replace(" ", "")
+        client = OneShotClient()
+        # A challenge fails at once: no request to Instagram, no prompt
+        client.with_challenge_flow = False
         client.challenge_code_handler = refuse_challenge
+        client.change_password_handler = refuse_challenge
         # Pauses between private API calls, as the app does
         client.delay_range = [1, 3]
-        if self.session.exists():
-            client.set_settings(read_state(self.session))
+
+        def settings(values: dict) -> None:
+            client.set_settings(values)
+            # No HTTP retry: a resent request could publish a post twice
+            client.set_retry_config(session_retry_total=0)
+
+        settings(read_state(self.session) if self.session.exists() else {})
 
         def login() -> None:
             code = client.totp_generate_code(totp_seed) if totp_seed else ""
@@ -513,11 +544,11 @@ class Instagram:
                 client.account_info()
             except instagrapi.exceptions.LoginRequired:
                 uuids = client.get_settings()["uuids"]
-                client.set_settings({})
+                settings({})
                 client.set_uuids(uuids)
                 login()
         except instagrapi.exceptions.ClientError as error:
-            raise InstagramLoginError(f"the {self.name} login of {self.username} failed: {type(error).__name__}: {error}") from None
+            raise InstagramLoginError(f"the {self.name} login of {self.username} failed: {instagram_error(error)}") from None
         write_state(self.session, client.get_settings())
         self.client = client
 
@@ -526,8 +557,13 @@ class Instagram:
         record.pending({"username": self.username})
         # custom_accessibility_caption: the alt text field of the app
         extra = {"custom_accessibility_caption": description} if description else {}
-        media = self.client.photo_upload(image, text, extra_data=extra)
-        payload = media.model_dump(mode="json")
+        try:
+            media = self.client.photo_upload(image, text, extra_data=extra)
+        except instagrapi.exceptions.ClientError as error:
+            # The marker stays: the post may be public
+            raise MnemographeError(f"the {self.name} post of {image.name} failed: {instagram_error(error)}") from None
+        # Not the rest: the viewer's flags, expiring image URLs, linked accounts
+        payload = media.model_dump(mode="json", include={"pk", "id", "code", "taken_at", "caption_text", "accessibility_caption"})
         record.posted(payload)
         return payload
 
