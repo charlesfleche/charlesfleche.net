@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">Large wheels of old printing machines in a workshop.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Workshop</rdf:li>
+     <rdf:li>Atelier</rdf:li>
+     <rdf:li>Press</rdf:li>
+     <rdf:li>Presse</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

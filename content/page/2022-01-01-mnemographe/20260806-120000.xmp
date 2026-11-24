@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">Graffiti and an emergency exit sign among ivy.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Ivy</rdf:li>
+     <rdf:li>Lierre</rdf:li>
+     <rdf:li>Graffiti</rdf:li>
+     <rdf:li>Sign</rdf:li>
+     <rdf:li>Panneau</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

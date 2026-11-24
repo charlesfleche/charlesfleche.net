@@ -7,6 +7,19 @@
      <rdf:li xml:lang="x-default">Scaffolding and stairs on the facade of a building.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Monochrome</rdf:li>
+     <rdf:li>Monochrom</rdf:li>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Scaffolding</rdf:li>
+     <rdf:li>Échafaudage</rdf:li>
+     <rdf:li>Stairs</rdf:li>
+     <rdf:li>Escaliers</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

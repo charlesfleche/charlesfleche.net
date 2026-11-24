@@ -7,6 +7,21 @@
      <rdf:li xml:lang="x-default">A music controller with a grid of lit square pads.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Launchpad</rdf:li>
+     <rdf:li>Music</rdf:li>
+     <rdf:li>Musique</rdf:li>
+     <rdf:li>Lights</rdf:li>
+     <rdf:li>Lumières</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

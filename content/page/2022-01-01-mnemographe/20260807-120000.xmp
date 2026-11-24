@@ -7,6 +7,15 @@
      <rdf:li xml:lang="x-default">Green leaves in front of blurred lights.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Leaves</rdf:li>
+     <rdf:li>Feuilles</rdf:li>
+     <rdf:li>Bokeh</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

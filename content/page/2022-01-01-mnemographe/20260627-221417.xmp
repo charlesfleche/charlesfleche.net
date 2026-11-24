@@ -7,6 +7,21 @@
      <rdf:li xml:lang="x-default">Lights under a large structure, reflected in water at night.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Monochrome</rdf:li>
+     <rdf:li>Monochrom</rdf:li>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Night</rdf:li>
+     <rdf:li>Nuit</rdf:li>
+     <rdf:li>Reflection</rdf:li>
+     <rdf:li>Reflet</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

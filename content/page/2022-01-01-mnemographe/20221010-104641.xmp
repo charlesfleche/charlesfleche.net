@@ -7,6 +7,19 @@
      <rdf:li xml:lang="x-default">A rocky shore and a branch in front of a wide river.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>SaintLaurent</rdf:li>
+     <rdf:li>SaintLawrence</rdf:li>
+     <rdf:li>River</rdf:li>
+     <rdf:li>Fleuve</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

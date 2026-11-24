@@ -7,6 +7,16 @@
      <rdf:li xml:lang="x-default">Shelf mushrooms growing on a tree trunk in a forest.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Mushrooms</rdf:li>
+     <rdf:li>Champignons</rdf:li>
+     <rdf:li>Forest</rdf:li>
+     <rdf:li>Forêt</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

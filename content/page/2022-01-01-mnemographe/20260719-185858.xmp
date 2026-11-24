@@ -7,6 +7,23 @@
      <rdf:li xml:lang="x-default">A stone wall with a white cross painted on it.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Monochrome</rdf:li>
+     <rdf:li>Monochrom</rdf:li>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Wall</rdf:li>
+     <rdf:li>Mur</rdf:li>
+     <rdf:li>Stones</rdf:li>
+     <rdf:li>Pierres</rdf:li>
+     <rdf:li>Cross</rdf:li>
+     <rdf:li>Croix</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

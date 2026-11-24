@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">Wooden game tiles with circles, stars and squares on a table.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Game</rdf:li>
+     <rdf:li>Jeu</rdf:li>
+     <rdf:li>Qwirkle</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

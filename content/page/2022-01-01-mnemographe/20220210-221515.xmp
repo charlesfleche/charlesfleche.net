@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">A keyboard and cables on a cutting mat.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Keyboard</rdf:li>
+     <rdf:li>Clavier</rdf:li>
+     <rdf:li>Desk</rdf:li>
+     <rdf:li>Bureau</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

@@ -7,6 +7,19 @@
      <rdf:li xml:lang="x-default">A pile of torn wrapping paper after opening gifts.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Cambrai</rdf:li>
+     <rdf:li>Christmas</rdf:li>
+     <rdf:li>Noël</rdf:li>
+     <rdf:li>Gifts</rdf:li>
+     <rdf:li>Cadeaux</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

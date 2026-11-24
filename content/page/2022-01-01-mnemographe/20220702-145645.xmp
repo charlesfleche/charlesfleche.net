@@ -7,6 +7,18 @@
      <rdf:li xml:lang="x-default">A tall wooden observation tower against the sky.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Coaticook</rdf:li>
+     <rdf:li>Tower</rdf:li>
+     <rdf:li>Tour</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

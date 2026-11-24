@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">The neon sign of the Twin Peaks bar.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>USA</rdf:li>
+     <rdf:li>ÉtatsUnis</rdf:li>
+     <rdf:li>SanFrancisco</rdf:li>
+     <rdf:li>TwinPeaks</rdf:li>
+     <rdf:li>Néon</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

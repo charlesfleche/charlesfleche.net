@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">Hands holding playing cards above a game of Skyjo.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Cambrai</rdf:li>
+     <rdf:li>Cards</rdf:li>
+     <rdf:li>Cartes</rdf:li>
+     <rdf:li>Skyjo</rdf:li>
+     <rdf:li>Game</rdf:li>
+     <rdf:li>Jeu</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">The leaves of a dense bush.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Plants</rdf:li>
+     <rdf:li>Plantes</rdf:li>
+     <rdf:li>Leaves</rdf:li>
+     <rdf:li>Feuilles</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

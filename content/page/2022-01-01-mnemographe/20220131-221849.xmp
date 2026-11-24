@@ -7,6 +7,22 @@
      <rdf:li xml:lang="x-default">A notebook full of handwriting, with a pen lying on it.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Writing</rdf:li>
+     <rdf:li>Écriture</rdf:li>
+     <rdf:li>Notebook</rdf:li>
+     <rdf:li>Carnet</rdf:li>
+     <rdf:li>Pen</rdf:li>
+     <rdf:li>Stylo</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

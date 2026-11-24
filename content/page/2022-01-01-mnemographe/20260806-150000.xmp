@@ -7,6 +7,19 @@
      <rdf:li xml:lang="x-default">Clothes spread on the grass of a park, under "Victoire" balloons.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Park</rdf:li>
+     <rdf:li>Parc</rdf:li>
+     <rdf:li>Balloons</rdf:li>
+     <rdf:li>Ballons</rdf:li>
+     <rdf:li>Clothes</rdf:li>
+     <rdf:li>Vêtements</rdf:li>
+     <rdf:li>Victoire</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">Building plans, a cable and a network tester on a table.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Work</rdf:li>
+     <rdf:li>Travail</rdf:li>
+     <rdf:li>Télécom</rdf:li>
+     <rdf:li>Plans</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

@@ -7,6 +7,16 @@
      <rdf:li xml:lang="x-default">A blue stenciled butterfly on a white wall.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Butterfly</rdf:li>
+     <rdf:li>Papillon</rdf:li>
+     <rdf:li>Stencil</rdf:li>
+     <rdf:li>Pochoir</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

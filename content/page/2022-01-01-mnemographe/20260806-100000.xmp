@@ -7,6 +7,18 @@
      <rdf:li xml:lang="x-default">Lit shop fronts on a street at night.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Night</rdf:li>
+     <rdf:li>Nuit</rdf:li>
+     <rdf:li>Street</rdf:li>
+     <rdf:li>Rue</rdf:li>
+     <rdf:li>Shop</rdf:li>
+     <rdf:li>Boutique</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

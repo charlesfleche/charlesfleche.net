@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">A drawing of a figure with a heart in a speech bubble, above the word "A?TIST".</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Spain</rdf:li>
+     <rdf:li>Espagne</rdf:li>
+     <rdf:li>Valencia</rdf:li>
+     <rdf:li>Valence</rdf:li>
+     <rdf:li>Graffiti</rdf:li>
+     <rdf:li>Heart</rdf:li>
+     <rdf:li>Coeur</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

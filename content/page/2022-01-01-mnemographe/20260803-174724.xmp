@@ -7,6 +7,18 @@
      <rdf:li xml:lang="x-default">A colorful mural of a man's face, with graffiti lettering.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Graffiti</rdf:li>
+     <rdf:li>StreetArt</rdf:li>
+     <rdf:li>Mural</rdf:li>
+     <rdf:li>Murale</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

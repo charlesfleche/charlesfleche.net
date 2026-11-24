@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">The facade of a tall building with rows of windows.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Building</rdf:li>
+     <rdf:li>Immeuble</rdf:li>
+     <rdf:li>Windows</rdf:li>
+     <rdf:li>Fenêtres</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

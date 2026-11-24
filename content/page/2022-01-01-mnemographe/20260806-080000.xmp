@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">A jug of flowers on a table by a balcony railing.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Flowers</rdf:li>
+     <rdf:li>Fleurs</rdf:li>
+     <rdf:li>Vase</rdf:li>
+     <rdf:li>Balcony</rdf:li>
+     <rdf:li>Balcon</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

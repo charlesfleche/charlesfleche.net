@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">A sticker of a small figure named Migron on concrete.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Sticker</rdf:li>
+     <rdf:li>Autocollant</rdf:li>
+     <rdf:li>Migron</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

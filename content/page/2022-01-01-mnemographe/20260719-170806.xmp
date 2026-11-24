@@ -7,6 +7,19 @@
      <rdf:li xml:lang="x-default">A padlock hanging on a chain-link fence.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Monochrome</rdf:li>
+     <rdf:li>Monochrom</rdf:li>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Padlock</rdf:li>
+     <rdf:li>Cadenas</rdf:li>
+     <rdf:li>Fence</rdf:li>
+     <rdf:li>Grillage</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

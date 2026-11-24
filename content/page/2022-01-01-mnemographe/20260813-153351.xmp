@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">A blue door covered with graffiti and stickers.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Bretagne</rdf:li>
+     <rdf:li>Brittany</rdf:li>
+     <rdf:li>Graffiti</rdf:li>
+     <rdf:li>Stickers</rdf:li>
+     <rdf:li>Autocollants</rdf:li>
+     <rdf:li>Door</rdf:li>
+     <rdf:li>Porte</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

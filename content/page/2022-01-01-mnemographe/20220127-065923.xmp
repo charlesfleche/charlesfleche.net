@@ -7,6 +7,21 @@
      <rdf:li xml:lang="x-default">A sign on a brick wall warns of falling snow or ice.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Snow</rdf:li>
+     <rdf:li>Neige</rdf:li>
+     <rdf:li>Sign</rdf:li>
+     <rdf:li>Panneau</rdf:li>
+     <rdf:li>Attention</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

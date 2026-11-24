@@ -7,6 +7,15 @@
      <rdf:li xml:lang="x-default">A handwritten note on blue tape that reads "Sonnez S.V.P.".</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Note</rdf:li>
+     <rdf:li>Doorbell</rdf:li>
+     <rdf:li>Sonnette</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

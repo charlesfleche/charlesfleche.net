@@ -7,6 +7,17 @@
      <rdf:li xml:lang="x-default">A large crowd at an outdoor festival at dusk.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Crowd</rdf:li>
+     <rdf:li>Foule</rdf:li>
+     <rdf:li>Festival</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

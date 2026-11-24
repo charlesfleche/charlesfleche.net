@@ -7,6 +7,22 @@
      <rdf:li xml:lang="x-default">A smiling face sticker on a utility box next to a snowy path.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Canada</rdf:li>
+     <rdf:li>Québec</rdf:li>
+     <rdf:li>Montréal</rdf:li>
+     <rdf:li>Snow</rdf:li>
+     <rdf:li>Neige</rdf:li>
+     <rdf:li>Sticker</rdf:li>
+     <rdf:li>Autocollant</rdf:li>
+     <rdf:li>Smile</rdf:li>
+     <rdf:li>Sourire</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

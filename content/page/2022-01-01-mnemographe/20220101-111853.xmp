@@ -7,6 +7,20 @@
      <rdf:li xml:lang="x-default">A dirt path through a forest of tall, bare trees.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Forest</rdf:li>
+     <rdf:li>Forêt</rdf:li>
+     <rdf:li>Trees</rdf:li>
+     <rdf:li>Arbres</rdf:li>
+     <rdf:li>Path</rdf:li>
+     <rdf:li>Chemin</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

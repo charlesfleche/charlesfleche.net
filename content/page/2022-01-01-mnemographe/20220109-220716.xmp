@@ -7,6 +7,18 @@
      <rdf:li xml:lang="x-default">A screenshot of chat messages about a music session.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>Message</rdf:li>
+     <rdf:li>Music</rdf:li>
+     <rdf:li>Musique</rdf:li>
+     <rdf:li>Screenshot</rdf:li>
+     <rdf:li>CaptureDÉcran</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

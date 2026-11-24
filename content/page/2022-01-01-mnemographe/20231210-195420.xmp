@@ -7,6 +7,19 @@
      <rdf:li xml:lang="x-default">The Eiffel Tower and a lit tower in the night sky.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Paris</rdf:li>
+     <rdf:li>Night</rdf:li>
+     <rdf:li>Nuit</rdf:li>
+     <rdf:li>EiffelTower</rdf:li>
+     <rdf:li>TourEiffel</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

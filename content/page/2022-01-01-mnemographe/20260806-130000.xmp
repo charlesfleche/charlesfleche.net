@@ -7,6 +7,16 @@
      <rdf:li xml:lang="x-default">Painted wooden arrows with first names.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>Photography</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>Signs</rdf:li>
+     <rdf:li>Panneaux</rdf:li>
+     <rdf:li>Names</rdf:li>
+     <rdf:li>Prénoms</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>

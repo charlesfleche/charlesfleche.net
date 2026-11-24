@@ -7,6 +7,18 @@
      <rdf:li xml:lang="x-default">Rows of homemade ravioli on a wooden board.</rdf:li>
     </rdf:Alt>
    </dc:description>
+   <dc:subject>
+    <rdf:Bag>
+     <rdf:li>BlackAndWhite</rdf:li>
+     <rdf:li>Photographie</rdf:li>
+     <rdf:li>NoirEtBlanc</rdf:li>
+     <rdf:li>France</rdf:li>
+     <rdf:li>Cambrai</rdf:li>
+     <rdf:li>Ravioli</rdf:li>
+     <rdf:li>Cooking</rdf:li>
+     <rdf:li>Cuisine</rdf:li>
+    </rdf:Bag>
+   </dc:subject>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>
