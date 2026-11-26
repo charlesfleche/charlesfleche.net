@@ -27,7 +27,18 @@ files, becomes a copy of the gallery with rsync --delete.
 
 watch INBOX --mirror DIR listens to the local Syncthing REST API, and runs
 ingest each time the Syncthing folder holding INBOX is idle after a change in
-INBOX. INBOX is a subfolder of a Syncthing folder.
+INBOX. INBOX is a subfolder of a Syncthing folder. With --autotag-unit UNIT,
+ingest then starts the systemd user unit UNIT, without waiting for it.
+
+autotag --mirror DIR has Claude tag the photos missing tags or an alt text,
+headless (claude --print), with the mnemographe-tag skill as its system
+prompt. It measures what Claude cannot see (camera, GPS position, color or
+black and white), puts the photos on contact sheets, and gives Claude only the
+Read tool, in a directory holding the sheets alone: no shell, no other file.
+It fills only the missing fields, with the checks of the tag editor, then
+commits, pushes, mirrors, publishes the blog, and notifies the tags and alt
+texts with Claude's guesses. It fails, writing nothing, on any answer it
+refuses. It goes on with the photos ingested meanwhile.
 
 tag --mirror DIR opens every photo, newest added first, with its tags and alt
 text, in git's editor. On save, it writes the XMP sidecars <stem>.xmp that
@@ -61,6 +72,7 @@ Usage:
     bin/mnemographe.py ingest ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py watch ~/Syncthing/3a-Pictures/minbox --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py tag --mirror ~/Syncthing/3a-Pictures/Mnémographe
+    bin/mnemographe.py autotag --mirror ~/Syncthing/3a-Pictures/Mnémographe
     bin/mnemographe.py post mastodon --dry-run
     bin/mnemographe.py queue instagram
 """
@@ -102,6 +114,34 @@ _RENAME_DATE_RE = re.compile(r"\d{8}-\d{6}")
 _SQUARE_TOLERANCE = 0.01
 # Larger than any photo of the gallery (6144 px)
 _MAX_SIDE = 8000
+
+# autotag: the skill that tells Claude how to tag, and how Claude gets the photos
+_SKILL_PATH = _REPO_ROOT / ".claude" / "skills" / "mnemographe-tag" / "SKILL.md"
+_AUTOTAG_SHEET_SIZE = 16
+# Above this mean HSL saturation, a photo is in color
+_AUTOTAG_COLOR_SATURATION = 0.05
+_AUTOTAG_TIMEOUT = 30 * 60
+_AUTOTAG_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "photos": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "file": {"type": "string", "description": "the file name, as given"},
+                    "tags": {"type": "array", "items": {"type": "string"}, "description": "base tags first"},
+                    "alt": {"type": "string", "description": "English. / French."},
+                    "guesses": {"type": "string", "description": "what you are not sure of, empty if nothing"},
+                },
+                "required": ["file", "tags", "alt", "guesses"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["photos"],
+    "additionalProperties": False,
+}
 
 _SYNCTHING_CONFIG_PATH = pathlib.Path.home() / ".config" / "syncthing" / "config.xml"
 _SYNCTHING_URL = "http://127.0.0.1:8384"
@@ -862,7 +902,9 @@ def check_inbox(inbox: pathlib.Path, gallery_stems: set[str]) -> dict[pathlib.Pa
     return new_names
 
 
-def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_destination: str | None) -> None:
+def ingest(
+    config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_destination: str | None, autotag_unit: str | None
+) -> None:
     with repository_lock():
         gallery = config.images
         check_mirror(mirror, gallery)
@@ -899,19 +941,7 @@ def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_de
         git("pull", "--rebase")
         git("push")
 
-        # publish.sh and uv pip run without the environment of this script, which
-        # `uv run --script` sets: they use the repository's .venv
-        environment = {key: value for key, value in child_environment().items() if key != "VIRTUAL_ENV"}
-        run(
-            ["uv", "pip", "install", "--quiet", "--python", str(_REPO_ROOT / ".venv" / "bin" / "python"),
-             "--requirement", str(_REPO_ROOT / "requirements.txt")],
-            check=True,
-            env=environment,
-        )
-        publish = [str(_REPO_ROOT / "bin" / "publish.sh")]
-        if publish_destination is not None:
-            publish.append(publish_destination)
-        run(publish, check=True, env=environment)
+        publish_blog(publish_destination)
         # Last: a problem on the phone side never holds back the blog
         mirror_gallery(gallery, mirror)
 
@@ -921,10 +951,32 @@ def ingest(config: Config, inbox: pathlib.Path, mirror: pathlib.Path, publish_de
             f"Blog published, phone gallery updated. {photos(untagged)} to tag.",
             "mnemographe,frame_with_picture",
         )
+    if autotag_unit is not None:
+        # Without waiting: the watch goes on, and a failure of the unit
+        # notifies on its own. Started on a running unit, it does nothing:
+        # autotag then tags this ingest's photos in its next round
+        run(["systemctl", "--user", "start", "--no-block", autotag_unit], check=True)
+
+
+def publish_blog(publish_destination: str | None) -> None:
+    """Builds the site and publishes it with bin/publish.sh."""
+    # publish.sh and uv pip run without the environment of this script, which
+    # `uv run --script` sets: they use the repository's .venv
+    environment = {key: value for key, value in child_environment().items() if key != "VIRTUAL_ENV"}
+    run(
+        ["uv", "pip", "install", "--quiet", "--python", str(_REPO_ROOT / ".venv" / "bin" / "python"),
+         "--requirement", str(_REPO_ROOT / "requirements.txt")],
+        check=True,
+        env=environment,
+    )
+    publish = [str(_REPO_ROOT / "bin" / "publish.sh")]
+    if publish_destination is not None:
+        publish.append(publish_destination)
+    run(publish, check=True, env=environment)
 
 
 def cmd_ingest(args: argparse.Namespace, config: Config) -> None:
-    ingest(config, args.inbox.resolve(), args.mirror, args.publish_destination)
+    ingest(config, args.inbox.resolve(), args.mirror, args.publish_destination, args.autotag_unit)
 
 
 def added_times(gallery: pathlib.Path) -> dict[str, int]:
@@ -1064,16 +1116,34 @@ def cmd_tag(args: argparse.Namespace, config: Config) -> None:
         raise MnemographeError(f"{error}\nNothing written, the edited file is kept: {path}") from None
 
     edits = {name: fields for name, fields in entries.items() if fields != shown[name]}
+    changed = save_tag_edits(gallery, mirror, edits, shown, f"the edited file is kept: {path}")
+    shutil.rmtree(directory)
+    if not changed:
+        print("nothing changed")
+        return
+    print(f"tagged {photos(len(changed))}, pushed, mirrored to {mirror}")
+
+
+def save_tag_edits(
+    gallery: pathlib.Path,
+    mirror: pathlib.Path,
+    edits: dict[str, tuple[list[str], str]],
+    shown: dict[str, tuple[list[str], str]],
+    kept: str,
+) -> list[str]:
+    """Writes the tags and alt texts of edits, commits, pushes and mirrors: the sidecars written.
+
+    shown holds the fields each edited photo had when the edits started: a
+    photo changed since then stops everything, and kept says what is left to
+    retry with.
+    """
     with repository_lock():
         # Another tag session, or another clone, may have tagged meanwhile:
         # never overwrite its work
         pull_and_push(gallery)
         conflicts = [name for name in edits if tag_fields(Xmp.for_image(gallery / name)) != shown[name]]
         if conflicts:
-            raise MnemographeError(
-                f"changed while the editor was open: {', '.join(sorted(conflicts))}\n"
-                f"Nothing written, the edited file is kept: {path}"
-            )
+            raise MnemographeError(f"changed meanwhile: {', '.join(sorted(conflicts))}\nNothing written, {kept}")
         changed = []
         for name, (tags, alt) in edits.items():
             xmp = Xmp.for_image(gallery / name)
@@ -1084,17 +1154,225 @@ def cmd_tag(args: argparse.Namespace, config: Config) -> None:
                 xmp.description = alt
             xmp.save()
             changed.append(str(xmp.path))
-        shutil.rmtree(directory)
         if not changed:
-            print("nothing changed")
-            return
+            return changed
 
         git("add", "--", *changed)
         git("commit", "--message", f"Tag {photos(len(changed))} in mnémographe", "--", *changed)
         git("pull", "--rebase")
         git("push")
         mirror_gallery(gallery, mirror)
-    print(f"tagged {photos(len(changed))}, pushed, mirrored to {mirror}")
+    return changed
+
+
+def untagged(images: list[pathlib.Path]) -> dict[str, tuple[list[str], str]]:
+    """The tags and alt text of the photos missing either."""
+    fields = {image.name: tag_fields(Xmp.for_image(image)) for image in images}
+    return {name: (tags, alt) for name, (tags, alt) in fields.items() if not tags or not alt}
+
+
+def small_copy(image: pathlib.Path) -> pathlib.Path:
+    """The site build's 320 px copy of image, else image itself."""
+    copy = _REPO_ROOT / "build" / "dist" / image.parent.name.split("-", 3)[-1] / f"{image.stem}.320x.jpeg"
+    return copy if copy.is_file() else image
+
+
+def saturation(image: pathlib.Path) -> float:
+    """The mean HSL saturation of image."""
+    return float(
+        run(
+            ["magick", "-define", "jpeg:size=320x320", str(small_copy(image)), "-resize", "160x",
+             "-colorspace", "HSL", "-channel", "G", "-separate", "+channel", "-format", "%[fx:mean]", "info:"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+    )
+
+
+def autotag_facts(images: list[pathlib.Path]) -> dict[str, dict]:
+    """What Claude cannot see on a photo: its camera, position, and whether it is in color."""
+    result = run(
+        ["exiftool", "-json", "-n", "-Model", "-GPSLatitude", "-GPSLongitude"] + [str(image) for image in images],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    exif = {pathlib.Path(entry["SourceFile"]).name: entry for entry in json.loads(result.stdout)}
+    facts = {}
+    for image in images:
+        entry = exif[image.name]
+        position = (
+            f"{entry['GPSLatitude']:.5f},{entry['GPSLongitude']:.5f}"
+            if "GPSLatitude" in entry and "GPSLongitude" in entry
+            else "no GPS"
+        )
+        facts[image.name] = {
+            "camera": entry.get("Model", "unknown camera"),
+            "position": position,
+            "color": saturation(image) > _AUTOTAG_COLOR_SATURATION,
+        }
+    return facts
+
+
+def contact_sheets(images: list[pathlib.Path], directory: pathlib.Path) -> list[str]:
+    """Writes contact sheets of the photos in directory, each labeled with its number and stem: their names."""
+    names = []
+    for start in range(0, len(images), _AUTOTAG_SHEET_SIZE):
+        name = f"sheet{start // _AUTOTAG_SHEET_SIZE + 1:02}.jpg"
+        labeled = []
+        for number, image in enumerate(images[start:start + _AUTOTAG_SHEET_SIZE], start=start + 1):
+            labeled += ["-label", f"{number} {image.stem}", str(small_copy(image))]
+        run(
+            ["magick", "montage", "-define", "jpeg:size=600x600", *labeled,
+             "-tile", "4x4", "-geometry", "300x300+4+4", "-pointsize", "18", str(directory / name)],
+            check=True,
+        )
+        names.append(name)
+    return names
+
+
+def autotag_prompt(images: list[pathlib.Path], shown: dict, facts: dict, sheets: list[str]) -> str:
+    lines = []
+    for number, image in enumerate(images, start=1):
+        tags, alt = shown[image.name]
+        missing = " and ".join(field for field, value in (("tags", tags), ("alt text", alt)) if not value)
+        date = f"{image.stem[0:4]}-{image.stem[4:6]}-{image.stem[6:8]}"
+        fact = facts[image.name]
+        lines.append(
+            f"{number} | {image.name} | {date} | {fact['camera']} | {fact['position']} | "
+            f"{'color' if fact['color'] else 'black and white'} | {missing}"
+        )
+    return f"""\
+Tag these new mnémographe photos in unattended mode: follow the conventions and
+the "Unattended mode" section of the mnemographe-tag skill, in your system prompt.
+
+Read the contact sheets {', '.join(sheets)}, in the current directory. Each
+photo on them is labeled with its number and its stem.
+
+One photo per line: number | file | date | camera | GPS position | color or
+black and white, measured | what it is missing:
+
+{chr(10).join(lines)}
+"""
+
+
+def ask_claude(prompt: str, directory: pathlib.Path) -> dict:
+    """Claude's answer to prompt, with the skill as system prompt, as _AUTOTAG_SCHEMA.
+
+    Claude only reads the files of directory, its working directory: the
+    photos may show text written as instructions, and the alt texts are
+    public. No user settings, hooks, plugins, MCP servers or skills.
+    """
+    output = directory / "claude.json"
+    with output.open("w", encoding="utf-8") as fd:
+        status = run(
+            ["claude", "--print", prompt,
+             "--append-system-prompt-file", str(_SKILL_PATH),
+             "--tools", "Read", "--permission-mode", "dontAsk",
+             "--setting-sources", "", "--strict-mcp-config", "--disable-slash-commands",
+             "--no-session-persistence",
+             "--output-format", "json", "--json-schema", json.dumps(_AUTOTAG_SCHEMA)],
+            cwd=directory,
+            stdin=subprocess.DEVNULL,
+            stdout=fd,
+            timeout=_AUTOTAG_TIMEOUT,
+        ).returncode
+    try:
+        result = json.loads(output.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        raise MnemographeError(f"claude exited with status {status}, its output is not JSON: {output}") from None
+    if status != 0 or result.get("is_error") or "structured_output" not in result:
+        raise MnemographeError(f"claude exited with status {status} and no answer: {result.get('result')}\nSee {output}")
+    print(f"claude answered in {result['duration_ms'] / 1000:.0f} s, ${result['total_cost_usd']:.2f}", flush=True)
+    return result["structured_output"]
+
+
+def autotag_edits(
+    images: list[pathlib.Path], shown: dict, facts: dict, answer: dict
+) -> tuple[dict[str, tuple[list[str], str]], dict[str, str]]:
+    """The tags and alt texts of answer that fill the missing fields, and the guesses, or every problem of answer."""
+    problems = []
+    by_name = {}
+    for photo in answer["photos"]:
+        if photo["file"] in by_name:
+            problems.append(f"{photo['file']} answered twice")
+        by_name[photo["file"]] = photo
+    names = {image.name for image in images}
+    problems += [f"{name} not answered" for name in sorted(names - set(by_name))]
+    problems += [f"{name} answered, not asked" for name in sorted(set(by_name) - names)]
+    lines, guesses = [], {}
+    for image in images:
+        photo = by_name.get(image.name)
+        if photo is None:
+            continue
+        old_tags, old_alt = shown[image.name]
+        tags = old_tags or photo["tags"]
+        alt = old_alt or photo["alt"].strip()
+        if not tags:
+            problems.append(f"{image.name}: no tags")
+        if not old_tags and facts[image.name]["color"] == ("BlackAndWhite" in tags):
+            problems.append(f"{image.name}: black-and-white tags do not match the measured color: {' '.join(tags)}")
+        if len(alt.splitlines()) != 1 or " / " not in alt:
+            problems.append(f"{image.name}: the alt text is not one line, English / French: {alt!r}")
+        lines.append(f"{posted_column(image)} {image.name} {' '.join(tags)} | {alt}\n")
+        if photo["guesses"].strip():
+            guesses[image.name] = photo["guesses"].strip()
+    if problems:
+        raise MnemographeError("Claude's answer is refused, nothing written:\n" + "\n".join(problems))
+    # The checks of the tag editor
+    edits = parse_tags_file("".join(lines), {image.name: image for image in images})
+    return edits, guesses
+
+
+def autotag_report(edits: dict[str, tuple[list[str], str]], guesses: dict[str, str]) -> str:
+    report = []
+    for name, (tags, alt) in edits.items():
+        report.append(f"{name}: {alt}\n{' '.join(tags)}")
+        if name in guesses:
+            report[-1] += f"\nGuess: {guesses[name]}"
+    return "\n\n".join(report)
+
+
+def cmd_autotag(args: argparse.Namespace, config: Config) -> None:
+    gallery = config.images
+    done: set[str] = set()
+    # A round per batch: an ingest during a round starts no other run, its
+    # photos are left for the next round
+    while True:
+        with repository_lock():
+            check_mirror(args.mirror, gallery)
+            pull_and_push(gallery)
+            shown = untagged(config.images_of())
+        if not shown:
+            break
+        again = sorted(set(shown) & done)
+        if again:
+            raise MnemographeError(f"still missing tags or an alt text after a round: {', '.join(again)}")
+        images = [gallery / name for name in sorted(shown)]
+        print(f"tagging {photos(len(images))}: {', '.join(image.name for image in images)}", flush=True)
+        # Kept when anything fails, with Claude's answer
+        directory = pathlib.Path(tempfile.mkdtemp(prefix="mnemographe-autotag-"))
+        facts = autotag_facts(images)
+        sheets = contact_sheets(images, directory)
+        answer = ask_claude(autotag_prompt(images, shown, facts, sheets), directory)
+        try:
+            edits, guesses = autotag_edits(images, shown, facts, answer)
+        except MnemographeError as error:
+            raise MnemographeError(f"{error}\nSee {directory / 'claude.json'}") from None
+        report = autotag_report(edits, guesses)
+        print(report, flush=True)
+        save_tag_edits(gallery, args.mirror, edits, shown, f"run autotag again: {directory}")
+        shutil.rmtree(directory)
+        done |= set(shown)
+        publish_blog(args.publish_destination)
+        notify(
+            f"Claude tagged {photos(len(edits))} of the mnémographe",
+            f"Fix them with mnemographe-tag before they are posted.\n\n{report}",
+            "mnemographe,label",
+        )
+    if not done:
+        print("every photo has tags and an alt text")
 
 
 def syncthing_config(inbox: pathlib.Path) -> tuple[str, str, str]:
@@ -1142,7 +1420,7 @@ def cmd_watch(args: argparse.Namespace, config: Config) -> None:
 
     def on_idle() -> None:
         try:
-            ingest(config, inbox, args.mirror, args.publish_destination)
+            ingest(config, inbox, args.mirror, args.publish_destination, args.autotag_unit)
         except InboxError as error:
             # Already notified: waits for the next change in the inbox
             print(f"error: {error}", file=sys.stderr)
@@ -1196,7 +1474,26 @@ def main() -> int:
             "--publish-destination",
             help="rsync destination of bin/publish.sh, its own default if not given",
         )
+        command.add_argument(
+            "--autotag-unit",
+            help="systemd user unit to start, without waiting, after an ingest: the one running autotag",
+        )
         command.set_defaults(func=func)
+
+    autotag = subparsers.add_parser(
+        "autotag", help="have Claude tag the photos missing tags or an alt text, then commit, push and publish"
+    )
+    autotag.add_argument(
+        "--mirror",
+        type=pathlib.Path,
+        required=True,
+        help="existing directory to mirror the gallery to, e.g. a Syncthing folder of the phone",
+    )
+    autotag.add_argument(
+        "--publish-destination",
+        help="rsync destination of bin/publish.sh, its own default if not given",
+    )
+    autotag.set_defaults(func=cmd_autotag)
 
     tag = subparsers.add_parser("tag", help="edit the tags and alt texts of the photos in git's editor")
     tag.add_argument(
