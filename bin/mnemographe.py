@@ -344,8 +344,10 @@ def write_json(path: pathlib.Path, data: object) -> None:
 
 
 def child_environment() -> dict[str, str]:
-    """The environment of this process, without the access tokens."""
-    return {key: value for key, value in os.environ.items() if not key.startswith("POSTER_")}
+    """The environment of this process, without the access tokens, nor the
+    other secrets that bin/secrets.sh run lists in CHARLESFLECHE_SECRETS."""
+    secrets = set(os.environ.get("CHARLESFLECHE_SECRETS", "").split()) | {"CHARLESFLECHE_SECRETS"}
+    return {key: value for key, value in os.environ.items() if not key.startswith("POSTER_") and key not in secrets}
 
 
 def run(args: list[str], **kwargs) -> subprocess.CompletedProcess:
